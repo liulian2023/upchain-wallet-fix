@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: com.gyf.barlibrary:barlibrary:2.3.0@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-barlibrary-2.3.0.aar/8d8c20be0a602339f20e26fca3da94af/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-barlibrary-2.3.0.aar/8d8c20be0a602339f20e26fca3da94af/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-barlibrary-2.3.0.aar/8d8c20be0a602339f20e26fca3da94af/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

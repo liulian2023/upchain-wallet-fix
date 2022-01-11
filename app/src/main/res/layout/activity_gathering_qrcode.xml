@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <include
+        layout="@layout/common_toolbar_white" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView2"
+                android:layout_width="match_parent"
+                android:layout_height="346dp"
+                android:layout_marginStart="63dp"
+                android:layout_marginTop="65dp"
+                android:layout_marginEnd="63dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <ImageView
+                        android:id="@+id/imageView3"
+                        android:layout_width="123dp"
+                        android:layout_height="36dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_gravity="center_horizontal"
+                        app:srcCompat="@drawable/recevie_logo" />
+                    <ImageView
+                        android:id="@+id/iv_gathering_qrcode"
+                        android:layout_width="213dp"
+                        android:layout_height="213dp"
+                        android:layout_marginTop="14dp"
+                        android:layout_gravity="center_horizontal"/>
+                    <TextView
+                        android:id="@+id/tv_wallet_address"
+                        android:layout_width="200dp"
+                        android:layout_height="30dp"
+                        android:text=""
+                        android:textColor="#ff6d7e91"
+                        android:textSize="13sp"
+                        android:gravity="center"
+                        android:layout_marginTop="21dp"
+                        android:layout_gravity="center_horizontal"
+                        />
+
+                </LinearLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/textView18"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="63dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="63dp"
+                android:text="@string/receive_top_tip"
+                android:textColor="#ffacb5c3"
+                android:textSize="14sp"
+                android:gravity="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cardView2" />
+
+            <TextView
+                android:id="@+id/textView19"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="63dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="63dp"
+                android:gravity="center"
+                android:text="@string/receive_bottom_tip"
+                android:textColor="#ffacb5c3"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+            <LinearLayout
+                android:id="@+id/copy_linear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:orientation="vertical"
+                android:background="@drawable/white_radius"
+                app:layout_constraintEnd_toStartOf="@+id/set_amount_linear"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView19"
+                >
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/receive_copy" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="9dp"
+                    android:text="@string/copy"
+                    android:layout_gravity="center"
+                    android:textColor="@color/home_main_color"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/set_amount_linear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:orientation="vertical"
+                android:background="@drawable/white_radius"
+                app:layout_constraintStart_toEndOf="@+id/copy_linear"
+                app:layout_constraintEnd_toStartOf="@+id/share_linear"
+                app:layout_constraintTop_toBottomOf="@+id/textView19">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/receive_set_amount" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="9dp"
+                    android:text="@string/set_amount"
+                    android:layout_gravity="center"
+                    android:textColor="@color/home_main_color"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/share_linear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/white_radius"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/set_amount_linear"
+                app:layout_constraintTop_toBottomOf="@+id/textView19">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/receive_share" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="9dp"
+                    android:text="@string/share"
+                    android:layout_gravity="center"
+                    android:textColor="@color/home_main_color"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

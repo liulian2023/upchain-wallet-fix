@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="Gradle: com.lcodecorex:tkrefreshlayout:1.0.7@aar">
+    <ANNOTATIONS>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-tkrefreshlayout-1.0.7.aar/8e4a6f646b699a1d168b41e466b5bc9c/annotations.zip!/" />
+    </ANNOTATIONS>
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-tkrefreshlayout-1.0.7.aar/8e4a6f646b699a1d168b41e466b5bc9c/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-tkrefreshlayout-1.0.7.aar/8e4a6f646b699a1d168b41e466b5bc9c/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-tkrefreshlayout-1.0.7.aar/8e4a6f646b699a1d168b41e466b5bc9c/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

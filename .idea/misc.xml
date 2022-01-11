@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/drawable-v24/splash_background.xml" value="0.1388888888888889" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/drawable/backup_mnemonic_recycler_shape.xml" value="0.15791505791505792" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/drawable/backup_wallet_circel_shape.xml" value="0.1" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/drawable/bg_ripple_primary_color.xml" value="0.17291666666666666" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/drawable/create_wallet_etv_shape.xml" value="0.11875" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/drawable/etc_transfer_hex_data_et_shape.xml" value="0.1" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/drawable/game_rule_wrap_shape.xml" value="0.15138888888888888" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/drawable/home_bottom_tab_mall_selector.xml" value="0.190625" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/drawable/home_bottom_tab_mine_selector.xml" value="0.190625" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/drawable/home_bottom_tab_news_selector.xml" value="0.190625" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/drawable/home_bottom_tab_text_color_selector.xml" value="0.190625" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/drawable/home_search_linear_shape.xml" value="0.190625" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/drawable/left_ripple_shape.xml" value="0.15138888888888888" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/drawable/mnemonic_backup_bg.xml" value="0.187109375" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/drawable/my_button_selector.xml" value="0.11875" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/drawable/receive_btn_selector.xml" value="0.190625" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/drawable/recover_wallet_edit_shape.xml" value="0.1" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/drawable/right_ripple_shape.xml" value="0.15138888888888888" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/drawable/set_amount_edit_shape.xml" value="0.15138888888888888" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/drawable/shape_bkg_blackbkg_enable.xml" value="0.1" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/drawable/sub_button_seletor.xml" value="0.1" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/drawable/transfer_btn_selector.xml" value="0.190625" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/drawable/wallet_manager_list_item_bg.xml" value="0.190625" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/drawable/white_16radio_shape.xml" value="0.190625" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/drawable/white_normal_ripple.xml" value="0.17291666666666666" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/activity_about_us.xml" value="0.1" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/activity_add_custom_token.xml" value="0.16" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/activity_add_new_property.xml" value="0.178515625" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/activity_add_token.xml" value="0.2" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/activity_change_language.xml" value="0.1" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/activity_create_wallet.xml" value="0.16" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/activity_gathering_qrcode.xml" value="0.1" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/activity_guide.xml" value="0.11200000000000002" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/activity_import_wallet.xml" value="0.1" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/activity_mnemonic_backup.xml" value="0.1" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/activity_modify_password.xml" value="0.16" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/activity_property_detail.xml" value="0.1" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/activity_recover_wallet.xml" value="0.2" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/activity_transfer.xml" value="0.2" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/activity_verify_mnemonic_backup.xml" value="0.1" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/activity_wallet_backup.xml" value="0.2" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/activity_wallet_detail.xml" value="0.2" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/activity_wallet_manager.xml" value="0.1" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/add_token_item_layout.xml" value="0.178515625" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/asset_management_item_layout.xml" value="0.16" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/backup_mnemonic_recycler_item.xml" value="0.1" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/common_progress_view.xml" value="0.1" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/common_toolbar.xml" value="0.1" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/common_toolbar_white.xml" value="0.1" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/common_toolbar_with_txbtn.xml" value="0.2" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/dialog_awallet_alert.xml" value="0.14993169398907105" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/dialog_derive_private_key.xml" value="0.264" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/dialog_input_pwd.xml" value="0.14993169398907105" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/dialog_mnemonic_backup_alert.xml" value="0.264" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/dialog_progress.xml" value="0.1" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/dialog_sign_message.xml" value="0.2" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/error_lyaout.xml" value="0.121875" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/fragment_coin.xml" value="0.1" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/fragment_load_wallet_by_mnemonic.xml" value="0.1" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/fragment_load_wallet_by_official_wallet.xml" value="0.1" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/fragment_load_wallet_by_private_key.xml" value="0.1" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/fragment_mine.xml" value="0.2" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/fragment_property.xml" value="0.16" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/home_bottom_navigator_layout.xml" value="0.1" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/layout_dialog_add_account.xml" value="0.1" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/layout_empty_add_account.xml" value="0.1" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/layout_input_password.xml" value="0.1" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/list_item_transaction.xml" value="0.2" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/list_item_wallet_manager.xml" value="0.16799999999999998" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/loading_layout.xml" value="0.16530054644808742" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/nodata_layout.xml" value="0.121875" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/popup_load_wallet_select_standard.xml" value="0.264" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/property_drawer_right_layout.xml" value="0.13148907103825136" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/property_fragment_toolbar.xml" value="0.178515625" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/set_amount_pop_layout.xml" value="0.16" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/split_horizontal.xml" value="0.1" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/transfer_history_recycler_item.xml" value="0.176" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/transfer_history_title_layout.xml" value="0.264" />
+        <entry key="..\:/project/upchain-wallet-fix/app/src/main/res/drawable-v24/ic_error_outline_black_24dp.xml" value="0.25416666666666665" />
+        <entry key="..\:/project/upchain-wallet-fix/app/src/main/res/drawable-xxxhdpi/background_address_bar.xml" value="0.17407407407407408" />
+        <entry key="..\:/project/upchain-wallet-fix/app/src/main/res/drawable-xxxhdpi/background_horizontal_progress.xml" value="0.17407407407407408" />
+        <entry key="..\:/project/upchain-wallet-fix/app/src/main/res/drawable-xxxhdpi/background_marketplace_event.xml" value="0.1" />
+        <entry key="..\:/project/upchain-wallet-fix/app/src/main/res/drawable-xxxhdpi/background_marketplace_event_select.xml" value="0.1" />
+        <entry key="..\:/project/upchain-wallet-fix/app/src/main/res/drawable-xxxhdpi/background_round_grey.xml" value="0.1" />
+        <entry key="..\:/project/upchain-wallet-fix/app/src/main/res/drawable-xxxhdpi/background_round_primary_light.xml" value="0.1" />
+        <entry key="..\:/project/upchain-wallet-fix/app/src/main/res/drawable-xxxhdpi/selector_settings_item_reverse.xml" value="0.1" />
+        <entry key="..\:/project/upchain-wallet-fix/app/src/main/res/drawable/etc_transfer_hex_data_et_shape.xml" value="0.1527777777777778" />
+        <entry key="..\:/project/upchain-wallet-fix/app/src/main/res/drawable/guide_center_shape.xml" value="0.1" />
+        <entry key="..\:/project/upchain-wallet-fix/app/src/main/res/drawable/mine_header_bg_shape.xml" value="0.1527777777777778" />
+        <entry key="..\:/project/upchain-wallet-fix/app/src/main/res/drawable/wallet_manager_list_item_bg.xml" value="0.1" />
+        <entry key="..\:/project/upchain-wallet-fix/app/src/main/res/layout/activity_add_new_property.xml" value="0.19157608695652173" />
+        <entry key="..\:/project/upchain-wallet-fix/app/src/main/res/layout/activity_confirm.xml" value="0.264" />
+        <entry key="..\:/project/upchain-wallet-fix/app/src/main/res/layout/activity_gathering_qrcode.xml" value="0.16666666666666666" />
+        <entry key="..\:/project/upchain-wallet-fix/app/src/main/res/layout/activity_guide.xml" value="0.1" />
+        <entry key="..\:/project/upchain-wallet-fix/app/src/main/res/layout/activity_main.xml" value="0.16666666666666666" />
+        <entry key="..\:/project/upchain-wallet-fix/app/src/main/res/layout/activity_net_setting.xml" value="0.1" />
+        <entry key="..\:/project/upchain-wallet-fix/app/src/main/res/layout/activity_property_detail.xml" value="0.2" />
+        <entry key="..\:/project/upchain-wallet-fix/app/src/main/res/layout/activity_qrcode_scanner.xml" value="0.16666666666666666" />
+        <entry key="..\:/project/upchain-wallet-fix/app/src/main/res/layout/activity_test.xml" value="0.1" />
+        <entry key="..\:/project/upchain-wallet-fix/app/src/main/res/layout/activity_transaction_detail.xml" value="0.264" />
+        <entry key="..\:/project/upchain-wallet-fix/app/src/main/res/layout/activity_transfer.xml" value="0.264" />
+        <entry key="..\:/project/upchain-wallet-fix/app/src/main/res/layout/activity_wallet_manager.xml" value="0.1" />
+        <entry key="..\:/project/upchain-wallet-fix/app/src/main/res/layout/common_toolbar.xml" value="0.1" />
+        <entry key="..\:/project/upchain-wallet-fix/app/src/main/res/layout/dialog_awallet_alert.xml" value="0.1" />
+        <entry key="..\:/project/upchain-wallet-fix/app/src/main/res/layout/dialog_sign_message.xml" value="0.4" />
+        <entry key="..\:/project/upchain-wallet-fix/app/src/main/res/layout/fragment_load_wallet_by_mnemonic.xml" value="0.4" />
+        <entry key="..\:/project/upchain-wallet-fix/app/src/main/res/layout/fragment_property.xml" value="0.136" />
+        <entry key="..\:/project/upchain-wallet-fix/app/src/main/res/layout/fragment_webview.xml" value="0.1" />
+        <entry key="..\:/project/upchain-wallet-fix/app/src/main/res/layout/item_autocomplete_url.xml" value="0.1598731884057971" />
+        <entry key="..\:/project/upchain-wallet-fix/app/src/main/res/layout/layout_confrim_transcation.xml" value="0.1793478260869565" />
+        <entry key="..\:/project/upchain-wallet-fix/app/src/main/res/layout/layout_empty_add_account.xml" value="0.176" />
+        <entry key="..\:/project/upchain-wallet-fix/app/src/main/res/layout/layout_gas_settings.xml" value="0.1824561403508772" />
+        <entry key="..\:/project/upchain-wallet-fix/app/src/main/res/layout/layout_input_password.xml" value="0.152" />
+        <entry key="..\:/project/upchain-wallet-fix/app/src/main/res/layout/list_header_item.xml" value="0.2" />
+        <entry key="..\:/project/upchain-wallet-fix/app/src/main/res/layout/list_item_add_ico_property.xml" value="0.19157608695652173" />
+        <entry key="..\:/project/upchain-wallet-fix/app/src/main/res/layout/list_item_drawer_property_wallet.xml" value="0.4" />
+        <entry key="..\:/project/upchain-wallet-fix/app/src/main/res/layout/list_item_property.xml" value="0.1598731884057971" />
+        <entry key="..\:/project/upchain-wallet-fix/app/src/main/res/layout/list_item_transaction.xml" value="0.264" />
+        <entry key="..\:/project/upchain-wallet-fix/app/src/main/res/layout/list_item_wallet_manager.xml" value="0.1" />
+        <entry key="..\:/project/upchain-wallet-fix/app/src/main/res/layout/property_drawer_right_layout.xml" value="0.264" />
+        <entry key="..\:/project/upchain-wallet-fix/app/src/main/res/layout/qr_scanner_toolsbar.xml" value="0.16666666666666666" />
+        <entry key="..\:/project/upchain-wallet-fix/app/src/main/res/menu/menu_bookmarks.xml" value="0.1" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="Embedded JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.1" />
+      </ProjectState>
+    </option>
+  </component>
+</project>

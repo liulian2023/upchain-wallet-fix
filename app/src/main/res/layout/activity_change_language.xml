@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".ui.activity.ChangeLanguageActivity">
+    <include layout="@layout/common_toolbar"/>
+    <TextView
+        android:id="@+id/chinese_tv"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/white_normal_ripple"
+        android:text="@string/language_setting_chinese"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:gravity="center"/>
+    <include layout="@layout/split_horizontal"/>
+    <TextView
+        android:id="@+id/english_tv"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/white_normal_ripple"
+        android:text="@string/language_setting_English"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:gravity="center"/>
+    <include layout="@layout/split_horizontal"/>
+</LinearLayout>

@@ -1,0 +1,209 @@
+apply plugin: 'com.android.application'
+apply plugin: 'realm-android'
+apply plugin: 'org.greenrobot.greendao' // apply plugin
+apply plugin: 'com.google.protobuf'
+
+android {
+    compileSdkVersion 28
+    buildToolsVersion '28.0.3'
+
+    defaultConfig {
+        applicationId "pro.upchain.ethwallet"
+        minSdkVersion 21
+        //noinspection ExpiredTargetSdkVersion
+        targetSdkVersion 26
+        versionCode 2
+        versionName "1.0"
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+        vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'lib/x86_64/darwin/libscrypt.dylib'
+
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    // 多渠道打包按到
+  /*  productFlavors {
+        miaomi {
+            applicationId "pro.upchain.ethwallet"
+            resValue("string", "app_name", "钱包")
+            //彩票视频 彩票相关
+            manifestPlaceholders = [
+                    UMENG_CHANNEL_VALUE: "feige",
+            ]
+            buildConfigField "String", "UM_KEY", "\"614c2dd92a91a03cef513479\""
+            buildConfigField "String", "OFFICIAL_WEBSITE", "\"feige111.com\""
+
+//            buildConfigField "String", "API_HOST1", "\"http://8.210.29.222:8385/zixunWeb/\""//本地
+            buildConfigField "String", "API_HOST1", "\"http://api.tjvqsqfdgpczu.com/\""//正式
+            buildConfigField "String", "API_HOST2", "\"http://cpapi88.gznbang.com/web/ws/\""//cp本地
+//            buildConfigField "String", "API_HOST2", "\"http://cpapi01.ykydxh.com/web/ws/\""//cp正式
+            versionCode 3
+            versionName "1.0.3"
+        }
+    }*/
+}
+protobuf {
+    protoc {
+        artifact = 'com.google.protobuf:protoc:3.5.1-1'
+    }
+    plugins {
+        javalite {
+            artifact = "com.google.protobuf:protoc-gen-javalite:3.0.0"
+        }
+        grpc {
+            artifact = 'io.grpc:protoc-gen-grpc-java:1.9.0'
+        }
+    }
+    generateProtoTasks {
+        all().each { task ->
+            task.plugins {
+                javalite {}
+                grpc {
+                    // Options added to --grpc_out
+                    option 'lite'
+                }
+            }
+        }
+    }
+}
+
+dependencies {
+
+    //    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'androidx.appcompat:appcompat:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0'
+
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.multidex:multidex:2.0.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
+
+//    implementation 'android.arch.lifecycle:runtime:1.0.3'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0'
+//    implementation 'android.arch.core:runtime:1.1.1'
+
+    // Annotation
+    implementation 'com.jakewharton:butterknife:10.2.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.0'
+
+    // leakcanary 可以迅速定位内存泄漏
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.5.4'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+    testImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
+
+    // Rx ReactiveX
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.6'
+
+    //Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+
+    // Gson converter
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation "com.squareup.retrofit2:adapter-rxjava2:2.3.0"
+
+    // Okhttp
+    implementation 'com.squareup.okhttp3:okhttp:3.12.0'
+
+    // 沉浸式状态栏
+    implementation 'com.gyf.barlibrary:barlibrary:2.3.0'
+    implementation 'com.lcodecorex:tkrefreshlayout:1.0.7'
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.2'
+
+    // 圆形图片
+    implementation 'de.hdodenhof:circleimageview:2.1.0'
+
+    // 圆点Indicator
+    implementation 'com.youth.banner:banner:1.4.10'
+    //evenBus
+    implementation("org.greenrobot:eventbus:3.3.1")
+
+    implementation 'com.romandanylyk:pageindicatorview:1.0.0'
+    //cardView
+    implementation 'androidx.cardview:cardview:1.0.0'//cardview
+    // glide 图片加载库
+    implementation('com.github.bumptech.glide:glide:4.9.0') {
+        exclude group: "com.android.support"
+    }
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
+
+    // greenDao
+    implementation 'org.greenrobot:greendao:3.2.2'
+    //fastJson
+    implementation 'com.alibaba:fastjson:1.2.76'
+    // ViewPagerIndicator
+    implementation 'com.shizhefei:ViewPagerIndicator:1.1.6'
+
+    // FlexboxLayoutManager
+    implementation 'com.google.android:flexbox:1.0.0'
+
+    // 以太坊开发库
+    implementation 'org.web3j:core:4.1.0-android'
+
+    //    compile 'com.google.guava:guava:24.1-jre'
+
+    // or, for Android:
+    implementation 'com.google.guava:guava:27.0.1-android'
+
+    // bitcoinj
+    implementation ('org.bitcoinj:bitcoinj-core:0.14.7'){
+        exclude group: "com.google.protobuf"
+    }
+
+    //上拉加载,下拉刷新
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-24'
+    implementation 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0-alpha-24'
+    implementation 'cn.bingoogolapple:bga-qrcode-zxing:1.3.6'
+
+    implementation 'pub.devrel:easypermissions:1.0.1'
+
+    implementation 'com.zhouyou:rxeasyhttp:2.1.5'
+
+
+    implementation "com.madgag.spongycastle:core:1.53.0.0"
+    implementation "com.madgag.spongycastle:prov:1.53.0.0"
+    //GRPC protobuf
+    implementation 'io.grpc:grpc-okhttp:1.9.0'
+    implementation 'io.grpc:grpc-protobuf-lite:1.9.0'
+    implementation 'io.grpc:grpc-stub:1.9.0'
+    implementation 'javax.annotation:javax.annotation-api:1.2'
+    //gif imageView
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.19'
+
+
+    implementation 'com.google.code.gson:gson:2.8.5'
+    implementation 'com.trello.rxlifecycle3:rxlifecycle-android-lifecycle:3.1.0'
+    implementation 'com.uber.autodispose:autodispose-android-archcomponents:1.0.0-RC2'
+
+
+}
+
+greendao {
+    schemaVersion 1
+}

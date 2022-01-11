@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/item_divider_bg_color"
+    android:orientation="vertical">
+
+    <include layout="@layout/common_toolbar" />
+
+
+    <ListView
+        android:overScrollMode="never"
+        android:id="@+id/lv_wallet"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="@null"
+        android:listSelector="@android:color/transparent"
+        android:paddingTop="10dp"
+        android:scrollbars="none" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/create_wallet_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="@string/wallet_manager_create_wallet"
+            android:background="@drawable/transfer_btn_selector"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+
+
+
+
+        <Button
+            android:id="@+id/import_wallet_btn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="@string/wallet_manager_load_wallet"
+            android:background="@drawable/my_button_selector"
+            android:textColor="@color/white"
+            android:textSize="14sp" />
+
+
+    </LinearLayout>
+</LinearLayout>
