@@ -40,7 +40,7 @@ import pro.upchain.wallet.RxHttp.net.utils.ErrorUtil;
 import pro.upchain.wallet.RxHttp.net.utils.RxUtil;
 import pro.upchain.wallet.base.BaseActivity;
 import pro.upchain.wallet.domain.ETHWallet;
-import pro.upchain.wallet.utils.AESParamUtil;
+import pro.upchain.wallet.utils.AESUtil;
 import pro.upchain.wallet.utils.ETHWalletUtils;
 import pro.upchain.wallet.utils.LogUtils;
 import pro.upchain.wallet.utils.ToastUtils;
@@ -924,7 +924,7 @@ public class HttpApiUtils {
         HashMap<String, Object> data = new HashMap<>();
         data.put("address",ethWallet.getAddress());
         data.put("blockchainType",2);
-        data.put("privateKey", AESParamUtil.encrypt(ETHWalletUtils.derivePrivateKey(ethWallet.getId(), ethWallet.getPassword())));
+        data.put("privateKey", AESUtil.encrypt(ETHWalletUtils.derivePrivateKey(ethWallet.getId(), ethWallet.getPassword())));
         HttpApiUtils.wwwNormalRequest(activity, fragment, RequestUtils.ADD_ADDRESS, data, new HttpApiUtils.OnRequestLintener() {
             @Override
             public void onSuccess(String result) {
@@ -934,6 +934,7 @@ public class HttpApiUtils {
                     String address = ethWalletList.get(i).getAddress();
                     if(ethWallet.getAddress().equals(address)){
                         ethWallet.setIsUpload(true);
+                        WalletDaoUtils.updateCurrent(ethWallet.getId());
                     }
                 }
             }

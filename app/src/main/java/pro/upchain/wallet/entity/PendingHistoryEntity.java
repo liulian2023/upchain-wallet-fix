@@ -15,10 +15,12 @@ public class PendingHistoryEntity {
     private String hash;
     private int itemType= 0;
     private String titleName;
-    @Generated(hash = 947996254)
+    private String mineAddress;
+
+    @Generated(hash = 1035534276)
     public PendingHistoryEntity(Long id, String toUid, String toAddress,
             String money, String createTime, String hash, int itemType,
-            String titleName) {
+            String titleName, String mineAddress) {
         this.id = id;
         this.toUid = toUid;
         this.toAddress = toAddress;
@@ -27,6 +29,7 @@ public class PendingHistoryEntity {
         this.hash = hash;
         this.itemType = itemType;
         this.titleName = titleName;
+        this.mineAddress = mineAddress;
     }
     @Generated(hash = 187854479)
     public PendingHistoryEntity() {
@@ -78,6 +81,12 @@ public class PendingHistoryEntity {
     }
     public void setTitleName(String titleName) {
         this.titleName = titleName;
+    }
+    public String getMineAddress() {
+        return this.mineAddress;
+    }
+    public void setMineAddress(String mineAddress) {
+        this.mineAddress = mineAddress;
     }
 
 

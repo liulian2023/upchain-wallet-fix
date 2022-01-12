@@ -72,7 +72,7 @@ public class CreateTransactionInteract {
 
         return networkRepository.getLastTransactionNonce(web3j, from.address)
                 .flatMap(nonce -> Single.fromCallable( () -> {
-
+                    System.out.println("nonce   =  "+nonce);
                     Credentials credentials = WalletUtils.loadCredentials(password,  from.getKeystorePath());
                     RawTransaction rawTransaction = RawTransaction.createEtherTransaction(nonce, gasPrice, gasLimit, to, amount);
                     byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, credentials);

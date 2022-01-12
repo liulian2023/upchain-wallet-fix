@@ -28,6 +28,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import pro.upchain.wallet.C;
+import pro.upchain.wallet.MyApplication;
 import pro.upchain.wallet.R;
 import pro.upchain.wallet.RxHttp.net.api.HttpApiUtils;
 import pro.upchain.wallet.RxHttp.net.utils.StringMyUtil;
@@ -41,6 +42,7 @@ import pro.upchain.wallet.entity.PendingHistoryEntity;
 import pro.upchain.wallet.entity.RateEntity;
 import pro.upchain.wallet.entity.TransferHistoryEntity;
 import pro.upchain.wallet.interact.CreateTransactionInteract;
+import pro.upchain.wallet.repository.RepositoryFactory;
 import pro.upchain.wallet.utils.BalanceUtils;
 import pro.upchain.wallet.utils.CommonStr;
 import pro.upchain.wallet.utils.ETHWalletUtils;
@@ -59,6 +61,7 @@ import org.web3j.crypto.TransactionEncoder;
 import org.web3j.crypto.WalletUtils;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameterName;
+import org.web3j.protocol.core.methods.response.EthGetCode;
 import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.protocol.http.HttpService;
@@ -140,6 +143,17 @@ public class SendActivity extends BaseActivity {
 
         super.onCreate(savedInstanceState);
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(dialog!=null){
+            if(dialog.isShowing()){
+                dialog.dismiss();
+            }
+            dialog = null;
+        }
     }
 
     @Override
@@ -272,6 +286,7 @@ public class SendActivity extends BaseActivity {
     }
 
     private boolean verifyInfo(String address, String amount) {
+        //ethGetCode
 
         try {
             new Address(address);
@@ -279,7 +294,6 @@ public class SendActivity extends BaseActivity {
             ToastUtils.showToast(R.string.addr_error_tips);
             return false;
         }
-
         try {
             String wei = BalanceUtils.EthToWei(amount);
             return wei != null;
@@ -290,6 +304,55 @@ public class SendActivity extends BaseActivity {
         }
     }
 
+    private boolean verifyContract(String toAddr,String amount) {
+        showDialog();
+        //ethGetCode
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                RepositoryFactory rf = MyApplication.repositoryFactory();
+                Web3j web3j = Web3j.build(new HttpService(rf.ethereumNetworkRepository.getDefaultNetwork().rpcServerUrl));
+                try {
+                    EthGetCode ethGetCode = web3j.ethGetCode(toAddr, DefaultBlockParameterName.LATEST).send();
+                    String ethGetCodeCode = ethGetCode.getCode();
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            hideDialog();
+                            if(sendingTokens){
+                                if(StringMyUtil.isNotEmpty(ethGetCodeCode)){
+                                    showconfirmView(toAddr, amount);
+                                }else {
+                                    ToastUtils.showToast(R.string.addr_error_tips);
+                                }
+                            }else {
+                                if(StringMyUtil.isEmptyString(ethGetCodeCode)){
+                                    showconfirmView(toAddr, amount);
+                                }else {
+                                    ToastUtils.showToast(R.string.addr_error_tips);
+                                }
+                            }
+                        }
+                    });
+
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+        return  false;
+    }
+
+    private void showconfirmView(String toAddr, String amount) {
+        ConfirmTransactionView confirmView = new ConfirmTransactionView(SendActivity.this, SendActivity.this::onClick);
+        confirmView.fillInfo(walletAddr, toAddr, " - " + amount + " " + symbol, netCost, gasPrice, gasLimit);
+        dialog = new BottomSheetDialog(SendActivity.this, R.style.BottomSheetDialog);
+        dialog.setContentView(confirmView);
+        dialog.setCancelable(true);
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.show();
+    }
 
 
     @OnClick({R.id.rl_btn, R.id.btn_next})
@@ -303,17 +366,9 @@ public class SendActivity extends BaseActivity {
                 // confirm info;
                 String toAddr = etTransferAddress.getText().toString().trim();
                 String amount = amountText.getText().toString().trim();
-
                 if (verifyInfo(toAddr, amount)) {
-                    ConfirmTransactionView confirmView = new ConfirmTransactionView(this, this::onClick);
-                    confirmView.fillInfo(walletAddr, toAddr, " - " + amount + " " +  symbol, netCost, gasPrice, gasLimit);
-                    dialog = new BottomSheetDialog(this, R.style.BottomSheetDialog);
-                    dialog.setContentView(confirmView);
-                    dialog.setCancelable(true);
-                    dialog.setCanceledOnTouchOutside(true);
-                    dialog.show();
+                    verifyContract(toAddr,amount);
                 }
-
                 break;
             case R.id.confirm_button:
                 // send
@@ -334,7 +389,7 @@ public class SendActivity extends BaseActivity {
                                     try {
                                         CreateTransactionInteract. transferERC20Token(current.getAddress(),etTransferAddress.getText().toString().trim(),BalanceUtils.tokenToWei(new BigDecimal(amountText.getText().toString().trim()), decimals).toBigInteger()
                                                 , ETHWalletUtils.derivePrivateKey(current.getId(), current.getPassword()),contractAddress);
-                                    } catch (ExecutionException e) {
+                                    } catch (ExecutionException e) {q
                                         e.printStackTrace();
                                     } catch (InterruptedException e) {
                                         e.printStackTrace();
@@ -385,6 +440,7 @@ public class SendActivity extends BaseActivity {
         pendingHistoryEntity.setCreateTime(simpleDateFormat.format(new Date()));
         pendingHistoryEntity.setHash(hash);
         pendingHistoryEntity.setItemType(1);
+        pendingHistoryEntity.setMineAddress(WalletDaoUtils.getCurrent().address);
         TransferDaoUtils.insertNewTransfer(pendingHistoryEntity);
 
         hideDialog();

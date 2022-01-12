@@ -172,30 +172,40 @@ public class TransferHistoryEntity {
     }
 
     public static class ListBean implements MultiItemEntity {
-        private String toUid;
-        private String offset;
-        private String successfulTime;
-        private String blockchainType;
-        private String contract;
-        private String pageSize;
         private String pageNum;
-        private String toAddress;
-        private String money;
-        private String fromUid;
-        private String createTime;
-        private String fromAddress;
+        private String pageSize;
         private String id;
+        private String toAddress;
+        private String fromAddress;
+        private String money;
         private String state;
         private String hash;
+        private String contract;
+        private String blockchainType;
+        private String createTime;
+        private String successfulTime;
+        private String startTime;
+        private String endTime;
+        private String offset;
+
+
         private int itemType= 0;
         private String titleName;
 
-        public String getToUid() {
-            return toUid;
+        public String getStartTime() {
+            return startTime;
         }
 
-        public void setToUid(String toUid) {
-            this.toUid = toUid;
+        public void setStartTime(String startTime) {
+            this.startTime = startTime;
+        }
+
+        public String getEndTime() {
+            return endTime;
+        }
+
+        public void setEndTime(String endTime) {
+            this.endTime = endTime;
         }
 
         public String getOffset() {
@@ -270,13 +280,7 @@ public class TransferHistoryEntity {
             this.money = money;
         }
 
-        public String getFromUid() {
-            return fromUid;
-        }
 
-        public void setFromUid(String fromUid) {
-            this.fromUid = fromUid;
-        }
 
         public String getCreateTime() {
             return createTime;

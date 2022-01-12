@@ -50,7 +50,7 @@
         <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/add_token_item_layout.xml" value="0.178515625" />
         <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/asset_management_item_layout.xml" value="0.16" />
         <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/backup_mnemonic_recycler_item.xml" value="0.1" />
-        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/common_progress_view.xml" value="0.1" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/common_progress_view.xml" value="0.2" />
         <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/common_toolbar.xml" value="0.1" />
         <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/common_toolbar_white.xml" value="0.1" />
         <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/common_toolbar_with_txbtn.xml" value="0.2" />
@@ -68,6 +68,7 @@
         <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/fragment_mine.xml" value="0.2" />
         <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/fragment_property.xml" value="0.16" />
         <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/home_bottom_navigator_layout.xml" value="0.1" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/layout_confrim_transcation.xml" value="0.15744535519125682" />
         <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/layout_dialog_add_account.xml" value="0.1" />
         <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/layout_empty_add_account.xml" value="0.1" />
         <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/layout_input_password.xml" value="0.1" />

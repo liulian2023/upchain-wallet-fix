@@ -17,7 +17,9 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import pro.upchain.wallet.R;
+import pro.upchain.wallet.RxHttp.net.utils.StringMyUtil;
 import pro.upchain.wallet.entity.TransferHistoryEntity;
+import pro.upchain.wallet.utils.WalletDaoUtils;
 
 public class TransferHistoryAdapter extends BaseMultiItemQuickAdapter<TransferHistoryEntity.ListBean, BaseViewHolder> {
     String symbol;
@@ -45,16 +47,16 @@ public class TransferHistoryAdapter extends BaseMultiItemQuickAdapter<TransferHi
                 String money = listBean.getMoney();
                 transfer_amount_tv.setText(money+symbol);
                 date_tv.setText(listBean.getCreateTime());
-                String toUid = listBean.getToUid();
+                String fromAddress = listBean.getFromAddress();
                 BigDecimal rateAmount = new BigDecimal(money).multiply(new BigDecimal(usdtRate)).setScale(2, BigDecimal.ROUND_HALF_UP);
-                if(toUid.equals("0")){
+                if(StringMyUtil.isEmptyString(fromAddress)|| fromAddress.equalsIgnoreCase(WalletDaoUtils.getCurrent().getAddress())){
                     //转出
                     address_tv.setText(listBean.getToAddress());
                     us_amount_tv.setText("-US"+rateAmount);
                     us_amount_tv.setTextColor(Color.BLACK);
                 }else {
                     //转入
-                    address_tv.setText(listBean.getFromAddress());
+                    address_tv.setText(fromAddress);
                     us_amount_tv.setText("+US"+rateAmount);
                     us_amount_tv.setTextColor(ContextCompat.getColor(getContext(),R.color.in_amount_color));
                 }

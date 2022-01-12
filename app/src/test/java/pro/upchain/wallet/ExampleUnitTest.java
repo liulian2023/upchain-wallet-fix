@@ -2,10 +2,6 @@ package pro.upchain.wallet;
 
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
-import pro.upchain.wallet.utils.AESParamUtil;
-
 public class ExampleUnitTest {
     @Test
     public void addition_isCorrect() throws Exception {

@@ -130,19 +130,14 @@ public class PropertyDetailActivity extends BaseActivity {
     }
 
     private void initRefresh() {
-        RefreshUtils.initRefreshLoadMore(this, refresh_layout, new RefreshUtils.OnRefreshLoadMoreLintener() {
-            @Override
-            public void onRefresh(RefreshLayout refreshLayout) {
-                pageNo=1;
-                requestHistory(true,false);
-            }
-
-            @Override
-            public void onLoadMore(RefreshLayout refreshLayout) {
-                pageNo++;
-                requestHistory(false,true);
-            }
-        });
+        RefreshUtils.initRefresh(this, refresh_layout, new RefreshUtils.OnRefreshLintener() {
+                    @Override
+                    public void onRefresh(RefreshLayout refreshLayout) {
+                        pageNo=1;
+                        requestHistory(true,false);
+                    }
+                }
+        );
     }
 
     @Override
@@ -170,10 +165,14 @@ public class PropertyDetailActivity extends BaseActivity {
         data.put("moneyType","3");
         data.put("pageNum",1);
         data.put("pageSize",1000);
+        data.put("blockchainType",2);
 
         HttpApiUtils.wwwShowLoadRequest(this, null, RequestUtils.transfer_history, data, loading_linear,error_linear,reload_tv,refresh_layout,isLoadMore,isRefresh,new HttpApiUtils.OnRequestLintener() {
             @Override
             public void onSuccess(String result) {
+                if(isRefresh){
+                    refresh_layout.finishRefresh(true);
+                }
                 TransferHistoryEntity transferHistoryEntity = JSONObject.parseObject(result, TransferHistoryEntity.class);
                 List<TransferHistoryEntity.ListBean> list = transferHistoryEntity.getList();
 //                RefreshUtils.succse(pageNo,refresh_layout,loading_linear,nodata_linear,list.size(),isLoadMore,isRefresh,listBeanArrayList);
@@ -199,14 +198,16 @@ public class PropertyDetailActivity extends BaseActivity {
 
                     for (int i = 0; i < TransferDaoUtils.loadAll().size(); i++) {
                         PendingHistoryEntity pendingHistoryEntity = TransferDaoUtils.loadAll().get(i);
-                        TransferHistoryEntity.ListBean listBean = new TransferHistoryEntity.ListBean();
-                        listBean.setToUid("0");
-                        listBean.setToAddress(pendingHistoryEntity.getToAddress());
-                        listBean.setMoney(pendingHistoryEntity.getMoney());
-                        listBean.setCreateTime(pendingHistoryEntity.getCreateTime());
-                        listBean.setHash(pendingHistoryEntity.getHash());
-                        listBean.setItemType(1);
-                        listBeanArrayList.add(listBean);
+                        String mineAddress = pendingHistoryEntity.getMineAddress();
+                        if(mineAddress.equalsIgnoreCase(WalletDaoUtils.getCurrent().address)){
+                            TransferHistoryEntity.ListBean listBean = new TransferHistoryEntity.ListBean();
+                            listBean.setToAddress(pendingHistoryEntity.getToAddress());
+                            listBean.setMoney(pendingHistoryEntity.getMoney());
+                            listBean.setCreateTime(pendingHistoryEntity.getCreateTime());
+                            listBean.setHash(pendingHistoryEntity.getHash());
+                            listBean.setItemType(1);
+                            listBeanArrayList.add(listBean);
+                        }
                     }
 
                 if(list.size()!=0){

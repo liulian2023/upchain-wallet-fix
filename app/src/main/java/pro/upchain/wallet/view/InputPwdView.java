@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+
 import pro.upchain.wallet.R;
 import pro.upchain.wallet.utils.StringUtils;
 import pro.upchain.wallet.utils.ToastUtils;
@@ -13,7 +15,9 @@ import pro.upchain.wallet.utils.ToastUtils;
 
 public class InputPwdView extends FrameLayout {
     private EditText password_etv;
+    private LinearLayout back_linear;
     private onConfirmSend onConfirmSender;
+
 
     public interface onConfirmSend {
         void sendTransaction(String pwd);
@@ -38,6 +42,7 @@ public class InputPwdView extends FrameLayout {
                 onConfirmSender.sendTransaction(getPassword_etv());
             }
         });
+
     }
 
 

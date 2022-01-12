@@ -10,7 +10,7 @@ import com.alibaba.fastjson.JSON;
 import java.util.Map;
 
 import pro.upchain.wallet.RxHttp.net.common.RetrofitFactory;
-import pro.upchain.wallet.utils.AESParamUtil;
+import pro.upchain.wallet.utils.AESUtil;
 import pro.upchain.wallet.utils.CommonStr;
 import pro.upchain.wallet.utils.SharePreferencesUtil;
 
@@ -57,7 +57,7 @@ public class HttpApiImpl {
         private static final HttpApiImpl S_INSTANCE2 = new HttpApiImpl(SharePreferencesUtil.getString(CommonStr.CP_BASE_URL,CommonStr.API_HOST2));
     }
     public void addValidToken(Map<String,Object> data){
-        data.put("validToken", AESParamUtil.encrypt(JSON.toJSONString(data)));
+        data.put("validToken", AESUtil.encrypt(JSON.toJSONString(data)));
     }
 
 /*    public Observable<Response<ResponseBody>> uploadFile(String imgPath) {
