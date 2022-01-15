@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.AutoCompleteTextView;
@@ -106,14 +107,11 @@ public class DappBrowserFragment extends Fragment implements ItemClickListener,
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-
         View view = inflater.inflate(R.layout.fragment_webview, container, false);
         initView(view);
         initViewModel();
         setupAddressBar();
         viewModel.prepare(getContext());
-
         // Load url from a link within the app
         if (getArguments() != null && getArguments().getString("url") != null) {
             String url = getArguments().getString("url");
@@ -266,11 +264,21 @@ public class DappBrowserFragment extends Fragment implements ItemClickListener,
             }
 
             @Override
+            public void DAppError(Throwable error, String message) {
+
+            }
+
+            @Override
             public void DAppReturn(byte[] data, Message<String> message) {
                 String signHex = Numeric.toHexString(data);
                 Log.d(TAG, "Initial Msg: " + message.value);
                 web3.onSignMessageSuccessful(message, signHex);
                 dialog.dismiss();
+            }
+
+            @Override
+            public void DAppReturn(byte[] data, String message) {
+
             }
         };
 
@@ -304,6 +312,11 @@ public class DappBrowserFragment extends Fragment implements ItemClickListener,
             }
 
             @Override
+            public void DAppError(Throwable error, String message) {
+
+            }
+
+            @Override
             public void DAppReturn(byte[] data, Message<String> message) {
                 String signHex = Numeric.toHexString(data);
                 Log.d(TAG, "Initial Msg: " + message.value);
@@ -311,6 +324,11 @@ public class DappBrowserFragment extends Fragment implements ItemClickListener,
                 //Test Sig
                 testRecoverAddressFromSignature(hexToUtf8(message.value), signHex);
                 dialog.dismiss();
+            }
+
+            @Override
+            public void DAppReturn(byte[] data, String message) {
+
             }
         };
 

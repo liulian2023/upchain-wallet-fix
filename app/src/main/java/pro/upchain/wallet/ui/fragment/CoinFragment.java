@@ -107,6 +107,7 @@ public class CoinFragment extends BaseFragment {
                 break;
         }
     }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -161,11 +162,15 @@ public class CoinFragment extends BaseFragment {
 
     }
     public void showWallet(ETHWallet wallet) {
+
         currEthWallet = wallet;
 //        EventBus.getDefault().postSticky(new WalletInfoEvenEntity(wallet));
         //       openOrCloseDrawerLayout();
         boolean backup = currEthWallet.isBackup();
-        backup =true;//开发用
+        //todo 开发用
+        backup =true;
+        token_refresh.setEnableRefresh(false);
+        token_refresh.setEnableLoadMore(false);
         if(backup){
             token_refresh.setVisibility(View.VISIBLE);
             no_backup_linear.setVisibility(View.GONE);

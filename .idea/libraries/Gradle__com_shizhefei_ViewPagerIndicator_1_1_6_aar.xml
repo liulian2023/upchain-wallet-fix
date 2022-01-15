@@ -1,11 +1,20 @@
 <component name="libraryTable">
   <library name="Gradle: com.shizhefei:ViewPagerIndicator:1.1.6@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-ViewPagerIndicator-1.1.6.aar/83b1b315ffec95f64401e28842a3c4aa/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-ViewPagerIndicator-1.1.6.aar/83b1b315ffec95f64401e28842a3c4aa/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-ViewPagerIndicator-1.1.6.aar/83b1b315ffec95f64401e28842a3c4aa/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/4e9ad09e3289acf330110917d1591844/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/03a9cff0a50f53b56354746a2cbc6a61/transformed/jetified-ViewPagerIndicator-1.1.6/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/3f2866bd356ab0d7fb13cd6a57f352a5/transformed/jetified-ViewPagerIndicator-1.1.6/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/37d891f99cd9757eb759ed4ea9f56745/transformed/jetified-ViewPagerIndicator-1.1.6/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/23948b0077ee584eaa3e547113e504e7/transformed/jetified-ViewPagerIndicator-1.1.6/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/37d891f99cd9757eb759ed4ea9f56745/transformed/jetified-ViewPagerIndicator-1.1.6/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/37d891f99cd9757eb759ed4ea9f56745/transformed/jetified-ViewPagerIndicator-1.1.6/AndroidManifest.xml" />
     </CLASSES>
-    <JAVADOC />
-    <SOURCES />
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.shizhefei/ViewPagerIndicator/1.1.6/1ada419c4bd660f6eee80391c728c49500f3a994/ViewPagerIndicator-1.1.6-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.shizhefei/ViewPagerIndicator/1.1.6/391c9c5b8c1f0b00dd4e8413ab46b1f486f9ea31/ViewPagerIndicator-1.1.6-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

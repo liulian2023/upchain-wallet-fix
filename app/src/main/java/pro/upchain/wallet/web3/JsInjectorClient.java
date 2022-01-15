@@ -19,7 +19,9 @@ import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
+import pro.upchain.wallet.MyApplication;
 import pro.upchain.wallet.R;
+import pro.upchain.wallet.repository.RepositoryFactory;
 import pro.upchain.wallet.web3.entity.Address;
 
 class JsInjectorClient {
@@ -65,14 +67,14 @@ class JsInjectorClient {
     public void setRpcUrl(String rpcUrl) {
         this.rpcUrl = rpcUrl;
     }
-
+/*
     JsInjectorResponse loadUrl(final String url, String userAgent) {
         Map<String, String> headers = new HashMap<>();
         headers.put("User-Agent", userAgent);
         return loadUrl(url, headers);
-    }
+    }*/
 
-    @Nullable
+/*    @Nullable
     JsInjectorResponse loadUrl(final String url, final Map<String, String> headers) {
         Request request = buildRequest(url, headers);
         JsInjectorResponse result = null;
@@ -83,18 +85,27 @@ class JsInjectorClient {
             Log.d("REQUEST_ERROR", "", ex);
         }
         return result;
-    }
+    }*/
 
-    String assembleJs(Context context, String template) {
+/*    String assembleJs(Context context, String template) {
         if (TextUtils.isEmpty(jsLibrary)) {
             jsLibrary = loadFile(context, R.raw.trust_min);
         }
-        String initJs = loadInitJs(context);
+        String initJs = loadInitJs();
+        return String.format(template, jsLibrary, initJs);
+
+    }*/
+
+    String assembleJs(Context context, String template) {
+        if (TextUtils.isEmpty(jsLibrary)) {
+            jsLibrary =  loadFile(context,R.raw.trust_min) ;
+        }
+        String initJs = loadInitJs();
         return String.format(template, jsLibrary, initJs);
 
     }
 
-    @Nullable
+/*    @Nullable
     private JsInjectorResponse buildResponse(Response response) {
         String body = null;
         int code = response.code();
@@ -114,7 +125,7 @@ class JsInjectorClient {
         String mime = getMimeType(contentType);
         String finalUrl = request.url().toString();
         return new JsInjectorResponse(result, code, finalUrl, mime, charset, isRedirect);
-    }
+    }*/
 
     String injectJS(String html) {
         String js = assembleJs(context, JS_TAG_TEMPLATE);
@@ -167,26 +178,33 @@ class JsInjectorClient {
         return requestBuilder.build();
     }
 
-    private String loadInitJs(Context context) {
+/*    private String loadInitJs(Context context) {
         String initSrc = loadFile(context, R.raw.init);
         String address = walletAddress == null ? Address.EMPTY.toString() : walletAddress.toString();
         return String.format(initSrc, address, rpcUrl, chainId);
-    }
-
-    private String loadFile(Context context, @RawRes int rawRes) {
-        byte[] buffer = new byte[0];
-        try {
-            InputStream in = context.getResources().openRawResource(rawRes);
-            buffer = new byte[in.available()];
-            int len = in.read(buffer);
-            if (len < 1) {
-                throw new IOException("Nothing is read.");
+    }*/
+public String loadInitJs() {
+    RepositoryFactory rf = MyApplication.repositoryFactory();
+    String rpcUrl =  rf.ethereumNetworkRepository.getDefaultNetwork().rpcServerUrl;
+    int chainId = rf.ethereumNetworkRepository.getDefaultNetwork().chainId;
+    String s = loadFile(context, R.raw.trust_script);
+    String replace = s.replace("__CHAINID__", chainId + "");
+    return replace.replace("__RPCURL__",rpcUrl);
+}
+        public String loadFile(Context context, @RawRes int rawRes) {
+            byte[] buffer = new byte[0];
+            try {
+                InputStream in = context.getResources().openRawResource(rawRes);
+                buffer = new byte[in.available()];
+                int len = in.read(buffer);
+                if (len < 1) {
+                    throw new IOException("Nothing is read.");
+                }
+            } catch (Exception ex) {
+                Log.d("READ_JS_TAG", "Ex", ex);
             }
-        } catch (Exception ex) {
-            Log.d("READ_JS_TAG", "Ex", ex);
+            return new String(buffer);
         }
-        return new String(buffer);
-    }
 
     private String getMimeType(String contentType) {
         Matcher regexResult = Pattern.compile("^.*(?=;)").matcher(contentType);

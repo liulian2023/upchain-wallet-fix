@@ -1,11 +1,20 @@
 <component name="libraryTable">
   <library name="Gradle: cn.bingoogolapple:bga-qrcode-zxing:1.3.6@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/bga-qrcode-zxing-1.3.6.aar/6d98ca2066d82e4320004ea4c0ffccec/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/bga-qrcode-zxing-1.3.6.aar/6d98ca2066d82e4320004ea4c0ffccec/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/bga-qrcode-zxing-1.3.6.aar/6d98ca2066d82e4320004ea4c0ffccec/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7e2f6d7a589d8bb763a87114fdf8f2fa/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/6f0a2457d9ef8c981bcd54a3e0bc72fe/transformed/jetified-bga-qrcode-zxing-1.3.6/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/63bbda5942bf8b29553971321179bf93/transformed/jetified-bga-qrcode-zxing-1.3.6/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/8f56684b09543f3294a1beb258685440/transformed/jetified-bga-qrcode-zxing-1.3.6/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/c09e2116b0e2f8a100d4e2ebdee0a7dd/transformed/jetified-bga-qrcode-zxing-1.3.6/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/8f56684b09543f3294a1beb258685440/transformed/jetified-bga-qrcode-zxing-1.3.6/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/8f56684b09543f3294a1beb258685440/transformed/jetified-bga-qrcode-zxing-1.3.6/jars/classes.jar!/" />
     </CLASSES>
-    <JAVADOC />
-    <SOURCES />
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/cn.bingoogolapple/bga-qrcode-zxing/1.3.6/e05e38cebcd92b9911774e9c69e1e09838a59841/bga-qrcode-zxing-1.3.6-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/cn.bingoogolapple/bga-qrcode-zxing/1.3.6/2538212c3c7132dda6eeb4197be15cb85417f4a8/bga-qrcode-zxing-1.3.6-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

@@ -118,13 +118,66 @@
             android:id="@+id/tv_gas_cost"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0.00ETH≈0USDT"
+            android:text="0.00ETH ≈ 0USDT"
             android:textColor="#ff6d7e91"
             android:textSize="11sp"
             app:layout_constraintBottom_toBottomOf="@+id/textView23"
             app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
             app:layout_constraintTop_toTopOf="@+id/textView23" />
 
+        <LinearLayout
+            android:id="@+id/lly_gas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="@+id/tv_gas_cost"
+            app:layout_constraintStart_toStartOf="@+id/textView23"
+            app:layout_constraintTop_toBottomOf="@+id/textView23">
+
+
+            <SeekBar
+                android:id="@+id/seekbar"
+                android:layout_width="330dp"
+                android:layout_height="24dp"
+                android:layout_marginTop="12dp"
+                android:progress="10" />
+
+            <RelativeLayout
+                android:layout_width="330dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:text="@string/transfer_gas_slow"
+                    android:textColor="#ff6d7e91"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/gas_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:text="10gwei"
+                    android:textColor="#ff6d7e91"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:background="@null"
+                    android:text="@string/transfer_gas_quick"
+                    android:textColor="#ff6d7e91"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+        </LinearLayout>
         <Button
             android:id="@+id/btn_next"
             style="@style/myButtonStyle"

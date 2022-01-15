@@ -17,6 +17,8 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import pro.upchain.wallet.utils.ToastUtils;
+import pro.upchain.wallet.utils.WalletDaoUtils;
 
 /**
  * Created by Tiny 熊 @ Upchain.pro
@@ -69,7 +71,11 @@ public class WalletMangerActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 ETHWallet wallet = walletList.get(position);
-                WalletDetailActivity.startAtyForResult(WalletMangerActivity.this,wallet,true,WALLET_DETAIL_REQUEST);
+//                WalletDetailActivity.startAtyForResult(WalletMangerActivity.this,wallet,true,WALLET_DETAIL_REQUEST);
+
+                WalletDaoUtils.updateCurrent(wallet.getId());
+                ToastUtils.showToast(R.string.change_success);
+                finish();
             }
         });
     }

@@ -1,11 +1,20 @@
 <component name="libraryTable">
   <library name="Gradle: com.getkeepsafe.relinker:relinker:1.2.2@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/relinker-1.2.2.aar/427bc90b14378d4a7956f91d7ddce0b7/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/relinker-1.2.2.aar/427bc90b14378d4a7956f91d7ddce0b7/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/relinker-1.2.2.aar/427bc90b14378d4a7956f91d7ddce0b7/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/34dab4c9512253c5dfa0675e10cd8a98/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/eefaf1adee52331fa870700397f20664/transformed/jetified-relinker-1.2.2/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/05a3e8841d0535f4a70058dfb0a32ba2/transformed/jetified-relinker-1.2.2/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/4a948f3872da670dc94fe241deec2b90/transformed/jetified-relinker-1.2.2/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/7811d9bcb7608d8c50443b7bfa9493dc/transformed/jetified-relinker-1.2.2/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/4a948f3872da670dc94fe241deec2b90/transformed/jetified-relinker-1.2.2/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/4a948f3872da670dc94fe241deec2b90/transformed/jetified-relinker-1.2.2/jars/classes.jar!/" />
     </CLASSES>
-    <JAVADOC />
-    <SOURCES />
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.getkeepsafe.relinker/relinker/1.2.2/84113a661b01a453bad17a5a4cf4fd27405967cd/relinker-1.2.2-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.getkeepsafe.relinker/relinker/1.2.2/783c6bdebdf19671c4bad8a3526c70cd0aceeb9f/relinker-1.2.2-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

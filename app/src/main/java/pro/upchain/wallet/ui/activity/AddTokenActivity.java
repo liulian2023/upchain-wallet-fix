@@ -188,7 +188,7 @@ public class AddTokenActivity extends BaseActivity {
     }
     public static class TokenItem {
         public final TokenInfo tokenInfo;
-        public boolean added;
+        public boolean added =true;
         public TokenItem(TokenInfo tokenInfo, boolean added) {
             this.tokenInfo = tokenInfo;
             this.added = added;

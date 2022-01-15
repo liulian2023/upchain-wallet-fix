@@ -24,6 +24,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
         <activity
+            android:name=".ui.activity.DappActivity2"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.DappActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activity.ChangeLanguageActivity"
             android:exported="false" />
         <activity

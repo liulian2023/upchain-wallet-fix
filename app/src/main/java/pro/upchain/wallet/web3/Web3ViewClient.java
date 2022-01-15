@@ -81,7 +81,7 @@ public class Web3ViewClient extends WebViewClient {
         return result;
     }
 
-    @Override
+/*    @Override
     public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
         if (request == null) {
             return null;
@@ -92,7 +92,6 @@ public class Web3ViewClient extends WebViewClient {
                      && (request.getUrl().toString().contains(".js")
                         || request.getUrl().toString().contains("json")
                         || request.getUrl().toString().contains("css"))) {
-
                 synchronized (lock) {
                     if (!isInjected) {
                         injectScriptFile(view);
@@ -126,7 +125,7 @@ public class Web3ViewClient extends WebViewClient {
             }
             return webResourceResponse;
         }
-    }
+    }*/
 
     private void injectScriptFile(WebView view) {
         String js = jsInjectorClient.assembleJs(view.getContext(), "%1$s%2$s");

@@ -20,6 +20,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+import pro.upchain.wallet.R;
 import pro.upchain.wallet.web3.entity.Address;
 import pro.upchain.wallet.web3.entity.Message;
 import pro.upchain.wallet.web3.entity.TypedData;
@@ -27,7 +28,7 @@ import pro.upchain.wallet.web3.entity.Web3Transaction;
 
 public class Web3View extends WebView {
     private static final String JS_PROTOCOL_CANCELLED = "cancelled";
-    private static final String JS_PROTOCOL_ON_SUCCESSFUL = "onSignSuccessful(%1$s, \"%2$s\")";
+    private static final String JS_PROTOCOL_ON_SUCCESSFUL = "executeCallback(%1$s, null, \"%2$s\")";
     private static final String JS_PROTOCOL_ON_FAILURE = "onSignError(%1$s, \"%2$s\")";
 
     @Nullable
@@ -38,7 +39,6 @@ public class Web3View extends WebView {
     private OnSignPersonalMessageListener onSignPersonalMessageListener;
     @Nullable
     private OnSignTypedMessageListener onSignTypedMessageListener;
-
 
     private JsInjectorClient jsInjectorClient;
     private Web3ViewClient webViewClient;
@@ -82,12 +82,14 @@ public class Web3View extends WebView {
         webSettings.setDomStorageEnabled(true);
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
 
-        addJavascriptInterface(new SignCallbackJSInterface(
+        SignCallbackJSInterface signCallbackJSInterface = new SignCallbackJSInterface(
                 this,
                 innerOnSignTransactionListener,
                 innerOnSignMessageListener,
                 innerOnSignPersonalMessageListener,
-                innerOnSignTypedMessageListener), "trust");
+                innerOnSignTypedMessageListener);
+//        addJavascriptInterface(signCallbackJSInterface, "trust");
+        addJavascriptInterface(signCallbackJSInterface, "_tw_");
 
         super.setWebViewClient(webViewClient);
     }
@@ -239,6 +241,12 @@ public class Web3View extends WebView {
         }
 
         @Override
+        public void onPageFinished(WebView view, String url) {
+            super.onPageFinished(view, url);
+            view.evaluateJavascript(jsInjectorClient.loadFile(getContext(), R.raw.trust_min), null);
+            view.evaluateJavascript(jsInjectorClient.loadInitJs( ), null);
+        }
+        /*  @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             return externalClient.shouldOverrideUrlLoading(view, url)
                     || internalClient.shouldOverrideUrlLoading(view, url);
@@ -272,6 +280,6 @@ public class Web3View extends WebView {
                 response = internalClient.shouldInterceptRequest(view, request);
             }
             return response;
-        }
+        }*/
     }
 }

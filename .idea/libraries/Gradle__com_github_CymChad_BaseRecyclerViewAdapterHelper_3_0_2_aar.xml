@@ -1,11 +1,13 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.2@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-BaseRecyclerViewAdapterHelper-3.0.2.aar/05dcd3696378de5176ebfd2326c6b028/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-BaseRecyclerViewAdapterHelper-3.0.2.aar/05dcd3696378de5176ebfd2326c6b028/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-BaseRecyclerViewAdapterHelper-3.0.2.aar/05dcd3696378de5176ebfd2326c6b028/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/03a26cd115954c3fe1c050062cce483f/transformed/jetified-BaseRecyclerViewAdapterHelper-3.0.2/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/03a26cd115954c3fe1c050062cce483f/transformed/jetified-BaseRecyclerViewAdapterHelper-3.0.2/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/03a26cd115954c3fe1c050062cce483f/transformed/jetified-BaseRecyclerViewAdapterHelper-3.0.2/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.CymChad/BaseRecyclerViewAdapterHelper/3.0.2/6ba497f46bb169803fe0446c707aaafb1b93020f/BaseRecyclerViewAdapterHelper-3.0.2-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

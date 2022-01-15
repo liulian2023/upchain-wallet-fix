@@ -1,11 +1,14 @@
-apply plugin: 'com.android.application'
-apply plugin: 'realm-android'
-apply plugin: 'org.greenrobot.greendao' // apply plugin
-apply plugin: 'com.google.protobuf'
 
+plugins{
+    id 'com.android.application'
+    id 'realm-android'
+    id 'org.greenrobot.greendao'
+    id 'com.google.protobuf'
+    id 'kotlin-android'
+}
 android {
-    compileSdkVersion 28
-    buildToolsVersion '28.0.3'
+    compileSdkVersion 30
+    buildToolsVersion '30.0.2'
 
     defaultConfig {
         applicationId "pro.upchain.ethwallet"
@@ -18,7 +21,15 @@ android {
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
     }
+    signingConfigs {
 
+        release {
+            keyAlias 'test'
+            keyPassword 'xt1111'
+            storeFile file('../test.jks')
+            storePassword 'xt1111'
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
@@ -46,29 +57,29 @@ android {
     }
 
     // 多渠道打包按到
-  /*  productFlavors {
-        miaomi {
-            applicationId "pro.upchain.ethwallet"
-            resValue("string", "app_name", "钱包")
-            //彩票视频 彩票相关
-            manifestPlaceholders = [
-                    UMENG_CHANNEL_VALUE: "feige",
-            ]
-            buildConfigField "String", "UM_KEY", "\"614c2dd92a91a03cef513479\""
-            buildConfigField "String", "OFFICIAL_WEBSITE", "\"feige111.com\""
+    /*  productFlavors {
+          miaomi {
+              applicationId "pro.upchain.ethwallet"
+              resValue("string", "app_name", "钱包")
+              //彩票视频 彩票相关
+              manifestPlaceholders = [
+                      UMENG_CHANNEL_VALUE: "feige",
+              ]
+              buildConfigField "String", "UM_KEY", "\"614c2dd92a91a03cef513479\""
+              buildConfigField "String", "OFFICIAL_WEBSITE", "\"feige111.com\""
 
-//            buildConfigField "String", "API_HOST1", "\"http://8.210.29.222:8385/zixunWeb/\""//本地
-            buildConfigField "String", "API_HOST1", "\"http://api.tjvqsqfdgpczu.com/\""//正式
-            buildConfigField "String", "API_HOST2", "\"http://cpapi88.gznbang.com/web/ws/\""//cp本地
-//            buildConfigField "String", "API_HOST2", "\"http://cpapi01.ykydxh.com/web/ws/\""//cp正式
-            versionCode 3
-            versionName "1.0.3"
-        }
-    }*/
+  //            buildConfigField "String", "API_HOST1", "\"http://8.210.29.222:8385/zixunWeb/\""//本地
+              buildConfigField "String", "API_HOST1", "\"http://api.tjvqsqfdgpczu.com/\""//正式
+              buildConfigField "String", "API_HOST2", "\"http://cpapi88.gznbang.com/web/ws/\""//cp本地
+  //            buildConfigField "String", "API_HOST2", "\"http://cpapi01.ykydxh.com/web/ws/\""//cp正式
+              versionCode 3
+              versionName "1.0.3"
+          }
+      }*/
 }
 protobuf {
     protoc {
-        artifact = 'com.google.protobuf:protoc:3.5.1-1'
+        artifact = 'com.google.protobuf:protoc:3.7.0'
     }
     plugins {
         javalite {
@@ -89,10 +100,11 @@ protobuf {
             }
         }
     }
+
 }
 
 dependencies {
-
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     //    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.appcompat:appcompat:1.0.0'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
@@ -154,7 +166,7 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
 
     // greenDao
-    implementation 'org.greenrobot:greendao:3.2.2'
+    implementation 'org.greenrobot:greendao:3.3.0'
     //fastJson
     implementation 'com.alibaba:fastjson:1.2.76'
     // ViewPagerIndicator
@@ -201,7 +213,10 @@ dependencies {
     implementation 'com.trello.rxlifecycle3:rxlifecycle-android-lifecycle:3.1.0'
     implementation 'com.uber.autodispose:autodispose-android-archcomponents:1.0.0-RC2'
 
+    implementation 'com.github.trustwallet:trust-web3-provider:1.0.5'
 
+    implementation 'com.afollestad.material-dialogs:core:3.3.0'
+//    implementation "com.trustwallet:wallet-core:2.6.23"
 }
 
 greendao {

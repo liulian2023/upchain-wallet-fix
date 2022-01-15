@@ -1,11 +1,20 @@
 <component name="libraryTable">
   <library name="Gradle: io.realm:realm-android-library:4.3.1@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-realm-android-library-4.3.1.aar/f7f7658634b1abb02b50b8e0b11c156d/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-realm-android-library-4.3.1.aar/f7f7658634b1abb02b50b8e0b11c156d/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-realm-android-library-4.3.1.aar/f7f7658634b1abb02b50b8e0b11c156d/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ee8776f38214e68fce054a7d346c327c/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/98e69863fa84edaaf20b5ef7cdc9c951/transformed/jetified-realm-android-library-4.3.1/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/67ef9366d836af5492cbbfefecb948f2/transformed/jetified-realm-android-library-4.3.1/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/4969b029baaa44fc5763e9a68fdef2e2/transformed/jetified-realm-android-library-4.3.1/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/76e10d97ad3877d01d9b102fe8db793c/transformed/jetified-realm-android-library-4.3.1/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/4969b029baaa44fc5763e9a68fdef2e2/transformed/jetified-realm-android-library-4.3.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/4969b029baaa44fc5763e9a68fdef2e2/transformed/jetified-realm-android-library-4.3.1/AndroidManifest.xml" />
     </CLASSES>
-    <JAVADOC />
-    <SOURCES />
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.realm/realm-android-library/4.3.1/528f4f97acbbb100ebe0f54565c22516158149c2/realm-android-library-4.3.1-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/io.realm/realm-android-library/4.3.1/7c1a2f7dccec1d2ca551f12b3d172251f8d7441f/realm-android-library-4.3.1-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

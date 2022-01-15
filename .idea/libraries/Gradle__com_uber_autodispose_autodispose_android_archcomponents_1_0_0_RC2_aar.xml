@@ -1,11 +1,20 @@
 <component name="libraryTable">
   <library name="Gradle: com.uber.autodispose:autodispose-android-archcomponents:1.0.0-RC2@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-autodispose-android-archcomponents-1.0.0-RC2.aar/3b2836520daf88435e138d670b4cf664/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-autodispose-android-archcomponents-1.0.0-RC2.aar/3b2836520daf88435e138d670b4cf664/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/jetified-autodispose-android-archcomponents-1.0.0-RC2.aar/3b2836520daf88435e138d670b4cf664/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/c95f08dac021a68770093f27672a74d6/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/063f91ba003119270b419241025e2965/transformed/jetified-autodispose-android-archcomponents-1.0.0-RC2/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/6c5cd731e18b29a9a7d5006561adc514/transformed/jetified-autodispose-android-archcomponents-1.0.0-RC2/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/2599ade143d7a299196ef97460580964/transformed/jetified-autodispose-android-archcomponents-1.0.0-RC2/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/ac0c6ed733794dbb8f0ea2ec6e65b98c/transformed/jetified-autodispose-android-archcomponents-1.0.0-RC2/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/2599ade143d7a299196ef97460580964/transformed/jetified-autodispose-android-archcomponents-1.0.0-RC2/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/2599ade143d7a299196ef97460580964/transformed/jetified-autodispose-android-archcomponents-1.0.0-RC2/AndroidManifest.xml" />
     </CLASSES>
-    <JAVADOC />
-    <SOURCES />
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.uber.autodispose/autodispose-android-archcomponents/1.0.0-RC2/a7dadeafce5ff373e83c5f3e5ebf23d2dfe6890b/autodispose-android-archcomponents-1.0.0-RC2-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.uber.autodispose/autodispose-android-archcomponents/1.0.0-RC2/2b1cbf3f6853852eb659c1224ffd205579f9fdf2/autodispose-android-archcomponents-1.0.0-RC2-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

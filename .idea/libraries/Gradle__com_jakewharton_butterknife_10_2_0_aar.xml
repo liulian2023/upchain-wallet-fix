@@ -1,11 +1,20 @@
 <component name="libraryTable">
   <library name="Gradle: com.jakewharton:butterknife:10.2.0@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/butterknife-10.2.0.aar/3d9411a1325c3ca3e93d3177f96a31d0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/butterknife-10.2.0.aar/3d9411a1325c3ca3e93d3177f96a31d0/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/butterknife-10.2.0.aar/3d9411a1325c3ca3e93d3177f96a31d0/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/777bb952050b50a68d3db5790d80ff8f/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/06b74047118674e7ef4fdcf9f6eae0b2/transformed/jetified-butterknife-10.2.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/46378d575cf88d15530fa690eb475d78/transformed/jetified-butterknife-10.2.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/ab8570f94eb6600cc376a954d4bebe76/transformed/jetified-butterknife-10.2.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/7853745232a55502c1fca1268ae06baf/transformed/jetified-butterknife-10.2.0/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/ab8570f94eb6600cc376a954d4bebe76/transformed/jetified-butterknife-10.2.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/ab8570f94eb6600cc376a954d4bebe76/transformed/jetified-butterknife-10.2.0/AndroidManifest.xml" />
     </CLASSES>
-    <JAVADOC />
-    <SOURCES />
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife/10.2.0/88614f882b9cf529fd2a35f63868070887863d2c/butterknife-10.2.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife/10.2.0/24804f6d5552837446bf9975505fde1e24d3790d/butterknife-10.2.0-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

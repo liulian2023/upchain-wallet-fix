@@ -153,7 +153,13 @@ public class DappBrowserViewModel extends BaseViewModel  {
                 .subscribe(sig -> dAppFunction.DAppReturn(sig, message),
                            error -> dAppFunction.DAppError(error, message));
     }
-
+    public void signMessage(byte[] signRequest, DAppFunction dAppFunction, String message, String pwd) {
+        disposable = createTransactionInteract.sign(defaultWallet.getValue(), signRequest, pwd)
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(sig -> dAppFunction.DAppReturn(sig, message),
+                        error -> dAppFunction.DAppError(error, message));
+    }
 
     public void signTransaction(Web3Transaction transaction, DAppFunction dAppFunction, String url, String pwd)
     {

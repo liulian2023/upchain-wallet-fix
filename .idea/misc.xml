@@ -34,15 +34,18 @@
         <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/activity_add_token.xml" value="0.2" />
         <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/activity_change_language.xml" value="0.1" />
         <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/activity_create_wallet.xml" value="0.16" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/activity_dapp.xml" value="0.1" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/activity_dapp3.xml" value="0.1092896174863388" />
         <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/activity_gathering_qrcode.xml" value="0.1" />
-        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/activity_guide.xml" value="0.11200000000000002" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/activity_guide.xml" value="0.16799999999999998" />
         <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/activity_import_wallet.xml" value="0.1" />
         <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/activity_mnemonic_backup.xml" value="0.1" />
         <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/activity_modify_password.xml" value="0.16" />
         <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/activity_property_detail.xml" value="0.1" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/activity_qrcode_scanner.xml" value="0.15744535519125682" />
         <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/activity_recover_wallet.xml" value="0.2" />
-        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/activity_transfer.xml" value="0.2" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/activity_transfer.xml" value="0.264" />
         <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/activity_verify_mnemonic_backup.xml" value="0.1" />
         <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/activity_wallet_backup.xml" value="0.2" />
         <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/activity_wallet_detail.xml" value="0.2" />
@@ -59,16 +62,18 @@
         <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/dialog_input_pwd.xml" value="0.14993169398907105" />
         <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/dialog_mnemonic_backup_alert.xml" value="0.264" />
         <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/dialog_progress.xml" value="0.1" />
-        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/dialog_sign_message.xml" value="0.2" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/dialog_sign_message.xml" value="0.176" />
         <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/error_lyaout.xml" value="0.121875" />
         <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/fragment_coin.xml" value="0.1" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/fragment_dapp.xml" value="0.1" />
         <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/fragment_load_wallet_by_mnemonic.xml" value="0.1" />
         <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/fragment_load_wallet_by_official_wallet.xml" value="0.1" />
         <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/fragment_load_wallet_by_private_key.xml" value="0.1" />
         <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/fragment_mine.xml" value="0.2" />
         <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/fragment_property.xml" value="0.16" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/fragment_webview.xml" value="0.1" />
         <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/home_bottom_navigator_layout.xml" value="0.1" />
-        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/layout_confrim_transcation.xml" value="0.15744535519125682" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/layout_confrim_transcation.xml" value="0.152" />
         <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/layout_dialog_add_account.xml" value="0.1" />
         <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/layout_empty_add_account.xml" value="0.1" />
         <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/layout_input_password.xml" value="0.1" />
@@ -79,6 +84,7 @@
         <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/popup_load_wallet_select_standard.xml" value="0.264" />
         <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/property_drawer_right_layout.xml" value="0.13148907103825136" />
         <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/property_fragment_toolbar.xml" value="0.178515625" />
+        <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/qr_scanner_toolsbar.xml" value="0.15744535519125682" />
         <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/set_amount_pop_layout.xml" value="0.16" />
         <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/split_horizontal.xml" value="0.1" />
         <entry key="..\:/ANDROID/upchain-wallet-fix/app/src/main/res/layout/transfer_history_recycler_item.xml" value="0.176" />
@@ -130,7 +136,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="Embedded JDK" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Embedded JDK" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

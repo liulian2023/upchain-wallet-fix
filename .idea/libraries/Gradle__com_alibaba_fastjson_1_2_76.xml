@@ -3,7 +3,11 @@
     <CLASSES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.alibaba/fastjson/1.2.76/2cd27ef01134f34353b7873489b23c3804197b89/fastjson-1.2.76.jar!/" />
     </CLASSES>
-    <JAVADOC />
-    <SOURCES />
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.alibaba/fastjson/1.2.76/18406f5968e272da919be7dd07792a7e297c68d8/fastjson-1.2.76-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.alibaba/fastjson/1.2.76/c303d94699c78e548be9e966ff9fa6095c3b338f/fastjson-1.2.76-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

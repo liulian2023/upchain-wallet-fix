@@ -63,7 +63,12 @@ public class SignMessageDialog extends Dialog {
         setMessage(message.value);
         setRequester(message.url);
     }
+    public SignMessageDialog(Activity activity,String message) {
+        this(activity);
 
+        setMessage(message);
+        setRequester("");
+    }
     public void setMessage(CharSequence message) {
         this.message.setText(message);
     }

@@ -1,11 +1,20 @@
 <component name="libraryTable">
   <library name="Gradle: com.squareup.leakcanary:leakcanary-analyzer:1.5.4@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/leakcanary-analyzer-1.5.4.aar/825cc600a98742e0be6f91162075eb77/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/leakcanary-analyzer-1.5.4.aar/825cc600a98742e0be6f91162075eb77/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/leakcanary-analyzer-1.5.4.aar/825cc600a98742e0be6f91162075eb77/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/efea8ac4b2eae35d1414e0688023f140/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/d49679b3fba94efe713202fa235e17c8/transformed/jetified-leakcanary-analyzer-1.5.4/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/4dcc04fc3d0687bc7eac2d3f2e4accff/transformed/jetified-leakcanary-analyzer-1.5.4/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/268dc41cdc0d9bae8c6a31b60c2829ca/transformed/jetified-leakcanary-analyzer-1.5.4/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/9b59c371286ff0bca06034b7c3f1eee6/transformed/jetified-leakcanary-analyzer-1.5.4/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/268dc41cdc0d9bae8c6a31b60c2829ca/transformed/jetified-leakcanary-analyzer-1.5.4/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/268dc41cdc0d9bae8c6a31b60c2829ca/transformed/jetified-leakcanary-analyzer-1.5.4/jars/classes.jar!/" />
     </CLASSES>
-    <JAVADOC />
-    <SOURCES />
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.leakcanary/leakcanary-analyzer/1.5.4/80ca1321de60e9a28f3fb6762d05a8a1935257bf/leakcanary-analyzer-1.5.4-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.squareup.leakcanary/leakcanary-analyzer/1.5.4/1dd98c60843daab9d2f9d43acb777aa9e9d8a186/leakcanary-analyzer-1.5.4-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

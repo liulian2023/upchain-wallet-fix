@@ -8,6 +8,7 @@
     <string name="property_drawer_qrcode_scanner">scan</string>
     <string name="property_drawer_create_wallet">Create wallet</string>
     <string name="create_fail">Create failed</string>
+    <string name="change_success">Wallet switch successfully</string>
 
     <string name="create_wallet_name_hint">Wallet name</string>
     <string name="create_wallet_pwd_hint">password</string>
@@ -293,6 +294,7 @@
     <string name="error_must_numeric">must be a number</string>
 
     <string name="button_ok">Got it</string>
+    <string name="button_cancel">cancel</string>
     <string name="title_dialog_sending">Sending...</string>
     <string name="transaction_succeeded">Transaction succeeded</string>
     <string name="error_transaction_failed">Transaction error</string>

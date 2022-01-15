@@ -1,11 +1,20 @@
 <component name="libraryTable">
   <library name="Gradle: com.trello.rxlifecycle3:rxlifecycle-android-lifecycle:3.1.0@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/rxlifecycle-android-lifecycle-3.1.0.aar/0231fc4eda26c45d6c3ede3befb8f90e/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/rxlifecycle-android-lifecycle-3.1.0.aar/0231fc4eda26c45d6c3ede3befb8f90e/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/rxlifecycle-android-lifecycle-3.1.0.aar/0231fc4eda26c45d6c3ede3befb8f90e/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ff07c84df09f1ef54c7bd2de6f74098f/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/2ce525070b2dd685d8a651d15b865ac3/transformed/jetified-rxlifecycle-android-lifecycle-3.1.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/b55c266efb2cb480e9fada73e3cf8668/transformed/jetified-rxlifecycle-android-lifecycle-3.1.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/7feea9eaa021fd428c9c24ab8accb5e4/transformed/jetified-rxlifecycle-android-lifecycle-3.1.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/8f034e4d059950271ff16a1129cec54c/transformed/jetified-rxlifecycle-android-lifecycle-3.1.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/7feea9eaa021fd428c9c24ab8accb5e4/transformed/jetified-rxlifecycle-android-lifecycle-3.1.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/7feea9eaa021fd428c9c24ab8accb5e4/transformed/jetified-rxlifecycle-android-lifecycle-3.1.0/jars/classes.jar!/" />
     </CLASSES>
-    <JAVADOC />
-    <SOURCES />
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.trello.rxlifecycle3/rxlifecycle-android-lifecycle/3.1.0/6de4ef8c6cf8ded0ec393b3d8f69d6d2481b37ad/rxlifecycle-android-lifecycle-3.1.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.trello.rxlifecycle3/rxlifecycle-android-lifecycle/3.1.0/2d6e58f9778c07b63d26cddab1e25f18abf30f05/rxlifecycle-android-lifecycle-3.1.0-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

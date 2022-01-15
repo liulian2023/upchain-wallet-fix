@@ -25,6 +25,8 @@ import pro.upchain.wallet.base.BaseFragment;
 import pro.upchain.wallet.domain.ETHWallet;
 import pro.upchain.wallet.entity.WalletAmountEvenEntity;
 import pro.upchain.wallet.ui.activity.AddTokenActivity;
+import pro.upchain.wallet.ui.activity.DappActivity;
+import pro.upchain.wallet.ui.activity.DappActivity2;
 import pro.upchain.wallet.ui.activity.QRCodeScannerActivity;
 import pro.upchain.wallet.ui.activity.SendActivity;
 import pro.upchain.wallet.ui.activity.WalletMangerActivity;
@@ -118,7 +120,8 @@ public class PropertyFragment extends BaseFragment {
                 startActivityForResult(intent, QRCODE_SCANNER_REQUEST);
                 break;
             case R.id.home_add_iv:
-                startActivity(new Intent(getContext(), AddTokenActivity.class));
+//                startActivity(new Intent(getContext(), AddTokenActivity.class));
+                startActivity(new Intent(getContext(), DappActivity2.class));
                 break;
             default:
                 break;

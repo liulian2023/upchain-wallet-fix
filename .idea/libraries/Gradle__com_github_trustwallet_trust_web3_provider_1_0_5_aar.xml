@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.trustwallet:trust-web3-provider:1.0.5@aar">
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/7aae91cc49ce6d97a3ea97955692c902/transformed/jetified-trust-web3-provider-1.0.5/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/7aae91cc49ce6d97a3ea97955692c902/transformed/jetified-trust-web3-provider-1.0.5/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/7aae91cc49ce6d97a3ea97955692c902/transformed/jetified-trust-web3-provider-1.0.5/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

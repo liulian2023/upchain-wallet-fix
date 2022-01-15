@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 
+import com.alibaba.fastjson.JSONObject;
 import com.google.gson.Gson;
 
 import java.math.BigInteger;
@@ -40,7 +41,10 @@ public class SignCallbackJSInterface {
         this.onSignPersonalMessageListener = onSignPersonalMessageListener;
         this.onSignTypedMessageListener = onSignTypedMessageListener;
     }
-
+    @JavascriptInterface
+    public void postMessage(String json){
+        JSONObject jsonObject = JSONObject.parseObject(json);
+    }
     @JavascriptInterface
     public void signTransaction(
             int callbackId,
