@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -36,6 +37,7 @@
         android:text="TextView"
         android:layout_marginRight="50dp"
         android:singleLine="true"
+        android:ellipsize="middle"
         android:textColor="#666666"
         android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="@+id/add_token_iv"
@@ -52,12 +54,13 @@
         app:layout_constraintBottom_toBottomOf="@+id/add_token_iv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/add_token_iv" />
+
     <TextView
         android:id="@+id/textView47"
         android:layout_width="0dp"
         android:layout_height="1dp"
-        android:background="@color/black"
+        android:background="@color/split"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toLeftOf="@id/add_token_iv" />
+        app:layout_constraintEnd_toEndOf="@+id/add_token_add_iv"
+        app:layout_constraintStart_toStartOf="@id/add_token_iv" />
 </androidx.constraintlayout.widget.ConstraintLayout >

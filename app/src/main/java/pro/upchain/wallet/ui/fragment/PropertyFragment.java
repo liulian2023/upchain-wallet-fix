@@ -120,8 +120,8 @@ public class PropertyFragment extends BaseFragment {
                 startActivityForResult(intent, QRCODE_SCANNER_REQUEST);
                 break;
             case R.id.home_add_iv:
-//                startActivity(new Intent(getContext(), AddTokenActivity.class));
-                startActivity(new Intent(getContext(), DappActivity2.class));
+                startActivity(new Intent(getContext(), AddTokenActivity.class));
+//                startActivity(new Intent(getContext(), DappActivity.class));
                 break;
             default:
                 break;

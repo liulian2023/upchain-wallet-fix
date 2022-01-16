@@ -63,6 +63,13 @@ public class SignMessageDialog extends Dialog {
         setMessage(message.value);
         setRequester(message.url);
     }
+
+    public SignMessageDialog(Activity activity, Message<String> message,String raw,String title) {
+        this(activity);
+        setMessage(raw);
+        setRequester(message.url);
+        setTitle(title);
+    }
     public SignMessageDialog(Activity activity,String message) {
         this(activity);
 
@@ -76,7 +83,9 @@ public class SignMessageDialog extends Dialog {
     public void setRequester(CharSequence requester) {
         this.requester.setText(requester);
     }
-
+    public void setTitle(CharSequence requester) {
+        this.title.setText(requester);
+    }
     public void setAddress(CharSequence address) {
         this.address.setText(address);
     }

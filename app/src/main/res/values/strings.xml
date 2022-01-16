@@ -328,32 +328,35 @@
     <string name="action_share">分享</string>
     <string name="action_scan_dapp">扫描二维码</string>
 
-    <string name="dialog_title_sign_message">Sign Message</string>
-    <string name="dialog_reject">Reject</string>
-    <string name="dialog_approve">Approve</string>
-    <string name="transaction_value">Transaction Value</string>
-    <string name="dialog_title_sign_transaction">Sign Transaction</string>
+    <string name="dialog_title_sign_message">签名消息</string>
+    <string name="dialog_reject">拒绝</string>
+    <string name="dialog_approve">同意</string>
+    <string name="transaction_value">交易价值</string>
+    <string name="dialog_title_sign_transaction">签署交易</string>
 
-    <string name="title_dialog_error">Error</string>
-    <string name="ssl_cert_invalid">Invalid SSL Certificate. This site may be unsafe. Proceed?</string>
-    <string name="action_cancel">Cancel</string>
+    <string name="title_dialog_error">错误</string>
+    <string name="ssl_cert_invalid">SSL 证书无效。 这个网站可能不安全。 继续？</string>
+    <string name="action_cancel">取消</string>
 
-    <string name="transfer">Transfer %s</string>
+    <string name="transfer">交易 %s</string>
 
     <string name="invalid_transaction">无效交易</string>
-    <string name="contains_no_data">DApp transaction contains no data</string>
+    <string name="contains_no_data">DApp 交易不包含数据</string>
 
 
-    <string name="select_network">Select Network:</string>
+    <string name="select_network">选择网络：</string>
 
-    <string name="action_confirm">Confirm</string>
-    <string name="toast_invalid_code">Invalid Scan Result</string>
+    <string name="action_confirm">确认</string>
+    <string name="toast_invalid_code">无效的扫描结果</string>
 
-    <string name="confirm_transfer_details">Confirm Transfer Details</string>
+    <string name="confirm_transfer_details">确认转账详情</string>
     <string name="dummy_transaction_value">&#45;&#45;</string>
 
     <string name="confirm_dapp_transaction">确认 DApp 交易</string>
-    <string name="ticket_contract_constructor">Constructor</string>
+    <string name="ticket_contract_constructor">constructor</string>
+    <string name="Request_Accounts">账号授权</string>
+    <string name="requests_your_address">请求你的地址</string>
+    <string name="Sign_Typed_Message">Sign Typed Message</string>
 
     <!-- Labels -->
     <string name="label_from">From</string>
@@ -371,11 +374,11 @@
 
     <!-- Intro resources-->
     <string name="intro_title_first_page"><![CDATA[Private & Secure]]></string>
-    <string name="intro_title_second_page">Fully Transparent</string>
-    <string name="intro_title_third_page">Ultra reliable</string>
-    <string name="intro_message_first_page">Private keys never leave your device.</string>
-    <string name="intro_message_second_page">Code is open sourced (GPL-3.0 license) and fully audited.</string>
-    <string name="intro_message_third_page">The fastest Ethereum wallet experience on mobile.</string>
+    <string name="intro_title_second_page">完全透明</string>
+    <string name="intro_title_third_page">超可靠</string>
+    <string name="intro_message_first_page">私钥永远不会离开您的设备。</string>
+    <string name="intro_message_second_page">代码是开源的（GPL-3.0 许可）并经过全面审核。</string>
+    <string name="intro_message_third_page">移动设备上最快的以太坊钱包体验。</string>
 
     <string name="welcome_erc20_label_title">兼容 ERC20 </string>
     <string name="welcome_erc20_label_description">支持所有的ERC20 代币</string>

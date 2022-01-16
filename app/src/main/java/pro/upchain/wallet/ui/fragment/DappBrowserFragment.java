@@ -1,7 +1,11 @@
 package pro.upchain.wallet.ui.fragment;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.ViewModelProviders;
+
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -55,11 +59,13 @@ import pro.upchain.wallet.ui.adapter.AutoCompleteUrlAdapter;
 import pro.upchain.wallet.ui.entity.ItemClickListener;
 import pro.upchain.wallet.utils.LogUtils;
 import pro.upchain.wallet.utils.Utils;
+import pro.upchain.wallet.utils.WalletDaoUtils;
 import pro.upchain.wallet.view.AWalletAlertDialog;
 import pro.upchain.wallet.view.SelectNetworkDialog;
 import pro.upchain.wallet.view.SignMessageDialog;
 import pro.upchain.wallet.viewmodel.DappBrowserViewModel;
 import pro.upchain.wallet.viewmodel.DappBrowserViewModelFactory;
+import pro.upchain.wallet.web3.OnRequestAccountListener;
 import pro.upchain.wallet.web3.OnSignMessageListener;
 import pro.upchain.wallet.web3.OnSignPersonalMessageListener;
 import pro.upchain.wallet.web3.OnSignTransactionListener;
@@ -72,13 +78,14 @@ import pro.upchain.wallet.web3.entity.Web3Transaction;
 
 import static pro.upchain.wallet.C.DAPP_DEFAULT_URL;
 import static pro.upchain.wallet.entity.CryptoFunctions.sigFromByteArray;
+import static pro.upchain.wallet.web3.Web3View.JS_PROTOCOL_ON_SUCCESSFUL;
 
 
-public class DappBrowserFragment extends Fragment implements ItemClickListener,
-        OnSignTransactionListener, OnSignPersonalMessageListener, OnSignTypedMessageListener, OnSignMessageListener, SignTransactionInterface
+public class DappBrowserFragment extends Fragment implements ItemClickListener, OnSignMessageListener, OnSignPersonalMessageListener, OnSignTransactionListener, OnSignTypedMessageListener, OnRequestAccountListener
 {
-    private static final String TAG = DappBrowserFragment.class.getSimpleName();
 
+    private static final String TAG = DappBrowserFragment.class.getSimpleName();
+    String REQUEST_ACCOUNT_SUCCESS = "window.ethereum.setAddress(\"%1$s\");window.ethereum.selectedAddress = window.ethereum.address";
     private static final String PERSONAL_MESSAGE_PREFIX = "\u0019Ethereum Signed Message:\n";
 
     DappBrowserViewModelFactory dappBrowserViewModelFactory;
@@ -240,6 +247,7 @@ public class DappBrowserFragment extends Fragment implements ItemClickListener,
             }
         });
 
+        web3.setOnRequestAccountListener(this);
         web3.setOnSignMessageListener(this);
         web3.setOnSignPersonalMessageListener(this);
         web3.setOnSignTransactionListener(this);
@@ -264,21 +272,11 @@ public class DappBrowserFragment extends Fragment implements ItemClickListener,
             }
 
             @Override
-            public void DAppError(Throwable error, String message) {
-
-            }
-
-            @Override
             public void DAppReturn(byte[] data, Message<String> message) {
                 String signHex = Numeric.toHexString(data);
                 Log.d(TAG, "Initial Msg: " + message.value);
                 web3.onSignMessageSuccessful(message, signHex);
                 dialog.dismiss();
-            }
-
-            @Override
-            public void DAppReturn(byte[] data, String message) {
-
             }
         };
 
@@ -300,6 +298,22 @@ public class DappBrowserFragment extends Fragment implements ItemClickListener,
         dialog.show();
     }
 
+
+    @Override
+    public void onSignTransaction(Web3Transaction transaction, String url) {
+        Log.d(TAG, "onSignTransaction " + transaction);
+        if (transaction.payload == null || transaction.payload.length() < 1)
+        {
+            //display transaction error
+            onInvalidTransaction();
+            web3.onSignCancel(transaction);
+        }
+        else
+        {
+            // 打开确认窗口， 输入密码
+            viewModel.openConfirmation(getContext(), transaction, url);
+        }
+    }
     @Override
     public void onSignPersonalMessage(Message<String> message) {
         Log.d(TAG, "onSignPersonalMessage");
@@ -312,23 +326,12 @@ public class DappBrowserFragment extends Fragment implements ItemClickListener,
             }
 
             @Override
-            public void DAppError(Throwable error, String message) {
-
-            }
-
-            @Override
             public void DAppReturn(byte[] data, Message<String> message) {
                 String signHex = Numeric.toHexString(data);
                 Log.d(TAG, "Initial Msg: " + message.value);
                 web3.onSignPersonalMessageSuccessful(message, signHex);
                 //Test Sig
-                testRecoverAddressFromSignature(hexToUtf8(message.value), signHex);
                 dialog.dismiss();
-            }
-
-            @Override
-            public void DAppReturn(byte[] data, String message) {
-
             }
         };
 
@@ -350,30 +353,68 @@ public class DappBrowserFragment extends Fragment implements ItemClickListener,
     }
 
     @Override
-    public void onSignTypedMessage(Message<TypedData[]> message) {
-        //TODO
-        Toast.makeText(getActivity(), new Gson().toJson(message), Toast.LENGTH_LONG).show();
-        web3.onSignCancel(message);
+    public void onSignTypedMessage(Message<String> message,String raw) {
+        Log.d(TAG, "onSignTypedMessage");
+
+        DAppFunction dAppFunction = new DAppFunction() {
+            @Override
+            public void DAppError(Throwable error, Message<String> message) {
+                web3.onSignCancel(message);
+                dialog.dismiss();
+            }
+
+            @Override
+            public void DAppReturn(byte[] data, Message<String> message) {
+                String signHex = Numeric.toHexString(data);
+                Log.d(TAG, "Initial Msg: " + message.value);
+                web3.onSignMessageSuccessful(message, signHex);
+                dialog.dismiss();
+            }
+        };
+
+        dialog = new SignMessageDialog(getActivity(), message,raw,getResources().getString(R.string.Sign_Typed_Message));
+        dialog.setAddress(wallet.address);
+        dialog.setOnApproveListener(v -> {
+            //ensure we generate the signature correctly:
+            byte[] signRequest = message.value.getBytes();
+            if (message.value.substring(0, 2).equals("0x"))
+            {
+                signRequest = Numeric.hexStringToByteArray(message.value);
+            }
+            viewModel.signMessage(signRequest, dAppFunction, message, "123456");
+        });
+        dialog.setOnRejectListener(v -> {
+            web3.onSignCancel(message);
+            dialog.dismiss();
+        });
+        dialog.show();
     }
 
-    // 从Web3View 回调过来
     @Override
-    public void onSignTransaction(Web3Transaction transaction, String url)
-    {
-        Log.d(TAG, "onSignTransaction " + transaction);
+    public void onRequestAccount(String url, Long id) {
+        Dialog dialog = new AlertDialog.Builder(getContext())
+                .setTitle(R.string.Request_Accounts)
+                .setMessage(getString(R.string.requests_your_address))
+                .setPositiveButton(R.string.dialog_approve, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String address =  String.format(REQUEST_ACCOUNT_SUCCESS, WalletDaoUtils.getCurrent().address);
+                        String callBack = String.format(JS_PROTOCOL_ON_SUCCESSFUL,id,WalletDaoUtils.getCurrent().address);
+                        web3.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                web3.evaluateJavascript(address, null);
+                                web3.evaluateJavascript(callBack, null);
+                            }
+                        });
 
-        if (transaction.payload == null || transaction.payload.length() < 1)
-        {
-            //display transaction error
-            onInvalidTransaction();
-            web3.onSignCancel(transaction);
-        }
-        else
-        {
-            // 打开确认窗口， 输入密码
-            viewModel.openConfirmation(getContext(), transaction, url);
-        }
+                    }
+                })
+                .setNegativeButton(R.string.dialog_reject, null)
+                .create();
+        dialog.show();
     }
+
 
     public static String hexToUtf8(String hex) {
         hex = org.web3j.utils.Numeric.cleanHexPrefix(hex);
@@ -485,39 +526,7 @@ public class DappBrowserFragment extends Fragment implements ItemClickListener,
         loadUrl(url);
     }
 
-    public void testRecoverAddressFromSignature(String message, String sig)
-    {
-        String prefix = PERSONAL_MESSAGE_PREFIX + message.length();
-        byte[] msgHash = (prefix + message).getBytes(); //Hash.sha3((prefix + message3).getBytes());
 
-        byte[] signatureBytes = Numeric.hexStringToByteArray(sig);
-        Sign.SignatureData sd = sigFromByteArray(signatureBytes);
-        String addressRecovered;
-
-        try
-        {
-            BigInteger recoveredKey = Sign.signedMessageToKey(msgHash, sd);
-            addressRecovered = "0x" + Keys.getAddress(recoveredKey);
-            System.out.println("Recovered: " + addressRecovered);
-        }
-        catch (SignatureException e)
-        {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void signTransaction(Web3Transaction transaction, String txHex, boolean success)
-    {
-        if (success)
-        {
-            web3.onSignTransactionSuccessful(transaction, txHex);
-        }
-        else
-        {
-            web3.onSignCancel(transaction);
-        }
-    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -528,59 +537,7 @@ public class DappBrowserFragment extends Fragment implements ItemClickListener,
 
 
 
-//    public void scanQR()
-//    {
-//        //scanning intent
-//        Intent intent = new Intent(getContext(), QRCodeScannerActivity.class);
-//        startActivityForResult(intent, DAPP_BARCODE_READER_REQUEST_CODE);
-//    }
-//
-//    public void handleQRCode(int resultCode, Intent data, FragmentMessenger messenger)
-//    {
-//        //result
-//        String qrCode = null;
-//        if (resultCode == FullScannerFragment.SUCCESS && data != null)
-//        {
-//            qrCode = data.getStringExtra(FullScannerFragment.BarcodeObject);
-//        }
-//
-//        if (qrCode != null)
-//        {
-//            //detect if this is an address
-//            if (isAddressValid(qrCode))
-//            {
-//                DisplayAddressFound(qrCode, messenger);
-//            }
-//            else
-//            {
-//                //attempt to go to site
-//                loadUrl(qrCode);
-//            }
-//        }
-//        else
-//        {
-//            Toast.makeText(getContext(), R.string.toast_invalid_code, Toast.LENGTH_SHORT).show();
-//        }
-//    }
-//
-//    private void DisplayAddressFound(String address, FragmentMessenger messenger)
-//    {
-//        resultDialog = new AWalletAlertDialog(getActivity());
-//        resultDialog.setIcon(AWalletAlertDialog.ERROR);
-//        resultDialog.setTitle(getString(R.string.address_found));
-//        resultDialog.setMessage(getString(R.string.is_address));
-//        resultDialog.setButtonText(R.string.dialog_load_as_contract);
-//        resultDialog.setButtonListener(v -> {
-//            messenger.AddToken(address);
-//            resultDialog.dismiss();
-//        });
-//        resultDialog.setSecondaryButtonText(R.string.action_cancel);
-//        resultDialog.setSecondaryButtonListener(v -> {
-//            resultDialog.dismiss();
-//        });
-//        resultDialog.setCancelable(true);
-//        resultDialog.show();
-//    }
+
 
     private boolean isAddressValid(String address)
     {
@@ -594,4 +551,62 @@ public class DappBrowserFragment extends Fragment implements ItemClickListener,
             return false;
         }
     }
+
+
+
+
+
+  /*  public void scanQR()
+    {
+        //scanning intent
+        Intent intent = new Intent(getContext(), QRCodeScannerActivity.class);
+        startActivityForResult(intent, DAPP_BARCODE_READER_REQUEST_CODE);
+    }
+
+    public void handleQRCode(int resultCode, Intent data, FragmentMessenger messenger)
+    {
+        //result
+        String qrCode = null;
+        if (resultCode == FullScannerFragment.SUCCESS && data != null)
+        {
+            qrCode = data.getStringExtra(FullScannerFragment.BarcodeObject);
+        }
+
+        if (qrCode != null)
+        {
+            //detect if this is an address
+            if (isAddressValid(qrCode))
+            {
+                DisplayAddressFound(qrCode, messenger);
+            }
+            else
+            {
+                //attempt to go to site
+                loadUrl(qrCode);
+            }
+        }
+        else
+        {
+            Toast.makeText(getContext(), R.string.toast_invalid_code, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void DisplayAddressFound(String address, FragmentMessenger messenger)
+    {
+        resultDialog = new AWalletAlertDialog(getActivity());
+        resultDialog.setIcon(AWalletAlertDialog.ERROR);
+        resultDialog.setTitle(getString(R.string.address_found));
+        resultDialog.setMessage(getString(R.string.is_address));
+        resultDialog.setButtonText(R.string.dialog_load_as_contract);
+        resultDialog.setButtonListener(v -> {
+            messenger.AddToken(address);
+            resultDialog.dismiss();
+        });
+        resultDialog.setSecondaryButtonText(R.string.action_cancel);
+        resultDialog.setSecondaryButtonListener(v -> {
+            resultDialog.dismiss();
+        });
+        resultDialog.setCancelable(true);
+        resultDialog.show();
+    }*/
 }

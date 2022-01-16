@@ -151,45 +151,7 @@ public class DappBrowserViewModel extends BaseViewModel  {
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(sig -> dAppFunction.DAppReturn(sig, message),
-                           error -> dAppFunction.DAppError(error, message));
-    }
-    public void signMessage(byte[] signRequest, DAppFunction dAppFunction, String message, String pwd) {
-        disposable = createTransactionInteract.sign(defaultWallet.getValue(), signRequest, pwd)
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(sig -> dAppFunction.DAppReturn(sig, message),
                         error -> dAppFunction.DAppError(error, message));
-    }
-
-    public void signTransaction(Web3Transaction transaction, DAppFunction dAppFunction, String url, String pwd)
-    {
-        Message errorMsg = new Message<>("Error executing transaction", url, 0);
-
-        BigInteger addr = Numeric.toBigInt(transaction.recipient.toString());
-
-        if (addr.equals(BigInteger.ZERO)) //constructor
-        {
-            disposable = createTransactionInteract
-                    .createContract(defaultWallet.getValue(), transaction.gasPrice, transaction.gasLimit, transaction.payload, pwd)
-                    .subscribe(hash -> onCreateTransaction(hash, dAppFunction, url),
-                               error -> dAppFunction.DAppError(error, errorMsg));
-
-        }
-        else
-        {
-            byte[] data = Numeric.hexStringToByteArray(transaction.payload);
-            disposable = createTransactionInteract
-                    .create(defaultWallet.getValue(), transaction.recipient.toString(), transaction.value, transaction.gasPrice, transaction.gasLimit, transaction.payload, pwd)
-                    .subscribe(hash -> onCreateTransaction(hash, dAppFunction, url),
-                               error -> dAppFunction.DAppError(error, errorMsg));
-        }
-    }
-
-    private void onCreateTransaction(String s, DAppFunction dAppFunction, String url)
-    {
-        //pushed transaction
-        Message<String> msg = new Message<>(s, url, 0);
-        dAppFunction.DAppReturn(s.getBytes(), msg);
     }
 
     public void openConfirmation(Context context, Web3Transaction transaction, String requesterURL)

@@ -86,6 +86,8 @@
             android:layout_gravity="center_horizontal"
             android:fontFamily="@font/font_bold"
             android:gravity="center"
+            android:maxHeight="200dp"
+            android:ellipsize="end"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="16sp" />
 

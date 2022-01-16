@@ -72,12 +72,10 @@ public class MyApplication extends MultiDexApplication {
        initEasyHttp();
        initRxhttp();
     }
-/*
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(LocalManageUtil.setLocal(base));
-
-    }*/
+    }
 
     private void initRxhttp(){
         ArrayMap<String, String> headMap = new ArrayMap<String, String>();

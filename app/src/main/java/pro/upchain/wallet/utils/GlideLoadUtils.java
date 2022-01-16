@@ -14,4 +14,14 @@ public class GlideLoadUtils {
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imageView);
     }
+
+
+    public static void loadCircleNetImage(Context context, ImageView imageView,String url){
+        Glide.with(context)
+                .load(url)
+                .skipMemoryCache(false)
+                .circleCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(imageView);
+    }
 }

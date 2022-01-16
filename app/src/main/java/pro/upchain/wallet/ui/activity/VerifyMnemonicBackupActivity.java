@@ -3,10 +3,12 @@ package pro.upchain.wallet.ui.activity;
 import android.content.Intent;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import pro.upchain.wallet.R;
@@ -84,9 +86,10 @@ public class VerifyMnemonicBackupActivity extends BaseActivity {
         Collections.shuffle(mnemonicWords);
 
         // 未选中单词
-        FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(this);
-        layoutManager.setFlexWrap(FlexWrap.WRAP);
-        layoutManager.setAlignItems(AlignItems.STRETCH);
+//        FlexboxLayoutManager layoutManager = new FlexboxLayoutManager(this);
+        GridLayoutManager layoutManager = new GridLayoutManager(this,4);
+//        layoutManager.setFlexWrap(FlexWrap.WRAP);
+//        layoutManager.setAlignItems(AlignItems.STRETCH);
         rvMnemonic.setLayoutManager(layoutManager);
         verifyBackupMenmonicWordsAdapter = new VerifyBackupMnemonicWordsAdapter(R.layout.list_item_mnemoic, mnemonicWords);
         rvMnemonic.setAdapter(verifyBackupMenmonicWordsAdapter);
@@ -161,6 +164,8 @@ public class VerifyMnemonicBackupActivity extends BaseActivity {
                     }
                 } else {
                     ToastUtils.showToast(R.string.verify_backup_failed);
+//                    Toast.makeText(VerifyMnemonicBackupActivity.this,R.string.verify_backup_failed,Toast.LENGTH_SHORT).show();
+
                 }
                 break;
         }

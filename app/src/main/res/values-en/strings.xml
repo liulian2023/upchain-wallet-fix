@@ -349,6 +349,9 @@
 
     <string name="confirm_dapp_transaction">Confirm DApp transaction</string>
     <string name="ticket_contract_constructor">Constructor</string>
+    <string name="Request_Accounts">Request Accounts</string>
+    <string name="requests_your_address">requests your address</string>
+    <string name="Sign_Typed_Message">Sign Typed Message</string>
 
     <!-- Labels -->
     <string name="label_from">From</string>

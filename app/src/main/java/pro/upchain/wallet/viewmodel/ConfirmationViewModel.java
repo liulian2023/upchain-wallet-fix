@@ -138,7 +138,6 @@ public class ConfirmationViewModel extends BaseViewModel {
                             this::onError);
         }
     }
-
     private void onCreateDappTransaction(TransactionData txData) {
         progress.postValue(false);
         newDappTransaction.postValue(txData);

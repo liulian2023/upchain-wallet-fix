@@ -77,7 +77,13 @@ public class SharePreferencesUtil {
         }
         return sharedPreferences.getString(key, defValue);
     }
-
+    public  static String getString(Context context,String key,String defValue){
+        //存储节点文件的名称，读写方式
+        if(sharedPreferences == null){
+            sharedPreferences = context.getSharedPreferences(context.getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+        }
+        return sharedPreferences.getString(key, defValue);
+    }
     /**读取float标识从sharedPreferences中
      
      * @param key	存储节点名称

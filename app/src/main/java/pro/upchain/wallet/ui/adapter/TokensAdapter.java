@@ -9,6 +9,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 
 import pro.upchain.wallet.R;
+import pro.upchain.wallet.RxHttp.net.utils.StringMyUtil;
 import pro.upchain.wallet.entity.Token;
 import pro.upchain.wallet.utils.GlideLoadUtils;
 
@@ -30,7 +31,9 @@ public class TokensAdapter extends BaseQuickAdapter<Token, BaseViewHolder> {
     protected void convert(BaseViewHolder helper, Token token) {
         helper.setText(R.id.symbol, token.tokenInfo.symbol);
         helper.setText(R.id.balance, token.balance);
-        helper.setText(R.id.tv_property_cny, token.value);
+        if(StringMyUtil.isNotEmpty(token.value)){
+            helper.setText(R.id.tv_property_cny, "≈"+token.value+"(￥)");
+        }
         ImageView logo = helper.getView(R.id.logo);
         String imgUrl = token.tokenInfo.imgUrl;
         if(TextUtils.isEmpty(imgUrl)){

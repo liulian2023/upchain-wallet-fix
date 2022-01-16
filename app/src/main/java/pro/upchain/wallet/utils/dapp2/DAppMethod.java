@@ -10,12 +10,24 @@ public enum DAppMethod {
     WATCHASSET,
     ADDETHEREUMCHAIN,
     UNKNOWN;
-    public String  fromValue(DAppMethod dAppMethod) {
-        String methodName = null;
-        switch (dAppMethod) {
-            case SIGNTRANSACTION:
-                methodName =  "signTransaction";
+    public static DAppMethod  fromValue(String value) {
+        DAppMethod methodName = null;
+        switch (value) {
+            case "requestAccounts":
+                methodName =  REQUESTACCOUNTS;
             break;
+            case "signMessage":
+                methodName =  SIGNMESSAGE;
+                break;
+            case "signPersonalMessage":
+                methodName =  SIGNPERSONALMESSAGE;
+                break;
+            case "signTypedMessage":
+                methodName =  SIGNTYPEDMESSAGE;
+                break;
+            case "signTransaction":
+                methodName =  SIGNTRANSACTION;
+                break;
             default:
                 break;
         }

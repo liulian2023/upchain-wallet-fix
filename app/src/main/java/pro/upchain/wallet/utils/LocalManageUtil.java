@@ -14,7 +14,7 @@ public class LocalManageUtil {
      * @return
      */
     private static Locale getSetLanguageLocale(Context context) {
-        switch (SharePreferencesUtil.getString(CommonStr.LOCAL_LANGUAGE,"en")) {
+        switch (SharePreferencesUtil.getString(context,CommonStr.LOCAL_LANGUAGE,"en")) {
             case "en"://英语
                 return Locale.ENGLISH;
             case "zh"://汉语
@@ -44,28 +44,27 @@ public class LocalManageUtil {
     public static Context setLocal(Context context) {
         return setApplicationLanguage(context);
     }
-
     /**
      * 设置语言类型
      */
     public static Context setApplicationLanguage(Context context) {
+            Resources resources = context.getResources();
+            DisplayMetrics dm = resources.getDisplayMetrics();
+            Configuration config = resources.getConfiguration();
+            Locale locale = getSetLanguageLocale(context);//获取sp里面保存的语言
 
-        Resources resources = context.getResources();
-        DisplayMetrics dm = resources.getDisplayMetrics();
-        Configuration config = resources.getConfiguration();
-        Locale locale = getSetLanguageLocale(context);//获取sp里面保存的语言
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                LocaleList localeList = new LocaleList(locale);
+                LocaleList.setDefault(localeList);
+                config.setLocales(localeList);
+                Locale.setDefault(locale);
+                return context.createConfigurationContext(config);
+            } else {
+                config.locale = locale;
+            }
+            resources.updateConfiguration(config, dm);
+            return context;
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            LocaleList localeList = new LocaleList(locale);
-            LocaleList.setDefault(localeList);
-            config.setLocales(localeList);
-            Locale.setDefault(locale);
-            return context.createConfigurationContext(config);
-        } else {
-            config.locale = locale;
-        }
-        resources.updateConfiguration(config, dm);
-        return context;
     }
 
     /**

@@ -27,10 +27,12 @@ import pro.upchain.wallet.web3.entity.TypedData;
 import pro.upchain.wallet.web3.entity.Web3Transaction;
 
 public class Web3View extends WebView {
-    private static final String JS_PROTOCOL_CANCELLED = "cancelled";
-    private static final String JS_PROTOCOL_ON_SUCCESSFUL = "executeCallback(%1$s, null, \"%2$s\")";
-    private static final String JS_PROTOCOL_ON_FAILURE = "onSignError(%1$s, \"%2$s\")";
+    private static final String JS_PROTOCOL_CANCELLED = "Cancel";
+    public static final String JS_PROTOCOL_ON_SUCCESSFUL = "window.ethereum.sendResponse(%1$d,\"%2$s\")";
+    private static final String JS_PROTOCOL_ON_FAILURE = "window.ethereum.sendError(%1$d, \"%2$s\")";
 
+    @Nullable
+    private OnRequestAccountListener onRequestAccountListener;
     @Nullable
     private OnSignTransactionListener onSignTransactionListener;
     @Nullable
@@ -83,8 +85,7 @@ public class Web3View extends WebView {
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
 
         SignCallbackJSInterface signCallbackJSInterface = new SignCallbackJSInterface(
-                this,
-                innerOnSignTransactionListener,
+                this ,innerOnRequestAccountListener,innerOnSignTransactionListener,
                 innerOnSignMessageListener,
                 innerOnSignPersonalMessageListener,
                 innerOnSignTypedMessageListener);
@@ -150,6 +151,10 @@ public class Web3View extends WebView {
         this.onSignTypedMessageListener = onSignTypedMessageListener;
     }
 
+    public void setOnRequestAccountListener(@Nullable OnRequestAccountListener onRequestAccountListener) {
+        this.onRequestAccountListener = onRequestAccountListener;
+    }
+
     public void onSignTransactionSuccessful(Web3Transaction transaction, String signHex) {
         long callbackId = transaction.leafPosition;
         callbackToJS(callbackId, JS_PROTOCOL_ON_SUCCESSFUL, signHex);
@@ -175,16 +180,14 @@ public class Web3View extends WebView {
         callbackToJS(callbackId, JS_PROTOCOL_ON_FAILURE, error);
     }
 
-    public void onSignCancel(Web3Transaction transaction) {
-        long callbackId = transaction.leafPosition;
-        callbackToJS(callbackId, JS_PROTOCOL_ON_FAILURE, JS_PROTOCOL_CANCELLED);
-    }
-
     public void onSignCancel(Message message) {
         long callbackId = message.leafPosition;
         callbackToJS(callbackId, JS_PROTOCOL_ON_FAILURE, JS_PROTOCOL_CANCELLED);
     }
-
+    public void onSignCancel(Web3Transaction transaction) {
+        long callbackId = transaction.leafPosition;
+        callbackToJS(callbackId, JS_PROTOCOL_ON_FAILURE, JS_PROTOCOL_CANCELLED);
+    }
     private void callbackToJS(long callbackId, String function, String param) {
         String callback = String.format(function, callbackId, param);
         post(() -> evaluateJavascript(callback, value -> Log.d("WEB_VIEW", value)));
@@ -198,6 +201,15 @@ public class Web3View extends WebView {
             }
         }
     };
+    private final OnRequestAccountListener innerOnRequestAccountListener = new OnRequestAccountListener() {
+
+        @Override
+        public void onRequestAccount(String url, Long id) {
+            if (onRequestAccountListener != null) {
+                onRequestAccountListener.onRequestAccount(url, id );
+            }
+        }
+    };
 
     private final OnSignMessageListener innerOnSignMessageListener = new OnSignMessageListener() {
         @Override
@@ -207,7 +219,6 @@ public class Web3View extends WebView {
             }
         }
     };
-
     private final OnSignPersonalMessageListener innerOnSignPersonalMessageListener = new OnSignPersonalMessageListener() {
         @Override
         public void onSignPersonalMessage(Message message) {
@@ -217,11 +228,10 @@ public class Web3View extends WebView {
 
     private final OnSignTypedMessageListener innerOnSignTypedMessageListener = new OnSignTypedMessageListener() {
         @Override
-        public void onSignTypedMessage(Message<TypedData[]> message) {
-            onSignTypedMessageListener.onSignTypedMessage(message);
+        public void onSignTypedMessage(Message<String> message,String raw) {
+            onSignTypedMessageListener.onSignTypedMessage(message,raw);
         }
     };
-
     public void setActivity(FragmentActivity activity)
     {
         webViewClient.setActivity(activity);

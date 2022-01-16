@@ -347,7 +347,6 @@ public class ConfirmationActivity extends BaseActivity {
 
     private void sendTransaction(String pwd) {
         bottomSheetDialog.dismiss();
-
         switch (confirmationType) {
             case ETH:
                 viewModel.createTransaction(

@@ -29,7 +29,7 @@ public class AddTokenAdapter extends BaseQuickAdapter<AddTokenActivity.TokenItem
         ImageView add_token_iv = baseViewHolder.getView(R.id.add_token_iv);
         ImageView add_token_add_iv = baseViewHolder.getView(R.id.add_token_add_iv);
         TokenInfo tokenInfo = tokenItem.tokenInfo;
-        GlideLoadUtils.loadNetImage(getContext(),add_token_iv,tokenInfo.imgUrl);
+        GlideLoadUtils.loadCircleNetImage(getContext(),add_token_iv,tokenInfo.imgUrl);
 
         if(tokenItem.added){
             add_token_add_iv.setVisibility(View.GONE);

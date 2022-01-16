@@ -40,12 +40,8 @@ public class GasAdvanceSettingsView extends FrameLayout {
 
     public GasAdvanceSettingsView(@NonNull Context context,onGasCustom onGasCustomLister) {
         super(context);
-
         LayoutInflater.from(getContext())
                 .inflate(R.layout.layout_gas_settings, this, true);
-
-
-
         gasPriceSlider = findViewById(R.id.gas_price_slider);
         gasLimitSlider = findViewById(R.id.gas_limit_slider);
         gasPriceText = findViewById(R.id.gas_price_text);

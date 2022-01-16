@@ -93,7 +93,7 @@ public abstract class C {
     public static final String DAPP_LASTURL_KEY = "dappURL";
     public static final String DAPP_BROWSER_HISTORY = "dappBrowserHistory";
     public static final String DAPP_BROWSER_BOOKMARKS = "dappBrowserBookmarks";
-    public static final String DAPP_DEFAULT_URL = "https://www.stateofthedapps.com/";
+    public static final String DAPP_DEFAULT_URL = "https://www.newmixf.com/";
 
     public static final String GOOGLE_SEARCH_PREFIX = "http://www.google.com/search?q=";
     public static final String HTTP_PREFIX = "http://";

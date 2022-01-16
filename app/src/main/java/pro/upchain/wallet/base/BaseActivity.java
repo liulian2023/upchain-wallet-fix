@@ -21,6 +21,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -89,6 +90,22 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(LocalManageUtil.setLocal(base));
     }
+
+    /**
+     * 多语言androidx适配
+     * @param overrideConfiguration
+     */
+    @Override
+    public void applyOverrideConfiguration(Configuration overrideConfiguration) {
+        if(overrideConfiguration!=null){
+            int uiMode = overrideConfiguration.uiMode;
+            overrideConfiguration.setTo(getBaseContext().getResources().getConfiguration());
+            overrideConfiguration.uiMode  = uiMode;
+        }
+        super.applyOverrideConfiguration(overrideConfiguration);
+
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
