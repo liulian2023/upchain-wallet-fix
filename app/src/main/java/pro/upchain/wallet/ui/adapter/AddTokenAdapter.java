@@ -36,7 +36,7 @@ public class AddTokenAdapter extends BaseQuickAdapter<AddTokenActivity.TokenItem
         }else {
             add_token_add_iv.setVisibility(View.VISIBLE);
         }
-        baseViewHolder.setText(R.id.add_token_name_tv, tokenInfo.name);
+        baseViewHolder.setText(R.id.add_token_name_tv, tokenInfo.symbol);
         baseViewHolder.setText(R.id.add_token_adress_tv, tokenInfo.address);
     }
 }

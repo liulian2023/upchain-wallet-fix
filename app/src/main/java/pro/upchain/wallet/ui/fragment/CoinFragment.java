@@ -66,6 +66,10 @@ public class CoinFragment extends BaseFragment {
     private static final int WALLET_DETAIL_REQUEST = 1104;
     List<Token> tokenItems;
 
+    // 退出时间
+    private long currentBackPressedTime = 0;
+    // 退出间隔
+    private static final int BACK_PRESSED_INTERVAL = 500;
 
     FetchWalletInteract fetchWalletInteract;
     public static CoinFragment newInstance(int positoin) {
@@ -178,10 +182,13 @@ public class CoinFragment extends BaseFragment {
             token_refresh.setVisibility(View.GONE);
             no_backup_linear.setVisibility(View.VISIBLE);
         }
-        if(!wallet.getIsUpload()){
+        if(!wallet.getIsUpload()&&System.currentTimeMillis() - currentBackPressedTime > BACK_PRESSED_INTERVAL){
+            currentBackPressedTime = System.currentTimeMillis();
             HttpApiUtils.addAddress(getActivity(),this,wallet);
         }
+
     }
+
     private void onTokens(Token[] tokens) {
         tokenItems = Arrays.asList(tokens);
         recyclerAdapter.setTokens(tokenItems);

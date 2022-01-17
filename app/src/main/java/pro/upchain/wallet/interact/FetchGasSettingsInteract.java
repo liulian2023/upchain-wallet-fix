@@ -107,6 +107,7 @@ public class FetchGasSettingsInteract {
         }
     }
 
+
     public Single<GasSettings> getGasSettings(byte[] transactionBytes, boolean isNonFungible) {
         return Single.fromCallable( () -> {
             BigInteger gasLimit = new BigInteger(C.DEFAULT_GAS_LIMIT);

@@ -44,6 +44,7 @@ import pro.upchain.wallet.entity.TransactionData;
 import pro.upchain.wallet.repository.EthereumNetworkRepository;
 import pro.upchain.wallet.repository.RepositoryFactory;
 import pro.upchain.wallet.repository.TokenRepository;
+import pro.upchain.wallet.utils.Hex;
 import pro.upchain.wallet.utils.LogUtils;
 
 /**
@@ -198,16 +199,28 @@ public class CreateTransactionInteract {
                     message, credentials.getEcKeyPair());
 
             List<RlpType> result = new ArrayList<>();
-            result.add(RlpString.create(message));
+//            result.add(RlpString.create(message));
 
-            if (signatureData != null) {
-                result.add(RlpString.create(signatureData.getV()));
+/*            if (signatureData != null) {
                 result.add(RlpString.create(Bytes.trimLeadingZeroes(signatureData.getR())));
                 result.add(RlpString.create(Bytes.trimLeadingZeroes(signatureData.getS())));
+                result.add(RlpString.create(signatureData.getV()));
             }
 
             RlpList rlpList = new RlpList(result);
-            return RlpEncoder.encode(rlpList);
+            return RlpEncoder.encode(rlpList);*/
+            byte[] wrapBytes = new byte[65];
+            if (signatureData != null) {
+                byte[] dataR = signatureData.getR();
+                byte[] dataS = signatureData.getS();
+                byte dataV =  signatureData.getV();
+
+                ;
+                System.arraycopy(dataR, 0, wrapBytes, 0, dataR.length);
+                System.arraycopy(dataS, 0, wrapBytes, 32, dataS.length);
+                wrapBytes[64] = dataV;
+            }
+            return wrapBytes;
         });
     }
 

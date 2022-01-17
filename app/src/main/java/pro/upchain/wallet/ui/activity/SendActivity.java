@@ -1,6 +1,11 @@
 package pro.upchain.wallet.ui.activity;
 
+import static pro.upchain.wallet.C.DEFAULT_GAS_LIMIT_FOR_ETH;
+import static pro.upchain.wallet.C.DEFAULT_GAS_LIMIT_FOR_TOKENS;
+
 import android.app.Dialog;
+
+import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProviders;
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -14,7 +19,11 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import androidx.appcompat.app.AlertDialog;
 
+import android.os.Handler;
+import android.os.Message;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -45,8 +54,16 @@ import pro.upchain.wallet.view.InputPwdView;
 import pro.upchain.wallet.viewmodel.ConfirmationViewModel;
 import pro.upchain.wallet.viewmodel.ConfirmationViewModelFactory;
 
+import org.web3j.abi.FunctionEncoder;
+import org.web3j.abi.TypeReference;
+import org.web3j.abi.datatypes.Bool;
+import org.web3j.abi.datatypes.Function;
+import org.web3j.abi.datatypes.Type;
+import org.web3j.abi.datatypes.generated.Uint256;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.core.DefaultBlockParameterName;
+import org.web3j.protocol.core.methods.request.Transaction;
+import org.web3j.protocol.core.methods.response.EthEstimateGas;
 import org.web3j.protocol.core.methods.response.EthGetCode;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.utils.Convert;
@@ -57,7 +74,9 @@ import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 
 import butterknife.BindView;
@@ -69,11 +88,11 @@ import butterknife.OnClick;
  */
 
 
-public class SendActivity extends BaseActivity {
+public class SendActivity extends BaseActivity implements TextWatcher {
 
     ConfirmationViewModelFactory confirmationViewModelFactory;
     ConfirmationViewModel viewModel;
-
+    MyHandler myHandler;
     @BindView(R.id.tv_title)
     TextView tvTitle;
 
@@ -106,11 +125,10 @@ public class SendActivity extends BaseActivity {
 
     private String netCost;
     private  BigInteger gasPrice;
-    private BigInteger gasLimit;
+    private BigInteger currentLimit;
 
 
     private boolean sendingTokens = false;
-
     private Dialog dialog;
 
     private static final int QRCODE_SCANNER_REQUEST = 1100;
@@ -119,7 +137,7 @@ public class SendActivity extends BaseActivity {
     private static final double miner_max = 55;
 
     private String scanResult;
-
+    static int EDIT_OK = 111;
     String ETH2USDTRate;
     String ETH2OtherRate;
     @Override
@@ -163,6 +181,8 @@ public class SendActivity extends BaseActivity {
         symbol = intent.getStringExtra(C.EXTRA_SYMBOL);
         symbol = symbol == null ? C.ETH_SYMBOL : symbol;
         sendingTokens = StringMyUtil.isEmptyString(contractAddress)?false:true;
+
+        updateNetworkFee();
         tvTitle.setText(symbol + getString(R.string.transfer_title));
         wallet_amount_tv.setText(balance+symbol);
 
@@ -174,6 +194,12 @@ public class SendActivity extends BaseActivity {
         viewModel.gasSettings().observe(this, this::onGasSettings);
         viewModel.progress().observe(this, this::onProgress);
         viewModel.error().observe(this, this::onError);
+
+        if(sendingTokens){
+            currentLimit = new BigInteger(DEFAULT_GAS_LIMIT_FOR_TOKENS);
+        }else {
+            currentLimit = new BigInteger(DEFAULT_GAS_LIMIT_FOR_ETH);
+        }
 
         // 首页直接扫描进入
         scanResult = intent.getStringExtra("scan_result");
@@ -234,10 +260,7 @@ public class SendActivity extends BaseActivity {
 
     @Override
     public void configViews() {
-
-
-
-
+        myHandler = new MyHandler();
         final String etherUnit = getString(R.string.transfer_ether_unit);
 
 
@@ -245,7 +268,7 @@ public class SendActivity extends BaseActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
-                progressChanged(progress);
+//                progressChanged(progress);
             }
 
             @Override
@@ -258,6 +281,10 @@ public class SendActivity extends BaseActivity {
 
             }
         });
+
+        etTransferAddress.addTextChangedListener(this);
+        amountText.addTextChangedListener(this);
+
     }
 
     private void progressChanged(int progress) {
@@ -276,15 +303,13 @@ public class SendActivity extends BaseActivity {
     }
 
     private void updateNetworkFee() {
-
         try {
-            netCost = BalanceUtils.weiToEth(gasPrice.multiply(gasLimit),  4);
+            netCost = BalanceUtils.weiToEth(gasPrice.multiply(currentLimit),  4);
+            System.out.println("netCost = "+ netCost);
             if(StringMyUtil.isNotEmpty(ETH2USDTRate)){
-
                 tvGasCost.setText(String.valueOf(netCost)+ " " + C.ETH_SYMBOL+" ≈ "+(new BigDecimal(netCost).multiply(new BigDecimal(ETH2OtherRate)).setScale(2,BigDecimal.ROUND_HALF_UP))+" "+"USDT");
             }else {
                 tvGasCost.setText(String.valueOf(netCost)+ " " + C.ETH_SYMBOL);
-
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -294,8 +319,7 @@ public class SendActivity extends BaseActivity {
 
     private void onGasSettings(GasSettings gasSettings) {
         gasPrice = gasSettings.gasPrice;
-        gasLimit = gasSettings.gasLimit;
-        progressChanged(10);
+//        progressChanged(10);
     }
 
     private boolean verifyInfo(String address, String amount) {
@@ -359,7 +383,7 @@ public class SendActivity extends BaseActivity {
 
     private void showconfirmView(String toAddr, String amount) {
         ConfirmTransactionView confirmView = new ConfirmTransactionView(SendActivity.this, SendActivity.this::onClick);
-        confirmView.fillInfo(walletAddr, toAddr, " - " + amount + " " + symbol, netCost, gasPrice, gasLimit);
+        confirmView.fillInfo(walletAddr, toAddr, " - " + amount + " " + symbol, netCost, gasPrice, currentLimit);
         dialog = new BottomSheetDialog(SendActivity.this, R.style.BottomSheetDialog);
         dialog.setContentView(confirmView);
         dialog.setCancelable(true);
@@ -379,12 +403,17 @@ public class SendActivity extends BaseActivity {
                 // confirm info;
                 String toAddr = etTransferAddress.getText().toString().trim();
                 String amount = amountText.getText().toString().trim();
+
+
                 if (verifyInfo(toAddr, amount)) {
                     verifyContract(toAddr,amount);
                 }
                 break;
             case R.id.confirm_button:
                 // send
+
+
+
                 dialog.hide();
                 InputPwdView pwdView = new InputPwdView(this, pwd -> {
                     if (sendingTokens) {
@@ -394,7 +423,7 @@ public class SendActivity extends BaseActivity {
                                 BalanceUtils.tokenToWei(new BigDecimal(amountText.getText().toString().trim()), decimals).toBigInteger(),
                                 gasPrice,
 //                                new BigInteger("250000")
-                                gasLimit
+                                currentLimit
                         );
    /*                         new Thread(new Runnable() {
                                 @Override
@@ -417,7 +446,7 @@ public class SendActivity extends BaseActivity {
                         viewModel.createTransaction(pwd, etTransferAddress.getText().toString().trim(),
                                 Convert.toWei(amountText.getText().toString().trim(), Convert.Unit.ETHER).toBigInteger(),
                                 gasPrice,
-                                gasLimit );
+                                currentLimit);
                     }
                 });
 
@@ -431,6 +460,74 @@ public class SendActivity extends BaseActivity {
         }
     }
 
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        myHandler.removeCallbacks(gasRunnable);
+        //1秒未输入认为输入完毕
+        if(StringMyUtil.isNotEmpty(amountText.getText().toString())&&StringMyUtil.isNotEmpty(etTransferAddress.getText().toString())){
+            myHandler.postDelayed(gasRunnable,500);
+        }
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+
+    }
+
+    private class MyHandler extends Handler{
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            super.handleMessage(msg);
+            String toAddr = etTransferAddress.getText().toString().trim();
+            if(EDIT_OK == msg.what){
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        BigDecimal weiAmount = new BigDecimal(amountText.getText().toString().trim());
+                        String data = createTokenTransferData(etTransferAddress.getText().toString().trim(), BalanceUtils.tokenToWei(weiAmount, decimals).toBigInteger());
+                        String to= "";
+                        if(StringMyUtil.isNotEmpty(contractAddress)){
+                            to = contractAddress;
+                        }else {
+                            to = toAddr;
+                        }
+
+                        Transaction transaction = new Transaction (walletAddr, null, null, null, to, BigInteger.ZERO, data);
+                        RepositoryFactory rf = MyApplication.repositoryFactory();
+                        Web3j web3j = Web3j.build(new HttpService(rf.ethereumNetworkRepository.getDefaultNetwork().rpcServerUrl));
+                        try {
+                            EthEstimateGas send = web3j.ethEstimateGas(transaction)
+                                    .send();
+                            BigInteger amountUsed = send.getAmountUsed();
+                            if(amountUsed !=null){
+                                currentLimit = amountUsed;
+                                myHandler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        updateNetworkFee();
+                                    }
+                                });
+
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
+            }
+        }
+    }
+    private Runnable gasRunnable = new Runnable() {
+        @Override
+        public void run() {
+            myHandler.sendEmptyMessage(EDIT_OK);
+        }
+    };
     private void onError(ErrorEnvelope error) {
         hideDialog();
         AlertDialog dialog = new AlertDialog.Builder(this)
@@ -506,7 +603,15 @@ public class SendActivity extends BaseActivity {
 
 
     }
+    public static String createTokenTransferData(String to, BigInteger tokenAmount) {
+        List<Type> params = Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(to), new Uint256(tokenAmount));
 
+        List<TypeReference<?>> returnTypes = Arrays.<TypeReference<?>>asList(new TypeReference<Bool>() {
+        });
+
+        Function function = new Function("transfer", params, returnTypes);
+        return FunctionEncoder.encode(function);
+    }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

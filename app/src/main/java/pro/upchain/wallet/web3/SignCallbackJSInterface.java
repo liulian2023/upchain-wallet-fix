@@ -120,7 +120,6 @@ public class SignCallbackJSInterface {
     private String getJsonData(JSONObject jsonObject) {
         return jsonObject.getJSONObject("object").getString("data");
     }
-
     private String getJsonRaw(JSONObject jsonObject) {
         return jsonObject.getJSONObject("object").getString("raw");
     }

@@ -9,15 +9,19 @@ import org.json.JSONObject
 import org.w3c.dom.Text
 import pro.upchain.wallet.utils.WalletDaoUtils
 
-class WebAppInterface(
+class WebAppInterface constructor(
     private val context: Context,
     private val webView: WebView,
     private val dappUrl: String
 
-) {
-/*    private val privateKey =
-        PrivateKey("0x4646464646464646464646464646464646464646464646464646464646464646".toHexByteArray())
-    private val addr = CoinType.ETHEREUM.deriveAddress(privateKey).toLowerCase()*/
+)
+
+{
+
+
+    /*    private val privateKey =
+            PrivateKey("0x4646464646464646464646464646464646464646464646464646464646464646".toHexByteArray())
+        private val addr = CoinType.ETHEREUM.deriveAddress(privateKey).toLowerCase()*/
 private val privateKey ="";
 private val addr = WalletDaoUtils.getCurrent().address;
     @JavascriptInterface
@@ -116,7 +120,7 @@ private val addr = WalletDaoUtils.getCurrent().address;
         }
     }
 
-    private fun signEthereumMessage(message: ByteArray, addPrefix: Boolean): String {
+     fun signEthereumMessage(message: ByteArray, addPrefix: Boolean): String {
         var data = message
         if (addPrefix) {
             val messagePrefix = "\u0019Ethereum Signed Message:\n"

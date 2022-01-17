@@ -76,6 +76,14 @@ android {
               versionName "1.0.3"
           }
       }*/
+
+    dexOptions {
+
+        incremental true
+
+        javaMaxHeapSize "4g"
+
+    }
 }
 protobuf {
     protoc {

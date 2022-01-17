@@ -13,6 +13,11 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.spongycastle.util.encoders.Base64;
+import org.web3j.utils.Numeric;
+
+import java.nio.charset.Charset;
+
 import pro.upchain.wallet.R;
 import pro.upchain.wallet.web3.entity.Message;
 
@@ -59,11 +64,9 @@ public class SignMessageDialog extends Dialog {
 
     public SignMessageDialog(Activity activity, Message<String> message) {
         this(activity);
-
         setMessage(message.value);
         setRequester(message.url);
     }
-
     public SignMessageDialog(Activity activity, Message<String> message,String raw,String title) {
         this(activity);
         setMessage(raw);
@@ -72,14 +75,15 @@ public class SignMessageDialog extends Dialog {
     }
     public SignMessageDialog(Activity activity,String message) {
         this(activity);
-
         setMessage(message);
         setRequester("");
     }
     public void setMessage(CharSequence message) {
         this.message.setText(message);
     }
-
+    public void setMessage(String message) {
+        this.message.setText(message);
+    }
     public void setRequester(CharSequence requester) {
         this.requester.setText(requester);
     }

@@ -127,7 +127,7 @@ public class AddTokenActivity extends BaseActivity {
         tokensViewModelFactory = new TokensViewModelFactory();
         tokensViewModel = ViewModelProviders.of(this, tokensViewModelFactory)
                 .get(TokensViewModel.class);
-        tokensViewModel.tokens().observe(this, this::onTokens);
+//        tokensViewModel.tokens().observe(this, this::onTokens);
 
         tokensViewModel.prepare();
 
@@ -144,7 +144,7 @@ public class AddTokenActivity extends BaseActivity {
                 RefreshUtils.succse(1,token_refresh,loading_linear,nodata_linear,contractEntityList.size(),false,isRefresh,mItems);
                 for (int i = 0; i < contractEntityList.size(); i++) {
                     ContractEntity contractEntity = contractEntityList.get(i);
-                    TokenItem tokenItem = new TokenItem(new TokenInfo(contractEntity.getContract(), contractEntity.getTokenName(), contractEntity.getSymbol(), contractEntity.getDecimals(), contractEntity.getIcon()), false);
+                    TokenItem tokenItem = new TokenItem(new TokenInfo(contractEntity.getContract(), contractEntity.getTokenName(), contractEntity.getTokenSymbol(), contractEntity.getDecimals(), contractEntity.getIcon()), false);
                     mItems.add(tokenItem);
                 }
                 addTokenAdapter.notifyDataSetChanged();

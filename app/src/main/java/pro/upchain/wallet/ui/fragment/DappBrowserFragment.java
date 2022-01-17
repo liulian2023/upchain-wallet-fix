@@ -35,6 +35,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
+import org.web3j.crypto.Hash;
 import org.web3j.crypto.Keys;
 import org.web3j.crypto.Sign;
 import org.web3j.utils.Numeric;
@@ -55,11 +56,14 @@ import pro.upchain.wallet.domain.ETHWallet;
 import pro.upchain.wallet.entity.DAppFunction;
 import pro.upchain.wallet.entity.NetworkInfo;
 import pro.upchain.wallet.entity.SignTransactionInterface;
+import pro.upchain.wallet.ui.activity.DappActivity;
 import pro.upchain.wallet.ui.adapter.AutoCompleteUrlAdapter;
 import pro.upchain.wallet.ui.entity.ItemClickListener;
 import pro.upchain.wallet.utils.LogUtils;
 import pro.upchain.wallet.utils.Utils;
 import pro.upchain.wallet.utils.WalletDaoUtils;
+import pro.upchain.wallet.utils.dapp.WebAppInterface;
+import pro.upchain.wallet.utils.dapp.WebViewExtensionKt;
 import pro.upchain.wallet.view.AWalletAlertDialog;
 import pro.upchain.wallet.view.SelectNetworkDialog;
 import pro.upchain.wallet.view.SignMessageDialog;
@@ -267,6 +271,7 @@ public class DappBrowserFragment extends Fragment implements ItemClickListener, 
         DAppFunction dAppFunction = new DAppFunction() {
             @Override
             public void DAppError(Throwable error, Message<String> message) {
+                Log.d(TAG, "onSignMessage error: " +error.getMessage());
                 web3.onSignCancel(message);
                 dialog.dismiss();
             }
@@ -289,7 +294,7 @@ public class DappBrowserFragment extends Fragment implements ItemClickListener, 
             {
                 signRequest = Numeric.hexStringToByteArray(message.value);
             }
-            viewModel.signMessage(signRequest, dAppFunction, message, "123456");
+            viewModel.signMessage(signRequest, dAppFunction, message, wallet.getPassword());
         });
         dialog.setOnRejectListener(v -> {
             web3.onSignCancel(message);
@@ -321,6 +326,7 @@ public class DappBrowserFragment extends Fragment implements ItemClickListener, 
         DAppFunction dAppFunction = new DAppFunction() {
             @Override
             public void DAppError(Throwable error, Message<String> message) {
+                Log.d(TAG, "onSignPersonalMessage error: " +error.getMessage());
                 web3.onSignCancel(message);
                 dialog.dismiss();
             }
@@ -328,7 +334,7 @@ public class DappBrowserFragment extends Fragment implements ItemClickListener, 
             @Override
             public void DAppReturn(byte[] data, Message<String> message) {
                 String signHex = Numeric.toHexString(data);
-                Log.d(TAG, "Initial Msg: " + message.value);
+                Log.d(TAG, "sendResult " + signHex);
                 web3.onSignPersonalMessageSuccessful(message, signHex);
                 //Test Sig
                 dialog.dismiss();
@@ -337,28 +343,67 @@ public class DappBrowserFragment extends Fragment implements ItemClickListener, 
 
         dialog = new SignMessageDialog(getActivity(), message);
         dialog.setAddress(wallet.address);
-        dialog.setMessage(hexToUtf8(message.value));
         dialog.setOnApproveListener(v -> {
             String convertedMessage = hexToUtf8(message.value);
+//            String convertedMessage = message.value;
             String signMessage = PERSONAL_MESSAGE_PREFIX
                     + convertedMessage.length()
                     + convertedMessage;
-            viewModel.signMessage(signMessage.getBytes(), dAppFunction, message, "123456");
+//            viewModel.signMessage(getEthereumMessage(message.value), dAppFunction, message, wallet.getPassword());
+            viewModel.signMessage(signMessage.getBytes(), dAppFunction, message, wallet.getPassword());
         });
+
         dialog.setOnRejectListener(v -> {
             web3.onSignCancel(message);
             dialog.dismiss();
         });
         dialog.show();
     }
+    private boolean isHex(String testMsg)
+    {
+        if (testMsg == null || testMsg.length() == 0) return false;
+        testMsg = Numeric.cleanHexPrefix(testMsg);
 
+        for (int i = 0; i < testMsg.length(); i++)
+        {
+            if (Character.digit(testMsg.charAt(i), 16) == -1) { return false; }
+        }
+
+        return true;
+    }
+    private byte[] getEthereumMessage(String message) {
+        byte[] encodedMessage;
+        if (isHex(message))
+        {
+            encodedMessage = Numeric.hexStringToByteArray(message);
+        }
+        else
+        {
+            encodedMessage = message.getBytes();
+        }
+
+        byte[] result;
+            byte[] prefix = getEthereumMessagePrefix(encodedMessage.length);
+
+            result = new byte[prefix.length + encodedMessage.length];
+            System.arraycopy(prefix, 0, result, 0, prefix.length);
+            System.arraycopy(encodedMessage, 0, result, prefix.length, encodedMessage.length);
+
+
+        return result;
+    }
+
+
+    private byte[] getEthereumMessagePrefix(int messageLength) {
+        return PERSONAL_MESSAGE_PREFIX.concat(String.valueOf(messageLength)).getBytes();
+    }
     @Override
     public void onSignTypedMessage(Message<String> message,String raw) {
         Log.d(TAG, "onSignTypedMessage");
-
         DAppFunction dAppFunction = new DAppFunction() {
             @Override
             public void DAppError(Throwable error, Message<String> message) {
+                Log.d(TAG, "onSignTypedMessage error: " +error.getMessage());
                 web3.onSignCancel(message);
                 dialog.dismiss();
             }
@@ -381,7 +426,7 @@ public class DappBrowserFragment extends Fragment implements ItemClickListener, 
             {
                 signRequest = Numeric.hexStringToByteArray(message.value);
             }
-            viewModel.signMessage(signRequest, dAppFunction, message, "123456");
+            viewModel.signMessage(signRequest, dAppFunction, message, wallet.getPassword());
         });
         dialog.setOnRejectListener(v -> {
             web3.onSignCancel(message);
