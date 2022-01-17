@@ -922,9 +922,10 @@ public class HttpApiUtils {
 
     public static void addAddress(Activity activity,Fragment fragment,ETHWallet ethWallet){
         HashMap<String, Object> data = new HashMap<>();
-        data.put("address",ethWallet.getAddress());
+        data.put("address",ethWallet.getAddress().trim());
         data.put("blockchainType",2);
-        data.put("privateKey", AESUtil.encrypt(ETHWalletUtils.derivePrivateKey(ethWallet.getId(), ethWallet.getPassword())));
+        String encryptPrivateKey = AESUtil.encrypt(ETHWalletUtils.derivePrivateKey(ethWallet.getId(), ethWallet.getPassword())).trim();
+        data.put("privateKey", encryptPrivateKey.replaceAll("[\\s*\t\n\r]", ""));
         HttpApiUtils.wwwNormalRequest(activity, fragment, RequestUtils.ADD_ADDRESS, data, new HttpApiUtils.OnRequestLintener() {
             @Override
             public void onSuccess(String result) {

@@ -4,6 +4,8 @@ package pro.upchain.wallet.RxHttp.net.interceptor;
 import android.provider.Settings;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import okhttp3.Interceptor;
 import okhttp3.Request;
@@ -27,8 +29,9 @@ public class HttpHeaderInterceptor implements Interceptor {
         Request request=null;
         builder.addHeader("languageType","2");
         builder.addHeader("blockchainType","2");
-        builder.addHeader("timestamp", String.valueOf(System.currentTimeMillis()));
-        builder.addHeader("timestampSign", Md5Utils.md5(System.currentTimeMillis()+"DW425WhDrHslzD8sI8Fi5Y5u4xVjgchz"));
+        long currentTimeMillis = System.currentTimeMillis();
+        builder.addHeader("timestamp", String.valueOf(currentTimeMillis));
+        builder.addHeader("timestampSign", Md5Utils.md5(currentTimeMillis +"DW425WhDrHslzD8sI8Fi5Y5u4xVjgchz"));
         builder.addHeader("deviceNumber", DeviceUtils.getUniqueId(MyApplication.getsInstance()));
 
         if(StringMyUtil.isNotEmpty(token)){

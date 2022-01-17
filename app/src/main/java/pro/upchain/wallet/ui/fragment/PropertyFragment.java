@@ -149,8 +149,6 @@ public class PropertyFragment extends BaseFragment {
         home_tab_layout.setupWithViewPager(home_viewPager);
     }
 
-
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -162,7 +160,6 @@ public class PropertyFragment extends BaseFragment {
 
                 Intent intent = new Intent(mContext, SendActivity.class);
                 intent.putExtra("scan_result", scanResult );
-
                 startActivity(intent);
 
             }
@@ -173,8 +170,6 @@ public class PropertyFragment extends BaseFragment {
             }
         }
     }
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle state) {

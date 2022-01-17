@@ -27,6 +27,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.TimeZone;
+
 import io.realm.Realm;
 import okhttp3.OkHttpClient;
 import pro.upchain.wallet.utils.SharePreferencesUtil;
@@ -62,6 +64,7 @@ public class MyApplication extends MultiDexApplication {
         super.onCreate();
         sInstance = this;
         init();
+        initGlobalTimeZone();
 //        EventBus.getDefault().register(this);
         Realm.init(this);
 
@@ -71,6 +74,13 @@ public class MyApplication extends MultiDexApplication {
 
        initEasyHttp();
        initRxhttp();
+    }
+    /**
+     * 设置app内全局时区
+     */
+    public void initGlobalTimeZone() {
+        TimeZone chinaTimeZone = TimeZone.getTimeZone("GMT+8");
+        TimeZone.setDefault(chinaTimeZone);
     }
     @Override
     protected void attachBaseContext(Context base) {

@@ -339,7 +339,7 @@ public class SendActivity extends BaseActivity {
                                     ToastUtils.showToast(R.string.addr_error_tips);
                                 }
                             }else {
-                                if(StringMyUtil.isEmptyString(ethGetCodeCode)){
+                                if(StringMyUtil.isEmptyString(ethGetCodeCode)||ethGetCodeCode.equalsIgnoreCase("0x")||ethGetCodeCode.equalsIgnoreCase("0x0")){
                                     showconfirmView(toAddr, amount);
                                 }else {
                                     ToastUtils.showToast(R.string.addr_error_tips);
