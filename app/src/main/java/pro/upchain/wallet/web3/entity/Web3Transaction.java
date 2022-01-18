@@ -14,6 +14,7 @@ public class Web3Transaction implements Parcelable {
     public final long nonce;
     public final String payload;
     public final long leafPosition;
+    public final String isApprove; // 是否是授权  0否 1是
 
     public Web3Transaction(
             Address recipient,
@@ -35,6 +36,18 @@ public class Web3Transaction implements Parcelable {
             long nonce,
             String payload,
             long leafPosition) {
+        this(recipient, contract, value, gasPrice, gasLimit, nonce, payload, leafPosition,"0");
+    }
+    public Web3Transaction(
+            Address recipient,
+            Address contract,
+            BigInteger value,
+            BigInteger gasPrice,
+            BigInteger gasLimit,
+            long nonce,
+            String payload,
+            long leafPosition,
+            String isApprove) {
         this.recipient = recipient;
         this.contract = contract;
         this.value = value;
@@ -43,8 +56,8 @@ public class Web3Transaction implements Parcelable {
         this.nonce = nonce;
         this.payload = payload;
         this.leafPosition = leafPosition;
+        this.isApprove = isApprove;
     }
-
     Web3Transaction(Parcel in) {
         recipient = in.readParcelable(Address.class.getClassLoader());
         contract = in.readParcelable(Address.class.getClassLoader());
@@ -54,6 +67,7 @@ public class Web3Transaction implements Parcelable {
         nonce = in.readLong();
         payload = in.readString();
         leafPosition = in.readLong();
+        isApprove = in.readString();
     }
 
     public static final Creator<Web3Transaction> CREATOR = new Creator<Web3Transaction>() {
@@ -84,5 +98,6 @@ public class Web3Transaction implements Parcelable {
         dest.writeLong(nonce);
         dest.writeString(payload);
         dest.writeLong(leafPosition);
+        dest.writeString(isApprove);
     }
 }

@@ -18,6 +18,7 @@ import pro.upchain.wallet.ui.activity.AboutUsActivity;
 import pro.upchain.wallet.ui.activity.ChangeLanguageActivity;
 import pro.upchain.wallet.ui.activity.MnemonicBackupActivity;
 import pro.upchain.wallet.ui.activity.ModifyPasswordActivity;
+import pro.upchain.wallet.ui.activity.NetSettingActivity;
 import pro.upchain.wallet.ui.activity.WalletMangerActivity;
 
 import butterknife.OnClick;
@@ -72,10 +73,15 @@ public class MineFragment extends BaseFragment {
         }
     }
     @OnClick({R.id.backup_mnemonic_relativeLayout, R.id.transaction_password_relativeLayout, R.id.system_version_relativeLayout,
-            R.id.about_us_relativeLayout, R.id.wallet_manager_relativeLayout, R.id.contact_us_relativeLayout,R.id.change_language_relativeLayout})
+            R.id.about_us_relativeLayout, R.id.wallet_manager_relativeLayout, R.id.contact_us_relativeLayout,R.id.change_language_relativeLayout,
+            R.id.switch_net_relativeLayout})
     public void onClick(View view) {
         Intent intent = null;
         switch (view.getId()) {
+            case R.id.switch_net_relativeLayout:
+                intent = new Intent(getContext(), NetSettingActivity.class);
+                startActivity(intent);
+                break;
             case R.id.change_language_relativeLayout:
                 startActivity(new Intent(getContext(), ChangeLanguageActivity.class));
                 break;

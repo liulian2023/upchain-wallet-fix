@@ -9,6 +9,7 @@ import androidx.annotation.RequiresApi;
 import androidx.fragment.app.FragmentActivity;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.webkit.WebBackForwardList;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
@@ -16,11 +17,14 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
 import pro.upchain.wallet.R;
+import pro.upchain.wallet.entity.CanGoBackNextEvenEntity;
 import pro.upchain.wallet.web3.entity.Address;
 import pro.upchain.wallet.web3.entity.Message;
 import pro.upchain.wallet.web3.entity.TypedData;
@@ -255,6 +259,7 @@ public class Web3View extends WebView {
             super.onPageFinished(view, url);
             view.evaluateJavascript(jsInjectorClient.loadFile(getContext(), R.raw.trust_min), null);
             view.evaluateJavascript(jsInjectorClient.loadInitJs( ), null);
+            EventBus.getDefault().postSticky(new CanGoBackNextEvenEntity(canGoBack(),canGoForward()));
         }
         /*  @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {

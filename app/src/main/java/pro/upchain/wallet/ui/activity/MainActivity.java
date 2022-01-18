@@ -36,7 +36,6 @@ import butterknife.BindView;
  */
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
-
     @BindView(R.id.vp_home)
     NoScrollViewPager vpHome;
     @BindView(R.id.iv_mall)
@@ -67,6 +66,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     DappBrowserFragment dappBrowserFragment;
 
+    boolean isDappShow  = false;
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_main;
@@ -83,11 +84,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     }
 
+
     @Override
     public void configViews() {
         ivMall.setSelected(true);
         tvMall.setSelected(true);
-
         llyMall.setOnClickListener(this);
         llyDapp.setOnClickListener(this);
         llyMine.setOnClickListener(this);
@@ -132,22 +133,24 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public void onClick(View v) {
         setAllUnselected();
         switch (v.getId()) {
-            case R.id.lly_mall://
+            case R.id.lly_mall:
                 ivMall.setSelected(true);
                 tvMall.setSelected(true);
                 vpHome.setCurrentItem(0, false);
+                isDappShow = false;
                 break;
             case R.id.lly_dapp:
                 ivDapp.setSelected(true);
                 tvDapp.setSelected(true);
                 vpHome.setCurrentItem(1, false);
                 setupToolbarForDapp();
-
+                isDappShow = true;
                 break;
             case R.id.lly_mine:// 我的
                 ivMine.setSelected(true);
                 tvMine.setSelected(true);
                 vpHome.setCurrentItem(2, false);
+                isDappShow = false;
                 break;
         }
     }

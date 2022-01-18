@@ -1,280 +1,312 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/mine_menu_divider_color"
-    android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/mine_title_tv"
+    android:background="@color/mine_menu_divider_color">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/account_settings"
-            android:textColor="@color/white"
-            android:paddingTop="13dp"
-            android:paddingBottom="13dp"
-            android:background="@color/home_main_color"
-            android:textSize="17sp"/>
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/mine_title_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/account_settings"
+                android:textColor="@color/white"
+                android:paddingTop="13dp"
+                android:paddingBottom="13dp"
+                android:background="@color/home_main_color"
+                android:textSize="17sp"/>
 
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/wallet"
-        android:textColor="#ffacb5c3"
-        android:textSize="13sp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="13dp"
-        />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:layout_marginTop="13dp"
-        android:orientation="vertical">
-        <RelativeLayout
-            android:id="@+id/backup_mnemonic_relativeLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:background="@drawable/white_normal_ripple">
 
             <TextView
-                android:id="@+id/backup_mnemonic_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/wallet"
+                android:textColor="#ffacb5c3"
+                android:textSize="13sp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:text="@string/backup_Mnemonic"
-                android:textColor="#ff000000"
-                android:textSize="16sp" />
+                android:layout_marginTop="13dp"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:layout_marginTop="13dp"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:id="@+id/backup_mnemonic_relativeLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
 
-            <ImageView
-                android:id="@+id/backup_mnemonic_iv"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_alignTop="@+id/backup_mnemonic_tv"
-                android:layout_alignBottom="@+id/backup_mnemonic_tv"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="20dp"
-                android:src="@drawable/backup_tip_icon" />
-        </RelativeLayout>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
-            android:background="#E7EAED"/>
-        <RelativeLayout
-            android:id="@+id/transaction_password_relativeLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/white_normal_ripple">
+                    android:background="@drawable/white_normal_ripple">
+
+                    <TextView
+                        android:id="@+id/backup_mnemonic_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:text="@string/backup_Mnemonic"
+                        android:textColor="#ff000000"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:id="@+id/backup_mnemonic_iv"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:layout_alignTop="@+id/backup_mnemonic_tv"
+                        android:layout_alignBottom="@+id/backup_mnemonic_tv"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="20dp"
+                        android:src="@drawable/backup_tip_icon" />
+                </RelativeLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:background="#E7EAED"/>
+                <RelativeLayout
+                    android:id="@+id/transaction_password_relativeLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/white_normal_ripple">
+
+                    <TextView
+                        android:id="@+id/transaction_password_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:text="@string/transaction_password"
+                        android:textColor="#ff000000"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:id="@+id/transaction_password_iv"
+                        android:layout_width="7dp"
+                        android:layout_height="11dp"
+                        android:layout_alignTop="@+id/transaction_password_tv"
+                        android:layout_alignBottom="@+id/transaction_password_tv"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="20dp"
+                        android:src="@drawable/ic_right_arrow" />
+                </RelativeLayout>
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/transaction_password_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/about_wallet"
+                android:textColor="#ffacb5c3"
+                android:textSize="13sp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:text="@string/transaction_password"
-                android:textColor="#ff000000"
-                android:textSize="16sp" />
+                android:layout_marginTop="29dp"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:layout_marginTop="13dp"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:id="@+id/system_version_relativeLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
 
-            <ImageView
-                android:id="@+id/transaction_password_iv"
-                android:layout_width="7dp"
-                android:layout_height="11dp"
-                android:layout_alignTop="@+id/transaction_password_tv"
-                android:layout_alignBottom="@+id/transaction_password_tv"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="20dp"
-                android:src="@drawable/ic_right_arrow" />
-        </RelativeLayout>
-    </LinearLayout>
+                    android:background="@drawable/white_normal_ripple">
+                    <TextView
+                        android:id="@+id/system_version_tip_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:text="@string/system_version"
+                        android:textColor="#ff000000"
+                        android:textSize="16sp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/about_wallet"
-        android:textColor="#ffacb5c3"
-        android:textSize="13sp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="29dp"
-        />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:layout_marginTop="13dp"
-        android:orientation="vertical">
-        <RelativeLayout
-            android:id="@+id/system_version_relativeLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+                    <TextView
+                        android:id="@+id/system_version_iv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/system_version_tip_tv"
+                        android:layout_alignBottom="@+id/system_version_tip_tv"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="20dp"
+                        android:text="1.0.1"
+                        android:textColor="#ACB5C3" />
+                </RelativeLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:background="#E7EAED"/>
+                <RelativeLayout
+                    android:id="@+id/about_us_relativeLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/white_normal_ripple">
 
-            android:background="@drawable/white_normal_ripple">
+                    <TextView
+                        android:id="@+id/about_us_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:text="@string/about_us"
+                        android:textColor="#ff000000"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:id="@+id/about_us_iv"
+                        android:layout_width="7dp"
+                        android:layout_height="11dp"
+                        android:layout_alignTop="@+id/about_us_tv"
+                        android:layout_alignBottom="@+id/about_us_tv"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="20dp"
+                        android:src="@drawable/ic_right_arrow" />
+                </RelativeLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:background="#E7EAED"/>
+                <RelativeLayout
+                    android:id="@+id/wallet_manager_relativeLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/white_normal_ripple">
+
+                    <TextView
+                        android:id="@+id/wallet_manager_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:text="@string/mine_wallet_manage"
+                        android:textColor="#ff000000"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        android:id="@+id/wallet_manager_iv"
+                        android:layout_width="7dp"
+                        android:layout_height="11dp"
+                        android:layout_alignTop="@+id/wallet_manager_tv"
+                        android:layout_alignBottom="@+id/wallet_manager_tv"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="20dp"
+                        android:src="@drawable/ic_right_arrow" />
+                </RelativeLayout>
+            </LinearLayout>
             <TextView
-                android:id="@+id/system_version_tip_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="@string/other"
+                android:textColor="#ffacb5c3"
+                android:textSize="13sp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:text="@string/system_version"
-                android:textColor="#ff000000"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/system_version_iv"
-                android:layout_width="wrap_content"
+                android:layout_marginTop="29dp"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/system_version_tip_tv"
-                android:layout_alignBottom="@+id/system_version_tip_tv"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="20dp"
-                android:text="1.0.1"
-                android:textColor="#ACB5C3" />
-        </RelativeLayout>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
-            android:background="#E7EAED"/>
-        <RelativeLayout
-            android:id="@+id/about_us_relativeLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/white_normal_ripple">
+                android:background="@color/white"
+                android:layout_marginTop="13dp"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:id="@+id/switch_net_relativeLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/white_normal_ripple">
 
-            <TextView
-                android:id="@+id/about_us_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:text="@string/about_us"
-                android:textColor="#ff000000"
-                android:textSize="16sp" />
+                    <TextView
+                        android:id="@+id/switch_net_tip_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:text="@string/switch_network_node"
+                        android:textColor="#ff000000"
+                        android:textSize="16sp" />
 
-            <ImageView
-                android:id="@+id/about_us_iv"
-                android:layout_width="7dp"
-                android:layout_height="11dp"
-                android:layout_alignTop="@+id/about_us_tv"
-                android:layout_alignBottom="@+id/about_us_tv"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="20dp"
-                android:src="@drawable/ic_right_arrow" />
-        </RelativeLayout>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
-            android:background="#E7EAED"/>
-        <RelativeLayout
-            android:id="@+id/wallet_manager_relativeLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/white_normal_ripple">
+                    <ImageView
+                        android:id="@+id/switch_net_iv"
+                        android:layout_width="7dp"
+                        android:layout_height="11dp"
+                        android:layout_alignTop="@+id/switch_net_tip_tv"
+                        android:layout_alignBottom="@+id/switch_net_tip_tv"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="20dp"
+                        android:src="@drawable/ic_right_arrow" />
 
-        <TextView
-            android:id="@+id/wallet_manager_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:text="@string/mine_wallet_manage"
-            android:textColor="#ff000000"
-            android:textSize="16sp" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/contact_us_relativeLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/white_normal_ripple">
 
-        <ImageView
-            android:id="@+id/wallet_manager_iv"
-            android:layout_width="7dp"
-            android:layout_height="11dp"
-            android:layout_alignTop="@+id/wallet_manager_tv"
-            android:layout_alignBottom="@+id/wallet_manager_tv"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="20dp"
-            android:src="@drawable/ic_right_arrow" />
-        </RelativeLayout>
-    </LinearLayout>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/other"
-        android:textColor="#ffacb5c3"
-        android:textSize="13sp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="29dp"
-        />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:layout_marginTop="13dp"
-        android:orientation="vertical">
-        <RelativeLayout
-            android:id="@+id/contact_us_relativeLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/white_normal_ripple">
+                    <TextView
+                        android:id="@+id/contact_us_tip_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:text="@string/contact_us"
+                        android:textColor="#ff000000"
+                        android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/contact_us_tip_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:text="@string/contact_us"
-                android:textColor="#ff000000"
-                android:textSize="16sp" />
+                    <TextView
+                        android:id="@+id/contact_us_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignTop="@+id/contact_us_tip_tv"
+                        android:layout_alignBottom="@+id/contact_us_tip_tv"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="20dp"
+                        android:text="coincida@gmail.com"
+                        android:textColor="#ACB5C3" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:id="@+id/change_language_relativeLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/white_normal_ripple">
 
-            <TextView
-                android:id="@+id/contact_us_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/contact_us_tip_tv"
-                android:layout_alignBottom="@+id/contact_us_tip_tv"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="20dp"
-                android:text="coincida@gmail.com"
-                android:textColor="#ACB5C3" />
-        </RelativeLayout>
-        <RelativeLayout
-            android:id="@+id/change_language_relativeLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/white_normal_ripple">
+                    <TextView
+                        android:id="@+id/change_language_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="20dp"
+                        android:text="@string/change_language"
+                        android:textColor="#ff000000"
+                        android:textSize="16sp" />
 
-            <TextView
-                android:id="@+id/change_language_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="20dp"
-                android:text="@string/change_language"
-                android:textColor="#ff000000"
-                android:textSize="16sp" />
+                    <ImageView
+                        android:id="@+id/change_language_iv"
+                        android:layout_width="7dp"
+                        android:layout_height="11dp"
+                        android:layout_alignTop="@+id/change_language_tv"
+                        android:layout_alignBottom="@+id/change_language_tv"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="20dp"
+                        android:src="@drawable/ic_right_arrow" />
+                </RelativeLayout>
+            </LinearLayout>
+        </LinearLayout>
 
-            <ImageView
-                android:id="@+id/change_language_iv"
-                android:layout_width="7dp"
-                android:layout_height="11dp"
-                android:layout_alignTop="@+id/change_language_tv"
-                android:layout_alignBottom="@+id/change_language_tv"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="20dp"
-                android:src="@drawable/ic_right_arrow" />
-        </RelativeLayout>
-    </LinearLayout>
-</LinearLayout>
+</androidx.core.widget.NestedScrollView>

@@ -96,7 +96,8 @@ public class EthereumNetworkRepository  {
         if (defaultNetwork == null) {
             defaultNetwork = NETWORKS[0];
         }
-        defaultNetwork = NETWORKS[4];
+        // 开发用
+//        defaultNetwork = NETWORKS[4];
     }
 
     private NetworkInfo getByName(String name) {

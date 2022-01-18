@@ -81,14 +81,13 @@
     <TextView
         android:id="@+id/save"
         android:layout_width="match_parent"
-        android:layout_height="43dp"
+        android:layout_height="50dp"
+        style="@style/myButtonStyle"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="31dp"
-        android:background="@drawable/create_wallet_btn_bg_selector"
-        android:enabled="true"
-        android:gravity="center"
         android:text="@string/action_save"
-        android:textColor="@color/white" />
+        android:gravity="center"
+     />
 
 </LinearLayout>

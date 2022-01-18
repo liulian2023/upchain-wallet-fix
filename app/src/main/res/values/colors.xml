@@ -71,5 +71,6 @@
     <color name="button_green">#69c800</color>
     <color name="white20">#32FFFFFF</color>
     <color name="home_main_color">#2851E7</color>
+    <color name="home_main_color_gradient">#365BE4</color>
 
 </resources>

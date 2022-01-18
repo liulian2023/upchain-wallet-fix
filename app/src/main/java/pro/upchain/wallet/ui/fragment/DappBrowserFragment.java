@@ -24,23 +24,30 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.webkit.WebBackForwardList;
 import android.webkit.WebChromeClient;
+import android.webkit.WebHistoryItem;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.AutoCompleteTextView;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.web3j.crypto.Hash;
 import org.web3j.crypto.Keys;
 import org.web3j.crypto.Sign;
 import org.web3j.utils.Numeric;
 
 import java.math.BigInteger;
+import java.math.RoundingMode;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
@@ -49,13 +56,16 @@ import java.util.List;
 
 
 import butterknife.BindView;
+import butterknife.OnClick;
 import pro.upchain.wallet.BuildConfig;
 import pro.upchain.wallet.C;
 import pro.upchain.wallet.R;
 import pro.upchain.wallet.domain.ETHWallet;
+import pro.upchain.wallet.entity.CanGoBackNextEvenEntity;
 import pro.upchain.wallet.entity.DAppFunction;
 import pro.upchain.wallet.entity.NetworkInfo;
 import pro.upchain.wallet.entity.SignTransactionInterface;
+import pro.upchain.wallet.entity.WalletAmountEvenEntity;
 import pro.upchain.wallet.ui.activity.DappActivity;
 import pro.upchain.wallet.ui.adapter.AutoCompleteUrlAdapter;
 import pro.upchain.wallet.ui.entity.ItemClickListener;
@@ -113,12 +123,18 @@ public class DappBrowserFragment extends Fragment implements ItemClickListener, 
 
     @BindView(R.id.toolbar_title)
     TextView toolbarTitle;
+    ImageView back_iv;
+    ImageView next_iv;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_webview, container, false);
+        if(!EventBus.getDefault().isRegistered(this)){
+            EventBus.getDefault().register(this);
+        }
+
         initView(view);
         initViewModel();
         setupAddressBar();
@@ -136,16 +152,25 @@ public class DappBrowserFragment extends Fragment implements ItemClickListener, 
     public void onDestroy()
     {
         super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     private void initView(View view) {
 
+        back_iv = view.findViewById(R.id.back_iv);
+        next_iv = view.findViewById(R.id.next_iv);
         web3 = view.findViewById(R.id.web3view);
         web3.setActivity(getActivity());
         progressBar = view.findViewById(R.id.progressBar);
         urlTv = view.findViewById(R.id.url_tv);
         swipeRefreshLayout = view.findViewById(R.id.swipe_refresh);
         swipeRefreshLayout.setOnRefreshListener(() -> web3.reload());
+        back_iv.setOnClickListener(v ->{
+            backPressed();
+        });
+        next_iv.setOnClickListener(v ->{
+            goToNextPage();
+        });
     }
 
     private void setupAddressBar() {
@@ -187,8 +212,8 @@ public class DappBrowserFragment extends Fragment implements ItemClickListener, 
         dappBrowserViewModelFactory = new DappBrowserViewModelFactory();
 
         viewModel = ViewModelProviders.of(this, dappBrowserViewModelFactory).get(DappBrowserViewModel.class);
-        viewModel.defaultNetwork().observe(this, this::onDefaultNetwork);
-        viewModel.defaultWallet().observe(this, this::onDefaultWallet);
+        viewModel.defaultNetwork().observe(getViewLifecycleOwner(), this::onDefaultNetwork);
+        viewModel.defaultWallet().observe(getViewLifecycleOwner(), this::onDefaultWallet);
     }
 
     private void onDefaultWallet(ETHWallet wallet) {
@@ -572,7 +597,13 @@ public class DappBrowserFragment extends Fragment implements ItemClickListener, 
     }
 
 
-
+    public boolean onBackPressed() {
+        if (web3.canGoBack()) {
+            web3.goBack();
+            return true;
+        }
+        return false;
+    }
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         Log.e(TAG, "onCreateOptionsMenu()");
@@ -581,8 +612,32 @@ public class DappBrowserFragment extends Fragment implements ItemClickListener, 
     }
 
 
+    private void goToNextPage()
+    {
+        if (web3.canGoForward())
+        {
+            checkForwardClickArrowVisibility();
+            web3.goForward();
+        }
+    }
+    public void backPressed() {
+        if (web3.canGoBack()) {
+            web3.goBack();
+        }
+        if(web3.canGoBack()){
+           back_iv.setAlpha(1.0f);
+        }else {
+            back_iv.setAlpha(0.3f);
+        }
 
-
+    }
+    private void checkForwardClickArrowVisibility()
+    {
+        WebBackForwardList sessionHistory = web3.copyBackForwardList();
+        int nextIndex = sessionHistory.getCurrentIndex() + 1;
+        if (nextIndex >= sessionHistory.getSize() - 1) next_iv.setAlpha(0.3f);
+        else next_iv.setAlpha(1.0f);
+    }
 
     private boolean isAddressValid(String address)
     {
@@ -597,8 +652,25 @@ public class DappBrowserFragment extends Fragment implements ItemClickListener, 
         }
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void walletAmountEven(CanGoBackNextEvenEntity canGoBackNextEvenEntity){
+        if(back_iv!=null){
+            if(canGoBackNextEvenEntity.isCanGoBack()){
+                back_iv.setAlpha(1.0f);
 
+            }else {
+                back_iv.setAlpha(0.3f);
+            }
+        }
+        if(next_iv!=null){
+            if(canGoBackNextEvenEntity.isCanNextPage()){
+                next_iv.setAlpha(1.0f);
+            }else {
+                next_iv.setAlpha(0.3f);
+            }
+        }
 
+    }
 
 
   /*  public void scanQR()

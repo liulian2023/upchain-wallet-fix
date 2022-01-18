@@ -206,7 +206,6 @@ public class NetSettingActivity extends BaseActivity {
                         ethereumNetworkRepository.setDefaultNetworkInfo(networkInfo);
                     }
                 }
-
                 finish();
                 break;
         }

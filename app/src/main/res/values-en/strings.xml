@@ -306,9 +306,10 @@
     <string name="already_have_account">Already have a wallet account?</string>
 
     <string name="empty" />
-
+    <string name="Add_custom_token">Add custom token</string>
     <!-- Dapp -->
     <string name="homepage_tab_text_dapp">DApp</string>
+    <string name="switch_network_node">switch network node</string>
     <string name="toolbar_header_browser">DApp browser</string>
     <string name="message_to_sign">Message</string>
     <string name="signer_address">Address</string>
@@ -332,12 +333,12 @@
     <string name="title_dialog_error">Error</string>
     <string name="ssl_cert_invalid">Invalid SSL Certificate. This site may be unsafe. Proceed?</string>
     <string name="action_cancel">Cancel</string>
-
+    <string name="Transfer">Transfer</string>
     <string name="transfer">Transfer %s</string>
-
+    <string name="dapp_approve">Dapp Authorization</string>
     <string name="invalid_transaction">Invalid Transaction</string>
     <string name="contains_no_data">DApp transaction contains no data</string>
-
+    <string name="Request_dapp_authorization">Request Dapp Authorization</string>
 
     <string name="select_network">Select Network:</string>
 
@@ -361,7 +362,7 @@
     <string name="label_network_fee">Miner fee</string>
     <string name="label_contract">contract</string>
     <string name="action_send">Send</string>
-
+    <string name="data">Data</string>
     <string name="advanced_settings">Custom Gas</string>
     <string name="info_gas_price">The higher the price, the faster the transaction is packaged and the better the fee. </string>
     <string name="info_gas_limit">Set the amount of gas to run. Simpler contracts require less amount, and complex contracts consume more. </string>

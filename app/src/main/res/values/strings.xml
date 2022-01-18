@@ -29,6 +29,8 @@
 
     <string name="mine_wallet_manage">钱包管理</string>
     <string name="contact_us">联系我们</string>
+    <string name="switch_network_node">切换网络节点</string>
+    <string name="Add_custom_token">添加自定义token</string>
     <string name="mnemonic_backed_up">The mnemonic phrase has been backed up</string>
     <string name="mine_trade_record">交易记录</string>
     <string name="mine_msg_center">消息中心</string>
@@ -318,6 +320,7 @@
     <string name="message_to_sign">Message</string>
     <string name="signer_address">Address</string>
     <string name="requester_url">请求地址</string>
+    <string name="data">Data</string>
 
     <string name="action_view_bookmarks">查看书签</string>
     <string name="action_added">已加入书签</string>
@@ -355,8 +358,12 @@
     <string name="confirm_dapp_transaction">确认 DApp 交易</string>
     <string name="ticket_contract_constructor">constructor</string>
     <string name="Request_Accounts">账号授权</string>
+    <string name="Transfer">转账</string>
     <string name="requests_your_address">请求你的地址</string>
     <string name="Sign_Typed_Message">Sign Typed Message</string>
+    <string name="dapp_approve">dapp 授权</string>
+    <string name="Request_dapp_authorization">请求Dapp授权</string>
+
 
     <!-- Labels -->
     <string name="label_from">From</string>

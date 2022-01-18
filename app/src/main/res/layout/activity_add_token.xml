@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="4dp"
-                android:text="搜索您想找的需求,比如支付信息"
+                android:text="@string/Add_custom_token"
                 android:textColor="#939393"
                 android:textSize="12sp" />
         </LinearLayout>

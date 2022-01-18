@@ -172,7 +172,7 @@ public class CoinFragment extends BaseFragment {
         //       openOrCloseDrawerLayout();
         boolean backup = currEthWallet.isBackup();
         //todo 开发用
-        backup =true;
+//        backup =true;
         token_refresh.setEnableRefresh(false);
         token_refresh.setEnableLoadMore(false);
         if(backup){

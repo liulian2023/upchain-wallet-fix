@@ -166,6 +166,7 @@ public class DappBrowserViewModel extends BaseViewModel  {
         intent.putExtra(C.EXTRA_NETWORK_NAME, networkName);
         intent.putExtra(C.EXTRA_NETWORK_MAINNET, mainNet);
         intent.putExtra(C.EXTRA_CONTRACT_NAME, requesterURL);
+        intent.putExtra(C.EXTRA_IS_APPROVE, transaction.isApprove);
         context.startActivity(intent);
 
     }

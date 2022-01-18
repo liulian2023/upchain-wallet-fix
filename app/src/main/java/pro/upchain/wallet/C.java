@@ -49,6 +49,7 @@ public abstract class C {
     public static final String EXTRA_GAS_LIMIT = "GAS_LIMIT";
 
     public static final String EXTRA_CONTRACT_NAME = "NAME";
+    public static final String EXTRA_IS_APPROVE = "IS_APPROVE";
     public static final String TOKEN_TYPE = "TOKEN_TYPE";
     public static final String MARKET_INSTANCE = "MARKET_INSTANCE";
     public static final String IMPORT_STRING = "TOKEN_IMPORT";

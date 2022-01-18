@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
+import android.os.Handler;
 import android.os.LocaleList;
 import android.util.DisplayMetrics;
 import android.util.Patterns;
@@ -18,15 +19,37 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.URLUtil;
 
+import org.web3j.abi.FunctionEncoder;
+import org.web3j.abi.FunctionReturnDecoder;
+import org.web3j.abi.TypeReference;
+import org.web3j.abi.datatypes.Function;
+import org.web3j.abi.datatypes.Type;
+import org.web3j.abi.datatypes.Utf8String;
+import org.web3j.protocol.Web3j;
+import org.web3j.protocol.core.DefaultBlockParameterName;
+import org.web3j.protocol.core.methods.request.Transaction;
+import org.web3j.protocol.core.methods.response.EthCall;
+import org.web3j.protocol.http.HttpService;
+
+import java.io.IOException;
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.ExecutionException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import pro.upchain.wallet.C;
+import pro.upchain.wallet.MyApplication;
+import pro.upchain.wallet.RxHttp.net.api.HttpApiUtils;
+import pro.upchain.wallet.repository.RepositoryFactory;
 
 
 public class Utils {
-
+    private static String emptyAddress = "0x0000000000000000000000000000000000000000";
 
     public static int dp2px(Context context, int dp) {
         Resources r = context.getResources();
@@ -133,4 +156,6 @@ public class Utils {
             resources.updateConfiguration(configuration, metrics);
         }
     }
+
+
 }

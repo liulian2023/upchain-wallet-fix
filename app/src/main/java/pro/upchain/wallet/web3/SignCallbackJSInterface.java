@@ -99,16 +99,33 @@ public class SignCallbackJSInterface {
                         Web3Transaction transaction = new Web3Transaction(
                                 TextUtils.isEmpty(to) ? Address.EMPTY : new Address(to),
                                 null,
+                                amount,
+                                Hex.hexToBigInteger("", BigInteger.ZERO),
+                                Hex.hexToBigInteger("", BigInteger.ZERO),
+                                Hex.hexToLong("", -1),
+                                data,
+                                id
+                        ,"1");
+
+                        webView.post(() -> onSignTransactionListener.onSignTransaction(transaction, getUrl()));
+                    }else {
+                        /**
+                         * 转账
+                         */
+                        String to = transactionObj.getString("to");
+                        Web3Transaction transaction = new Web3Transaction(
+                                TextUtils.isEmpty(to) ? Address.EMPTY : new Address(to),
+                                null,
                                 BigInteger.ZERO,
                                 Hex.hexToBigInteger("", BigInteger.ZERO),
                                 Hex.hexToBigInteger("", BigInteger.ZERO),
                                 Hex.hexToLong("", -1),
                                 data,
-                                id);
-
-                        webView.post(() -> onSignTransactionListener.onSignTransaction(transaction, getUrl()));
+                                id
+                                ,"0");
                     }
                 }else {
+
 
                 }
                 break;

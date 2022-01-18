@@ -81,7 +81,11 @@ public class SelectNetworkDialog extends Dialog {
     }
 
     public void setOnClickListener(View.OnClickListener listener) {
-        button.setOnClickListener(listener);
+        int count = adapter.getCount();
+        if(count!=0){
+            button.setOnClickListener(listener);
+        }
+        dismiss();
     }
 
     public void setTitle(int resId) {

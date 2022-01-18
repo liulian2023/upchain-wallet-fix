@@ -54,7 +54,7 @@ import butterknife.OnClick;
 public class AddCustomTokenActivity extends BaseActivity {
 
     // 0xB8c77482e45F1F44dE1745F52C74426C631bDD52  BNB 18
-    private static String emptyAddress = "0x0000000000000000000000000000000000000000";
+    public static String emptyAddress = "0x0000000000000000000000000000000000000000";
     protected AddTokenViewModelFactory addTokenViewModelFactory;
     private AddTokenViewModel viewModel;
 

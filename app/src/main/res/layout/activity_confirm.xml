@@ -56,6 +56,9 @@
                         android:fontFamily="@font/font_regular"
                         android:gravity="center"
                         android:text="@string/dummy_transaction_value"
+                        android:maxWidth="200dp"
+                        android:singleLine="true"
+                        android:ellipsize="end"
                         android:textColor="@color/cancel_red"
                         android:textSize="24sp" />
 
@@ -118,6 +121,30 @@
                         android:textColor="@color/text_dark_gray"
                         android:textIsSelectable="true"
                         android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/label_data"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="20dp"
+                        android:fontFamily="@font/font_regular"
+                        android:text="@string/data"
+                        android:textColor="@color/text_dark_gray"
+                        android:textSize="18sp"
+                        android:visibility="gone" />
+
+                    <TextView
+                        android:id="@+id/text_data"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/font_regular"
+                        android:gravity="center"
+                        android:textColor="@color/text_dark_gray"
+                        android:textIsSelectable="true"
+                        android:textSize="14sp"
+                        android:visibility="gone" />
 
                     <TextView
                         android:id="@+id/label_website"

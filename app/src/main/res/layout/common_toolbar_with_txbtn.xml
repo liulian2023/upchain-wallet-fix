@@ -35,8 +35,8 @@
             android:orientation="vertical">
 
             <ImageView
-                android:layout_width="9dp"
-                android:layout_height="16dp"
+                android:layout_width="20dp"
+                android:layout_height="19dp"
                 android:src="@drawable/ic_back" />
 
         </LinearLayout>
@@ -63,7 +63,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginStart="5dp"
-                android:textColor="@color/transfer_advanced_setting_help_text_color"
+                android:textColor="@color/black"
                 android:text="@string/news_center_all_read"
                 android:textSize="14sp" />
 

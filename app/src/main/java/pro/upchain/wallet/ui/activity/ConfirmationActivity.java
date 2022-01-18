@@ -10,12 +10,25 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import androidx.appcompat.widget.Toolbar;
+
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import org.web3j.abi.FunctionEncoder;
+import org.web3j.abi.FunctionReturnDecoder;
+import org.web3j.abi.TypeReference;
+import org.web3j.abi.datatypes.Function;
+import org.web3j.abi.datatypes.Type;
+import org.web3j.abi.datatypes.Utf8String;
+import org.web3j.protocol.Web3j;
+import org.web3j.protocol.core.DefaultBlockParameterName;
+import org.web3j.protocol.core.methods.request.Transaction;
+import org.web3j.protocol.core.methods.response.EthCall;
+import org.web3j.protocol.http.HttpService;
 import org.web3j.utils.Convert;
 import org.web3j.utils.Numeric;
 
@@ -23,11 +36,16 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 import pro.upchain.wallet.C;
+import pro.upchain.wallet.MyApplication;
 import pro.upchain.wallet.R;
+import pro.upchain.wallet.RxHttp.net.api.HttpApiUtils;
 import pro.upchain.wallet.base.BaseActivity;
 import pro.upchain.wallet.domain.ETHWallet;
 import pro.upchain.wallet.entity.ConfirmationType;
@@ -35,8 +53,10 @@ import pro.upchain.wallet.entity.ErrorEnvelope;
 import pro.upchain.wallet.entity.FinishReceiver;
 import pro.upchain.wallet.entity.GasSettings;
 import pro.upchain.wallet.entity.TransactionData;
+import pro.upchain.wallet.repository.RepositoryFactory;
 import pro.upchain.wallet.utils.BalanceUtils;
 import pro.upchain.wallet.utils.LogUtils;
+import pro.upchain.wallet.utils.Utils;
 import pro.upchain.wallet.view.AWalletAlertDialog;
 import pro.upchain.wallet.view.GasAdvanceSettingsView;
 import pro.upchain.wallet.view.InputPwdView;
@@ -46,6 +66,7 @@ import pro.upchain.wallet.web3.entity.Web3Transaction;
 
 import static pro.upchain.wallet.C.PRUNE_ACTIVITY;
 import static pro.upchain.wallet.entity.ConfirmationType.WEB3TRANSACTION;
+import static pro.upchain.wallet.ui.activity.AddCustomTokenActivity.emptyAddress;
 import static pro.upchain.wallet.view.AWalletAlertDialog.ERROR;
 
 
@@ -79,7 +100,7 @@ public class ConfirmationActivity extends BaseActivity {
     private String contractAddress;
     private String amountStr;
     private String toAddress;
-
+    private String isApprove;
     private ConfirmationType confirmationType;
     private byte[] transactionBytes = null;
     private Web3Transaction transaction;
@@ -96,7 +117,10 @@ public class ConfirmationActivity extends BaseActivity {
     ImageView ivBtn;
     @BindView(R.id.rl_btn)
     LinearLayout rlBtn;
-
+    @BindView(R.id.label_data)
+    TextView label_data;
+    @BindView(R.id.text_data)
+    TextView text_data;
     private  GasSettings gasSettings;
 
 
@@ -113,10 +137,8 @@ public class ConfirmationActivity extends BaseActivity {
 
     @Override
     public void initToolBar() {
-        tvTitle.setText("");
-
         ivBtn.setImageResource(R.drawable.ic_mine_setting);
-        rlBtn.setVisibility(View.VISIBLE);
+        rlBtn.setVisibility(View.GONE);
     }
 
     @Override
@@ -157,9 +179,13 @@ public class ConfirmationActivity extends BaseActivity {
         websiteText = findViewById(R.id.text_website);
         title = findViewById(R.id.title_confirm);
 
-
         transaction = getIntent().getParcelableExtra(C.EXTRA_WEB3TRANSACTION);
-
+        isApprove = getIntent().getStringExtra(C.EXTRA_IS_APPROVE);
+        if(isApprove.equals("1")){
+            tvTitle.setText(getResources().getString(R.string.dapp_approve));
+        }else {
+            tvTitle.setText(getResources().getString(R.string.Transfer));
+        }
         toAddress = getIntent().getStringExtra(C.EXTRA_TO_ADDRESS);
         contractAddress = getIntent().getStringExtra(C.EXTRA_CONTRACT_ADDRESS);
         confirmationType = ConfirmationType.values()[getIntent().getIntExtra(C.TOKEN_TYPE, 0)];
@@ -172,7 +198,9 @@ public class ConfirmationActivity extends BaseActivity {
         symbol = symbol == null ? C.ETH_SYMBOL : symbol;
         String tokenList = getIntent().getStringExtra(C.EXTRA_TOKENID_LIST);
         amount = new BigDecimal(getIntent().getStringExtra(C.EXTRA_AMOUNT));
-
+        if(transaction!=null){
+            requestSymbol();
+        }
         String amountString = "";
         switch (confirmationType) {
             case ETH:
@@ -189,9 +217,18 @@ public class ConfirmationActivity extends BaseActivity {
 //                transactionBytes = TokenRepository.createTokenTransferData(toAddress, amount.toBigInteger());
                 break;
             case WEB3TRANSACTION:
-
                 title.setVisibility(View.VISIBLE);
-                title.setText(R.string.confirm_dapp_transaction);
+                if(isApprove.equals("1")){
+                    //授权 不显示data 显示
+                    text_data.setVisibility(View.GONE);
+                    label_data.setVisibility(View.GONE);
+                    title.setText(R.string.Request_dapp_authorization);
+                }else {
+                    text_data.setVisibility(View.VISIBLE);
+                    label_data.setVisibility(View.VISIBLE);
+                    text_data.setText( transaction.payload.length()+"  bytes");
+                    title.setText(R.string.confirm_dapp_transaction);
+                }
                 toAddress = transaction.recipient.toString();
                 if (transaction.contract != null)
                 {
@@ -217,12 +254,19 @@ public class ConfirmationActivity extends BaseActivity {
                     websiteText.setVisibility(View.VISIBLE);
                     websiteText.setText(urlRequester);
                 }
+                if(transaction.value!=BigInteger.ZERO){
+                    valueText.setVisibility(View.VISIBLE);
+                    BigDecimal ethAmount = Convert.fromWei(transaction.value.toString(10), Convert.Unit.ETHER);
+                    amountString = getEthString(ethAmount.doubleValue());
+                }else {
+                    /**\
+                     * 不是授权拿不到amount, 隐藏金额textview
+                     */
+                    valueText.setVisibility(View.GONE);
+                }
 
-                BigDecimal ethAmount = Convert.fromWei(transaction.value.toString(10), Convert.Unit.ETHER);
-                amountString = getEthString(ethAmount.doubleValue());
-                symbolText.setText(C.ETH_SYMBOL);
+//                symbolText.setText(C.ETH_SYMBOL);
                 transactionBytes = Numeric.hexStringToByteArray(transaction.payload);
-
                 break;
 
             case ERC721:
@@ -246,6 +290,40 @@ public class ConfirmationActivity extends BaseActivity {
         }
 
         valueText.setText(amountString);
+
+    }
+
+    private void requestSymbol() {
+        RepositoryFactory rf = MyApplication.repositoryFactory();
+        Web3j web3j = Web3j.build(new HttpService(rf.ethereumNetworkRepository.getDefaultNetwork().rpcServerUrl));
+            String methodName = "symbol";
+            String symbol = null;
+            String fromAddr = emptyAddress;
+            List<Type> inputParameters = new ArrayList<>();
+            List<TypeReference<?>> outputParameters = new ArrayList<>();
+
+            TypeReference<Utf8String> typeReference = new TypeReference<Utf8String>() {
+            };
+            outputParameters.add(typeReference);
+
+            Function function = new Function(methodName, inputParameters, outputParameters);
+
+            String data = FunctionEncoder.encode(function);
+            Transaction transaction = Transaction.createEthCallTransaction(fromAddr, ConfirmationActivity.this.transaction.recipient.toString(), data);
+
+            EthCall ethCall;
+            try {
+                ethCall = web3j.ethCall(transaction, DefaultBlockParameterName.LATEST).sendAsync().get();
+                List<Type> results = FunctionReturnDecoder.decode(ethCall.getValue(), function.getOutputParameters());
+                if(results!=null && results.size()!=0){
+                    symbol = results.get(0).getValue().toString();
+                    symbolText.setText(symbol);
+                }
+
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+
 
     }
 
@@ -441,6 +519,7 @@ public class ConfirmationActivity extends BaseActivity {
         });
         dialog.show();
     }
+
 
 
     private void onError(ErrorEnvelope error) {
