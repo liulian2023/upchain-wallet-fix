@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.Gravity;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 import org.greenrobot.eventbus.EventBus;
@@ -122,7 +123,25 @@ public abstract class BaseStringObserver<T extends ResponseBody> implements Obse
                     String msg = json.getString("message");
                     if(code.equals("200")){
                         String data = json.getString("data");
-                        onSuccess(data);//请求成功
+                        if(StringMyUtil.isNotEmpty(data) && !data.equals("{}") && !data.equals("[]")){
+                            onSuccess(data);//请求成功
+                        }else {
+                            if(json.containsKey("data")){
+                                try {
+                                    JSONObject dataObject = json.getJSONObject("data");
+                                    onSuccess(dataObject.toJSONString());
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    try {
+                                        JSONArray dataArray = json.getJSONArray("data");
+                                        onSuccess(dataArray.toJSONString());
+                                    } catch (Exception exception) {
+                                        exception.printStackTrace();
+                                    }
+                                }
+                            }
+                        }
+
                     }else {
                         if(code.equals("202")){
                             //token 无效

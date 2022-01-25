@@ -7,9 +7,15 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import androidx.annotation.NonNull;
+import androidx.core.widget.NestedScrollView;
+
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -23,104 +29,59 @@ import pro.upchain.wallet.web3.entity.Message;
 
 
 public class SignMessageDialog extends Dialog {
-    //    private LinearLayout container;
-    private TextView message;
-    private TextView requester;
-    private TextView address;
-    private TextView value;
-    private TextView valueLabel;
-    private TextView messageLabel;
-    private TextView title;
-    private LinearLayout valueLayout;
-    private TextView valueUSD;
-    private TextView usdLabel;
-    private Button btnReject;
-    private LinearLayout layoutBtnApprove;
-    private Context context;
 
-    public SignMessageDialog(@NonNull Activity activity) {
+    TextView message_content_tv;
+    Button sure_btn;
+    Button cancel_btb;
+    private Context context;
+    String signMessage;
+    ImageView load_more_iv;
+    NestedScrollView nestedScrollView;
+
+    public SignMessageDialog(@NonNull Activity activity,String signMessage) {
         super(activity);
         this.context = activity;
+        this.signMessage = signMessage;
 
-        setContentView(R.layout.dialog_sign_message);
+        setContentView(R.layout.sign_message_dialog_layout);
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         setCanceledOnTouchOutside(true);
         getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        getWindow().setGravity(Gravity.BOTTOM);
 
-        title = findViewById(R.id.dialog_main_text);
-        message = findViewById(R.id.message);
-        requester = findViewById(R.id.requester);
-        address = findViewById(R.id.address);
-        value = findViewById(R.id.value);
-        valueLabel = findViewById(R.id.value_label);
-        messageLabel = findViewById(R.id.message_label);
-        valueLayout = findViewById(R.id.value_layout);
-        valueUSD = findViewById(R.id.value_usd);
-        usdLabel = findViewById(R.id.usd_label);
-        btnReject = findViewById(R.id.btn_reject);
-        layoutBtnApprove = findViewById(R.id.button_container);
-        btnReject.setOnClickListener(v -> dismiss());
-    }
+        nestedScrollView = findViewById(R.id.nestedScrollView);
+        load_more_iv = findViewById(R.id.load_more_iv);
+        message_content_tv = findViewById(R.id.message_content_tv);
+        message_content_tv.setText(signMessage);
+        sure_btn = findViewById(R.id.sure_btn);
+        cancel_btb = findViewById(R.id.cancel_btb);
 
-    public SignMessageDialog(Activity activity, Message<String> message) {
-        this(activity);
-        setMessage(message.value);
-        setRequester(message.url);
-    }
-    public SignMessageDialog(Activity activity, Message<String> message,String raw,String title) {
-        this(activity);
-        setMessage(raw);
-        setRequester(message.url);
-        setTitle(title);
-    }
-    public SignMessageDialog(Activity activity,String message) {
-        this(activity);
-        setMessage(message);
-        setRequester("");
-    }
-    public void setMessage(CharSequence message) {
-        this.message.setText(message);
-    }
-    public void setMessage(String message) {
-        this.message.setText(message);
-    }
-    public void setRequester(CharSequence requester) {
-        this.requester.setText(requester);
-    }
-    public void setTitle(CharSequence requester) {
-        this.title.setText(requester);
-    }
-    public void setAddress(CharSequence address) {
-        this.address.setText(address);
+        cancel_btb.setOnClickListener(v -> dismiss());
+        load_more_iv.setOnClickListener(v ->{
+            Animation animation = null;
+
+           if(nestedScrollView.getVisibility() == View.VISIBLE){
+               animation=  AnimationUtils.loadAnimation(context, R.anim.rotate_anim);
+               animation.setFillAfter(true);
+               nestedScrollView.setVisibility(View.INVISIBLE);
+           }else {
+               animation= AnimationUtils.loadAnimation(context, R.anim.rotate_anim_end);
+               animation.setFillAfter(true);
+               nestedScrollView.setVisibility(View.VISIBLE);
+           }
+            load_more_iv.startAnimation(animation);
+        });
     }
 
-    public void setValue(CharSequence value, CharSequence dollarValue, String networkName)
-    {
-        title.setText(R.string.dialog_title_sign_transaction);
 
-        this.message.setVisibility(View.GONE);
-        this.messageLabel.setVisibility(View.GONE);
 
-        this.valueLayout.setVisibility(View.VISIBLE);
-        this.valueLabel.setVisibility(View.VISIBLE);
-
-        this.valueUSD.setText(dollarValue);
-        this.value.setText(value);
-
-        if (networkName.length() > 0)
-        {
-            usdLabel.setVisibility(View.VISIBLE);
-            usdLabel.setText(networkName);
-        }
-    }
 
     public void setOnApproveListener(View.OnClickListener listener) {
-        layoutBtnApprove.setOnClickListener(listener);
+        sure_btn.setOnClickListener(listener);
         //btnApprove.setOnClickListener(listener);
     }
 
     public void setOnRejectListener(View.OnClickListener listener) {
-        btnReject.setOnClickListener(listener);
-
+        cancel_btb.setOnClickListener(listener);
     }
 }

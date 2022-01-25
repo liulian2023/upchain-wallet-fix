@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.gyf.barlibrary.ImmersionBar;
@@ -12,6 +13,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import pro.upchain.wallet.R;
+import pro.upchain.wallet.RxHttp.net.utils.StringMyUtil;
 import pro.upchain.wallet.base.BaseFragment;
 import pro.upchain.wallet.domain.ETHWallet;
 import pro.upchain.wallet.ui.activity.AboutUsActivity;
@@ -33,6 +35,12 @@ public class MineFragment extends BaseFragment {
     ImageView backup_mnemonic_iv;
     @BindView(R.id.mine_title_tv)
     TextView mine_title_tv;
+    @BindView(R.id.mine_wrap_linear)
+    LinearLayout mine_wrap_linear;
+    @BindView(R.id.wallet_first_name_tv)
+    TextView wallet_first_name_tv;
+    @BindView(R.id.wallet_name_tv)
+    TextView wallet_name_tv;
     TokensViewModelFactory tokensViewModelFactory;
     private TokensViewModel tokensViewModel;
     private ETHWallet currEthWallet;
@@ -44,10 +52,7 @@ public class MineFragment extends BaseFragment {
 
     @Override
     public void attachView() {
-        ImmersionBar.with(this)
-                .statusBarColor(R.color.home_main_color)
-                .titleBarMarginTop(mine_title_tv)
-                .init();
+
     }
 
     @Override
@@ -55,7 +60,34 @@ public class MineFragment extends BaseFragment {
         tokensViewModelFactory = new TokensViewModelFactory();
         tokensViewModel = ViewModelProviders.of(this.getActivity(), tokensViewModelFactory)
                 .get(TokensViewModel.class);
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        ImmersionBar.with(this)
+                .statusBarColor(R.color.home_main_color)
+                .titleBarMarginTop(mine_wrap_linear)
+                .statusBarDarkFont(false)
+                .init();
         tokensViewModel.defaultWallet().observe(this,  this::showWallet);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+    }
+
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        ImmersionBar.with(this)
+                .statusBarColor(R.color.home_main_color)
+                .titleBarMarginTop(mine_wrap_linear)
+                .statusBarDarkFont(false)
+                .init();
     }
 
     @Override
@@ -71,6 +103,10 @@ public class MineFragment extends BaseFragment {
         }else {
             backup_mnemonic_iv.setVisibility(View.VISIBLE);
         }
+        String name = currEthWallet.getName();
+        name = StringMyUtil.isEmptyString(name)?"UnKnow":name;
+        wallet_name_tv.setText(name);
+        wallet_first_name_tv.setText(name.substring(0,1));
     }
     @OnClick({R.id.backup_mnemonic_relativeLayout, R.id.transaction_password_relativeLayout, R.id.system_version_relativeLayout,
             R.id.about_us_relativeLayout, R.id.wallet_manager_relativeLayout, R.id.contact_us_relativeLayout,R.id.change_language_relativeLayout,

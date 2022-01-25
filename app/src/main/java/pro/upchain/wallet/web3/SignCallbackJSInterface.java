@@ -83,11 +83,22 @@ public class SignCallbackJSInterface {
                 break;
             case SIGNTRANSACTION:
                 JSONObject transactionObj = jsonObject.getJSONObject("object");
+                BigInteger gasLimit = BigInteger.ZERO;
+                if(transactionObj.containsKey("gas")){
+
+                    String gas = transactionObj.getString("gas");
+                    gasLimit = Numeric.decodeQuantity(gas);
+                }
                 if(transactionObj.containsKey("data")){
                     /**
                      * 授权 或者 合约转账
                      */
                     String data = transactionObj.getString("data");
+                    String substring = data.substring(10, 74);
+                    while (substring.startsWith("0")){
+                        substring = substring.substring(1);
+                    }
+                    String address = "0x"+substring;
                     boolean isApprove = data.startsWith("0x095ea7b3");
                     if(isApprove){
                         /**
@@ -95,13 +106,14 @@ public class SignCallbackJSInterface {
                          */
                         String to = transactionObj.getString("to");
                         String amountStr = data.substring(74);
+
                         BigInteger amount = new BigInteger(amountStr, 16);
                         Web3Transaction transaction = new Web3Transaction(
+                                new Address(address),
                                 TextUtils.isEmpty(to) ? Address.EMPTY : new Address(to),
-                                null,
                                 amount,
                                 Hex.hexToBigInteger("", BigInteger.ZERO),
-                                Hex.hexToBigInteger("", BigInteger.ZERO),
+                                gasLimit,
                                 Hex.hexToLong("", -1),
                                 data,
                                 id
@@ -114,11 +126,11 @@ public class SignCallbackJSInterface {
                          */
                         String to = transactionObj.getString("to");
                         Web3Transaction transaction = new Web3Transaction(
+                                new Address(address),
                                 TextUtils.isEmpty(to) ? Address.EMPTY : new Address(to),
-                                null,
                                 BigInteger.ZERO,
                                 Hex.hexToBigInteger("", BigInteger.ZERO),
-                                Hex.hexToBigInteger("", BigInteger.ZERO),
+                                gasLimit,
                                 Hex.hexToLong("", -1),
                                 data,
                                 id

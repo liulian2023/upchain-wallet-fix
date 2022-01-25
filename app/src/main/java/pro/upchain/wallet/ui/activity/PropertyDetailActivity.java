@@ -189,7 +189,7 @@ public class PropertyDetailActivity extends BaseActivity {
                         }
                     }
 
-                    if(TransferDaoUtils.loadAll().size()!=0){
+                    if(TransferDaoUtils.loadAll().size()>0){
                         TransferHistoryEntity.ListBean bean = new TransferHistoryEntity.ListBean();
                         bean.setItemType(0);
                         bean.setTitleName(getString(R.string.pending));

@@ -6,6 +6,8 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
+import pro.upchain.wallet.R;
+
 public class GlideLoadUtils {
     public static void loadNetImage(Context context, ImageView imageView,String url){
         Glide.with(context)
@@ -16,11 +18,13 @@ public class GlideLoadUtils {
     }
 
 
-    public static void loadCircleNetImage(Context context, ImageView imageView,String url){
+    public static void loadTokenImage(Context context, ImageView imageView, String url){
         Glide.with(context)
                 .load(url)
                 .skipMemoryCache(false)
                 .circleCrop()
+                .placeholder(R.drawable.wallet_logo_demo)
+                .error(R.drawable.wallet_logo_demo)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(imageView);
     }

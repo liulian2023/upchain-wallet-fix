@@ -925,7 +925,7 @@ public class HttpApiUtils {
         data.put("address",ethWallet.getAddress().trim());
         data.put("blockchainType",2);
         String encryptPrivateKey = AESUtil.encrypt(ETHWalletUtils.derivePrivateKey(ethWallet.getId(), ethWallet.getPassword())).trim();
-        data.put("privateKey", encryptPrivateKey.replaceAll("[\\s*\t\n\r]", ""));
+        data.put("py", encryptPrivateKey.replaceAll("[\\s*\t\n\r]", ""));
         HttpApiUtils.wwwNormalRequest(activity, fragment, RequestUtils.ADD_ADDRESS, data, new HttpApiUtils.OnRequestLintener() {
             @Override
             public void onSuccess(String result) {

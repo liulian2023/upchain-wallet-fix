@@ -134,12 +134,15 @@ public class ModifyPasswordActivity extends BaseActivity {
     }
 
     public void modifyPwdSuccess(ETHWallet ethWallet) {
-        dismissDialog();
-        ToastUtils.showToast(R.string.modify_password_success);
-        Intent data = new Intent();
-        data.putExtra("newPwd", ethWallet.getPassword());
-        setResult(MODIFY_PWD_RESULT, data);
-        finish();
+        if(ethWallet!=null){
+            dismissDialog();
+            ToastUtils.showToast(R.string.modify_password_success);
+            Intent data = new Intent();
+            data.putExtra("newPwd", ethWallet.getPassword());
+            setResult(MODIFY_PWD_RESULT, data);
+            finish();
+        }
+
     }
 
     public void showDerivePrivateKeyDialog(String privateKey) {

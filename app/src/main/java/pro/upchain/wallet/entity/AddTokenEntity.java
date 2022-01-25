@@ -8,6 +8,7 @@ public class AddTokenEntity {
     private List<ResultBean> result;
     private int id;
 
+
     public String getJsonrpc() {
         return jsonrpc;
     }

@@ -11,12 +11,13 @@
 
     <ImageView
         android:id="@+id/delete_iv"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
-        android:src="@drawable/add_coin_icon"
+        android:layout_width="45dp"
+        android:layout_height="50dp"
+        android:paddingLeft="15dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:paddingRight="10dp"
+        android:src="@drawable/delete"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -25,7 +26,7 @@
         android:id="@+id/asset_iv"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="10dp"
+
         android:layout_marginTop="15dp"
         android:layout_marginBottom="15dp"
         android:src="@drawable/wallet_logo_demo"

@@ -20,7 +20,7 @@ import pro.upchain.wallet.utils.dapp2.WebAppInterface;
 
 public class DappActivity2 extends AppCompatActivity {
 //    private  String DAPP_URL = "https://www.newmixf.com";
-        private String DAPP_URL = "https://rstormsf.github.io/js-eth-personal-sign-examples/";
+        private String DAPP_URL = "https://magicofuniverse.games/?locale=en-US&utm_source=imtoken";
     private  int CHAIN_ID = 3;
     private  String RPC_URL = "https://ropsten.infura.io/v3/83adb0e120d94611b86bef6258e55302";
     @Override
@@ -30,9 +30,7 @@ public class DappActivity2 extends AppCompatActivity {
         String provderJs = loadFile(this,R.raw.trust_min);
         String initJs =loadInitJs();
         WebView webview = findViewById(R.id.webview);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            WebView.setWebContentsDebuggingEnabled(BuildConfig.DEBUG);
-        }
+        WebView.setWebContentsDebuggingEnabled(BuildConfig.DEBUG);
         WebSettings webSettings = webview.getSettings();
         webSettings.setJavaScriptEnabled(true);
         webSettings.setCacheMode(WebSettings.LOAD_DEFAULT);

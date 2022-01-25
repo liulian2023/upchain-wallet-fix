@@ -1,23 +1,20 @@
 package pro.upchain.wallet.ui.fragment;
 
-import androidx.appcompat.app.AlertDialog;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
 
-import android.app.Dialog;
+import android.animation.Animator;
+import android.animation.ValueAnimator;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
-import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
+
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+
 import android.util.Log;
-import android.view.LayoutInflater;
+import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
@@ -26,54 +23,51 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebBackForwardList;
 import android.webkit.WebChromeClient;
-import android.webkit.WebHistoryItem;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.gson.Gson;
+import com.gyf.barlibrary.ImmersionBar;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
-import org.web3j.crypto.Hash;
-import org.web3j.crypto.Keys;
-import org.web3j.crypto.Sign;
+import org.jetbrains.annotations.NotNull;
 import org.web3j.utils.Numeric;
 
-import java.math.BigInteger;
-import java.math.RoundingMode;
+import java.lang.ref.SoftReference;
 import java.nio.ByteBuffer;
 import java.nio.CharBuffer;
 import java.nio.charset.Charset;
-import java.security.SignatureException;
 import java.util.List;
 
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import pro.upchain.wallet.BuildConfig;
-import pro.upchain.wallet.C;
 import pro.upchain.wallet.R;
+import pro.upchain.wallet.base.BaseFragment;
+import pro.upchain.wallet.base.BasePopupWindow;
 import pro.upchain.wallet.domain.ETHWallet;
-import pro.upchain.wallet.entity.CanGoBackNextEvenEntity;
+import pro.upchain.wallet.entity.BookmarkEntity;
+import pro.upchain.wallet.entity.RightMenuEntity;
+import pro.upchain.wallet.entity.WebViewLoadFinishEvenEntity;
 import pro.upchain.wallet.entity.DAppFunction;
 import pro.upchain.wallet.entity.NetworkInfo;
-import pro.upchain.wallet.entity.SignTransactionInterface;
-import pro.upchain.wallet.entity.WalletAmountEvenEntity;
-import pro.upchain.wallet.ui.activity.DappActivity;
-import pro.upchain.wallet.ui.adapter.AutoCompleteUrlAdapter;
+import pro.upchain.wallet.entity.WebViewStartLoadEvenEntity;
+import pro.upchain.wallet.pop.HeightProvider;
+import pro.upchain.wallet.pop.RightMenuPop;
+import pro.upchain.wallet.ui.activity.MainActivity;
 import pro.upchain.wallet.ui.entity.ItemClickListener;
+import pro.upchain.wallet.utils.KeyboardUtils;
 import pro.upchain.wallet.utils.LogUtils;
+import pro.upchain.wallet.utils.ToastUtils;
 import pro.upchain.wallet.utils.Utils;
 import pro.upchain.wallet.utils.WalletDaoUtils;
-import pro.upchain.wallet.utils.dapp.WebAppInterface;
-import pro.upchain.wallet.utils.dapp.WebViewExtensionKt;
 import pro.upchain.wallet.view.AWalletAlertDialog;
 import pro.upchain.wallet.view.SelectNetworkDialog;
 import pro.upchain.wallet.view.SignMessageDialog;
@@ -87,15 +81,13 @@ import pro.upchain.wallet.web3.OnSignTypedMessageListener;
 import pro.upchain.wallet.web3.Web3View;
 import pro.upchain.wallet.web3.entity.Address;
 import pro.upchain.wallet.web3.entity.Message;
-import pro.upchain.wallet.web3.entity.TypedData;
 import pro.upchain.wallet.web3.entity.Web3Transaction;
 
 import static pro.upchain.wallet.C.DAPP_DEFAULT_URL;
-import static pro.upchain.wallet.entity.CryptoFunctions.sigFromByteArray;
 import static pro.upchain.wallet.web3.Web3View.JS_PROTOCOL_ON_SUCCESSFUL;
 
 
-public class DappBrowserFragment extends Fragment implements ItemClickListener, OnSignMessageListener, OnSignPersonalMessageListener, OnSignTransactionListener, OnSignTypedMessageListener, OnRequestAccountListener
+public class DappBrowserFragment extends BaseFragment implements ItemClickListener, OnSignMessageListener, OnSignPersonalMessageListener, OnSignTransactionListener, OnSignTypedMessageListener, OnRequestAccountListener
 {
 
     private static final String TAG = DappBrowserFragment.class.getSimpleName();
@@ -103,39 +95,68 @@ public class DappBrowserFragment extends Fragment implements ItemClickListener, 
     private static final String PERSONAL_MESSAGE_PREFIX = "\u0019Ethereum Signed Message:\n";
 
     DappBrowserViewModelFactory dappBrowserViewModelFactory;
-    private DappBrowserViewModel viewModel;
+    public DappBrowserViewModel viewModel;
 
-    private SwipeRefreshLayout swipeRefreshLayout;
-    private Web3View web3;
+    HeightProvider heightProvider;
 
-    private AutoCompleteTextView urlTv;
-    private ProgressBar progressBar;
 
     private ETHWallet wallet;
 
     private NetworkInfo networkInfo;
     private SignMessageDialog dialog;
     private AWalletAlertDialog resultDialog;
-    private AutoCompleteUrlAdapter adapter;
-
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-
-    @BindView(R.id.toolbar_title)
-    TextView toolbarTitle;
+    @BindView(R.id.swipe_refresh)
+     SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.dapp_toolbar_constraint)
+    ConstraintLayout dapp_toolbar_constraint;
+    @BindView(R.id.web3view)
+    public Web3View web3;
+    @BindView(R.id.back_iv)
     ImageView back_iv;
+    @BindView(R.id.next_iv)
     ImageView next_iv;
-
-
-    @Nullable
+    @BindView(R.id.more_iv)
+    ImageView more_iv;
+    @BindView(R.id.url_etv)
+     EditText urlEtv;
+    @BindView(R.id.progressBar)
+     ProgressBar progressBar;
+    @BindView(R.id.back_next_linear)
+    LinearLayout back_next_linear;
+    @BindView(R.id.dapp_framelayout)
+    FrameLayout dapp_framelayout;
+    private String currentTile;
+    private BookMaskFragment bookMaskFragment;
+    boolean isFirstTime = true;
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_webview, container, false);
+    public int getLayoutResId() {
+        return R.layout.fragment_webview;
+    }
+
+
+    @Override
+    public void attachView() {
+
+    }
+
+    @Override
+    public void initDatas() {
         if(!EventBus.getDefault().isRegistered(this)){
             EventBus.getDefault().register(this);
         }
 
-        initView(view);
+        heightProvider = new HeightProvider(new SoftReference<>(getActivity())).init().setHeightListener(new HeightProvider.HeightListener() {
+            @Override
+            public void onHeightChanged(int height) {
+                if(height == 0){
+                    expandCollapseView(back_next_linear,true);
+                    urlEtv.clearFocus();
+                }else {
+                    expandCollapseView(back_next_linear,false);
+                }
+            }
+        });
+        initView();
         initViewModel();
         setupAddressBar();
         viewModel.prepare(getContext());
@@ -144,8 +165,13 @@ public class DappBrowserFragment extends Fragment implements ItemClickListener, 
             String url = getArguments().getString("url");
             loadUrl(url);
         }
+    }
 
-        return view;
+
+
+    @Override
+    public void configViews() {
+
     }
 
     @Override
@@ -155,43 +181,25 @@ public class DappBrowserFragment extends Fragment implements ItemClickListener, 
         EventBus.getDefault().unregister(this);
     }
 
-    private void initView(View view) {
-
-        back_iv = view.findViewById(R.id.back_iv);
-        next_iv = view.findViewById(R.id.next_iv);
-        web3 = view.findViewById(R.id.web3view);
+    private void initView() {
         web3.setActivity(getActivity());
-        progressBar = view.findViewById(R.id.progressBar);
-        urlTv = view.findViewById(R.id.url_tv);
-        swipeRefreshLayout = view.findViewById(R.id.swipe_refresh);
         swipeRefreshLayout.setOnRefreshListener(() -> web3.reload());
-        back_iv.setOnClickListener(v ->{
-            backPressed();
+
+        urlEtv.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if(actionId == EditorInfo.IME_ACTION_GO){
+                    web3.loadUrl(urlEtv.getText().toString());
+                    KeyboardUtils.hideKeyboard(urlEtv);
+                }
+                return false;
+            }
         });
-        next_iv.setOnClickListener(v ->{
-            goToNextPage();
-        });
+
     }
 
     private void setupAddressBar() {
-        urlTv.setText(viewModel.getLastUrl(getContext()));
-
-        adapter = new AutoCompleteUrlAdapter(getContext(), C.DAPP_BROWSER_HISTORY);
-        adapter.setListener(this);
-        urlTv.setAdapter(adapter);
-
-        urlTv.setOnEditorActionListener((v, actionId, event) -> {
-            boolean handled = false;
-            if (actionId == EditorInfo.IME_ACTION_GO)
-            {
-                String urlText = urlTv.getText().toString();
-                handled = loadUrl(urlText);
-                urlTv.dismissDropDown();
-            }
-            return handled;
-        });
-
-        urlTv.setOnClickListener(v -> urlTv.showDropDown());
+        urlEtv.setText(viewModel.getLastUrl(getContext()));
     }
 
     private void dismissKeyboard(View view)
@@ -241,9 +249,7 @@ public class DappBrowserFragment extends Fragment implements ItemClickListener, 
     }
 
     private void setupWeb3() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            WebView.setWebContentsDebuggingEnabled(BuildConfig.DEBUG);
-        }
+
         web3.setChainId(networkInfo.chainId);
         String rpcURL = networkInfo.rpcServerUrl;
         web3.setRpcUrl(rpcURL);
@@ -271,7 +277,7 @@ public class DappBrowserFragment extends Fragment implements ItemClickListener, 
         web3.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                urlTv.setText(url);
+                urlEtv.setText(url);
                 return false;
             }
         });
@@ -286,7 +292,40 @@ public class DappBrowserFragment extends Fragment implements ItemClickListener, 
     @Override
     public void onResume() {
         super.onResume();
-        if (adapter == null || !adapter.hasContext()) setupAddressBar();
+        //避免首页跳转activity返回后状态栏变白色
+        if(isFirstTime){
+            ImmersionBar.with(this)
+                    .statusBarColor(R.color.white)
+                    .statusBarDarkFont(true)
+                    .titleBarMarginTop(dapp_toolbar_constraint)
+                    .init();
+
+            setupAddressBar();
+        }
+        isFirstTime = false;
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+    }
+
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        ImmersionBar.with(this)
+                .statusBarColor(R.color.white)
+                .statusBarDarkFont(true)
+                .titleBarMarginTop(dapp_toolbar_constraint)
+                .init();
+    }
+
+    @Override
+    public void onSupportInvisible() {
+        super.onSupportInvisible();
+
     }
 
     @Override
@@ -310,8 +349,8 @@ public class DappBrowserFragment extends Fragment implements ItemClickListener, 
             }
         };
 
-        dialog = new SignMessageDialog(getActivity(), message);
-        dialog.setAddress(wallet.address);
+        dialog = new SignMessageDialog(getActivity(),hexToUtf8(message.value));
+
         dialog.setOnApproveListener(v -> {
             //ensure we generate the signature correctly:
             byte[] signRequest = message.value.getBytes();
@@ -341,7 +380,8 @@ public class DappBrowserFragment extends Fragment implements ItemClickListener, 
         else
         {
             // 打开确认窗口， 输入密码
-            viewModel.openConfirmation(getContext(), transaction, url);
+            viewModel.openDappTransfer(getContext(), transaction, url);
+//            viewModel.openConfirmation(getContext(), transaction, url);
         }
     }
     @Override
@@ -366,15 +406,13 @@ public class DappBrowserFragment extends Fragment implements ItemClickListener, 
             }
         };
 
-        dialog = new SignMessageDialog(getActivity(), message);
-        dialog.setAddress(wallet.address);
+        dialog = new SignMessageDialog(getActivity(),  hexToUtf8(message.value));
         dialog.setOnApproveListener(v -> {
             String convertedMessage = hexToUtf8(message.value);
 //            String convertedMessage = message.value;
             String signMessage = PERSONAL_MESSAGE_PREFIX
                     + convertedMessage.length()
                     + convertedMessage;
-//            viewModel.signMessage(getEthereumMessage(message.value), dAppFunction, message, wallet.getPassword());
             viewModel.signMessage(signMessage.getBytes(), dAppFunction, message, wallet.getPassword());
         });
 
@@ -442,8 +480,7 @@ public class DappBrowserFragment extends Fragment implements ItemClickListener, 
             }
         };
 
-        dialog = new SignMessageDialog(getActivity(), message,raw,getResources().getString(R.string.Sign_Typed_Message));
-        dialog.setAddress(wallet.address);
+        dialog = new SignMessageDialog(getActivity(),raw);
         dialog.setOnApproveListener(v -> {
             //ensure we generate the signature correctly:
             byte[] signRequest = message.value.getBytes();
@@ -462,7 +499,7 @@ public class DappBrowserFragment extends Fragment implements ItemClickListener, 
 
     @Override
     public void onRequestAccount(String url, Long id) {
-        Dialog dialog = new AlertDialog.Builder(getContext())
+/*        Dialog dialog = new AlertDialog.Builder(getContext())
                 .setTitle(R.string.Request_Accounts)
                 .setMessage(getString(R.string.requests_your_address))
                 .setPositiveButton(R.string.dialog_approve, new DialogInterface.OnClickListener() {
@@ -482,7 +519,16 @@ public class DappBrowserFragment extends Fragment implements ItemClickListener, 
                 })
                 .setNegativeButton(R.string.dialog_reject, null)
                 .create();
-        dialog.show();
+        dialog.show();*/
+        String address =  String.format(REQUEST_ACCOUNT_SUCCESS, WalletDaoUtils.getCurrent().address);
+        String callBack = String.format(JS_PROTOCOL_ON_SUCCESSFUL,id,WalletDaoUtils.getCurrent().address);
+        web3.post(new Runnable() {
+            @Override
+            public void run() {
+                web3.evaluateJavascript(address, null);
+                web3.evaluateJavascript(callBack, null);
+            }
+        });
     }
 
 
@@ -521,59 +567,63 @@ public class DappBrowserFragment extends Fragment implements ItemClickListener, 
 
     public void homePressed()
     {
-        urlTv.setText(DAPP_DEFAULT_URL);
+        urlEtv.setText(DAPP_DEFAULT_URL);
         loadUrl(DAPP_DEFAULT_URL);
     }
 
-    private boolean loadUrl(String urlText)
+    public boolean loadUrl(String urlText)
     {
-        urlTv.setText(urlText);
+        urlEtv.setText(urlText);
 
         web3.loadUrl(Utils.formatUrl(urlText));
-        web3.requestFocus();
+
 
         viewModel.setLastUrl(getContext(), urlText);
-        adapter.add(urlText);
-        adapter.notifyDataSetChanged();
-        dismissKeyboard(urlTv);
+        dismissKeyboard(urlEtv);
 
         return true;
     }
 
     public void addBookmark()
     {
-        if (urlTv != null && urlTv.getText() != null)
+        if (urlEtv != null && urlEtv.getText() != null)
         {
-            viewModel.addBookmark(getContext(), urlTv.getText().toString());
+            viewModel.addBookmark(getContext(), urlEtv.getText().toString(),currentTile);
+            ToastUtils.showToast(R.string.action_added);
         }
     }
 
     public void viewBookmarks()
     {
         if (viewModel == null) return;
-        List<String> bookmarks = viewModel.getBookmarks();
-        //display in popup
-        if (getActivity() == null) return;
-        SelectNetworkDialog dialog = new SelectNetworkDialog(getActivity(), bookmarks.toArray(new String[bookmarks.size()]), urlTv.getText().toString());
-        dialog.setTitle(R.string.bookmarks);
-        dialog.setButtonText(R.string.visit);
-        dialog.setOnClickListener(v1 -> {
-            String url = dialog.getSelectedItem();
-            urlTv.setText(url);
-            loadUrl(url);
-            dialog.dismiss();
-        });
-        dialog.show();
+        FragmentManager childFragmentManager = getChildFragmentManager();
+        FragmentTransaction fragmentTransaction = childFragmentManager.beginTransaction();
+        bookMaskFragment = new BookMaskFragment();
+        fragmentTransaction.add(R.id.dapp_framelayout,bookMaskFragment);
+        fragmentTransaction.show(bookMaskFragment);
+        fragmentTransaction.commit();
+        dapp_framelayout.setVisibility(View.VISIBLE);
+    }
+    public void hideBookmarks()
+    {
+        if (viewModel == null) return;
+        FragmentManager childFragmentManager = getChildFragmentManager();
+        FragmentTransaction fragmentTransaction = childFragmentManager.beginTransaction();
+        if(bookMaskFragment!=null){
+            fragmentTransaction.remove(bookMaskFragment);
+        }
+        dapp_framelayout.setVisibility(View.GONE);
+        fragmentTransaction.commit();
     }
 
     public void removeBookmark()
     {
-        viewModel.removeBookmark(getContext(), urlTv.getText().toString());
+        viewModel.removeBookmark(getContext(), urlEtv.getText().toString());
     }
 
     public boolean getUrlIsBookmark()
     {
-        return viewModel != null && urlTv != null && viewModel.getBookmarks().contains(urlTv.getText().toString());
+        return viewModel != null && urlEtv != null && viewModel.getBookmarks().contains(urlEtv.getText().toString());
     }
 
     public void reloadPage() {
@@ -653,9 +703,9 @@ public class DappBrowserFragment extends Fragment implements ItemClickListener, 
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void walletAmountEven(CanGoBackNextEvenEntity canGoBackNextEvenEntity){
+    public void walletAmountEven(WebViewLoadFinishEvenEntity webViewLoadFinishEvenEntity){
         if(back_iv!=null){
-            if(canGoBackNextEvenEntity.isCanGoBack()){
+            if(webViewLoadFinishEvenEntity.isCanGoBack()){
                 back_iv.setAlpha(1.0f);
 
             }else {
@@ -663,16 +713,139 @@ public class DappBrowserFragment extends Fragment implements ItemClickListener, 
             }
         }
         if(next_iv!=null){
-            if(canGoBackNextEvenEntity.isCanNextPage()){
+            if(webViewLoadFinishEvenEntity.isCanNextPage()){
                 next_iv.setAlpha(1.0f);
             }else {
                 next_iv.setAlpha(0.3f);
             }
         }
+        if(urlEtv!=null){
+            urlEtv.setText(webViewLoadFinishEvenEntity.geeUrl());
+        }
+
+         currentTile = webViewLoadFinishEvenEntity.getTitle();
 
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void startLoadEven(WebViewStartLoadEvenEntity webViewStartLoadEvenEntity){
+        hideBookmarks();
+    }
+    /**
+     * Used to expand or collapse the view
+     */
+    private synchronized void expandCollapseView(@NotNull View view, boolean expandView)
+    {
+        //detect if view is expanded or collapsed
+        boolean isViewExpanded = view.getVisibility() == View.VISIBLE;
 
+        //Collapse view
+        if (isViewExpanded && !expandView)
+        {
+            int finalWidth = view.getWidth();
+            ValueAnimator valueAnimator = slideAnimator(finalWidth, 0, view);
+            valueAnimator.addListener(new Animator.AnimatorListener() {
+                @Override
+                public void onAnimationStart(Animator animator) {
+
+                }
+
+                @Override
+                public void onAnimationEnd(Animator animator) {
+                    view.setVisibility(View.GONE);
+                }
+
+                @Override
+                public void onAnimationCancel(Animator animator) {
+
+                }
+
+                @Override
+                public void onAnimationRepeat(Animator animator) {
+
+                }
+            });
+            valueAnimator.start();
+        }
+        //Expand view
+        else if (!isViewExpanded && expandView)
+        {
+            view.setVisibility(View.VISIBLE);
+
+            int widthSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+            int heightSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
+
+            view.measure(widthSpec, heightSpec);
+            int width = view.getMeasuredWidth();
+            ValueAnimator valueAnimator = slideAnimator(0, width, view);
+            valueAnimator.start();
+        }
+    }
+
+    @NotNull
+    private ValueAnimator slideAnimator(int start, int end, final View view) {
+
+        final ValueAnimator animator = ValueAnimator.ofInt(start, end);
+
+        animator.addUpdateListener(valueAnimator -> {
+            // Update Height
+            int value = (Integer) valueAnimator.getAnimatedValue();
+
+            ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+            layoutParams.width = value;
+            view.setLayoutParams(layoutParams);
+        });
+        animator.setDuration(100);
+        return animator;
+    }
+    @OnClick({R.id.next_iv,R.id.back_iv,R.id.more_iv,R.id.back_home_iv})
+    public void onClick(View view){
+        switch (view.getId()){
+            case R.id.next_iv:
+                goToNextPage();
+                break;
+            case R.id.back_iv:
+                backPressed();
+                break;
+            case R.id.more_iv:
+                initRightPop();
+                break;
+            case R.id.back_home_iv:
+                viewBookmarks();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void initRightPop() {
+        RightMenuPop rightMenuPop = new RightMenuPop(getContext(),viewModel,this);
+        rightMenuPop.setOnPopItemClick(new BasePopupWindow.OnRecycleItemClick() {
+            @Override
+            public void onPopItemClick(View view, int position) {
+                switch (position ){
+                    case 0:
+                        reloadPage();
+                        break;
+                    case 1:
+                        RightMenuEntity rightMenuEntity = rightMenuPop.rightMenuEntityArrayList.get(position);
+                        if(rightMenuEntity.getName().equals(getResources().getString(R.string.action_view_bookmarks))){
+                            viewBookmarks();
+                        }else {
+                            addBookmark();
+                        }
+                        break;
+                    case 2:
+                        share();
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
+        rightMenuPop.showAsDropDown(more_iv,0,0, Gravity.BOTTOM);
+        Utils.darkenBackground(getActivity(),0.7f);
+    }
   /*  public void scanQR()
     {
         //scanning intent

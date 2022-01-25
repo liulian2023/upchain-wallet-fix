@@ -130,6 +130,7 @@
         android:id="@+id/rl_sbc_main"
         android:layout_width="match_parent"
         android:layout_height="46dp"
+        android:visibility="gone"
         android:layout_marginTop="0.5dp"
         android:background="@color/white">
 
@@ -160,6 +161,7 @@
         android:id="@+id/rl_sbc_test"
         android:layout_width="match_parent"
         android:layout_height="46dp"
+        android:visibility="gone"
         android:layout_marginTop="0.5dp"
         android:background="@color/white">
 

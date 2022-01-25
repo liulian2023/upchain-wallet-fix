@@ -1,109 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/mine_header_bg_shape"
+    android:background="@color/white"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/dapp_toolbar_constraint"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:layout_marginTop="32dp"
-        android:contentInsetStart="0dp"
-        android:contentInsetLeft="0dp"
-        android:contentInsetEnd="0dp"
-        android:contentInsetRight="0dp"
-        android:theme="@style/AppTheme.Toolbar"
-        app:contentInsetEnd="0dp"
-        app:contentInsetLeft="0dp"
-        app:contentInsetRight="0dp"
-        app:contentInsetStart="0dp"
-        app:popupTheme="@style/AppTheme.PopupOverlay"
-        app:titleTextAppearance="@style/AppTheme.Toolbar.Title">
+        android:layout_height="65dp"
+        android:layout_alignParentTop="true">
 
-        <TextView
-            android:id="@+id/toolbar_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center"
-            android:ellipsize="end"
-            android:fontFamily="@font/font_light"
-            android:gravity="center"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:singleLine="true"
-            android:text="@string/toolbar_header_browser"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
-
-    </androidx.appcompat.widget.Toolbar>
-
-    <LinearLayout
-        android:layout_below="@+id/toolbar"
-        android:id="@+id/address_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:orientation="horizontal"
-        android:layout_marginTop="80dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:paddingRight="10dp">
         <LinearLayout
+            android:id="@+id/back_next_linear"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
             <ImageView
                 android:id="@+id/back_iv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-
-                android:padding="5dp"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_browser_back" />
+
+                android:layout_marginStart="16dp"
+                app:srcCompat="@drawable/houtui" />
 
             <ImageView
                 android:id="@+id/next_iv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_browser_next" />
+                android:layout_marginStart="22dp"
+                app:srcCompat="@drawable/qianjin" />
         </LinearLayout>
 
 
-        <AutoCompleteTextView
-            android:id="@+id/url_tv"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/background_address_bar"
-            android:completionThreshold="1"
-            android:dropDownAnchor="@id/anchor"
-            android:fontFamily="@font/font_regular"
-            android:imeOptions="actionGo"
-            android:inputType="textUri"
-            android:padding="5dp" />
-        <View
-            android:id="@+id/anchor"
-            android:layout_width="match_parent"
-            android:layout_height="1dp" />
+        <LinearLayout
+            android:id="@+id/url_linear"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="13dp"
+            android:layout_marginEnd="13dp"
+            android:background="@drawable/dapp_edit_shape"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@+id/back_next_linear"
+            app:layout_constraintEnd_toStartOf="@+id/back_home_iv"
+            app:layout_constraintStart_toEndOf="@+id/back_next_linear"
+            app:layout_constraintTop_toTopOf="@+id/back_next_linear">
 
+            <EditText
+                android:id="@+id/url_etv"
+                android:layout_width="0dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="@string/edit_website"
+                android:imeOptions="actionGo"
+                android:singleLine="true"
+                android:textColor="@color/black"
+                android:textColorHint="#666666"
+                android:textSize="10sp" />
 
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/clear_iv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/qianjin" />
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/back_home_iv"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginEnd="22dp"
+            app:layout_constraintBottom_toBottomOf="@+id/url_linear"
+            app:layout_constraintEnd_toStartOf="@+id/more_iv"
+            app:layout_constraintTop_toTopOf="@+id/url_linear"
+            app:srcCompat="@drawable/back_home" />
+
+        <ImageView
+            android:id="@+id/more_iv"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintBottom_toBottomOf="@+id/back_home_iv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/back_home_iv"
+            app:srcCompat="@drawable/more" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
         android:layout_height="3dp"
-        android:layout_below="@id/address_bar"
+        android:layout_below="@id/dapp_toolbar_constraint"
         android:indeterminate="false"
         android:progressDrawable="@drawable/background_horizontal_progress" />
-
+    <FrameLayout
+        android:id="@+id/dapp_framelayout"
+        android:visibility="gone"
+        android:layout_below="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -131,4 +142,4 @@
                 android:layout_height="match_parent" />
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </FrameLayout>
-</RelativeLayout>
+</LinearLayout>

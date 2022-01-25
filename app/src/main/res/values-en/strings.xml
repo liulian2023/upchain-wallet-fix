@@ -119,7 +119,8 @@
     <string name="input_pwd_delete_tip">Please be careful, this action cannot be undone</string>
     <string name="input_pwd_dialog_confirm">Confirm</string>
     <string name="will_recover_wallet">You will recover your identity wallet</string>
-
+    <string name="sign_message">Sign</string>
+    <string name="edit_website">Please enter URL</string>
     <string name="mnemonic_backup_title">Backup Confirmation</string>
     <string name="next">Next</string>
     <string name="account_settings">Account Settings</string>
@@ -262,6 +263,8 @@
     <string name="important_contract">Importing contract...</string>
     <string name="important_contract_fail">Contract import failed</string>
     <string name="please_wait_load_data">Please wait for data loading to complete</string>
+    <string name="Import_wallet_successfully">Import wallet successfully</string>
+    <string name="Failed_to_import_wallet">Failed to import wallet</string>
 
     <string name="sent">Export</string>
     <string name="create">Create contract</string>
@@ -319,11 +322,12 @@
     <string name="action_added">Bookmarked</string>
     <string name="action_add_bookmark">Add bookmark</string>
     <string name="bookmarks">Bookmarks</string>
+    <string name="Manege">Manege</string>
     <string name="visit">Visit</string>
     <string name="action_reload">Reload</string>
     <string name="action_share">Share</string>
     <string name="action_scan_dapp">Scan QR code</string>
-
+    <string name="bookmark_already_added">This bookmark has already been added</string>
     <string name="dialog_title_sign_message">Sign Message</string>
     <string name="dialog_reject">Reject</string>
     <string name="dialog_approve">Approve</string>
@@ -375,16 +379,20 @@
     <string name="intro_message_first_page">Private keys never leave your device.</string>
     <string name="intro_message_second_page">Code is open sourced (GPL-3.0 license) and fully audited.</string>
     <string name="intro_message_third_page">The fastest Ethereum wallet experience on mobile.</string>
-
+    <string name="Signature_Request">Signature Request</string>
+    <string name="Signature_Request_tip">Signatures can be used to prove you own this wallet account, to allow asset transfers, or for other purposes. Only sign messages from DApps you trust.</string>
     <string name="welcome_erc20_label_title">ERC20 Compatible </string>
+    <string name="confirm_payment">Confirm Payment</string>
+    <string name="confirm_payment_tip">This dapp is requesting an action. which could take money from your wallet,Make sure you trust this site.</string>
     <string name="welcome_erc20_label_description">Supports all ERC20 tokens</string>
+    <string name="miner_fee_not_enough">You don’t have enough %1$s to cover this miner fee,\nDeposit at least %2$s into your wallet and try again</string>
 
     <string name="ask_help_desc_1">On-chain wallet is a free and open source full-featured Ethereum wallet, I hope it will help you. \n\n Personal WeChat: xlbxiong (QR code below)
         \n\nIf you need further assistance, we provide affordable paid technical services such as:
         \n1. Professional team provides customized wallet development;
         \n2. Pay attention to the public account of the same name of "Denglian Academy" to fully study the blockchain development course;
         \n3. Answer the questions and join the Knowledge Planet: An in-depth blockchain QA community. </string>
-
+    <string name="about_us_content">SDear user: \nThank you for choosing TokenPocket service. The "TokenPocket Service Agreement" (hereinafter referred to as "this Agreement") is signed by TokenPocket Foundation Ltd (hereinafter referred to as "the company" or "us") and the user (hereinafter referred to as "you" or "the user"). The legal effect of the contract between the companies. \nThe company hereby reminds you that before using TokenPocket (hereinafter referred to as "TokenPocket" or this software, TokenPocket can be downloaded on various mobile application platforms, including but not limited to Google Play and App Store), please carefully read the "TokenPocket Service" The Agreement and the related agreements mentioned later, especially the terms of "Exemption and Limitation of Liability" stipulated in this Agreement will be shown in bold, to ensure that you fully understand the terms of this Agreement and take risks independently. \n 1. Confirmation and acceptance of this agreement\n1) You understand that this agreement and related agreements apply to TokenPocket and the decentralized applications (referred to as "DApp") independently developed and owned by the company on TokenPocket (excluding third-party development DApp). \n2) When you download the TokenPocket software and create or import a wallet, it is deemed that you have fully read and accepted all the terms of this agreement, which will take effect immediately and be binding on both parties. \n3) This agreement can be updated by the company at any time. Once the revised agreement is published on TokenPocket, it will automatically take effect without prior notice. After the company announces the revised terms of the agreement, if you do not accept the revised terms, please stop using TokenPocket immediately, and your continued use of TokenPocket will be deemed to accept the revised agreement. \n4) If you are under the age of 18, or a person with no or limited capacity for civil conduct, please use TokenPocket under the guidance of your parents or guardians.</string>
     <!-- rxhtpp-->
     <string name="connect_error">Network connection failed, please check the network</string>
     <string name="connect_timeout">Connection timed out, please try again later</string>
@@ -392,6 +400,8 @@
     <string name="parse_error">Failed to parse server response data</string>
     <string name="unknown_error">Unknown error</string>
     <string name="response_return_error">Server failed to return data</string>
+    <string name="Apply_Permission">Apply Permission</string>
+    <string name="disabling_permission">Disabling the permission will cause the APP function to not work properly. Go to manually grant the permission</string>
 
     <string name="request_error">Failed to request server,error code:</string>
     <string name="parameters_exception">Parameter exception</string>

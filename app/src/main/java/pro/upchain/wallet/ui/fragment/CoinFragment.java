@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.gyf.barlibrary.ImmersionBar;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 
@@ -69,7 +70,7 @@ public class CoinFragment extends BaseFragment {
     // 退出时间
     private long currentBackPressedTime = 0;
     // 退出间隔
-    private static final int BACK_PRESSED_INTERVAL = 500;
+    private static final int BACK_PRESSED_INTERVAL = 1000;
 
     FetchWalletInteract fetchWalletInteract;
     public static CoinFragment newInstance(int positoin) {
@@ -116,6 +117,16 @@ public class CoinFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         tokensViewModel.prepare();
+    }
+
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        ImmersionBar
+                .with(this)
+                .statusBarColor(R.color.home_main_color)
+                .statusBarDarkFont(false)
+                .init();;
     }
 
     private void initRecycler() {
@@ -186,7 +197,6 @@ public class CoinFragment extends BaseFragment {
             currentBackPressedTime = System.currentTimeMillis();
             HttpApiUtils.addAddress(getActivity(),this,wallet);
         }
-
     }
 
     private void onTokens(Token[] tokens) {

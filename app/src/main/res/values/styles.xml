@@ -12,7 +12,10 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
-
+    <style name="RightTop2PopAnim" parent="@android:style/Animation.Activity">
+        <item name="android:windowEnterAnimation">@anim/right_top_in_2</item>
+        <item name="android:windowExitAnimation">@anim/right_top_out_2</item>
+    </style>
     <style name="ProgressDialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>
         <item name="android:windowIsFloating">true</item>
@@ -28,7 +31,7 @@
 
     <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
 
-        <item name="android:windowBackground">@drawable/splash_background</item>
+        <item name="android:windowBackground">@drawable/splash</item>
 
     </style>
 
@@ -109,5 +112,30 @@
         <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textStyle">bold</item>
+    </style>
+    <style name="cancel_ButtonStyle" parent="TextAppearance.AppCompat.Button">
+        <item name="android:background">@drawable/cancel_button_selector</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/home_main_color</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="activityDialogTheme" parent="Base.Theme.AppCompat.Dialog">
+        <!--设置没有ActionBar-->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <!-- Dialog的windowFrame框 -->
+        <item name="android:windowFrame">@null</item>
+        <!-- 是否浮现在activity之上  居中显示 左右会留间距-->
+        <!--        <item name="android:windowIsFloating">true</item>-->
+        <!-- 是否半透明 -->
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowDisablePreview">true</item>
+        <!-- 是否显示title -->
+        <item name="android:windowNoTitle">true</item>
+        <!-- 背景是否模糊显示 (背景变暗)-->
+        <!--        <item name="android:backgroundDimEnabled">true</item>-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFullscreen">true</item>
     </style>
 </resources>

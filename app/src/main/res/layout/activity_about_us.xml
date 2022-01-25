@@ -9,20 +9,19 @@
     android:background="@color/white"
     tools:context=".ui.activity.AboutUsActivity">
     <include layout="@layout/common_toolbar"/>
-    <androidx.core.widget.NestedScrollView
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:lineSpacingExtra="6dp"
-            android:text="尊敬的用户： \n感谢您选择TokenPocket服务。《TokenPocket服务协议》（以下简称“本协议”）由TokenPocket Foundation Ltd（以下简称“本公司”或“我们”）和用户（以下简称“您”或“用户”）签订，本协议在您与本公司之间具有合同上的法律效力。 \n本公司在此特别提醒您在使用TokenPocket（以下简称“TokenPocket”或本软件，TokenPocket可在各移动应用平台上下载，包括但不仅限于Google Play和App Store）之前，请认真阅读《TokenPocket服务协议》及后文提到的相关协议，尤其是本协议规定的“免责及责任限制”等条款将以加粗的形式体现，确保您充分理解本协议中各条款，并自主考虑风险。\n 一、 关于本协议的确认与接纳 \n1) 您理解本协议及有关协议适用于TokenPocket及TokenPocket上本公司所自主开发和拥有的去中心化应用（简称“DApp”）（排除第三方开发的DApp）。 \n2) 您下载TokenPocket软件并创建或导入钱包，即视为您已经充分阅读并接受本协议全部条款，本协议立即生效，对双方具有约束力。 \n3) 本协议可由本公司随时更新，经修改的协议一经在TokenPocket上公布，立即自动生效，恕不再另行通知。在本公司公布修改协议条款后，如果您不接受修改后的条款，请立即停止使用TokenPocket，您继续使用TokenPocket将被视为接受修改后的协议。 \n4) 如果您未满18周岁，或者是无民事行为能力人或限制民事行为能力人，请在父母或监护人指导下使用TokenPocket。"
-            android:textColor="#ff000000"
-            android:textSize="14sp"
-            android:layout_marginTop="20dp"
-            />
-    </androidx.core.widget.NestedScrollView>
+        android:layout_height="3dp"
+        android:layout_below="@id/address_bar"
+        android:indeterminate="false"
+        android:progressDrawable="@drawable/background_horizontal_progress" />
+    <WebView
+        android:id="@+id/about_us_webview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp">
+    </WebView>
 
 </LinearLayout>

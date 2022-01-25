@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.preference.PreferenceManager;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -16,12 +18,14 @@ import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import pro.upchain.wallet.C;
 import pro.upchain.wallet.domain.ETHWallet;
+import pro.upchain.wallet.entity.BookmarkEntity;
 import pro.upchain.wallet.entity.ConfirmationType;
 import pro.upchain.wallet.entity.DAppFunction;
 import pro.upchain.wallet.entity.GasSettings;
@@ -32,6 +36,7 @@ import pro.upchain.wallet.interact.FetchTokensInteract;
 import pro.upchain.wallet.interact.FetchWalletInteract;
 import pro.upchain.wallet.repository.EthereumNetworkRepository;
 import pro.upchain.wallet.ui.activity.ConfirmationActivity;
+import pro.upchain.wallet.ui.activity.DappTransferActivity;
 import pro.upchain.wallet.web3.entity.Message;
 import pro.upchain.wallet.web3.entity.Web3Transaction;
 
@@ -52,7 +57,7 @@ public class DappBrowserViewModel extends BaseViewModel  {
     private final FetchTokensInteract fetchTokensInteract;
 
     private double ethToUsd = 0;
-    private ArrayList<String> bookmarks;
+    private List<BookmarkEntity> bookmarks;
 
     DappBrowserViewModel(
             EthereumNetworkRepository ethereumNetworkRepository,
@@ -170,19 +175,34 @@ public class DappBrowserViewModel extends BaseViewModel  {
         context.startActivity(intent);
 
     }
+    public void openDappTransfer(Context context, Web3Transaction transaction, String requesterURL)
+    {
+        String networkName = defaultNetwork.getValue().name;
+        boolean mainNet = defaultNetwork.getValue().isMainNetwork;
 
-    private ArrayList<String> getBrowserBookmarksFromPrefs(Context context) {
-        ArrayList<String> storedBookmarks;
+        Intent intent = new Intent(context, DappTransferActivity.class);
+        intent.putExtra(C.EXTRA_WEB3TRANSACTION, transaction);
+        intent.putExtra(C.EXTRA_AMOUNT, Convert.fromWei(transaction.value.toString(10), Convert.Unit.WEI).toString());
+        intent.putExtra(C.TOKEN_TYPE, ConfirmationType.WEB3TRANSACTION.ordinal());
+        intent.putExtra(C.EXTRA_NETWORK_NAME, networkName);
+        intent.putExtra(C.EXTRA_NETWORK_MAINNET, mainNet);
+        intent.putExtra(C.EXTRA_CONTRACT_NAME, requesterURL);
+        intent.putExtra(C.EXTRA_IS_APPROVE, transaction.isApprove);
+        context.startActivity(intent);
+
+    }
+    private List<BookmarkEntity> getBrowserBookmarksFromPrefs(Context context) {
+        List<BookmarkEntity> storedBookmarks;
         String historyJson = PreferenceManager.getDefaultSharedPreferences(context).getString(C.DAPP_BROWSER_BOOKMARKS, "");
         if (!historyJson.isEmpty()) {
-            storedBookmarks = new Gson().fromJson(historyJson, new TypeToken<ArrayList<String>>(){}.getType());
+            storedBookmarks = JSONArray.parseArray(historyJson,BookmarkEntity.class);
         } else {
             storedBookmarks = new ArrayList<>();
         }
         return storedBookmarks;
     }
 
-    private void writeBookmarks(Context context, ArrayList<String> bookmarks)
+    private void writeBookmarks(Context context, List<BookmarkEntity> bookmarks)
     {
         String historyJson = new Gson().toJson(bookmarks);
         PreferenceManager.getDefaultSharedPreferences(context).edit().putString(C.DAPP_BROWSER_BOOKMARKS, historyJson).apply();
@@ -198,22 +218,28 @@ public class DappBrowserViewModel extends BaseViewModel  {
                 .edit().putString(C.DAPP_LASTURL_KEY, url).apply();
     }
 
-    public ArrayList<String> getBookmarks()
+    public List<BookmarkEntity> getBookmarks()
     {
         return bookmarks;
     }
 
-    public void addBookmark(Context context, String url)
+    public void addBookmark(Context context, String url,String title)
     {
         //add to list
-        bookmarks.add(url);
+        bookmarks.add(new BookmarkEntity(url,title));
         //store
         writeBookmarks(context, bookmarks);
     }
 
     public void removeBookmark(Context context, String url)
     {
-        if (bookmarks.contains(url)) bookmarks.remove(url);
+        for (int i = 0; i < bookmarks.size(); i++) {
+            if(bookmarks.get(i).getAddress().equals(url)){
+                bookmarks.remove(i);
+                break;
+            }
+
+        }
         writeBookmarks(context, bookmarks);
     }
 }

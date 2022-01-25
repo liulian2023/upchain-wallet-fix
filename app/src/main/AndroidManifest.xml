@@ -15,14 +15,22 @@
 
     <application
         android:name=".MyApplication"
-        android:allowBackup="true"
-        android:hardwareAccelerated="false"
-        android:icon="@mipmap/ic_launcher"
+        android:allowBackup="false"
+        android:hardwareAccelerated="true"
+        android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:largeHeap="true"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme.NoActionBar">
+        android:theme="@style/AppTheme.NoActionBar"
+        android:usesCleartextTraffic="true"
+        tools:replace="android:allowBackup">
+        <activity
+            android:name=".ui.activity.TestActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.DappTransferActivity"
+            android:theme="@style/activityDialogTheme" />
         <activity
             android:name=".ui.activity.DappActivity2"
             android:exported="false" />

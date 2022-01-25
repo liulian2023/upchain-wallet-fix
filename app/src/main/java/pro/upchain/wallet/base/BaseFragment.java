@@ -25,12 +25,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import me.yokeyword.fragmentation.ISupportFragment;
 import pro.upchain.wallet.view.loadding.CustomDialog;
 
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends MySupportFragment  {
 
     protected View parentView;
     protected FragmentActivity activity;

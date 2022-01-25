@@ -4,9 +4,11 @@
     android:layout_height="match_parent"
     android:background="@color/mine_menu_divider_color">
         <LinearLayout
+            android:id="@+id/mine_wrap_linear"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/mine_title_tv"
                 android:layout_width="match_parent"
@@ -23,11 +25,51 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Profile"
+                android:textColor="#ffacb5c3"
+                android:textSize="13sp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="13dp"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/white_normal_ripple"
+                android:layout_marginTop="13dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/wallet_first_name_tv"
+                    android:layout_width="33dp"
+                    android:layout_height="33dp"
+                    android:textSize="15sp"
+                    android:textColor="@color/home_main_color"
+                    android:background="@drawable/name_shape"
+                    android:layout_marginLeft="20dp"
+                    android:text="M"
+                    android:gravity="center"
+                    />
+                <TextView
+                    android:id="@+id/wallet_name_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="7dp"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:text="xiaoss"
+                    android:textStyle="bold"
+                    />
+            </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="@string/wallet"
                 android:textColor="#ffacb5c3"
                 android:textSize="13sp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="13dp"
+
                 />
             <LinearLayout
                 android:layout_width="match_parent"

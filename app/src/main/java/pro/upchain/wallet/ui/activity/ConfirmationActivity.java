@@ -365,12 +365,7 @@ public class ConfirmationActivity extends BaseActivity {
 
                 LogUtils.d(TAG, "send_button click");
 
-                InputPwdView pwdView = new InputPwdView(this, this::sendTransaction);
-                bottomSheetDialog = new BottomSheetDialog(this);
-                bottomSheetDialog.setContentView(pwdView);
-                bottomSheetDialog.setCancelable(true);
-                bottomSheetDialog.setCanceledOnTouchOutside(true);
-                bottomSheetDialog.show();
+
 
                 break;
 

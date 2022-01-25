@@ -12,10 +12,6 @@ import butterknife.OnClick;
 import pro.upchain.wallet.R;
 import pro.upchain.wallet.base.BaseActivity;
 
-/**
- * Created by Tiny 熊 @ Upchain.pro
- * WeiXin: xlbxiong
- */
 
 
 public class GuideActivity extends BaseActivity  {
@@ -47,10 +43,7 @@ public class GuideActivity extends BaseActivity  {
 
     }
 
-    @Override
-    public void onBackPressed() {
 
-    }
 
 
 

@@ -18,7 +18,6 @@ import pro.upchain.wallet.utils.StringUtils;
 
 public class AssetRecyclerAdapter extends BaseQuickAdapter<Token, BaseViewHolder> {
 
-
     public AssetRecyclerAdapter(int layoutResId, @Nullable List<Token> data) {
         super(layoutResId, data);
     }
@@ -35,7 +34,7 @@ public class AssetRecyclerAdapter extends BaseQuickAdapter<Token, BaseViewHolder
             baseViewHolder.setText(R.id.asset_amount_tv, balance);
         }
         ImageView asset_iv = baseViewHolder.getView(R.id.asset_iv);
-        GlideLoadUtils.loadNetImage(getContext(),asset_iv,tokenInfo.imgUrl);
+        GlideLoadUtils.loadTokenImage(getContext(),asset_iv,tokenInfo.imgUrl);
     }
 
 }

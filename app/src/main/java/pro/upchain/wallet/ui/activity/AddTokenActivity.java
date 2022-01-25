@@ -13,7 +13,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.gyf.barlibrary.ImmersionBar;
@@ -23,13 +22,12 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import pro.upchain.wallet.R;
 import pro.upchain.wallet.RxHttp.net.api.HttpApiUtils;
 import pro.upchain.wallet.RxHttp.net.api.RequestUtils;
+import pro.upchain.wallet.RxHttp.net.utils.StringMyUtil;
 import pro.upchain.wallet.base.BaseActivity;
-import pro.upchain.wallet.entity.AddTokenEntity;
 import pro.upchain.wallet.entity.ContractEntity;
 import pro.upchain.wallet.entity.Token;
 import pro.upchain.wallet.entity.TokenInfo;
 import pro.upchain.wallet.ui.adapter.AddTokenAdapter;
-import pro.upchain.wallet.utils.ReadAssetsJsonUtil;
 import pro.upchain.wallet.utils.RefreshUtils;
 import pro.upchain.wallet.viewmodel.AddTokenViewModel;
 import pro.upchain.wallet.viewmodel.AddTokenViewModelFactory;
@@ -71,6 +69,7 @@ public class AddTokenActivity extends BaseActivity {
     private AddTokenViewModel addTokenViewModel;
     AddTokenAdapter addTokenAdapter;
     private static final int SEARCH_ICO_TOKEN_REQUEST = 1000;
+    Token[] mineTokens;
     @Override
     public int getLayoutId() {
         return R.layout.activity_add_token;
@@ -127,7 +126,7 @@ public class AddTokenActivity extends BaseActivity {
         tokensViewModelFactory = new TokensViewModelFactory();
         tokensViewModel = ViewModelProviders.of(this, tokensViewModelFactory)
                 .get(TokensViewModel.class);
-//        tokensViewModel.tokens().observe(this, this::onTokens);
+        tokensViewModel.tokens().observe(this, this::onTokens);
 
         tokensViewModel.prepare();
 
@@ -146,6 +145,9 @@ public class AddTokenActivity extends BaseActivity {
                     ContractEntity contractEntity = contractEntityList.get(i);
                     TokenItem tokenItem = new TokenItem(new TokenInfo(contractEntity.getContract(), contractEntity.getTokenName(), contractEntity.getTokenSymbol(), contractEntity.getDecimals(), contractEntity.getIcon()), false);
                     mItems.add(tokenItem);
+                    if(mineTokens!=null){
+                        switchAddToken(mineTokens);
+                    }
                 }
                 addTokenAdapter.notifyDataSetChanged();
             }
@@ -158,16 +160,21 @@ public class AddTokenActivity extends BaseActivity {
     }
 
     private void onTokens(Token[] tokens) {
+        mineTokens = tokens;
+        switchAddToken(tokens);
+    }
 
+    private void switchAddToken(Token[] tokens) {
         for (TokenItem item : mItems) {
             for (Token token: tokens) {
-                if (item.tokenInfo.address.equals(token.tokenInfo.address)) {
+                if (StringMyUtil.isEmptyString(item.tokenInfo.address)||item.tokenInfo.address.equals(token.tokenInfo.address)) {
                     item.added = true;
                 }
             }
         }
         addTokenAdapter.notifyDataSetChanged();
     }
+
     @OnClick({R.id.lly_back,R.id.home_asset_management_linear,R.id.classification_search_linear})
     public void onClick(View view){
         switch (view.getId()){

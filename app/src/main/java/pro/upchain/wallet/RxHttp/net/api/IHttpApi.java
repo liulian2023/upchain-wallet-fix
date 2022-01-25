@@ -54,4 +54,14 @@ public interface IHttpApi {
     @FormUrlEncoded
     @POST("mobile/systemContract/list")
     Observable<Response<ResponseBody>> addContract(@FieldMap HashMap<String,Object>data);
+
+    /**
+     * 关于我们
+     * @param data
+     * @return
+     */
+
+    @FormUrlEncoded
+    @POST("mobile/aboutUs/getInfo")
+    Observable<Response<ResponseBody>> aboutUs(@FieldMap HashMap<String,Object>data);
 }

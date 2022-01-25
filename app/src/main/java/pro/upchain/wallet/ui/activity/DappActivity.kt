@@ -9,7 +9,7 @@ import pro.upchain.wallet.utils.dapp.WebAppInterface
 
 class DappActivity : AppCompatActivity() {
     companion object {
-         private const val DAPP_URL = "https://www.newmixf.com"
+         private const val DAPP_URL = "https://magicofuniverse.games/?locale=en-US&utm_source=imtoken"
 //        private const val DAPP_URL = "https://rstormsf.github.io/js-eth-personal-sign-examples/"
         private const val CHAIN_ID = 3
         private const val RPC_URL = "https://ropsten.infura.io/v3/83adb0e120d94611b86bef6258e55302"

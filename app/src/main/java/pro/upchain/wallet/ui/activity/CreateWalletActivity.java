@@ -1,17 +1,27 @@
 package pro.upchain.wallet.ui.activity;
 
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+
 import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import android.net.Uri;
+import android.provider.Settings;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.HashMap;
 
@@ -59,7 +69,7 @@ public class CreateWalletActivity extends BaseActivity {
     private CreateWalletInteract createWalletInteract;
 
     private static final int REQUEST_WRITE_STORAGE = 112;
-
+    private int REQUEST_PERMISSION_SETTING = 112;
 
     @Override
     public int getLayoutId() {
@@ -91,32 +101,56 @@ public class CreateWalletActivity extends BaseActivity {
         super.onResume();
 
 
-        boolean hasPermission = (ContextCompat.checkSelfPermission(this,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED);
-        if (!hasPermission) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                    REQUEST_WRITE_STORAGE);
-        }
+        checkPermissions();
 
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        switch (requestCode)
-        {
-            case REQUEST_WRITE_STORAGE: {
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                {
-                    //reload my activity with permission granted or use the features what required the permission
-                } else
-                {
-                    ToastUtils.showToast("The app was not allowed to write to your storage. Hence, it cannot function properly. Please consider granting it this permission");
+    private void checkPermissions() {
+        String[] PERMISSIONS = {WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE};
+        RxPermissions rxPermissions = new RxPermissions(this);
+        rxPermissions.requestEachCombined(PERMISSIONS)
+                .subscribe(permission -> {
+                    if (permission.granted) {
+//        }
+                    } else {
+                        permissionFail();
+                    }
+                });
+    }
+    private void permissionFail() {
+        if(!ActivityCompat.shouldShowRequestPermissionRationale(this,WRITE_EXTERNAL_STORAGE)||!ActivityCompat.shouldShowRequestPermissionRationale(this,READ_EXTERNAL_STORAGE)){
+            //用户勾选了不再询问
+            AlertDialog isExit = new AlertDialog.Builder(this).create();
+            isExit.setTitle(getResources().getString(R.string.Apply_Permission));
+            isExit.setMessage(getResources().getString(R.string.disabling_permission));
+            isExit.setButton(DialogInterface.BUTTON_NEGATIVE, getResources().getString(R.string.cancel_btn), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    checkPermissions();
                 }
-            }
+            });
+            isExit.setButton(DialogInterface.BUTTON_POSITIVE,  getResources().getString(R.string.sure_btn), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                    Uri uri = Uri.fromParts("package", getPackageName(), null);
+                    intent.setData(uri);
+                    startActivityForResult(intent, REQUEST_PERMISSION_SETTING);
+                }
+            });
+            isExit.show();
+        }else {
+            checkPermissions();
         }
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_PERMISSION_SETTING){
+            //从权限设置页面返回
+            checkPermissions();
+        }
     }
 
     @OnClick({/*R.id.tv_agreement,*/ R.id.create_wallet_back_iv,R.id.btn_create_wallet

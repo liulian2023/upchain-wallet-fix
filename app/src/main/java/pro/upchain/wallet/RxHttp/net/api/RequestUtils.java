@@ -1,6 +1,6 @@
 package pro.upchain.wallet.RxHttp.net.api;
 
-public class RequestUtils {
+public class    RequestUtils {
     /**
      * 注册
      */
@@ -27,4 +27,10 @@ public class RequestUtils {
      * 合约列表
      */
     public static String CONTRACT_LIST = "mobile/systemContract/list";
+
+    //
+    /**
+     * 合约列表
+     */
+    public static String ABOUT_US = "mobile/aboutUs/getInfo";
 }

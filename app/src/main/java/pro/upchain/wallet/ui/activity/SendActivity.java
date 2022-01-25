@@ -239,7 +239,7 @@ public class SendActivity extends BaseActivity implements TextWatcher {
         });
     }
     private void requestETHoTHERRate(String symbol) {
-        HttpApiUtils.requestETHUSDTRate(new HttpApiUtils.OnRequestLintener() {
+        HttpApiUtils.requestETHoTHERRate(symbol,new HttpApiUtils.OnRequestLintener() {
             @Override
             public void onSuccess(String result) {
                 RateEntity rateEntity = JSONObject.parseObject(result, RateEntity.class);
@@ -305,9 +305,8 @@ public class SendActivity extends BaseActivity implements TextWatcher {
     private void updateNetworkFee() {
         try {
             netCost = BalanceUtils.weiToEth(gasPrice.multiply(currentLimit),  4);
-            System.out.println("netCost = "+ netCost);
             if(StringMyUtil.isNotEmpty(ETH2USDTRate)){
-                tvGasCost.setText(String.valueOf(netCost)+ " " + C.ETH_SYMBOL+" ≈ "+(new BigDecimal(netCost).multiply(new BigDecimal(ETH2OtherRate)).setScale(2,BigDecimal.ROUND_HALF_UP))+" "+"USDT");
+                tvGasCost.setText(String.valueOf(netCost)+ " " + C.ETH_SYMBOL+" ≈ "+(new BigDecimal(netCost).multiply(new BigDecimal(ETH2USDTRate)).setScale(2,BigDecimal.ROUND_HALF_UP))+" "+"USDT");
             }else {
                 tvGasCost.setText(String.valueOf(netCost)+ " " + C.ETH_SYMBOL);
             }

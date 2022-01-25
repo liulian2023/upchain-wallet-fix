@@ -48,7 +48,7 @@ import butterknife.Unbinder;
  */
 
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends MySupportActivity {
 
     public Toolbar mCommonToolbar;
 

@@ -19,13 +19,7 @@
             android:layout_marginRight="15dp"
             android:layout_alignParentRight="true"
             app:srcCompat="@drawable/home_scan_icon" />
-        <ImageView
-            android:id="@+id/home_add_iv"
-            android:layout_width="39dp"
-            android:layout_height="39dp"
-            android:layout_alignParentLeft="true"
-            android:layout_marginLeft="15dp"
-            app:srcCompat="@drawable/home_scan_icon" />
+
     </RelativeLayout>
 
     <TextView
@@ -75,16 +69,42 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/home_amount_tv">
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/home_tab_layout"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="56dp"
-            app:tabSelectedTextColor="@color/home_main_color"
-            app:tabIndicatorColor="@color/home_main_color"
-            app:tabTextColor="@color/black"
-            app:tabIndicatorHeight="4dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageView
+                android:id="@+id/home_add_iv2"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="15dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="15dp"
+                android:visibility="invisible"
+                app:srcCompat="@drawable/add_coin_icon"/>
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/home_tab_layout"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_weight="1"
+                app:tabSelectedTextColor="@color/home_main_color"
+                app:tabIndicatorColor="@color/home_main_color"
+                app:tabTextColor="@color/black"
+                app:tabIndicatorHeight="4dp"
 
-            />
+                />
+            <ImageView
+                android:id="@+id/home_add_iv"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="15dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="15dp"
+                app:srcCompat="@drawable/add_coin_icon" />
+        </LinearLayout>
+
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/home_viewPager"
             android:layout_width="match_parent"

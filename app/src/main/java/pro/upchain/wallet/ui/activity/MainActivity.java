@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.gyf.barlibrary.ImmersionBar;
+
 import pro.upchain.wallet.R;
 import pro.upchain.wallet.base.BaseActivity;
 import pro.upchain.wallet.ui.adapter.HomePagerAdapter;
@@ -66,7 +68,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     DappBrowserFragment dappBrowserFragment;
 
-    boolean isDappShow  = false;
+    public   boolean isDappShow  = false;
 
     @Override
     public int getLayoutId() {
@@ -93,10 +95,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         llyDapp.setOnClickListener(this);
         llyMine.setOnClickListener(this);
 
-        vpHome.setOffscreenPageLimit(2);
+        vpHome.setOffscreenPageLimit(3);
 
         List<Fragment> fragmentList = new ArrayList<>();
-        fragmentList.add(new PropertyFragment());
+        PropertyFragment propertyFragment = new PropertyFragment();
+        fragmentList.add(propertyFragment);
         dappBrowserFragment = new DappBrowserFragment();
         fragmentList.add(dappBrowserFragment);
         fragmentList.add(new MineFragment());
@@ -143,7 +146,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 ivDapp.setSelected(true);
                 tvDapp.setSelected(true);
                 vpHome.setCurrentItem(1, false);
-                setupToolbarForDapp();
+//                setupToolbarForDapp();
                 isDappShow = true;
                 break;
             case R.id.lly_mine:// 我的
@@ -183,7 +186,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         tvMine.setSelected(false);
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
@@ -201,6 +203,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         setIconsVisible(menu,true);
         return true;
     }
+
 
 
     @Override

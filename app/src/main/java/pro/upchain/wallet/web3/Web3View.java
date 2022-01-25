@@ -1,33 +1,31 @@
 package pro.upchain.wallet.web3;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
-import android.os.Build;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.FragmentActivity;
+
+import android.graphics.Bitmap;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.webkit.WebBackForwardList;
 import android.webkit.WebChromeClient;
-import android.webkit.WebResourceRequest;
-import android.webkit.WebResourceResponse;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.net.URL;
 
 import pro.upchain.wallet.R;
-import pro.upchain.wallet.entity.CanGoBackNextEvenEntity;
+import pro.upchain.wallet.RxHttp.net.utils.StringMyUtil;
+import pro.upchain.wallet.entity.WebViewLoadFinishEvenEntity;
+import pro.upchain.wallet.entity.WebViewStartLoadEvenEntity;
 import pro.upchain.wallet.web3.entity.Address;
 import pro.upchain.wallet.web3.entity.Message;
-import pro.upchain.wallet.web3.entity.TypedData;
 import pro.upchain.wallet.web3.entity.Web3Transaction;
 
 public class Web3View extends WebView {
@@ -48,18 +46,25 @@ public class Web3View extends WebView {
 
     private JsInjectorClient jsInjectorClient;
     private Web3ViewClient webViewClient;
+    Activity activity;
 
     public Web3View(@NonNull Context context) {
         this(context, null);
+        activity = (Activity) context;
+        webViewClient = new Web3ViewClient(jsInjectorClient, new UrlHandlerManager());
+        init();
     }
 
     public Web3View(@NonNull Context context, @Nullable AttributeSet attrs) {
+
         this(context, attrs, 0);
+        webViewClient = new Web3ViewClient(jsInjectorClient, new UrlHandlerManager());
+        init();
     }
 
     public Web3View(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-
+        webViewClient = new Web3ViewClient(jsInjectorClient, new UrlHandlerManager());
         init();
     }
 
@@ -76,7 +81,6 @@ public class Web3View extends WebView {
     @SuppressLint("SetJavaScriptEnabled")
     private void init() {
         jsInjectorClient = new JsInjectorClient(getContext());
-        webViewClient = new Web3ViewClient(jsInjectorClient, new UrlHandlerManager());
 
         WebSettings webSettings = super.getSettings();
         webSettings.setJavaScriptEnabled(true);
@@ -86,6 +90,7 @@ public class Web3View extends WebView {
         webSettings.setUseWideViewPort(true);
         webSettings.setLoadWithOverviewMode(true);
         webSettings.setDomStorageEnabled(true);
+        webSettings.setLoadsImagesAutomatically(true);
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true);
 
         SignCallbackJSInterface signCallbackJSInterface = new SignCallbackJSInterface(
@@ -96,7 +101,7 @@ public class Web3View extends WebView {
 //        addJavascriptInterface(signCallbackJSInterface, "trust");
         addJavascriptInterface(signCallbackJSInterface, "_tw_");
 
-        super.setWebViewClient(webViewClient);
+//        super.setWebViewClient(webViewClient);
     }
 
     @Override
@@ -150,7 +155,7 @@ public class Web3View extends WebView {
     public void setOnSignPersonalMessageListener(@Nullable OnSignPersonalMessageListener onSignPersonalMessageListener) {
         this.onSignPersonalMessageListener = onSignPersonalMessageListener;
     }
-    
+
     public void setOnSignTypedMessageListener(@Nullable OnSignTypedMessageListener onSignTypedMessageListener) {
         this.onSignTypedMessageListener = onSignTypedMessageListener;
     }
@@ -238,7 +243,17 @@ public class Web3View extends WebView {
     };
     public void setActivity(FragmentActivity activity)
     {
+        this.  activity = activity;
         webViewClient.setActivity(activity);
+    }
+
+    @Override
+    public void loadUrl(@NonNull String url) {
+
+        if (!url.contains(".")) {
+            url = String.format("https://www.google.com/search?q=%s",url);
+        }
+        super.loadUrl(url);
     }
 
     private class WrapWebViewClient extends WebViewClient {
@@ -259,7 +274,15 @@ public class Web3View extends WebView {
             super.onPageFinished(view, url);
             view.evaluateJavascript(jsInjectorClient.loadFile(getContext(), R.raw.trust_min), null);
             view.evaluateJavascript(jsInjectorClient.loadInitJs( ), null);
-            EventBus.getDefault().postSticky(new CanGoBackNextEvenEntity(canGoBack(),canGoForward()));
+            String title = view.getTitle();
+            EventBus.getDefault().postSticky(new WebViewLoadFinishEvenEntity(canGoBack(),canGoForward(),url,StringMyUtil.isEmptyString(title)?"No Title":title));
+        }
+
+        @Override
+        public void onPageStarted(WebView view, String url, Bitmap favicon) {
+            super.onPageStarted(view, url, favicon);
+            EventBus.getDefault().postSticky(new WebViewStartLoadEvenEntity());
+
         }
         /*  @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {

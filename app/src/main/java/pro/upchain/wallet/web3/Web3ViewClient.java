@@ -127,20 +127,7 @@ public class Web3ViewClient extends WebViewClient {
         }
     }*/
 
-    private void injectScriptFile(WebView view) {
-        String js = jsInjectorClient.assembleJs(view.getContext(), "%1$s%2$s");
-        byte[] buffer = js.getBytes();
-        String encoded = Base64.encodeToString(buffer, Base64.NO_WRAP);
 
-        view.post(() -> view.loadUrl("javascript:(function() {" +
-                "var parent = document.getElementsByTagName('head').item(0);" +
-                "var script = document.createElement('script');" +
-                "script.type = 'text/javascript';" +
-                // Tell the browser to BASE64-decode the string into your script !!!
-                "script.innerHTML = window.atob('" + encoded + "');" +
-                "parent.appendChild(script)" +
-                "})()"));
-    }
 
     @Override
     public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {

@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.widget.Toolbar;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +30,9 @@ import pro.upchain.wallet.ui.activity.DappActivity;
 import pro.upchain.wallet.ui.activity.DappActivity2;
 import pro.upchain.wallet.ui.activity.QRCodeScannerActivity;
 import pro.upchain.wallet.ui.activity.SendActivity;
+import pro.upchain.wallet.ui.activity.TestActivity;
 import pro.upchain.wallet.ui.activity.WalletMangerActivity;
+import pro.upchain.wallet.utils.StatusBarUtil;
 import pro.upchain.wallet.utils.ToastUtils;
 import pro.upchain.wallet.viewmodel.TokensViewModel;
 import pro.upchain.wallet.viewmodel.TokensViewModelFactory;
@@ -95,7 +98,7 @@ public class PropertyFragment extends BaseFragment {
 
     @Override
     public void attachView() {
-    ImmersionBar.with(this).titleBarMarginTop(top_relativeLayout).init();
+
     }
 
     @Override
@@ -104,7 +107,7 @@ public class PropertyFragment extends BaseFragment {
 
     }
     /**
-     * 钱包金额
+     *  钱包金额
      * @param walletAmountEvenEntity
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -120,8 +123,9 @@ public class PropertyFragment extends BaseFragment {
                 startActivityForResult(intent, QRCODE_SCANNER_REQUEST);
                 break;
             case R.id.home_add_iv:
+//                startActivity(new Intent(getContext(), TestActivity.class));
                 startActivity(new Intent(getContext(), AddTokenActivity.class));
-//                startActivity(new Intent(getContext(), DappActivity.class));
+//                startActivity(new Intent(getContext(), DappActivity2.class));
                 break;
             default:
                 break;
@@ -130,6 +134,13 @@ public class PropertyFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+        ImmersionBar
+                .with(PropertyFragment.this)
+                .statusBarColor(R.color.home_main_color)
+                .statusBarDarkFont(false)
+                .titleBarMarginTop(top_relativeLayout)
+                .init();
+        System.out.println("PropertyFragment sssss: onResume:  "+System.currentTimeMillis() );
     }
 
 
@@ -141,9 +152,21 @@ public class PropertyFragment extends BaseFragment {
      initTab();
     }
 
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+
+        ImmersionBar
+                .with(PropertyFragment.this)
+                .statusBarColor(R.color.home_main_color)
+                .statusBarDarkFont(false)
+                .titleBarMarginTop(top_relativeLayout)
+                .init();
+    }
+
     private void initTab() {
         titleList.add(getString(R.string.Currency));
-        titleList.add(getString(R.string.Collection));
+//        titleList.add(getString(R.string.Collection));
         homeTabAdapter = new HomeTabAdapter(getChildFragmentManager(),titleList);
         home_viewPager.setAdapter(homeTabAdapter);
         home_tab_layout.setupWithViewPager(home_viewPager);
