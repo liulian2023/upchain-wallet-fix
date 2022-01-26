@@ -1,8 +1,11 @@
 package pro.upchain.wallet.utils;
 
+import static android.content.Context.CLIPBOARD_SERVICE;
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
 import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -44,6 +47,7 @@ import java.util.regex.Pattern;
 
 import pro.upchain.wallet.C;
 import pro.upchain.wallet.MyApplication;
+import pro.upchain.wallet.R;
 import pro.upchain.wallet.RxHttp.net.api.HttpApiUtils;
 import pro.upchain.wallet.repository.RepositoryFactory;
 
@@ -77,7 +81,12 @@ public class Utils {
         Matcher m = p.matcher(url.toLowerCase());
         return m.matches();
     }
-
+    public static void copyStr(String label, String content){
+        ClipboardManager clipboardManager= (ClipboardManager) MyApplication.getsInstance().getSystemService(CLIPBOARD_SERVICE);//实例化clipboardManager对象
+        ClipData bankCardNumData=  ClipData.newPlainText(label, content);//复制文本数据到粘贴板  newPlainText
+        clipboardManager.setPrimaryClip(bankCardNumData);
+       ToastUtils.showToast(R.string.copy_finish);
+    }
     /**
      * 设置背景亮度
      * @param activity activity实例

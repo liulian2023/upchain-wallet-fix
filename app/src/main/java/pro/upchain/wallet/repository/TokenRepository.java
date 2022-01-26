@@ -127,22 +127,22 @@ public class TokenRepository implements TokenRepositoryType {
     }
 
     @Override
-    public Completable addToken(String walletAddress, String address, String symbol, int decimals,String imgUrl) {
+    public Completable addToken(String walletAddress, String address, String symbol, int decimals,String imgUrl,String name) {
 
         LogUtils.d("addToken:" + walletAddress + ", address: " + address + ", source:" + tokenLocalSource + ", ethereumNetworkRepository:" + ethereumNetworkRepository );
 
         return tokenLocalSource.put(
                 ethereumNetworkRepository.getDefaultNetwork(),
                 walletAddress,
-                new TokenInfo(address, "", symbol, decimals,imgUrl));
+                new TokenInfo(address, name, symbol, decimals,imgUrl));
     }
 
     @Override
-    public Completable deleteToken(String walletAddress, String address, String symbol, int decimals, String imgUrl) {
+    public Completable deleteToken(String walletAddress, String address, String symbol, int decimals, String imgUrl,String name) {
         return tokenLocalSource.delete(
                 ethereumNetworkRepository.getDefaultNetwork(),
                 walletAddress,
-                new TokenInfo(address, "", symbol, decimals,imgUrl));
+                new TokenInfo(address, name, symbol, decimals,imgUrl));
     }
 
     private void updateTokenInfoCache(NetworkInfo defaultNetwork, String walletAddress) {

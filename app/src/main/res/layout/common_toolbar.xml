@@ -17,10 +17,16 @@
 
         <TextView
             android:id="@+id/tv_title"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_centerInParent="true"
+            android:layout_alignRight="@+id/lly_back"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/lly_back"
             android:gravity="center"
+            android:layout_marginRight="5dp"
+            android:singleLine="true"
+            android:ellipsize="end"
             android:textColor="@color/black"
             android:textSize="17.8sp" />
 

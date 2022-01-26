@@ -214,8 +214,10 @@
     <string name="receive_top_tip">Only send ETH/erc related assets.</string>
     <string name="receive_bottom_tip">Sending other assets may cause financial losses.</string>
     <string name="copy">copy</string>
+    <string name="copy_finish">Copy Finish</string>
     <string name="set_amount">set amount</string>
     <string name="share">Share</string>
+    <string name="send_to_self">Send to Self</string>
 
     <string name="create_wallet_tip">You will have a multi-chain wallet under your identity</string>
 
@@ -275,9 +277,9 @@
     <string name="subject_transaction_detail">transaction details</string>
 
     <!-- Subtitles -->
-    <string name="subtitle_from">Payment</string>
-    <string name="subtitle_to">target</string>
-    <string name="subtitle_gas_fee">Miner fee</string>
+    <string name="subtitle_from">Payment Address</string>
+    <string name="subtitle_to">Target Address</string>
+    <string name="subtitle_gas_fee">Miner fee :</string>
     <string name="subtitle_transaction_num">Transaction number #</string>
     <string name="subtitle_transaction_time">Transaction time</string>
     <string name="subtitle_block_num">Block #</string>

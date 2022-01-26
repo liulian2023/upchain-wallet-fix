@@ -3,7 +3,7 @@
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
 	android:orientation="vertical"
-	android:padding="16dp">
+	>
 
     <TextView
         android:id="@+id/title"
@@ -11,10 +11,11 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:textAppearanceMedium"
         android:text="@string/transfer_title_confirm"
-        android:textColor="@color/text_black"
+        android:textColor="@color/black"
+		android:textStyle="bold"
         android:gravity="center"
         android:layout_marginTop="10dp"
-        android:textSize="25sp"
+        android:textSize="17sp"
 		android:layout_gravity="center_horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -26,7 +27,12 @@
 		android:layout_height="wrap_content"
         android:gravity="center"
 		android:textAppearance="?android:textAppearanceLarge"
-        android:textColor="@color/cancel_red"
+        android:textColor="#E03939"
+		android:textSize="17sp"
+		android:textStyle="bold"
+		android:text="-0.00ETH"
+		android:layout_marginTop="15dp"
+		android:layout_gravity="center"
         app:layout_constraintTop_toBottomOf="@+id/title"
 		app:layout_constraintEnd_toEndOf="parent"
 		app:layout_constraintStart_toStartOf="parent" />
@@ -35,72 +41,93 @@
 		<TextView
             android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
+			android:textSize="15sp"
+			android:layout_marginTop="12dp"
+			android:shadowColor="#4E4E4E"
+			android:layout_marginLeft="18dp"
 			android:text="@string/subtitle_from" />
 
 		<TextView
 			android:id="@+id/text_from"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:layout_height="40dp"
+			android:layout_marginLeft="18dp"
+			android:layout_marginRight="18dp"
 			android:layout_marginBottom="@dimen/normal_margin"
-			android:layout_marginTop="@dimen/small_margin"
+			android:layout_marginTop="7dp"
 			android:textIsSelectable="true"
-			android:textSize="12sp"
+			android:textSize="11sp"
+			android:paddingLeft="10dp"
+			android:gravity="center_vertical"
+			android:textColor="@color/black"
+			android:background="@drawable/pay_detials_layout"
 			android:textAppearance="?attr/textAppearanceListItemSmall" />
 
 		<TextView
             android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
+			android:layout_marginLeft="18dp"
+			android:shadowColor="#4E4E4E"
+			android:layout_marginTop="8dp"
 			android:text="@string/subtitle_to" />
 
 		<TextView
 			android:id="@+id/text_to"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_marginBottom="@dimen/normal_margin"
-			android:layout_marginTop="@dimen/small_margin"
+			android:layout_width="match_parent"
+			android:layout_height="40dp"
+			android:layout_marginTop="7dp"
+			android:layout_marginLeft="18dp"
+			android:layout_marginRight="18dp"
 			android:textIsSelectable="true"
-			android:textSize="12sp"
+			android:textSize="11sp"
+			android:gravity="center_vertical"
+			android:paddingLeft="10dp"
+			android:textColor="@color/black"
+			android:background="@drawable/pay_detials_layout"
 			android:textAppearance="?attr/textAppearanceListItemSmall" />
 
-        <TextView
-            android:id="@+id/label_website"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:text="@string/requester_url" />
-
-        <TextView
-            android:id="@+id/text_website"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/normal_margin"
-            android:layout_marginTop="@dimen/small_margin"
-            android:textIsSelectable="true"
-            android:textSize="12sp"
-            android:visibility="gone"
-            android:textAppearance="?attr/textAppearanceListItemSmall" />
-
-
-
-    <TextView
-            android:layout_width="wrap_content"
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		android:layout_marginLeft="18dp"
+		android:layout_marginTop="7dp">
+		<TextView
+			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
-			android:text="@string/subtitle_gas_fee" />
+			android:text="@string/subtitle_gas_fee"
+			android:textColor="@color/home_main_color" />
 
 		<TextView
 			android:id="@+id/text_network_fee"
-			android:layout_width="wrap_content"
+			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			android:layout_marginBottom="@dimen/normal_margin"
-			android:layout_marginTop="@dimen/small_margin"
+			android:layout_weight="1"
 			android:textIsSelectable="true"
+			android:text="0.00ETH"
 			android:textSize="12sp"
+			android:layout_marginLeft="8dp"
+			android:textColor="@color/home_main_color"
 			android:textAppearance="?attr/textAppearanceListItemSmall" />
+	</LinearLayout>
+
+
+		<TextView
+			android:layout_width="match_parent"
+			android:layout_height="1dp"
+			android:layout_marginLeft="18dp"
+			android:layout_marginRight="18dp"
+			android:layout_marginTop="10dp"
+			android:background="#D2D2D2"/>
+
+
 
 	<LinearLayout
 		android:id="@+id/ll"
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
+		android:layout_marginLeft="18dp"
+		android:layout_marginTop="10dp"
 		android:orientation="horizontal"
 		app:layout_constraintTop_toBottomOf="@+id/text_value">
         <TextView
@@ -108,56 +135,63 @@
             android:layout_height="wrap_content"
             android:textSize="12sp"
             android:text="@string/label_gas_price"
+			android:textColor="@color/home_main_color"
             />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12sp"
-            android:text=":"
+            android:text=": "
+			android:textColor="@color/home_main_color"
             />
 
         <TextView
             android:id="@+id/text_gas_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/normal_margin"
-            android:layout_marginTop="@dimen/small_margin"
             android:textIsSelectable="true"
             android:textSize="12sp"
-            android:textAppearance="?attr/textAppearanceListItemSmall" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:text=" * "
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:text="@string/label_gas_limit"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:text=":"
-            />
-        <TextView
-            android:id="@+id/text_gas_limit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/normal_margin"
-            android:layout_marginTop="@dimen/small_margin"
-            android:textIsSelectable="true"
-            android:textSize="12sp"
+			android:text="0.00000"
+			android:layout_marginLeft="8dp"
+			android:textColor="@color/home_main_color"
             android:textAppearance="?attr/textAppearanceListItemSmall" />
 
     </LinearLayout>
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="18dp"
+		android:layout_marginTop="10dp"
+		android:gravity="center_vertical"
+		android:orientation="horizontal">
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textSize="12sp"
+			android:text="@string/label_gas_limit"
+			android:textColor="@color/home_main_color"
+			/>
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textSize="12sp"
+			android:textColor="@color/home_main_color"
+			android:text=": "
+			/>
+		<TextView
+			android:id="@+id/text_gas_limit"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+
+			android:textIsSelectable="true"
+			android:textSize="12sp"
+			android:layout_marginLeft="8dp"
+			android:textColor="@color/home_main_color"
+			android:text="0.000000"
+			android:textAppearance="?attr/textAppearanceListItemSmall" />
+	</LinearLayout>
 
 
 
@@ -166,7 +200,10 @@
 		style="@style/myButtonStyle"
 		android:layout_width="match_parent"
 		android:layout_height="50dp"
-		android:layout_marginTop="20dp"
+		android:layout_marginTop="23dp"
+		android:layout_marginLeft="18dp"
+		android:layout_marginRight="18dp"
+		android:layout_marginBottom="18dp"
 		android:text="@string/btn_confirm"
 		app:layout_constraintTop_toBottomOf="@+id/ll"
 		/>

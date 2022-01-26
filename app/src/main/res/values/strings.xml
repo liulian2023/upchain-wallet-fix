@@ -226,8 +226,10 @@
     <string name="receive_top_tip">Only send ETH/erc related assets.</string>
     <string name="receive_bottom_tip">Sending other assets may cause financial losses.</string>
     <string name="copy">复制</string>
+    <string name="copy_finish">复制完成</string>
     <string name="set_amount">设置数额</string>
     <string name="share">分享</string>
+    <string name="send_to_self">转账给自身钱包</string>
 
 
     <string name="create_wallet_tip">你将会拥有身份下的多链钱包</string>
@@ -286,9 +288,9 @@
     <string name="subject_transaction_detail">交易详情</string>
 
     <!-- Subtitles -->
-    <string name="subtitle_from">付款</string>
-    <string name="subtitle_to">目标</string>
-    <string name="subtitle_gas_fee">矿工费</string>
+    <string name="subtitle_from">付款地址</string>
+    <string name="subtitle_to">目标地址</string>
+    <string name="subtitle_gas_fee">矿工费 :</string>
     <string name="subtitle_transaction_num">交易号 #</string>
     <string name="subtitle_transaction_time">交易时间</string>
     <string name="subtitle_block_num">区块 #</string>

@@ -12,6 +12,7 @@ import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 
 import java.util.List;
 
+import pro.upchain.wallet.C;
 import pro.upchain.wallet.R;
 import pro.upchain.wallet.entity.TokenInfo;
 import pro.upchain.wallet.ui.activity.AddTokenActivity;
@@ -31,11 +32,14 @@ public class AddTokenAdapter extends BaseQuickAdapter<AddTokenActivity.TokenItem
         TokenInfo tokenInfo = tokenItem.tokenInfo;
         GlideLoadUtils.loadTokenImage(getContext(),add_token_iv,tokenInfo.imgUrl);
 
-        if(tokenItem.added){
             add_token_add_iv.setVisibility(View.GONE);
-        }else {
-            add_token_add_iv.setVisibility(View.VISIBLE);
-        }
+            if(tokenItem.added){
+                add_token_add_iv.setVisibility(View.GONE);
+            }else {
+                add_token_add_iv.setVisibility(View.VISIBLE);
+            }
+
+
         baseViewHolder.setText(R.id.add_token_name_tv, tokenInfo.symbol);
         baseViewHolder.setText(R.id.add_token_adress_tv, tokenInfo.address);
     }

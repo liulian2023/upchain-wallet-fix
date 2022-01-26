@@ -4,7 +4,10 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.gyf.barlibrary.ImmersionBar;
 
 import pro.upchain.wallet.R;
 import pro.upchain.wallet.base.BaseActivity;
@@ -23,7 +26,8 @@ public class WalletBackupActivity extends BaseActivity {
     Button btnBackup;
     @BindView(R.id.backup_later_tv)
     TextView backup_later_btn;
-
+    @BindView(R.id.imageView)
+    ImageView imageView;
 
     private InputPwdDialog inputPwdDialog;
     private String walletPwd;
@@ -40,6 +44,7 @@ public class WalletBackupActivity extends BaseActivity {
 
     @Override
     public void initToolBar() {
+
     }
 
     @Override
@@ -63,7 +68,7 @@ public class WalletBackupActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_backup:
-                inputPwdDialog = new InputPwdDialog(this);
+/*                inputPwdDialog = new InputPwdDialog(this);
                 inputPwdDialog.setOnInputDialogButtonClickListener(new InputPwdDialog.OnInputDialogButtonClickListener() {
                     @Override
                     public void onCancel() {
@@ -91,13 +96,23 @@ public class WalletBackupActivity extends BaseActivity {
                         }
                     }
                 });
-                inputPwdDialog.show();
-                break;
-            case R.id.backup_later_tv:
+                inputPwdDialog.show();*/
                 if (firstAccount) {
                     Intent intent = new Intent(WalletBackupActivity.this, MainActivity.class);
                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     startActivity(intent);
+                }
+                Intent intent = new Intent(WalletBackupActivity.this, MnemonicBackupActivity.class);
+                intent.putExtra("walletId", walletId);
+                intent.putExtra("walletMnemonic", walletMnemonic);
+                startActivity(intent);
+                finish();
+                break;
+            case R.id.backup_later_tv:
+                if (firstAccount) {
+                    Intent intent1 = new Intent(WalletBackupActivity.this, MainActivity.class);
+                    intent1.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent1);
                 }
 
                 finish();
@@ -105,4 +120,12 @@ public class WalletBackupActivity extends BaseActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        ImmersionBar.with(this)
+                .titleBarMarginTop(imageView)
+                .statusBarDarkFont(true)
+                .init();
+    }
 }

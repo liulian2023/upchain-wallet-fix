@@ -324,17 +324,26 @@ public class SendActivity extends BaseActivity implements TextWatcher {
     private boolean verifyInfo(String address, String amount) {
         //ethGetCode
 
-        try {
-            new Address(address);
-        } catch (Exception e) {
-            ToastUtils.showToast(R.string.addr_error_tips);
+        if(!Address.isAddress(address)){
+            myHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    ToastUtils.showToast(R.string.addr_error_tips);
+                }
+            });
+
             return false;
         }
         try {
             String wei = BalanceUtils.EthToWei(amount);
             return wei != null;
         } catch (Exception e) {
-            ToastUtils.showToast(R.string.amount_error_tips);
+            myHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    ToastUtils.showToast(R.string.amount_error_tips);
+                }
+            });
 
             return false;
         }
@@ -382,7 +391,7 @@ public class SendActivity extends BaseActivity implements TextWatcher {
 
     private void showconfirmView(String toAddr, String amount) {
         ConfirmTransactionView confirmView = new ConfirmTransactionView(SendActivity.this, SendActivity.this::onClick);
-        confirmView.fillInfo(walletAddr, toAddr, " - " + amount + " " + symbol, netCost, gasPrice, currentLimit);
+        confirmView.fillInfo(walletAddr, toAddr, " - " + amount + " " + symbol, netCost+"  "+C.ETH_SYMBOL, gasPrice, currentLimit);
         dialog = new BottomSheetDialog(SendActivity.this, R.style.BottomSheetDialog);
         dialog.setContentView(confirmView);
         dialog.setCancelable(true);
@@ -410,9 +419,6 @@ public class SendActivity extends BaseActivity implements TextWatcher {
                 break;
             case R.id.confirm_button:
                 // send
-
-
-
                 dialog.hide();
                 InputPwdView pwdView = new InputPwdView(this, pwd -> {
                     if (sendingTokens) {
@@ -466,6 +472,7 @@ public class SendActivity extends BaseActivity implements TextWatcher {
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
+
         myHandler.removeCallbacks(gasRunnable);
         //1秒未输入认为输入完毕
         if(StringMyUtil.isNotEmpty(amountText.getText().toString())&&StringMyUtil.isNotEmpty(etTransferAddress.getText().toString())){
@@ -475,6 +482,16 @@ public class SendActivity extends BaseActivity implements TextWatcher {
 
     @Override
     public void afterTextChanged(Editable s) {
+        //限制中文输入
+        if (s.length() > 0) {
+            for (int i = 0; i < s.length(); i++) {
+                char c = s.charAt(i);
+                if (c >= 0x4e00 && c <= 0X9fff) {
+                    s.delete(i,i+1);
+                }
+            }
+        }
+
 
     }
 
@@ -484,38 +501,58 @@ public class SendActivity extends BaseActivity implements TextWatcher {
             super.handleMessage(msg);
             String toAddr = etTransferAddress.getText().toString().trim();
             if(EDIT_OK == msg.what){
+                String amount = amountText.getText().toString().trim();
+                if(StringMyUtil.isEmptyString(contractAddress)){
+                    //ETH
+                    if(StringMyUtil.isNotEmpty(ETH2USDTRate) && !amount.startsWith(".") && StringMyUtil.isNotEmpty(amount)){
+                        send_amount_tv.setText("≈$"+new BigDecimal(amount).multiply(new BigDecimal(ETH2USDTRate)).setScale(2, BigDecimal.ROUND_HALF_UP));
+                    }
+                }else {
+                    //合约
+                    if(StringMyUtil.isNotEmpty(ETH2OtherRate) && !amount.startsWith(".") && StringMyUtil.isNotEmpty(amount)){
+                        send_amount_tv.setText("≈$"+new BigDecimal(amount).multiply(new BigDecimal(ETH2OtherRate)).setScale(2, BigDecimal.ROUND_HALF_UP));
+                    }
+                }
+
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        BigDecimal weiAmount = new BigDecimal(amountText.getText().toString().trim());
-                        String data = createTokenTransferData(etTransferAddress.getText().toString().trim(), BalanceUtils.tokenToWei(weiAmount, decimals).toBigInteger());
-                        String to= "";
-                        if(StringMyUtil.isNotEmpty(contractAddress)){
-                            to = contractAddress;
-                        }else {
-                            to = toAddr;
-                        }
-
-                        Transaction transaction = new Transaction (walletAddr, null, null, null, to, BigInteger.ZERO, data);
-                        RepositoryFactory rf = MyApplication.repositoryFactory();
-                        Web3j web3j = Web3j.build(new HttpService(rf.ethereumNetworkRepository.getDefaultNetwork().rpcServerUrl));
-                        try {
-                            EthEstimateGas send = web3j.ethEstimateGas(transaction)
-                                    .send();
-                            BigInteger amountUsed = send.getAmountUsed();
-                            if(amountUsed !=null){
-                                currentLimit = amountUsed;
-                                myHandler.post(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        updateNetworkFee();
-                                    }
-                                });
-
+                        boolean verifyInfo = verifyInfo(etTransferAddress.getText().toString().trim(), amountText.getText().toString().trim());
+                        if(verifyInfo){
+                            BigDecimal weiAmount = new BigDecimal(amountText.getText().toString().trim());
+                            String data = createTokenTransferData(etTransferAddress.getText().toString().trim(), BalanceUtils.tokenToWei(weiAmount, decimals).toBigInteger());
+                            if(StringMyUtil.isEmptyString(data)){
+                                return;
                             }
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                            String to= "";
+                            if(StringMyUtil.isNotEmpty(contractAddress)){
+                                to = contractAddress;
+                            }else {
+                                to = toAddr;
+                            }
+
+                            Transaction transaction = new Transaction (walletAddr, null, null, null, to, BigInteger.ZERO, data);
+                            RepositoryFactory rf = MyApplication.repositoryFactory();
+                            Web3j web3j = Web3j.build(new HttpService(rf.ethereumNetworkRepository.getDefaultNetwork().rpcServerUrl));
+                            try {
+                                EthEstimateGas send = web3j.ethEstimateGas(transaction)
+                                        .send();
+                                BigInteger amountUsed = send.getAmountUsed();
+                                if(amountUsed !=null){
+                                    currentLimit = amountUsed;
+                                    myHandler.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            updateNetworkFee();
+                                        }
+                                    });
+
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         }
+
                     }
                 }).start();
             }
@@ -603,13 +640,18 @@ public class SendActivity extends BaseActivity implements TextWatcher {
 
     }
     public static String createTokenTransferData(String to, BigInteger tokenAmount) {
-        List<Type> params = Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(to), new Uint256(tokenAmount));
+//        try {
+            List<Type> params = Arrays.<Type>asList(new org.web3j.abi.datatypes.Address(to), new Uint256(tokenAmount));
 
-        List<TypeReference<?>> returnTypes = Arrays.<TypeReference<?>>asList(new TypeReference<Bool>() {
-        });
+            List<TypeReference<?>> returnTypes = Arrays.<TypeReference<?>>asList(new TypeReference<Bool>() {
+            });
 
-        Function function = new Function("transfer", params, returnTypes);
-        return FunctionEncoder.encode(function);
+            Function function = new Function("transfer", params, returnTypes);
+            return FunctionEncoder.encode(function);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return "";
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

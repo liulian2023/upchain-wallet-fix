@@ -1,6 +1,10 @@
 package pro.upchain.wallet.service;
 
+import pro.upchain.wallet.RxHttp.net.api.HttpApiUtils;
+import pro.upchain.wallet.entity.RateEntity;
 import pro.upchain.wallet.entity.Ticker;
+
+import com.alibaba.fastjson.JSONObject;
 import com.google.gson.Gson;
 
 import io.reactivex.Observable;
@@ -57,6 +61,7 @@ public class UpWalletTickerService implements TickerService {
                 .lift(apiError())
                 .map(r -> r.response[0])
                 .subscribeOn(Schedulers.io());
+
     }
 
     private static @NonNull

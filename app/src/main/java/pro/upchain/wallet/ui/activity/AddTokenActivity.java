@@ -106,20 +106,26 @@ public class AddTokenActivity extends BaseActivity {
         requestContractList(false);
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        requestContractList(false);
+    }
+
     private void initRecycler() {
 
         addTokenAdapter = new AddTokenAdapter( R.layout.add_token_item_layout,mItems);
         add_token_recycler.setLayoutManager(new LinearLayoutManager(this));
         add_token_recycler.setAdapter(addTokenAdapter);
 
-        requestContractList(false);
+
         addTokenAdapter.addChildClickViewIds(R.id.add_token_add_iv);
         addTokenAdapter.setOnItemChildClickListener(new OnItemChildClickListener() {
             @Override
             public void onItemChildClick(@NonNull BaseQuickAdapter adapter, @NonNull View view, int position) {
                 TokenItem tokenItem = mItems.get(position);
                 tokenItem.added = true;
-                addTokenViewModel.save(tokenItem.tokenInfo.address, tokenItem.tokenInfo.symbol, tokenItem.tokenInfo.decimals,tokenItem.tokenInfo.imgUrl);
+                addTokenViewModel.save(tokenItem.tokenInfo.address, tokenItem.tokenInfo.symbol, tokenItem.tokenInfo.decimals,tokenItem.tokenInfo.imgUrl,tokenItem.tokenInfo.name);
                 addTokenAdapter.notifyDataSetChanged();
             }
         });
@@ -136,7 +142,9 @@ public class AddTokenActivity extends BaseActivity {
     }
 
     private void requestContractList(boolean isRefresh) {
-        HttpApiUtils.wwwShowLoadRequest(this, null, RequestUtils.CONTRACT_LIST, new HashMap<String, Object>(), loading_linear, error_linear, reload_tv, token_refresh, false, isRefresh, new HttpApiUtils.OnRequestLintener() {
+        HashMap<String, Object> data = new HashMap<>();
+        data.put("blockchainType",2);
+        HttpApiUtils.wwwShowLoadRequest(this, null, RequestUtils.CONTRACT_LIST, data, loading_linear, error_linear, reload_tv, token_refresh, false, isRefresh, new HttpApiUtils.OnRequestLintener() {
             @Override
             public void onSuccess(String result) {
                 List<ContractEntity> contractEntityList = JSONArray.parseArray(result, ContractEntity.class);

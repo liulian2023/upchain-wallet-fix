@@ -16,11 +16,11 @@ public class DeleteTokenInteract {
         this.tokenRepository = tokenRepository;
     }
 
-    public Completable delete(String address, String symbol, int decimals,String imgUrl) {
+    public Completable delete(String address, String symbol, int decimals,String imgUrl,String name) {
         return findDefaultWalletInteract
                 .findDefault()
                 .flatMapCompletable(wallet -> tokenRepository
-                        .deleteToken(wallet.address, address, symbol, decimals,imgUrl)
+                        .deleteToken(wallet.address, address, symbol, decimals,imgUrl,name)
                         .observeOn(AndroidSchedulers.mainThread()));
     }
 }

@@ -125,6 +125,8 @@ public class DappBrowserFragment extends BaseFragment implements ItemClickListen
     LinearLayout back_next_linear;
     @BindView(R.id.dapp_framelayout)
     FrameLayout dapp_framelayout;
+    @BindView(R.id.add_bookmark_iv)
+    ImageView add_bookmark_iv;
     private String currentTile;
     private BookMaskFragment bookMaskFragment;
     boolean isFirstTime = true;
@@ -798,7 +800,7 @@ public class DappBrowserFragment extends BaseFragment implements ItemClickListen
         animator.setDuration(100);
         return animator;
     }
-    @OnClick({R.id.next_iv,R.id.back_iv,R.id.more_iv,R.id.back_home_iv})
+    @OnClick({R.id.next_iv,R.id.back_iv,R.id.more_iv,R.id.back_home_iv,R.id.add_bookmark_iv})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.next_iv:
@@ -813,9 +815,28 @@ public class DappBrowserFragment extends BaseFragment implements ItemClickListen
             case R.id.back_home_iv:
                 viewBookmarks();
                 break;
+            case R.id.add_bookmark_iv:
+                boolean isAdded = isBookmarkAdded();
+                if(isAdded){
+                    ToastUtils.showToast(R.string.bookmark_already_added);
+                }else {
+                    addBookmark();
+                }
+                break;
             default:
                 break;
         }
+    }
+
+    public boolean isBookmarkAdded() {
+        boolean isAdded = false;
+        for (int i = 0; i < viewModel.getBookmarks().size(); i++) {
+            if( viewModel.getBookmarks().get(i).getAddress().equals(web3.getUrl())){
+                isAdded =true;
+                break;
+            }
+        }
+        return isAdded;
     }
 
     private void initRightPop() {

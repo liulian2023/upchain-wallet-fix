@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSONObject;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import pro.upchain.wallet.C;
+import pro.upchain.wallet.MyApplication;
 import pro.upchain.wallet.R;
 import pro.upchain.wallet.RxHttp.net.api.HttpApiUtils;
 import pro.upchain.wallet.RxHttp.net.api.RequestUtils;
@@ -25,6 +26,7 @@ import pro.upchain.wallet.entity.PendingHistoryEntity;
 import pro.upchain.wallet.entity.RateEntity;
 import pro.upchain.wallet.entity.Transaction;
 import pro.upchain.wallet.entity.TransferHistoryEntity;
+import pro.upchain.wallet.repository.RepositoryFactory;
 import pro.upchain.wallet.ui.adapter.TransactionsAdapter;
 import pro.upchain.wallet.ui.adapter.TransferHistoryAdapter;
 import pro.upchain.wallet.utils.CommonStr;
@@ -53,8 +55,10 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
+import static pro.upchain.wallet.C.ETHEREUM_MAIN_NETWORK_NAME;
 import static pro.upchain.wallet.C.EXTRA_ADDRESS;
 import static pro.upchain.wallet.C.Key.TRANSACTION;
+import static pro.upchain.wallet.C.ROPSTEN_NETWORK_NAME;
 
 public class PropertyDetailActivity extends BaseActivity {
     @BindView(R.id.wallet_balance_tv)
@@ -146,11 +150,39 @@ public class PropertyDetailActivity extends BaseActivity {
         requestHistory(false,false);
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        refresh_layout.autoRefresh();
+    }
+
     private void initRecycler(String rate) {
         transferHistoryAdapter = new TransferHistoryAdapter(listBeanArrayList,symbol,rate);
         history_recycler.setLayoutManager(new LinearLayoutManager(this));
         history_recycler.setAdapter(transferHistoryAdapter);
-
+        RepositoryFactory rf = MyApplication.repositoryFactory();
+        transferHistoryAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
+                TransferHistoryEntity.ListBean bean = listBeanArrayList.get(position);
+                String currentNetName = rf.ethereumNetworkRepository.getDefaultNetwork().name;
+                String url = "";
+                if(currentNetName.equals(ETHEREUM_MAIN_NETWORK_NAME)){
+                    url = String.format("https://etherscan.io/tx/%s",bean.getHash());
+                }else if(currentNetName.equals(ROPSTEN_NETWORK_NAME)){
+                    url = String.format("https://Ropsten.etherscan.io/tx/%s",bean.getHash());
+                }else if(currentNetName.equals(C.BSC_MAIN_NETWORK_NAME)){
+                    url = String.format("https://bscscan.com/tx/%s",bean.getHash());
+                }else if(currentNetName.equals(C.BSC_TEST_NETWORK_NAME)){
+                    url = String.format("https://testnet.bscscan.com/tx/%s",bean.getHash());
+                }
+                if(StringMyUtil.isNotEmpty(url)){
+                    Intent intent = new Intent(PropertyDetailActivity.this, TransferDetailsActivity.class);
+                    intent.putExtra("URL",url);
+                    startActivity(intent);
+                }
+            }
+        });
         requestHistory(false,false);
     }
 
@@ -189,7 +221,7 @@ public class PropertyDetailActivity extends BaseActivity {
                         }
                     }
 
-                    if(TransferDaoUtils.loadAll().size()>0){
+                    if(historyEntities.size()>0){
                         TransferHistoryEntity.ListBean bean = new TransferHistoryEntity.ListBean();
                         bean.setItemType(0);
                         bean.setTitleName(getString(R.string.pending));
@@ -316,7 +348,6 @@ public class PropertyDetailActivity extends BaseActivity {
             @Override
             public void onItemClick(@NonNull BaseQuickAdapter<?, ?> baseQuickAdapter, @NonNull View view, int position) {
                 Transaction t = transactionLists.get(position);
-
                 Intent intent = new Intent(PropertyDetailActivity.this, TransactionDetailActivity.class);
                 intent.putExtra(TRANSACTION, t);
                 startActivity(intent);

@@ -20,26 +20,25 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:text="@string/Receiving_address"
-            android:textColor="#ff6d7e91"
-            android:textSize="14sp"
+            android:textColor="#4E4E4E"
+            android:textSize="15sp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <EditText
             android:id="@+id/et_transfer_address"
             android:layout_width="0dp"
-            android:layout_height="55dp"
+            android:layout_height="40dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="11dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="18dp"
             android:background="@drawable/recover_wallet_edit_shape"
             android:hint="@string/copy_wallet_address"
-            android:paddingLeft="15dp"
-            android:paddingTop="15dp"
-            android:paddingBottom="15dp"
+            android:paddingLeft="8dp"
+            android:singleLine="true"
             android:textColor="@color/black"
             android:textColorHint="#ACB5C3"
-            android:textSize="14sp"
+            android:textSize="11sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView20" />
@@ -50,8 +49,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="@string/amount"
-            android:textColor="#ff6d7e91"
-            android:textSize="14sp"
+            android:textColor="#4E4E4E"
+            android:textSize="15sp"
             app:layout_constraintStart_toStartOf="@+id/et_transfer_address"
             app:layout_constraintTop_toBottomOf="@+id/et_transfer_address" />
 
@@ -60,8 +59,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="00.00USDT"
-            android:textColor="#ffacb5c3"
-            android:textSize="11sp"
+            android:textColor="#4E4E4E"
+            android:textSize="15sp"
             app:layout_constraintBottom_toBottomOf="@+id/textView21"
             app:layout_constraintEnd_toEndOf="@+id/et_transfer_address"
             app:layout_constraintTop_toTopOf="@+id/textView21" />
@@ -85,22 +84,24 @@
                 android:layout_height="wrap_content"
                 android:hint="0"
                 android:inputType="numberDecimal"
-                android:paddingLeft="15dp"
+                android:paddingLeft="8dp"
                 android:background="@null"
                 android:textColor="@color/black"
                 android:textColorHint="#ACB5C3"
-                android:textSize="35sp" />
+                android:paddingTop="14dp"
+                android:singleLine="true"
+                android:paddingBottom="7dp"
+                android:textSize="17sp" />
 
             <TextView
                 android:id="@+id/send_amount_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="12dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginBottom="8dp"
                 android:text="≈$0.00"
-                android:textColor="#ffacb5c3"
-                android:textSize="12sp" />
+                android:textColor="#808080"
+                android:textSize="10sp" />
         </LinearLayout>
 
         <TextView
@@ -109,7 +110,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="13dp"
             android:text="@string/subtitle_gas_fee"
-            android:textColor="#ff6d7e91"
+            android:textColor="#2851E7"
             android:textSize="11sp"
             app:layout_constraintStart_toStartOf="@+id/linearLayout2"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
@@ -119,7 +120,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0.00ETH ≈ 0USDT"
-            android:textColor="#ff6d7e91"
+            android:textColor="#2851E7"
             android:textSize="11sp"
             app:layout_constraintBottom_toBottomOf="@+id/textView23"
             app:layout_constraintEnd_toEndOf="@+id/linearLayout2"

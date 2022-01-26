@@ -22,9 +22,9 @@ public class AddTokenViewModel extends BaseViewModel {
         this.findDefaultWalletInteract = findDefaultWalletInteract;
     }
 
-    public void save(String address, String symbol, int decimals,String imgUrl) {
+    public void save(String address, String symbol, int decimals,String imgUrl,String name) {
         addTokenInteract
-                .add(address, symbol, decimals,imgUrl)
+                .add(address, symbol, decimals,imgUrl,name)
                 .subscribe(this::onSaved, this::onError);
     }
 

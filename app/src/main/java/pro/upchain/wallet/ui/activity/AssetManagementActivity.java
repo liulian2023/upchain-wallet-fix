@@ -65,6 +65,7 @@ public class AssetManagementActivity extends BaseActivity {
                 .get(DeleteTokenViewModel.class);
         initRefresh();
         initRecycler();
+        tokensViewModel.prepare();
     }
 
     @Override
@@ -76,7 +77,7 @@ public class AssetManagementActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        tokensViewModel.prepare();
+
     }
 
     private void initRecycler() {
@@ -94,7 +95,7 @@ public class AssetManagementActivity extends BaseActivity {
             @Override
             public void onItemChildClick(@NonNull BaseQuickAdapter adapter, @NonNull View view, int position) {
                 Token token = tokenItems.get(position);
-                deleteTokenViewModel.delete(token.tokenInfo.address, token.tokenInfo.symbol, token.tokenInfo.decimals,token.tokenInfo.imgUrl);
+                deleteTokenViewModel.delete(token.tokenInfo.address, token.tokenInfo.symbol, token.tokenInfo.decimals,token.tokenInfo.imgUrl,token.tokenInfo.name);
                 tokenItems.remove(token);
                 recyclerAdapter.notifyDataSetChanged();
             }
@@ -143,6 +144,6 @@ public class AssetManagementActivity extends BaseActivity {
     }
 
     private void initRefresh() {
-
+        asset_management_refresh.setEnableRefresh(false);
     }
 }

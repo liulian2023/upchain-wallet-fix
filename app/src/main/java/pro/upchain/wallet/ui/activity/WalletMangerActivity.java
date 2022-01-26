@@ -6,6 +6,14 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemChildClickListener;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
+
 import pro.upchain.wallet.R;
 import pro.upchain.wallet.base.BaseActivity;
 import pro.upchain.wallet.domain.ETHWallet;
@@ -18,6 +26,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import pro.upchain.wallet.utils.ToastUtils;
+import pro.upchain.wallet.utils.Utils;
 import pro.upchain.wallet.utils.WalletDaoUtils;
 
 /**
@@ -28,11 +37,11 @@ import pro.upchain.wallet.utils.WalletDaoUtils;
 public class WalletMangerActivity extends BaseActivity {
     private static final int CREATE_WALLET_REQUEST = 1101;
     private static final int WALLET_DETAIL_REQUEST = 1102;
-    @BindView(R.id.lv_wallet)
-    ListView lvWallet;
     @BindView(R.id.tv_title)
     TextView tvTitle;
-    private List<ETHWallet> walletList;
+    @BindView(R.id.wallet_manage_recycler)
+    RecyclerView wallet_manage_recycler;
+    private ArrayList<ETHWallet> walletList = new ArrayList<>();
     private WalletManagerAdapter walletManagerAdapter;
     private FetchWalletInteract fetchWalletInteract;
 
@@ -48,10 +57,29 @@ public class WalletMangerActivity extends BaseActivity {
 
     @Override
     public void initDatas() {
-        walletList = new ArrayList<>();
-        walletManagerAdapter = new WalletManagerAdapter(this, walletList, R.layout.list_item_wallet_manager);
-        lvWallet.setAdapter(walletManagerAdapter);
 
+        walletManagerAdapter = new WalletManagerAdapter( R.layout.list_item_wallet_manager, walletList);
+        wallet_manage_recycler.setLayoutManager(new LinearLayoutManager(this));
+        wallet_manage_recycler.setAdapter(walletManagerAdapter);
+        walletManagerAdapter.addChildClickViewIds(R.id.copy_address_tv);
+        walletManagerAdapter.setOnItemChildClickListener(new OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(@NonNull BaseQuickAdapter adapter, @NonNull View view, int position) {
+                ETHWallet wallet = walletList.get(position);
+                Utils.copyStr("wallet_address",wallet.getAddress());
+            }
+        });
+        walletManagerAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull BaseQuickAdapter<?, ?> adapter, @NonNull View view, int position) {
+                ETHWallet wallet = walletList.get(position);
+//                WalletDetailActivity.startAtyForResult(WalletMangerActivity.this,wallet,true,WALLET_DETAIL_REQUEST);
+
+                WalletDaoUtils.updateCurrent(wallet.getId());
+                ToastUtils.showToast(R.string.change_success);
+                finish();
+            }
+        });
 
         fetchWalletInteract = new FetchWalletInteract();
 
@@ -67,17 +95,7 @@ public class WalletMangerActivity extends BaseActivity {
 
     @Override
     public void configViews() {
-        lvWallet.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                ETHWallet wallet = walletList.get(position);
-//                WalletDetailActivity.startAtyForResult(WalletMangerActivity.this,wallet,true,WALLET_DETAIL_REQUEST);
 
-                WalletDaoUtils.updateCurrent(wallet.getId());
-                ToastUtils.showToast(R.string.change_success);
-                finish();
-            }
-        });
     }
 
     @OnClick({R.id.import_wallet_btn, R.id.create_wallet_btn})

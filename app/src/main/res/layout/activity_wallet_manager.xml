@@ -8,16 +8,13 @@
     <include layout="@layout/common_toolbar" />
 
 
-    <ListView
-        android:overScrollMode="never"
-        android:id="@+id/lv_wallet"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/wallet_manage_recycler"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:divider="@null"
-        android:listSelector="@android:color/transparent"
-        android:paddingTop="10dp"
-        android:scrollbars="none" />
+        android:layout_marginTop="30dp"
+        />
 
 
     <LinearLayout

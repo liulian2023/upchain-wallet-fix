@@ -1,67 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_marginLeft="12.5dp"
+    android:layout_marginRight="12.5dp"
+    android:layout_marginBottom="15dp"
+    android:id="@+id/wallet_manage_wrap"
+    android:background="@drawable/wallet_manage_single_shape"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="5dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/wallet_manager_list_item_bg">
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/civ_wallet_logo"
-            android:layout_width="39dp"
-            android:layout_height="39dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="15dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/wallet_logo_demo" />
-
-        <TextView
-            android:id="@+id/tv_wallet_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="18dp"
-            android:layout_toEndOf="@+id/civ_wallet_logo"
-            android:layout_toRightOf="@+id/civ_wallet_logo"
-            android:text="钱包名称"
-            android:textColor="@color/property_ico_name_color"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/tv_wallet_address"
-            android:layout_width="115dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_wallet_name"
-            android:layout_marginStart="15dp"
-            android:layout_marginLeft="15dp"
-            android:layout_toEndOf="@+id/civ_wallet_logo"
-            android:layout_toRightOf="@+id/civ_wallet_logo"
-            android:ellipsize="middle"
-            android:singleLine="true"
-            android:text="sjflkdsahfkjdsahfjsasadjfklsadskaljf"
-            android:textColor="@color/property_ico_worth_color"
-            android:textSize="12sp" />
-
-        <ImageView
-            android:layout_width="6dp"
-            android:layout_height="10dp"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginEnd="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="30dp"
-            android:src="@drawable/ic_right_arrow" />
+    android:layout_height="wrap_content">
 
 
-    </RelativeLayout>
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="26dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginBottom="14dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/namage_wallet_icon" />
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/wallet_name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:text="QWE"
+        android:textColor="@color/white"
+        android:textSize="13sp"
+        app:layout_constraintStart_toEndOf="@+id/imageView5"
+        app:layout_constraintTop_toTopOf="@+id/imageView5" />
+
+    <TextView
+        android:id="@+id/wallet_address_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ellipsize="middle"
+        android:singleLine="true"
+        android:text="0X2cSDaisSdhk...45234"
+        android:textColor="#ffffffff"
+        android:textSize="13sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView5"
+        app:layout_constraintEnd_toStartOf="@+id/copy_address_tv"
+        app:layout_constraintStart_toStartOf="@+id/wallet_name_tv" />
+
+    <ImageView
+        android:id="@+id/copy_address_tv"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="50dp"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/wallet_address_tv"
+        app:layout_constraintEnd_toStartOf="@+id/imageView7"
+        app:layout_constraintTop_toTopOf="@+id/wallet_address_tv"
+        app:srcCompat="@drawable/copy" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="21dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/right_arrow" />
+</androidx.constraintlayout.widget.ConstraintLayout>

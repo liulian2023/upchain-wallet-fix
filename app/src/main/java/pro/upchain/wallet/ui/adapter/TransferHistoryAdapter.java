@@ -45,21 +45,34 @@ public class TransferHistoryAdapter extends BaseMultiItemQuickAdapter<TransferHi
                 TextView us_amount_tv = baseViewHolder.getView(R.id.us_amount_tv);
                 TextView transfer_amount_tv = baseViewHolder.getView(R.id.transfer_amount_tv);
                 String money = listBean.getMoney();
-                transfer_amount_tv.setText(money+symbol);
+
                 date_tv.setText(listBean.getCreateTime());
                 String fromAddress = listBean.getFromAddress();
+                String toAddress = listBean.getToAddress();
                 BigDecimal rateAmount = new BigDecimal(money).multiply(new BigDecimal(usdtRate)).setScale(2, BigDecimal.ROUND_HALF_UP);
-                if(StringMyUtil.isEmptyString(fromAddress)|| fromAddress.equalsIgnoreCase(WalletDaoUtils.getCurrent().getAddress())){
-                    //转出
-                    address_tv.setText(listBean.getToAddress());
-                    us_amount_tv.setText("-US"+rateAmount);
-                    us_amount_tv.setTextColor(Color.BLACK);
-                }else {
-                    //转入
-                    address_tv.setText(fromAddress);
-                    us_amount_tv.setText("+US"+rateAmount);
+                if(StringMyUtil.isEmptyString(fromAddress)){
+                    //代办
+                    address_tv.setText(toAddress);
                     us_amount_tv.setTextColor(ContextCompat.getColor(getContext(),R.color.in_amount_color));
+                }else {
+//                    if( toAddress.equalsIgnoreCase(WalletDaoUtils.getCurrent().getAddress())){
+                    if( toAddress.equalsIgnoreCase(fromAddress)){
+                        //自己转自己
+                        address_tv.setText(getContext().getResources().getString(R.string.send_to_self));
+                        us_amount_tv.setTextColor(ContextCompat.getColor(getContext(),R.color.in_amount_color));
+                    }else if( toAddress.equalsIgnoreCase(WalletDaoUtils.getCurrent().getAddress())){
+                        //转入
+                        address_tv.setText(fromAddress);
+                        us_amount_tv.setTextColor(ContextCompat.getColor(getContext(),R.color.in_amount_color));
+                    }else {
+                        //转出
+                        address_tv.setText(toAddress);
+                        us_amount_tv.setTextColor(Color.BLACK);
+                    }
+
                 }
+                us_amount_tv.setText("$"+rateAmount);
+                transfer_amount_tv.setText("+"+money+symbol);
                 break;
             default:
                 break;

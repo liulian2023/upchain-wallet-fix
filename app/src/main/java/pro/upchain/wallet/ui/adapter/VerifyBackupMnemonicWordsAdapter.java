@@ -26,7 +26,7 @@ public class VerifyBackupMnemonicWordsAdapter extends BaseQuickAdapter<VerifyMne
     @Override
     protected void convert(BaseViewHolder helper, VerifyMnemonicWordTag verifyMnemonicWordTag) {
         if (verifyMnemonicWordTag.isSelected()) {
-            helper.setBackgroundColor(R.id.lly_tag, getContext().getResources().getColor(R.color.search_ico_upload_token));
+            helper.setBackgroundColor(R.id.lly_tag, getContext().getResources().getColor(R.color.home_main_color));
             helper.setTextColor(R.id.tv_mnemonic_word,getContext().getResources().getColor(R.color.white));
         } else {
             helper.setBackgroundColor(R.id.lly_tag, getContext().getResources().getColor(R.color.item_divider_bg_color));

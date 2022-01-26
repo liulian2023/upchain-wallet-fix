@@ -64,10 +64,10 @@ public class EthereumNetworkRepository  {
 //                    "https://ropsten.etherscan.io",3, false),
                     "https://api-ropsten.etherscan.io",3, false),
 
-            new NetworkInfo(LOCAL_DEV_NETWORK_NAME, ETH_SYMBOL,
+/*            new NetworkInfo(LOCAL_DEV_NETWORK_NAME, ETH_SYMBOL,
                     "http://192.168.8.100:8545",
                     "http://192.168.8.100:8000/",
-                    "",1337, false),
+                    "",1337, false),*/
             new NetworkInfo(BSC_MAIN_NETWORK_NAME, BSC_SYMBOL,
                     "https://bsc-dataseed1.binance.org:443/6RV6DD7UYS1WWECZYV4ZZ8G7W7KQ5F4QJT",
                     "http://192.168.8.100:8000/",

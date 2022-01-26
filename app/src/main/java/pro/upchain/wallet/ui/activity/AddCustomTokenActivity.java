@@ -150,18 +150,52 @@ public class AddCustomTokenActivity extends BaseActivity {
             @Override
             public void run() {
                String symbol = getTokenSymbol(web3j, address);
-               BigInteger decimals = erc20Decimals(web3j, address);
-               if(StringMyUtil.isEmptyString(symbol) || decimals == null){
+                String tokenName = getTokenName(web3j, address);
+                BigInteger decimals = erc20Decimals(web3j, address);
+               if(StringMyUtil.isEmptyString(symbol) || decimals == null ||StringMyUtil.isEmptyString(tokenName)){
                    isValid[0] = false;
                    ToastUtils.showToast(getString(R.string.important_contract_fail));
 
                }
                 dismissDialog();
                if(isValid[0]){
-                   viewModel.save(address, symbol, decimals.intValue(),"");
+                   viewModel.save(address, symbol, decimals.intValue(),"",tokenName);
                }
             }
         }).start();
+    }
+    /**
+     * 查询代币名称
+     *
+     * @param web3j
+     * @param contractAddress
+     * @return
+     */
+    public static String getTokenName(Web3j web3j, String contractAddress) {
+        String methodName = "name";
+        String name = null;
+        String fromAddr = emptyAddress;
+        List<Type> inputParameters = new ArrayList<>();
+        List<TypeReference<?>> outputParameters = new ArrayList<>();
+
+        TypeReference<Utf8String> typeReference = new TypeReference<Utf8String>() {
+        };
+        outputParameters.add(typeReference);
+
+        Function function = new Function(methodName, inputParameters, outputParameters);
+
+        String data = FunctionEncoder.encode(function);
+        Transaction transaction = Transaction.createEthCallTransaction(fromAddr, contractAddress, data);
+
+        EthCall ethCall;
+        try {
+            ethCall = web3j.ethCall(transaction, DefaultBlockParameterName.LATEST).sendAsync().get();
+            List<Type> results = FunctionReturnDecoder.decode(ethCall.getValue(), function.getOutputParameters());
+            name = results.get(0).getValue().toString();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        return name;
     }
 
     private void onSaved(boolean result) {

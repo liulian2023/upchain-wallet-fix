@@ -30,10 +30,12 @@ public class TokensAdapter extends BaseQuickAdapter<Token, BaseViewHolder> {
     @Override
     protected void convert(BaseViewHolder helper, Token token) {
         helper.setText(R.id.symbol, token.tokenInfo.symbol);
-        helper.setText(R.id.balance, token.balance);
+        if(StringMyUtil.isNotEmpty(token.balance)){
+            helper.setText(R.id.balance, "="+token.balance);
+        }
         helper.setText(R.id.name_tv, token.tokenInfo.name);
         if(StringMyUtil.isNotEmpty(token.value)){
-            helper.setText(R.id.tv_property_cny, "≈"+token.value+"(￥)");
+            helper.setText(R.id.tv_property_cny, "≈$"+token.value+"");
         }
         ImageView logo = helper.getView(R.id.logo);
         String imgUrl = token.tokenInfo.imgUrl;

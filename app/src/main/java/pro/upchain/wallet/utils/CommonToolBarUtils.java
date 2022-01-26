@@ -17,7 +17,14 @@ public class CommonToolBarUtils {
         }
 
     }
+    public static void initToolbar(Context context, String title){
+        Activity activity = (Activity) context;
+        TextView titleTv = getContentView(activity).findViewById(R.id.tv_title);
+        if(titleTv!=null){
+            titleTv.setText(title);
+        }
 
+    }
     public static View getContentView(Activity context) {
         return ((ViewGroup) context.findViewById(android.R.id.content)).getChildAt(0);
     }

@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.gyf.barlibrary.ImmersionBar;
@@ -31,6 +32,7 @@ import pro.upchain.wallet.RxHttp.net.api.HttpApiUtils;
 import pro.upchain.wallet.RxHttp.net.utils.StringMyUtil;
 import pro.upchain.wallet.base.BaseFragment;
 import pro.upchain.wallet.domain.ETHWallet;
+import pro.upchain.wallet.entity.RateEntity;
 import pro.upchain.wallet.entity.Ticker;
 import pro.upchain.wallet.entity.Token;
 import pro.upchain.wallet.entity.WalletAmountEvenEntity;
@@ -73,6 +75,8 @@ public class CoinFragment extends BaseFragment {
     private static final int BACK_PRESSED_INTERVAL = 1000;
 
     FetchWalletInteract fetchWalletInteract;
+    private String ETH2USDTRate;
+
     public static CoinFragment newInstance(int positoin) {
         CoinFragment fragment = new CoinFragment();
         Bundle args = new Bundle();
@@ -172,10 +176,40 @@ public class CoinFragment extends BaseFragment {
 //        tokensViewModel.error().observe(this, this::onError);
 
         tokensViewModel.tokens().observe(this, this::onTokens);
-        tokensViewModel.prices().observe(this, this::onPrices);
+//        tokensViewModel.prices().observe(this, this::onPrices);
 
+        HttpApiUtils.requestETHUSDTRate(new HttpApiUtils.OnRequestLintener() {
+            @Override
+            public void onSuccess(String result) {
+                RateEntity rateEntity = JSONObject.parseObject(result, RateEntity.class);
+                ETH2USDTRate = rateEntity.getPrice();
+                initPrice();
+
+            }
+
+            @Override
+            public void onFail(String msg) {
+
+            }
+        });
 
     }
+
+    private void initPrice() {
+        if(StringMyUtil.isNotEmpty(ETH2USDTRate)&&tokenItems!=null){
+            for (Token token : tokenItems) {
+                if (token.balance == null) {
+                    token.value = "0";
+                } else {
+                    token.value = new BigDecimal(token.balance).multiply(new BigDecimal(ETH2USDTRate)).setScale(2,BigDecimal.ROUND_HALF_UP)+"";
+                }
+
+            }
+            recyclerAdapter.notifyDataSetChanged();
+        }
+    }
+
+
     public void showWallet(ETHWallet wallet) {
 
         currEthWallet = wallet;
@@ -202,6 +236,7 @@ public class CoinFragment extends BaseFragment {
     private void onTokens(Token[] tokens) {
         tokenItems = Arrays.asList(tokens);
         recyclerAdapter.setTokens(tokenItems);
+        initPrice();
     }
 
     private void onPrices(Ticker ticker) {

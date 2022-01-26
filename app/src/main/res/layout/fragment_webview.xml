@@ -77,6 +77,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginRight="10dp"
+                android:visibility="gone"
                 android:src="@drawable/qianjin" />
         </LinearLayout>
 
@@ -84,12 +85,21 @@
             android:id="@+id/back_home_iv"
             android:layout_width="22dp"
             android:layout_height="22dp"
-            android:layout_marginEnd="22dp"
+            android:layout_marginEnd="13dp"
             app:layout_constraintBottom_toBottomOf="@+id/url_linear"
-            app:layout_constraintEnd_toStartOf="@+id/more_iv"
+            app:layout_constraintEnd_toStartOf="@+id/add_bookmark_iv"
             app:layout_constraintTop_toTopOf="@+id/url_linear"
             app:srcCompat="@drawable/back_home" />
 
+        <ImageView
+            android:id="@+id/add_bookmark_iv"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_marginEnd="13dp"
+            app:layout_constraintBottom_toBottomOf="@+id/more_iv"
+            app:layout_constraintEnd_toStartOf="@+id/more_iv"
+            app:layout_constraintTop_toTopOf="@+id/more_iv"
+            app:srcCompat="@drawable/dapp_bookmark" />
         <ImageView
             android:id="@+id/more_iv"
             android:layout_width="22dp"

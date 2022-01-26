@@ -24,9 +24,9 @@ public class DeleteTokenViewModel extends BaseViewModel {
         this.findDefaultWalletInteract = findDefaultWalletInteract;
     }
 
-    public void delete(String address, String symbol, int decimals,String imgUrl) {
+    public void delete(String address, String symbol, int decimals,String imgUrl,String name) {
         deleteTokenInteract
-                .delete(address, symbol, decimals,imgUrl)
+                .delete(address, symbol, decimals,imgUrl,name)
                 .subscribe(this::onDelete, this::onError);
     }
 

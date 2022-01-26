@@ -50,7 +50,6 @@ import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public class HttpApiUtils {
-    private static final String REQUEST_404 = "请求地址已失效";
     private static final String REQUEST_400 = "请求失败";
     /**
      * (显示加载中,没有errorLayout)
