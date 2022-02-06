@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusable="true"
@@ -47,12 +48,15 @@
 
     <TextView
         android:id="@+id/textView17"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="@string/protect_your_wallet_tip"
         android:textColor="@color/sub_black"
         android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginEnd="35dp"
+        android:lineSpacingExtra="5dp"
         app:layout_constraintStart_toStartOf="@+id/textView16"
         app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
@@ -74,6 +78,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+
 
     <EditText
         android:id="@+id/et_wallet_pwd"
@@ -124,6 +130,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/wallet_name_clear_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/et_wallet_name"
+        app:layout_constraintEnd_toEndOf="@+id/et_wallet_name"
+        app:layout_constraintTop_toTopOf="@+id/et_wallet_name"
+        app:srcCompat="@drawable/edit_delete" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -193,8 +193,8 @@
     <string name="create_wallet">创建钱包</string>
     <string name="first_use_wallet">第一次使用钱包</string>
     <string name="recover_wallet">恢复身份</string>
-    <string name="protect_your_wallet">保护您的加密钱包</string>
-    <string name="protect_your_wallet_tip">添加额外的安全层，以保持您的加密安全</string>
+    <string name="protect_your_wallet">创建你的钱包</string>
+    <string name="protect_your_wallet_tip">这就是其他电子钱包用户可以找到您并向您发送付款的方式。</string>
     <string name="guide_tip">最简单、最安全的加密钱包</string>
     <string name="already_have_wallet">已经拥有钱包</string>
     <string name="have_wallet">已有钱包</string>

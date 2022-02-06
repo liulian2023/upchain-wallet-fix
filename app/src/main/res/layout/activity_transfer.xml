@@ -2,7 +2,6 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -35,10 +34,12 @@
             android:background="@drawable/recover_wallet_edit_shape"
             android:hint="@string/copy_wallet_address"
             android:paddingLeft="8dp"
+            android:imeOptions="actionNext"
             android:singleLine="true"
             android:textColor="@color/black"
             android:textColorHint="#ACB5C3"
             android:textSize="11sp"
+            android:inputType="text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView20" />
@@ -89,6 +90,7 @@
                 android:textColor="@color/black"
                 android:textColorHint="#ACB5C3"
                 android:paddingTop="14dp"
+                android:imeOptions="actionDone"
                 android:singleLine="true"
                 android:paddingBottom="7dp"
                 android:textSize="17sp" />

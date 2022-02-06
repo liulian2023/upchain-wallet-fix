@@ -23,6 +23,7 @@
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
+        android:requestLegacyExternalStorage="true"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
         <activity
@@ -79,7 +80,7 @@
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".ui.activity.AssetManagementActivity" />
         <activity android:name=".ui.activity.QRCodeScannerActivity" />
-        <activity android:name=".ui.activity.CreateWalletActivity" />
+        <activity android:name=".ui.activity.CreateWalletActivity"   android:windowSoftInputMode="adjustPan" />
         <activity android:name=".ui.activity.AddTokenActivity" />
         <activity android:name=".ui.activity.AddCustomTokenActivity" />
         <activity android:name=".ui.activity.GatheringQRCodeActivity" />

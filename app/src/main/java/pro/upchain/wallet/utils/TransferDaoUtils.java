@@ -9,10 +9,6 @@ import pro.upchain.wallet.entity.PendingHistoryEntity;
 import pro.upchain.wallet.entity.PendingHistoryEntityDao;
 
 
-/**
- * Created by Tiny 熊 @ Upchain.pro
- * WeiXin: xlbxiong
- */
 
 public class TransferDaoUtils {
     public static PendingHistoryEntityDao pendingHistoryEntityDao = MyApplication.getsInstance().getDaoSession().getPendingHistoryEntityDao();
@@ -20,7 +16,7 @@ public class TransferDaoUtils {
     /**
      * 插入新创建钱包
      *
-     * @param pendingHistoryEntity 新创建钱包
+     * @param pendingHistoryEntity
      */
     public static void insertNewTransfer(PendingHistoryEntity pendingHistoryEntity) {
 

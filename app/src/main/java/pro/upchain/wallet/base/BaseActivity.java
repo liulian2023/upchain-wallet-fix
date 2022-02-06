@@ -27,6 +27,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 
 import pro.upchain.wallet.R;
@@ -78,6 +80,7 @@ public abstract class BaseActivity extends MySupportActivity {
             llyBack.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    hideSoftInputView();
                     finish();
                 }
             });
@@ -150,7 +153,16 @@ public abstract class BaseActivity extends MySupportActivity {
         }
 
     }
-
+    protected void hideSoftInputView() {
+        if (getWindow().getAttributes().softInputMode != WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN) {
+            InputMethodManager manager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            View currentFocus = getCurrentFocus();
+            if (currentFocus != null) {
+                manager.hideSoftInputFromWindow(currentFocus.getWindowToken(),
+                        InputMethodManager.HIDE_NOT_ALWAYS);
+            }
+        }
+    }
     protected boolean isVisible(View view) {
         return view.getVisibility() == View.VISIBLE;
     }

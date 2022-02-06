@@ -305,7 +305,6 @@ public class DappBrowserFragment extends BaseFragment implements ItemClickListen
             setupAddressBar();
         }
         isFirstTime = false;
-
     }
 
     @Override

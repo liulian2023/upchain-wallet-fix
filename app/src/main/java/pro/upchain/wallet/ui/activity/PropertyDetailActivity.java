@@ -3,7 +3,6 @@ package pro.upchain.wallet.ui.activity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProviders;
 import android.content.Intent;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,7 +10,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.alibaba.fastjson.JSONObject;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import pro.upchain.wallet.C;
@@ -29,10 +27,8 @@ import pro.upchain.wallet.entity.TransferHistoryEntity;
 import pro.upchain.wallet.repository.RepositoryFactory;
 import pro.upchain.wallet.ui.adapter.TransactionsAdapter;
 import pro.upchain.wallet.ui.adapter.TransferHistoryAdapter;
-import pro.upchain.wallet.utils.CommonStr;
 import pro.upchain.wallet.utils.LogUtils;
 import pro.upchain.wallet.utils.RefreshUtils;
-import pro.upchain.wallet.utils.SharePreferencesUtil;
 import pro.upchain.wallet.utils.TransferDaoUtils;
 import pro.upchain.wallet.utils.WalletDaoUtils;
 import pro.upchain.wallet.viewmodel.TransactionsViewModel;
@@ -42,16 +38,11 @@ import com.chad.library.adapter.base.listener.OnItemClickListener;
 import com.gyf.barlibrary.ImmersionBar;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-
-
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -231,7 +222,14 @@ public class PropertyDetailActivity extends BaseActivity {
                     for (int i = 0; i < TransferDaoUtils.loadAll().size(); i++) {
                         PendingHistoryEntity pendingHistoryEntity = TransferDaoUtils.loadAll().get(i);
                         String mineAddress = pendingHistoryEntity.getMineAddress();
-                        if(mineAddress.equalsIgnoreCase(WalletDaoUtils.getCurrent().address)){
+                        String symbol = pendingHistoryEntity.getSymbol();
+                        String netWork = pendingHistoryEntity.getNetWork();
+                        /**
+                         * 同一钱包同一代币 同一网络的记录才添加
+                         */
+                        if(mineAddress.equalsIgnoreCase(WalletDaoUtils.getCurrent().address)
+                                && symbol.equalsIgnoreCase(PropertyDetailActivity.this.symbol)
+                                && netWork.equals(MyApplication.repositoryFactory().ethereumNetworkRepository.getDefaultNetwork().rpcServerUrl)){
                             TransferHistoryEntity.ListBean listBean = new TransferHistoryEntity.ListBean();
                             listBean.setToAddress(pendingHistoryEntity.getToAddress());
                             listBean.setMoney(pendingHistoryEntity.getMoney());
@@ -353,9 +351,6 @@ public class PropertyDetailActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
-
-
-
     }
 
 
@@ -365,7 +360,6 @@ public class PropertyDetailActivity extends BaseActivity {
 //            if (transactionLists.size() > 0) {
 //                refreshLayout.setRefreshing(true);
 //            }
-
         } else {
             refresh_layout.finishRefresh();
         }
@@ -380,15 +374,12 @@ public class PropertyDetailActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.transfer_btn:
-
                 intent = new Intent(mContext, SendActivity.class);
-
                 intent.putExtra(C.EXTRA_BALANCE, balance);
                 intent.putExtra(C.EXTRA_ADDRESS, currWallet);
                 intent.putExtra(C.EXTRA_CONTRACT_ADDRESS, contractAddress);
                 intent.putExtra(C.EXTRA_SYMBOL, symbol);
                 intent.putExtra(C.EXTRA_DECIMALS, decimals);
-
                 startActivity(intent);
                 break;
             case R.id.receive_btn:
@@ -404,7 +395,6 @@ public class PropertyDetailActivity extends BaseActivity {
                 break;
             default:
                 break;
-
         }
     }
 }

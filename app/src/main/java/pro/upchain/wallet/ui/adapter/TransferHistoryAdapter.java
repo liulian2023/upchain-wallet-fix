@@ -54,25 +54,29 @@ public class TransferHistoryAdapter extends BaseMultiItemQuickAdapter<TransferHi
                     //代办
                     address_tv.setText(toAddress);
                     us_amount_tv.setTextColor(ContextCompat.getColor(getContext(),R.color.in_amount_color));
+                    transfer_amount_tv.setText("-"+money+symbol);
                 }else {
 //                    if( toAddress.equalsIgnoreCase(WalletDaoUtils.getCurrent().getAddress())){
                     if( toAddress.equalsIgnoreCase(fromAddress)){
                         //自己转自己
                         address_tv.setText(getContext().getResources().getString(R.string.send_to_self));
                         us_amount_tv.setTextColor(ContextCompat.getColor(getContext(),R.color.in_amount_color));
+                        transfer_amount_tv.setText(money+symbol);
                     }else if( toAddress.equalsIgnoreCase(WalletDaoUtils.getCurrent().getAddress())){
                         //转入
                         address_tv.setText(fromAddress);
                         us_amount_tv.setTextColor(ContextCompat.getColor(getContext(),R.color.in_amount_color));
+                        transfer_amount_tv.setText("+"+money+symbol);
                     }else {
                         //转出
                         address_tv.setText(toAddress);
                         us_amount_tv.setTextColor(Color.BLACK);
+                        transfer_amount_tv.setText("-"+money+symbol);
                     }
 
                 }
                 us_amount_tv.setText("$"+rateAmount);
-                transfer_amount_tv.setText("+"+money+symbol);
+
                 break;
             default:
                 break;

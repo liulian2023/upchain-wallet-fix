@@ -100,7 +100,6 @@ public class CreateWalletActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
 
-
         checkPermissions();
 
     }

@@ -181,8 +181,8 @@
     <string name="create_wallet">Create wallet</string>
     <string name="first_use_wallet">Use wallet for the first time</string>
     <string name="recover_wallet">Recover Identity</string>
-    <string name="protect_your_wallet">Protect your crypto wallet</string>
-    <string name="protect_your_wallet_tip">Add an extra layer of security to keep your encryption safe</string>
+    <string name="protect_your_wallet">Pick your wallet</string>
+    <string name="protect_your_wallet_tip">This is how other Wallet users can find you and send you payments.</string>
     <string name="guide_tip">The easiest and most secure crypto wallet</string>
     <string name="already_have_wallet">Already have a wallet</string>
     <string name="have_wallet">Have a wallet</string>

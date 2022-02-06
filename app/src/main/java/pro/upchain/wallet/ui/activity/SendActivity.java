@@ -588,6 +588,8 @@ public class SendActivity extends BaseActivity implements TextWatcher {
         pendingHistoryEntity.setHash(hash);
         pendingHistoryEntity.setItemType(1);
         pendingHistoryEntity.setMineAddress(WalletDaoUtils.getCurrent().address);
+        pendingHistoryEntity.setSymbol(symbol);
+        pendingHistoryEntity.setNetWork(MyApplication.repositoryFactory().ethereumNetworkRepository.getDefaultNetwork().rpcServerUrl);
         TransferDaoUtils.insertNewTransfer(pendingHistoryEntity);
 
         hideDialog();

@@ -15,12 +15,14 @@ public class PendingHistoryEntity {
     private String hash;
     private int itemType= 0;
     private String titleName;
-    private String mineAddress;
+    private String mineAddress;//用于判断是哪个钱包的交易记录
+    private String symbol;//用于判断是哪种代币的交易记录
+    private String netWork;//用于判断是那种网络的交易记录
 
-    @Generated(hash = 1035534276)
+    @Generated(hash = 502205232)
     public PendingHistoryEntity(Long id, String toUid, String toAddress,
             String money, String createTime, String hash, int itemType,
-            String titleName, String mineAddress) {
+            String titleName, String mineAddress, String symbol, String netWork) {
         this.id = id;
         this.toUid = toUid;
         this.toAddress = toAddress;
@@ -30,6 +32,8 @@ public class PendingHistoryEntity {
         this.itemType = itemType;
         this.titleName = titleName;
         this.mineAddress = mineAddress;
+        this.symbol = symbol;
+        this.netWork = netWork;
     }
     @Generated(hash = 187854479)
     public PendingHistoryEntity() {
@@ -87,6 +91,18 @@ public class PendingHistoryEntity {
     }
     public void setMineAddress(String mineAddress) {
         this.mineAddress = mineAddress;
+    }
+    public String getSymbol() {
+        return this.symbol;
+    }
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
+    }
+    public String getNetWork() {
+        return this.netWork;
+    }
+    public void setNetWork(String netWork) {
+        this.netWork = netWork;
     }
 
 
