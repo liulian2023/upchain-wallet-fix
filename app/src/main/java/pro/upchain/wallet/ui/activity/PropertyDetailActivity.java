@@ -54,8 +54,8 @@ import static pro.upchain.wallet.C.ROPSTEN_NETWORK_NAME;
 public class PropertyDetailActivity extends BaseActivity {
     @BindView(R.id.wallet_balance_tv)
     TextView wallet_balance_tv;
-    @BindView(R.id.wallet_amount_tv)
-    TextView wallet_amount_tv;
+    @BindView(R.id.total_amount_tv)
+    TextView total_amount_tv;
     @BindView(R.id.tv_title)
     TextView tv_title;
     @BindView(R.id.refresh_layout)
@@ -296,7 +296,7 @@ public class PropertyDetailActivity extends BaseActivity {
                 BigDecimal bigDecimal = new BigDecimal(balance);
                 BigDecimal multiply = bigDecimal.multiply(new BigDecimal(ETH2USDTRate));
                 BigDecimal usdt = multiply.setScale(2,BigDecimal.ROUND_HALF_UP);
-                wallet_amount_tv.setText("≈$"+usdt);
+                total_amount_tv.setText("≈$"+usdt);
                 if(symbol.equals(C.ETH_SYMBOL)){
                     initRecycler(ETH2USDTRate);
                 }
@@ -366,14 +366,15 @@ public class PropertyDetailActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.lly_back, R.id.receive_btn, R.id.transfer_btn})
+    @OnClick({R.id.lly_back, R.id.send_iv, R.id.receive_iv,R.id.send_tv,R.id.receive_tv})
     public void onClick(View view) {
         Intent intent = null;
         switch (view.getId()) {
             case R.id.lly_back:
                 finish();
                 break;
-            case R.id.transfer_btn:
+            case R.id.send_iv:
+            case R.id.send_tv:
                 intent = new Intent(mContext, SendActivity.class);
                 intent.putExtra(C.EXTRA_BALANCE, balance);
                 intent.putExtra(C.EXTRA_ADDRESS, currWallet);
@@ -382,7 +383,8 @@ public class PropertyDetailActivity extends BaseActivity {
                 intent.putExtra(C.EXTRA_DECIMALS, decimals);
                 startActivity(intent);
                 break;
-            case R.id.receive_btn:
+            case R.id.receive_tv:
+            case R.id.receive_iv:
                 intent = new Intent(mContext, GatheringQRCodeActivity.class);
                 ETHWallet wallet = WalletDaoUtils.getCurrent();
 

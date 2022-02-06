@@ -27,7 +27,7 @@
         android:id="@+id/create_wallet_back_iv"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:padding="15dp"
         android:src="@drawable/ic_back"
         app:layout_constraintStart_toStartOf="parent"
@@ -42,7 +42,7 @@
         android:layout_marginTop="6dp"
         android:textSize="18sp"
         android:textColor="@color/black"
-        android:text="@string/protect_your_wallet"
+        android:text="@string/create_your_wallet"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
@@ -51,7 +51,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="@string/protect_your_wallet_tip"
+        android:text="@string/create_your_wallet_tip"
         android:textColor="@color/sub_black"
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -88,6 +88,7 @@
         android:layout_marginTop="14dp"
         android:background="@drawable/create_wallet_etv_shape"
         android:hint="@string/wallet_name"
+        android:visibility="gone"
         android:singleLine="true"
         android:inputType="textPassword"
         android:paddingLeft="12dp"
@@ -106,6 +107,7 @@
         android:layout_marginTop="16dp"
         android:background="@drawable/create_wallet_etv_shape"
         android:hint="@string/sure_password"
+        android:visibility="gone"
         android:singleLine="true"
         android:inputType="textPassword"
         android:paddingLeft="12dp"
@@ -136,10 +138,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/et_wallet_name"
         app:layout_constraintEnd_toEndOf="@+id/et_wallet_name"
         app:layout_constraintTop_toTopOf="@+id/et_wallet_name"
         app:srcCompat="@drawable/edit_delete" />
+
+    <ImageView
+        android:id="@+id/available_iv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@+id/et_wallet_name"
+        app:layout_constraintTop_toBottomOf="@+id/et_wallet_pwd"
+        app:srcCompat="@drawable/available" />
+
+    <TextView
+        android:id="@+id/available_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:text="@string/name_available"
+        android:textSize="12sp"
+        android:textColor="#05B169"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/available_iv"
+        app:layout_constraintStart_toEndOf="@+id/available_iv"
+        app:layout_constraintTop_toTopOf="@+id/available_iv" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

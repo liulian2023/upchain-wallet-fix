@@ -79,8 +79,7 @@ public class WalletDaoUtils {
      */
     public static boolean walletNameChecking(String name) {
         List<ETHWallet> ethWallets = loadAll();
-        for (ETHWallet ethWallet : ethWallets
-                ) {
+        for (ETHWallet ethWallet : ethWallets) {
             if (TextUtils.equals(ethWallet.getName(), name)) {
                 return true;
             }

@@ -8,31 +8,49 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.Settings;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
+import org.web3j.protocol.Web3j;
+import org.web3j.protocol.core.methods.request.Transaction;
+import org.web3j.protocol.core.methods.response.EthEstimateGas;
+import org.web3j.protocol.http.HttpService;
+
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.HashMap;
 
 import pro.upchain.wallet.R;
 import pro.upchain.wallet.RxHttp.net.api.HttpApiUtils;
 import pro.upchain.wallet.RxHttp.net.api.RequestUtils;
 import pro.upchain.wallet.MyApplication;
+import pro.upchain.wallet.RxHttp.net.utils.StringMyUtil;
 import pro.upchain.wallet.base.BaseActivity;
 import pro.upchain.wallet.domain.ETHWallet;
 import pro.upchain.wallet.entity.LoginEntity;
 import pro.upchain.wallet.interact.CreateWalletInteract;
+import pro.upchain.wallet.repository.RepositoryFactory;
+import pro.upchain.wallet.utils.BalanceUtils;
 import pro.upchain.wallet.utils.CommonStr;
 import pro.upchain.wallet.utils.ETHWalletUtils;
 import pro.upchain.wallet.utils.LogUtils;
@@ -52,25 +70,31 @@ public class CreateWalletActivity extends BaseActivity {
 
 /*    @BindView(R.id.tv_title)
     TextView tvTitle;*/
+    @BindView(R.id.wallet_name_clear_iv)
+    ImageView wallet_name_clear_iv;
+    @BindView(R.id.available_iv)
+    ImageView available_iv;
+    @BindView(R.id.available_tv)
+    TextView available_tv;
     @BindView(R.id.et_wallet_name)
     EditText etWalletName;
-    @BindView(R.id.et_wallet_pwd)
+/*    @BindView(R.id.et_wallet_pwd)
     EditText etWalletPwd;
     @BindView(R.id.et_wallet_pwd_again)
-    EditText etWalletPwdAgain;
+    EditText etWalletPwdAgain;*/
 /*    @BindView(R.id.et_wallet_pwd_reminder_info)
     EditText etWalletPwdReminderInfo;*/
 /*    @BindView(R.id.cb_agreement)
     CheckBox cbAgreement;*/
 
     @BindView(R.id.btn_create_wallet)
-    TextView btnCreateWallet;
-
+    Button btn_create_wallet;
+    MyHandler myHandler;
     private CreateWalletInteract createWalletInteract;
 
     private static final int REQUEST_WRITE_STORAGE = 112;
     private int REQUEST_PERMISSION_SETTING = 112;
-
+    static int EDIT_OK = 111;
     @Override
     public int getLayoutId() {
         return R.layout.activity_create_wallet;
@@ -83,9 +107,67 @@ public class CreateWalletActivity extends BaseActivity {
 
     @Override
     public void initDatas() {
+        myHandler = new MyHandler();
         createWalletInteract = new CreateWalletInteract();
-    }
+        etWalletName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String toString = etWalletName.getText().toString();
+                if(StringMyUtil.isNotEmpty(toString)){
+                    wallet_name_clear_iv.setVisibility(View.VISIBLE);
+                }else {
+                    wallet_name_clear_iv.setVisibility(View.GONE);
+
+                }
+                myHandler.removeCallbacks(gasRunnable);
+                    myHandler.postDelayed(gasRunnable,500);
+            }
+        });
+    }
+    private Runnable gasRunnable = new Runnable() {
+        @Override
+        public void run() {
+            myHandler.sendEmptyMessage(EDIT_OK);
+        }
+    };
+    private class MyHandler extends Handler {
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            super.handleMessage(msg);
+
+            if(EDIT_OK == msg.what){
+                String name = etWalletName.getText().toString();
+                if(StringMyUtil.isNotEmpty(name)){
+                    available_iv.setVisibility(View.VISIBLE);
+                    available_tv.setVisibility(View.VISIBLE);
+                    boolean nameChecking = WalletDaoUtils.walletNameChecking(name);
+                    if(nameChecking){
+                        available_iv.setImageResource(R.drawable.unavailable);
+                        available_tv.setText(getString(R.string.name_un_available));
+                        available_tv.setTextColor(Color.parseColor("#DF5F67"));
+                    }else {
+                        available_iv.setImageResource(R.drawable.available);
+                        available_tv.setText(getString(R.string.name_available));
+                        available_tv.setTextColor(Color.parseColor("#05B169"));
+                    }
+                }else {
+                    available_iv.setVisibility(View.GONE);
+                    available_tv.setVisibility(View.GONE);
+                }
+
+            }
+        }
+    }
     @Override
     public void configViews() {
 /*        cbAgreement.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -152,10 +234,14 @@ public class CreateWalletActivity extends BaseActivity {
         }
     }
 
-    @OnClick({/*R.id.tv_agreement,*/ R.id.create_wallet_back_iv,R.id.btn_create_wallet
+    @OnClick({/*R.id.tv_agreement,*/ R.id.create_wallet_back_iv,R.id.btn_create_wallet,R.id.wallet_name_clear_iv
             /*, R.id.lly_wallet_agreement*/})
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.wallet_name_clear_iv:
+                etWalletName.setText("");
+                break;
+
             case R.id.create_wallet_back_iv:
                 finish();
                 break;
@@ -163,15 +249,16 @@ public class CreateWalletActivity extends BaseActivity {
                 break;
             case R.id.btn_create_wallet:
                 String walletName = etWalletName.getText().toString().trim();
-                String walletPwd = etWalletPwd.getText().toString().trim();
-                String confirmPwd = etWalletPwdAgain.getText().toString().trim();
-//                String pwdReminder = etWalletPwdReminderInfo.getText().toString().trim();
-                boolean verifyWalletInfo = verifyInfo(walletName, walletPwd, confirmPwd, "");
+//                String walletPwd = etWalletPwd.getText().toString().trim();
+//                String confirmPwd = etWalletPwdAgain.getText().toString().trim();
+                boolean verifyWalletInfo = verifyInfo(walletName);
 
                 if (verifyWalletInfo) {
-                    showDialog(getString(R.string.creating_wallet_tip));
+/*                    showDialog(getString(R.string.creating_wallet_tip));
                     createWalletInteract.create(walletName, walletPwd, confirmPwd, "")
-                            .subscribe(CreateWalletActivity.this::jumpToWalletBackUp, CreateWalletActivity.this::showError);
+                            .subscribe(CreateWalletActivity.this::jumpToWalletBackUp, CreateWalletActivity.this::showError);*/
+
+                    CreatePinActivity.startAty(CreateWalletActivity.this,etWalletName.getText().toString().trim(),true);
                 }
                 break;
 /*            case R.id.lly_wallet_agreement:
@@ -188,21 +275,14 @@ public class CreateWalletActivity extends BaseActivity {
         }
     }
 
-    private boolean verifyInfo(String walletName, String walletPwd, String confirmPwd, String pwdReminder) {
+    private boolean verifyInfo(String walletName) {
         if (WalletDaoUtils.walletNameChecking(walletName)) {
             ToastUtils.showToast(R.string.create_wallet_name_repeat_tips);
             // 同时不可重复
             return false;
-        } else if (TextUtils.isEmpty(walletName)) {
+        }else if (TextUtils.isEmpty(walletName)) {
             ToastUtils.showToast(R.string.create_wallet_name_input_tips);
             // 同时不可重复
-            return false;
-        } else if (TextUtils.isEmpty(walletPwd)) {
-            ToastUtils.showToast(R.string.create_wallet_pwd_input_tips);
-            // 同时判断强弱
-            return false;
-        } else if (TextUtils.isEmpty(confirmPwd) || !TextUtils.equals(confirmPwd, walletPwd)) {
-            ToastUtils.showToast(R.string.create_wallet_pwd_confirm_input_tips);
             return false;
         }
         return true;

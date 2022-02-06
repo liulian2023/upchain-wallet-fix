@@ -193,11 +193,19 @@
     <string name="create_wallet">创建钱包</string>
     <string name="first_use_wallet">第一次使用钱包</string>
     <string name="recover_wallet">恢复身份</string>
-    <string name="protect_your_wallet">创建你的钱包</string>
-    <string name="protect_your_wallet_tip">这就是其他电子钱包用户可以找到您并向您发送付款的方式。</string>
+    <string name="create_your_wallet">创建你的钱包</string>
+    <string name="create_your_wallet_tip">这就是其他电子钱包用户可以找到您并向您发送付款的方式。</string>
     <string name="guide_tip">最简单、最安全的加密钱包</string>
     <string name="already_have_wallet">已经拥有钱包</string>
     <string name="have_wallet">已有钱包</string>
+    <string name="protect_your_wallet">保护你的钱包</string>
+    <string name="Protect_your_wallet_tip">添加额外的安全层以确保您的加密货币安全</string>
+    <string name="create_pin">创建 PIN</string>
+    <string name="input_code">输入您的密码</string>
+    <string name="retype_your_code">重新输入你的密码</string>
+    <string name="incorrect">不正确</string>
+    <string name="name_available">钱包名可用</string>
+    <string name="name_un_available">钱包名不可用</string>
     <string name="identity_name">身份名</string>
     <string name="wallet_name">钱包密码</string>
     <string name="wallet">钱包</string>
@@ -219,6 +227,8 @@
     <string name="no_share_mnemonic_with_net">请勿将助记词在联网环境下分享和储存</string>
     <string name="confirmed_backup">已确认备份</string>
     <string name="home_default_amount">US$0.00</string>
+    <string name="share_address">分享地址</string>
+    <string name="qr_code_tip">交易可能需要几分钟才能完成</string>
     <string name="Currency">币种</string>
     <string name="Collection">藏品</string>
     <string name="No_coins_found">No coins found</string>
@@ -385,7 +395,8 @@
     <string name="label_gas_price">Gas Price</string>
     <string name="label_network_fee">矿工费</string>
     <string name="label_contract">contract</string>
-    <string name="action_send">Send</string>
+    <string name="action_send">转账</string>
+    <string name="Receive">收款</string>
 
     <string name="advanced_settings">自定义Gas</string>
     <string name="info_gas_price">更高的价格，交易更快打包处理，费用也更好。</string>

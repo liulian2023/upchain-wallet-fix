@@ -33,6 +33,7 @@ import pro.upchain.wallet.utils.Utils;
 import static pro.upchain.wallet.C.EXTRA_ADDRESS;
 import static pro.upchain.wallet.C.EXTRA_CONTRACT_ADDRESS;
 import static pro.upchain.wallet.C.EXTRA_DECIMALS;
+import static pro.upchain.wallet.C.EXTRA_SYMBOL;
 
 import org.web3j.utils.Convert;
 
@@ -50,6 +51,7 @@ public class GatheringQRCodeActivity extends BaseActivity {
     private String contractAddress;
     private int decimals;
     private String qRStr;
+    private String symbol;
 
     @Override
     public int getLayoutId() {
@@ -58,7 +60,7 @@ public class GatheringQRCodeActivity extends BaseActivity {
 
     @Override
     public void initToolBar() {
-        CommonToolBarUtils.initToolbar(this,R.string.property_detail_gathering);
+
 
     }
 
@@ -67,10 +69,13 @@ public class GatheringQRCodeActivity extends BaseActivity {
         View viewById = findViewById(R.id.common_toolbar);
         Intent intent = getIntent();
         walletAddress = intent.getStringExtra(EXTRA_ADDRESS);
+        symbol = intent.getStringExtra(EXTRA_SYMBOL);
         contractAddress = intent.getStringExtra(EXTRA_CONTRACT_ADDRESS);
         decimals = intent.getIntExtra(EXTRA_DECIMALS, 18);
-
-        tvWalletAddress.setText(walletAddress);        qRStr = "ethereum:" + walletAddress + "?decimal=" + decimals;
+        TextView tv_title =   findViewById(R.id.tv_title);
+        tv_title.setText(symbol+getString(R.string.property_detail_gathering));
+        tvWalletAddress.setText(walletAddress);
+        qRStr = "ethereum:" + walletAddress + "?decimal=" + decimals;
         if (!TextUtils.isEmpty(contractAddress)) {
             qRStr += "&contractAddress=" + contractAddress;
         }
@@ -98,21 +103,19 @@ public class GatheringQRCodeActivity extends BaseActivity {
     public void configViews() {
     }
 
-    @OnClick({R.id.lly_back, R.id.copy_linear,R.id.share_linear,R.id.set_amount_linear})
+    @OnClick({R.id.lly_back, R.id.copy_btn,R.id.share_address_tv})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.lly_back:
                 finish();
                 break;
-            case R.id.copy_linear:
+            case R.id.copy_btn:
                 copyWalletAddress();
                 break;
-            case R.id.share_linear:
+            case R.id.share_address_tv:
                 Utils.start2Share(GatheringQRCodeActivity.this,contractAddress);
                 break;
-            case R.id.set_amount_linear:
-                initSetAmountPop();
-                break;
+
             default:
                 break;
 

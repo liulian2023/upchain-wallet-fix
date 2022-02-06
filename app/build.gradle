@@ -192,6 +192,9 @@ dependencies {
     implementation 'org.web3j:core:4.1.0-android'
 
     //    compile 'com.google.guava:guava:24.1-jre'
+    //常用动画合集
+    implementation 'com.daimajia.easing:library:2.0@aar'
+    implementation 'com.daimajia.androidanimations:library:2.3@aar'
 
     // or, for Android:
     implementation 'com.google.guava:guava:27.0.1-android'

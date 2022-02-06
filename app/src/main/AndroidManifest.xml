@@ -20,12 +20,18 @@
         android:icon="@drawable/logo"
         android:label="@string/app_name"
         android:largeHeap="true"
+        android:requestLegacyExternalStorage="true"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
-        android:requestLegacyExternalStorage="true"
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
+        <activity
+            android:name=".ui.activity.ConfirmPinActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.CreatePinActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.activity.TransferDetailsActivity"
             android:exported="false" />
@@ -80,7 +86,9 @@
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".ui.activity.AssetManagementActivity" />
         <activity android:name=".ui.activity.QRCodeScannerActivity" />
-        <activity android:name=".ui.activity.CreateWalletActivity"   android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.activity.CreateWalletActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".ui.activity.AddTokenActivity" />
         <activity android:name=".ui.activity.AddCustomTokenActivity" />
         <activity android:name=".ui.activity.GatheringQRCodeActivity" />

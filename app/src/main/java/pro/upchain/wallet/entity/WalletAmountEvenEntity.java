@@ -3,17 +3,17 @@ package pro.upchain.wallet.entity;
 import java.math.BigDecimal;
 
 public class WalletAmountEvenEntity {
-    BigDecimal sum;
+    String sum;
 
-    public WalletAmountEvenEntity(BigDecimal sum) {
+    public WalletAmountEvenEntity(String sum) {
         this.sum = sum;
     }
 
-    public BigDecimal getSum() {
+    public String getSum() {
         return sum;
     }
 
-    public void setSum(BigDecimal sum) {
+    public void setSum(String sum) {
         this.sum = sum;
     }
 }

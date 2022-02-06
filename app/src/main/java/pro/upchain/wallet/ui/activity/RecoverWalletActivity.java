@@ -35,6 +35,7 @@ import pro.upchain.wallet.utils.WalletDaoUtils;
 import pro.upchain.wallet.view.LoadWalletSelectStandardPopupWindow;
 
 public class RecoverWalletActivity extends BaseActivity {
+
     @BindView(R.id.et_mnemonic)
     EditText et_mnemonic;
     @BindView(R.id.et_wallet_psd)
@@ -75,10 +76,11 @@ public class RecoverWalletActivity extends BaseActivity {
                 String mnemonic = et_mnemonic.getText().toString().trim();
                 String walletPwd = et_wallet_psd.getText().toString().trim();
                 String confirmPwd = et_wallet_psd.getText().toString().trim();
-                boolean verifyWalletInfo = verifyInfo(mnemonic, walletPwd, confirmPwd);
+                boolean verifyWalletInfo = verifyInfo(mnemonic);
                 if (verifyWalletInfo) {
-                    showDialog(getString(R.string.loading_wallet_tip));
-                    createWalletInteract.loadWalletByMnemonic(ethType, mnemonic, walletPwd).subscribe(this::loadSuccess, this::onError);
+//                    showDialog(getString(R.string.loading_wallet_tip));
+//                    createWalletInteract.loadWalletByMnemonic(ethType, mnemonic, walletPwd).subscribe(this::loadSuccess, this::onError);
+                    CreatePinActivity.startAty(RecoverWalletActivity.this,mnemonic);
                     break;
                 }
             case R.id.recover_wallet_back_iv:
@@ -159,7 +161,7 @@ public class RecoverWalletActivity extends BaseActivity {
         }
 
     }*/
-    private boolean verifyInfo(String mnemonic, String walletPwd, String confirmPwd ) {
+    private boolean verifyInfo(String mnemonic ) {
         if (TextUtils.isEmpty(mnemonic)) {
             ToastUtils.showToast(R.string.load_wallet_by_mnemonic_input_tip);
             return false;
@@ -175,10 +177,10 @@ public class RecoverWalletActivity extends BaseActivity {
 //            // 同时判断强弱
 //            return false;
 //        }
-        else if (TextUtils.isEmpty(confirmPwd) || !TextUtils.equals(confirmPwd, walletPwd)) {
+/*        else if (TextUtils.isEmpty(confirmPwd) || !TextUtils.equals(confirmPwd, walletPwd)) {
             ToastUtils.showToast(R.string.create_wallet_pwd_confirm_input_tips);
             return false;
-        }
+        }*/
         return true;
     }
     public void loadSuccess(ETHWallet wallet) {

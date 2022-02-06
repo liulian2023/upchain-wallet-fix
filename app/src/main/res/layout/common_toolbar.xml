@@ -17,16 +17,16 @@
 
         <TextView
             android:id="@+id/tv_title"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_alignRight="@+id/lly_back"
-            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_toEndOf="@+id/lly_back"
-            android:gravity="center"
             android:layout_marginRight="5dp"
-            android:singleLine="true"
+            android:layout_centerInParent="true"
             android:ellipsize="end"
+            android:gravity="center"
+            android:singleLine="true"
+            android:layout_toRightOf="@+id/lly_back"
+            android:layout_toLeftOf="@+id/rl_btn"
             android:textColor="@color/black"
             android:textSize="17.8sp" />
 
@@ -49,16 +49,15 @@
 
         <LinearLayout
             android:id="@+id/rl_btn"
-            android:layout_width="wrap_content"
+            android:layout_width="32.8dp"
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginEnd="5dp"
             android:layout_marginRight="5dp"
             android:gravity="center"
             android:orientation="horizontal"
-            android:visibility="gone">
+            android:visibility="invisible">
 
 
             <ImageView

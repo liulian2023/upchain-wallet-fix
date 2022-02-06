@@ -206,6 +206,18 @@ public class CoinFragment extends BaseFragment {
 
             }
             recyclerAdapter.notifyDataSetChanged();
+
+            BigDecimal totalAmount = BigDecimal.ZERO;
+            for (int i = 0; i < tokenItems.size(); i++) {
+                Token token = tokenItems.get(i);
+                String value = token.value;
+                if(StringMyUtil.isNotEmpty(value)){
+                    totalAmount = new BigDecimal(value).add(totalAmount).setScale(2,BigDecimal.ROUND_HALF_UP);
+                }
+            }
+            if(totalAmount.compareTo(BigDecimal.ZERO) >0){
+                EventBus.getDefault().postSticky(new WalletAmountEvenEntity(totalAmount+""));
+            }
         }
     }
 
@@ -259,7 +271,7 @@ public class CoinFragment extends BaseFragment {
    /*     if (tvTolalAssetValue != null) {
             tvTolalAssetValue.setText(sum.setScale(2, RoundingMode.CEILING).toString());
         }*/
-        EventBus.getDefault().postSticky(new WalletAmountEvenEntity(sum));
+//        EventBus.getDefault().postSticky(new WalletAmountEvenEntity(sum));
         recyclerAdapter.setTokens(tokenItems);
     }
 }

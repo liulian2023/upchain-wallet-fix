@@ -1,41 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical">
 
     <include layout="@layout/common_toolbar"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/wallet_balance_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/black"
+            android:textSize="35sp"
+            android:layout_marginTop="30dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
-        android:id="@+id/wallet_logo_tv"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:src="@drawable/wallet_logo_demo"
-        android:layout_gravity="center"
-        android:layout_marginTop="35dp"
-        />
-    <TextView
-        android:id="@+id/wallet_balance_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textSize="29sp"
-        android:layout_gravity="center"
-        android:layout_marginTop="16dp"
-        />
-    <TextView
-        android:id="@+id/wallet_amount_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text=""
-        android:textColor="#ff6d7e91"
-        android:textSize="17sp"
-        android:layout_marginTop="13dp"
-        android:layout_gravity="center"
-        />
+        <TextView
+            android:id="@+id/total_amount_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toEndOf="@+id/wallet_balance_tv"
+            app:layout_constraintStart_toStartOf="@+id/wallet_balance_tv"
+            app:layout_constraintTop_toBottomOf="@+id/wallet_balance_tv" />
 
+        <TextView
+            android:id="@+id/textView35"
+            android:layout_width="2dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="40dp"
+            android:background="#E1E1E1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/total_amount_tv" />
+
+        <ImageView
+            android:id="@+id/send_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toStartOf="@+id/textView35"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/textView35"
+            app:srcCompat="@drawable/send_icon" />
+
+        <ImageView
+            android:id="@+id/receive_iv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView35"
+            app:layout_constraintTop_toTopOf="@+id/textView35"
+            app:srcCompat="@drawable/recieve_icon" />
+
+        <TextView
+            android:id="@+id/send_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/action_send"
+            android:paddingTop="8dp"
+            android:textSize="15sp"
+            android:textColor="#1F47E5"
+            app:layout_constraintEnd_toEndOf="@+id/send_iv"
+            app:layout_constraintStart_toStartOf="@+id/send_iv"
+            app:layout_constraintTop_toBottomOf="@+id/send_iv" />
+
+        <TextView
+            android:id="@+id/receive_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/Receive"
+            android:textSize="15sp"
+            android:textColor="#1F47E5"
+            app:layout_constraintEnd_toEndOf="@+id/receive_iv"
+            app:layout_constraintStart_toStartOf="@+id/receive_iv"
+            app:layout_constraintTop_toBottomOf="@+id/receive_iv" />
+
+        <TextView
+            android:id="@+id/textView40"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="22dp"
+            android:background="#E1E1E1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/send_tv" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
     <include layout="@layout/loading_layout"/>
     <include layout="@layout/error_lyaout"/>
     <LinearLayout
@@ -65,7 +127,6 @@
         android:id="@+id/refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="26dp"
         android:layout_weight="1">
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/history_recycler"
@@ -74,43 +135,6 @@
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:layout_marginBottom="15dp"
-        android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/transfer_btn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:text="@string/property_detail_transfer"
-                android:background="@drawable/transfer_btn_selector"
-                android:textColor="@color/white"
-                android:textSize="14sp" />
-
-
-
-
-
-            <Button
-                android:id="@+id/receive_btn"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:text="@string/property_detail_gathering"
-                android:background="@drawable/my_button_selector"
-                android:textColor="@color/white"
-                android:textSize="14sp" />
-
-
-    </LinearLayout>
 
 
 </LinearLayout>

@@ -1,5 +1,7 @@
 package pro.upchain.wallet.ui.fragment;
 
+import static pro.upchain.wallet.C.EXTRA_ADDRESS;
+
 import androidx.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,13 +23,18 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import pro.upchain.wallet.C;
 import pro.upchain.wallet.R;
+import pro.upchain.wallet.RxHttp.net.api.HttpApiUtils;
 import pro.upchain.wallet.base.BaseFragment;
 import pro.upchain.wallet.domain.ETHWallet;
+import pro.upchain.wallet.entity.Token;
 import pro.upchain.wallet.entity.WalletAmountEvenEntity;
+import pro.upchain.wallet.interact.FetchWalletInteract;
 import pro.upchain.wallet.ui.activity.AddTokenActivity;
 import pro.upchain.wallet.ui.activity.DappActivity;
 import pro.upchain.wallet.ui.activity.DappActivity2;
+import pro.upchain.wallet.ui.activity.GatheringQRCodeActivity;
 import pro.upchain.wallet.ui.activity.QRCodeScannerActivity;
 import pro.upchain.wallet.ui.activity.SendActivity;
 import pro.upchain.wallet.ui.activity.TestActivity;
@@ -40,6 +47,7 @@ import com.gyf.barlibrary.ImmersionBar;
 
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -60,8 +68,9 @@ public class PropertyFragment extends BaseFragment {
     TokensViewModelFactory tokensViewModelFactory;
     private TokensViewModel tokensViewModel;
 
-
-
+    FetchWalletInteract fetchWalletInteract;
+    @BindView(R.id.wallet_name_tv)
+    TextView wallet_name_tv;
     @BindView(R.id.home_amount_tv)
     TextView home_amount_tv;
     @BindView(R.id.home_scan_iv)
@@ -76,7 +85,7 @@ public class PropertyFragment extends BaseFragment {
     List<String>titleList = new ArrayList<>();
 
     HomeTabAdapter homeTabAdapter;
-
+    Token ethToken;
 
 
 
@@ -84,6 +93,7 @@ public class PropertyFragment extends BaseFragment {
     private static final int CREATE_WALLET_REQUEST = 1101;
     private static final int ADD_NEW_PROPERTY_REQUEST = 1102;
     private static final int WALLET_DETAIL_REQUEST = 1104;
+    private ETHWallet currEthWallet;
 
 
     @Override
@@ -103,7 +113,32 @@ public class PropertyFragment extends BaseFragment {
 
     @Override
     public void initDatas() {
+        fetchWalletInteract = new FetchWalletInteract();
+//        fetchWalletInteract.fetch().subscribe(this::showDrawerWallets);
 
+        tokensViewModelFactory = new TokensViewModelFactory();
+        tokensViewModel = ViewModelProviders.of(this.getActivity(), tokensViewModelFactory)
+                .get(TokensViewModel.class);
+
+        tokensViewModel.defaultWallet().observe(this,  this::showWallet);
+        tokensViewModel.tokens().observe(this, this::onTokens);
+    }
+
+    private void onTokens(Token[] tokens) {
+        for (int i = 0; i < tokens.length; i++) {
+            Token token = tokens[i];
+            boolean equals = token.tokenInfo.symbol.equals(C.ETH_SYMBOL);
+            if(equals){
+                ethToken = token;
+            }
+        }
+    }
+    public void showWallet(ETHWallet wallet) {
+
+        currEthWallet = wallet;
+//        EventBus.getDefault().postSticky(new WalletInfoEvenEntity(wallet));
+        //       openOrCloseDrawerLayout();
+        wallet_name_tv.setText(currEthWallet.getName());
 
     }
     /**
@@ -112,15 +147,59 @@ public class PropertyFragment extends BaseFragment {
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void walletAmountEven(WalletAmountEvenEntity walletAmountEvenEntity){
-        home_amount_tv .setText(walletAmountEvenEntity.getSum().setScale(2, RoundingMode.CEILING).toString());
+        home_amount_tv .setText("US$"+walletAmountEvenEntity.getSum());
     }
 
-    @OnClick({R.id.home_scan_iv,R.id.home_add_iv})
+    @OnClick({R.id.home_scan_iv,R.id.home_add_iv,R.id.Receive_tv,R.id.send_tv,R.id.scan_iv})
     public void onClick(View view){
+        Intent intent = null;
         switch (view.getId()){
-            case R.id.home_scan_iv:
-                Intent intent = new Intent(getContext(), QRCodeScannerActivity.class);
+            case R.id.Receive_tv:
+                if(ethToken == null|| currEthWallet ==null){
+                    ToastUtils.showToast(R.string.please_wait_load_data);
+                }else {
+                    intent = new Intent(getContext(), GatheringQRCodeActivity.class);
+                    intent.putExtra(EXTRA_ADDRESS, currEthWallet.getAddress());
+                    intent.putExtra(C.EXTRA_CONTRACT_ADDRESS, "");
+                    intent.putExtra(C.EXTRA_SYMBOL, ethToken.tokenInfo.symbol);
+                    intent.putExtra(C.EXTRA_DECIMALS, ethToken.tokenInfo.decimals);
+                    startActivity(intent);
+                }
+
+                break;
+            case R.id.send_tv:
+                if(ethToken == null|| currEthWallet ==null){
+                    ToastUtils.showToast(R.string.please_wait_load_data);
+                }else {
+                    intent = new Intent(getContext(), SendActivity.class);
+                    intent.putExtra(C.EXTRA_BALANCE, ethToken.balance);
+                    intent.putExtra(C.EXTRA_ADDRESS, currEthWallet);
+                    intent.putExtra(C.EXTRA_CONTRACT_ADDRESS, "");
+                    intent.putExtra(C.EXTRA_SYMBOL, ethToken.tokenInfo.symbol);
+                    intent.putExtra(C.EXTRA_DECIMALS, ethToken.tokenInfo.decimals);
+                    startActivity(intent);
+                }
+                break;
+            /**
+             *             case R.id.receive_btn:
+             *                 intent = new Intent(mContext, GatheringQRCodeActivity.class);
+             *                 ETHWallet wallet = WalletDaoUtils.getCurrent();
+             *
+             *                 intent.putExtra(EXTRA_ADDRESS, wallet.getAddress());
+             *                 intent.putExtra(C.EXTRA_CONTRACT_ADDRESS, contractAddress);
+             *                 intent.putExtra(C.EXTRA_SYMBOL, symbol);
+             *                 intent.putExtra(C.EXTRA_DECIMALS, decimals);
+             *
+             *                 startActivity(intent);
+             *                 break;
+             */
+            case R.id.scan_iv:
+                intent = new Intent(getContext(), QRCodeScannerActivity.class);
                 startActivityForResult(intent, QRCODE_SCANNER_REQUEST);
+                break;
+            case R.id.home_scan_iv:
+//                Intent intent = new Intent(getContext(), QRCodeScannerActivity.class);
+//                startActivityForResult(intent, QRCODE_SCANNER_REQUEST);
                 break;
             case R.id.home_add_iv:
 //                startActivity(new Intent(getContext(), TestActivity.class));
@@ -138,9 +217,9 @@ public class PropertyFragment extends BaseFragment {
                 .with(PropertyFragment.this)
                 .statusBarColor(R.color.home_main_color)
                 .statusBarDarkFont(false)
-                .titleBarMarginTop(top_relativeLayout)
+                .titleBarMarginTop(wallet_name_tv)
                 .init();
-        System.out.println("PropertyFragment sssss: onResume:  "+System.currentTimeMillis() );
+        tokensViewModel.prepare();
     }
 
 
@@ -149,7 +228,7 @@ public class PropertyFragment extends BaseFragment {
         if(!EventBus.getDefault().isRegistered(this)){
             EventBus.getDefault().register(this);
         }
-     initTab();
+        initTab();
     }
 
     @Override
@@ -160,7 +239,7 @@ public class PropertyFragment extends BaseFragment {
                 .with(PropertyFragment.this)
                 .statusBarColor(R.color.home_main_color)
                 .statusBarDarkFont(false)
-                .titleBarMarginTop(top_relativeLayout)
+                .titleBarMarginTop(wallet_name_tv)
                 .init();
     }
 
