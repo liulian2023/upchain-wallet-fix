@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/dapp_transfer_shape">
+
+    <TextView
+        android:id="@+id/textView25"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/confirm_payment"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/net_url_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="www.baidu.com"
+        android:textSize="12sp"
+        android:textColor="#CECECE"
+        app:layout_constraintStart_toStartOf="@+id/textView25"
+        app:layout_constraintTop_toBottomOf="@+id/textView25" />
+
+    <TextView
+        android:id="@+id/textView26"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="CHAIN"
+        android:textColor="#CECECE"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="@+id/net_url_tv"
+        app:layout_constraintTop_toBottomOf="@+id/net_url_tv" />
+
+    <TextView
+        android:id="@+id/chain_name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text=""
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="@+id/textView26"
+        app:layout_constraintTop_toBottomOf="@+id/textView26" />
+
+    <TextView
+        android:id="@+id/textView28"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="25dp"
+        android:lineSpacingExtra="3dp"
+        android:text="@string/confirm_payment_tip"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/chain_name_tv"
+        app:layout_constraintTop_toBottomOf="@+id/chain_name_tv" />
+
+    <TextView
+        android:id="@+id/miner_fee_tip_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="MINER FEE"
+        android:textColor="#DB4C4E"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="@+id/textView28"
+        app:layout_constraintTop_toBottomOf="@+id/textView28" />
+
+    <TextView
+        android:id="@+id/miner_fee_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="US$0.00"
+        android:textColor="#DB4C4E"
+        android:textSize="15sp"
+        app:layout_constraintStart_toStartOf="@+id/miner_fee_tip_tv"
+        app:layout_constraintTop_toBottomOf="@+id/miner_fee_tip_tv" />
+
+    <TextView
+        android:id="@+id/miner_fee_rate_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="20dp"
+        android:text="0.0000BNB"
+        android:textColor="#777777"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/miner_fee_tv"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/miner_fee_tv"
+        app:layout_constraintTop_toTopOf="@+id/miner_fee_tv" />
+
+    <TextView
+        android:id="@+id/not_enough_tip_tv"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:layout_marginTop="22sp"
+        android:text="@string/miner_fee_not_enough"
+        android:textSize="12.5sp"
+        android:textColor="#DB4C4E"
+        android:lineSpacingExtra="3dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/miner_fee_tv"
+        app:layout_constraintTop_toBottomOf="@+id/miner_fee_rate_tv" />
+
+    <Button
+        android:id="@+id/cancel_btb"
+        style="@style/cancel_ButtonStyle"
+        android:layout_width="140dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
+        android:text="@string/cancel_btn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/not_enough_tip_tv" />
+
+    <Button
+        android:id="@+id/sure_btn"
+        style="@style/myButtonStyle"
+        android:background="@drawable/sure_button_enable_flase_sbape"
+        android:layout_width="140dp"
+        android:layout_height="50dp"
+        android:text="@string/input_pwd_dialog_confirm"
+        app:layout_constraintBottom_toBottomOf="@+id/cancel_btb"
+        app:layout_constraintEnd_toEndOf="@+id/not_enough_tip_tv"
+        app:layout_constraintTop_toTopOf="@+id/cancel_btb" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
