@@ -22,6 +22,7 @@ import okhttp3.Response;
 import pro.upchain.wallet.MyApplication;
 import pro.upchain.wallet.R;
 import pro.upchain.wallet.repository.RepositoryFactory;
+import pro.upchain.wallet.utils.WalletDaoUtils;
 import pro.upchain.wallet.web3.entity.Address;
 
 class JsInjectorClient {
@@ -189,7 +190,8 @@ public String loadInitJs() {
     int chainId = rf.ethereumNetworkRepository.getDefaultNetwork().chainId;
     String s = loadFile(context, R.raw.trust_script);
     String replace = s.replace("__CHAINID__", chainId + "");
-    return replace.replace("__RPCURL__",rpcUrl);
+    String replace2 = replace.replace("__ADDRESS__", WalletDaoUtils.getCurrent().getAddress());
+    return replace2.replace("__RPCURL__",rpcUrl);
 }
         public String loadFile(Context context, @RawRes int rawRes) {
             byte[] buffer = new byte[0];

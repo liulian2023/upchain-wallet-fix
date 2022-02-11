@@ -57,7 +57,7 @@
         android:id="@+id/transfer_amount_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0 ETH"
+        android:text="0"
         android:textColor="#ffacb5c3"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"

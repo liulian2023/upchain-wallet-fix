@@ -1,6 +1,8 @@
 package pro.upchain.wallet.entity;
 
-public class ContractEntity {
+import com.chad.library.adapter.base.entity.MultiItemEntity;
+
+public class ContractEntity implements MultiItemEntity {
 
 
     private String tokenSymbol;
@@ -15,8 +17,10 @@ public class ContractEntity {
     private String isEnable;
     private String createTime;
     private int decimals;
+    private int isSuggested;//1：是，2：否
     private String id;
-
+    String titleName;
+    private int itemType= 1;
     public String getTokenSymbol() {
         return tokenSymbol;
     }
@@ -35,6 +39,14 @@ public class ContractEntity {
 
     public String getBlockchainType() {
         return blockchainType;
+    }
+
+    public int getIsSuggested() {
+        return isSuggested;
+    }
+
+    public void setIsSuggested(int isSuggested) {
+        this.isSuggested = isSuggested;
     }
 
     public void setBlockchainType(String blockchainType) {
@@ -119,5 +131,22 @@ public class ContractEntity {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    @Override
+    public int getItemType() {
+        return itemType;
+    }
+
+    public String getTitleName() {
+        return titleName;
+    }
+
+    public void setTitleName(String titleName) {
+        this.titleName = titleName;
+    }
+
+    public void setItemType(int itemType) {
+        this.itemType = itemType;
     }
 }

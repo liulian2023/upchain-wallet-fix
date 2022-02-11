@@ -22,8 +22,8 @@ public abstract class C {
     public static final String ROPSTEN_NETWORK_NAME = "Ropsten";
 
     public static final String LOCAL_DEV_NETWORK_NAME = "local_dev";
-    public static final String BSC_MAIN_NETWORK_NAME = "bsc_main";
-    public static final String BSC_TEST_NETWORK_NAME = "bsc_test";
+    public static final String BSC_MAIN_NETWORK_NAME = "Binance Smart Chain Mainnet";
+    public static final String BSC_TEST_NETWORK_NAME = "Binance Smart Chain TestNet";
 
     public static final String ETHEREUM_TIKER = "ethereum";
     public static final String POA_TIKER = "poa";

@@ -1,29 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:card_view="http://schemas.android.com/tools"
     android:orientation="vertical"
+    android:background="@color/white"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <include
         layout="@layout/common_toolbar" />
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_height="wrap_content">
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginStart="25dp"
-                android:layout_marginTop="65dp"
                 android:layout_marginEnd="25dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="30dp"
                 app:cardBackgroundColor="@color/white"
                 app:cardCornerRadius="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                card_view:cardElevation="5dp">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -31,59 +36,65 @@
 
                     <ImageView
                         android:id="@+id/iv_gathering_qrcode"
-                        android:layout_width="250dp"
-                        android:layout_height="250dp"
-                        android:layout_marginTop="50dp"
-                        android:layout_gravity="center_horizontal"/>
+                        android:layout_width="220dp"
+                        android:layout_height="220dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="50dp" />
+
                     <TextView
                         android:id="@+id/tv_wallet_address"
                         android:layout_width="200dp"
                         android:layout_height="30dp"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="21dp"
+                        android:gravity="center"
                         android:text=""
                         android:textColor="#ff6d7e91"
-                        android:textSize="13sp"
-                        android:gravity="center"
-                        android:layout_marginTop="21dp"
-                        android:layout_gravity="center_horizontal"
-                        />
+                        android:textSize="13sp" />
+
                     <TextView
                         android:id="@+id/share_address_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textColor="#007AFF"
-                        android:textSize="13sp"
+                        android:layout_marginTop="30dp"
                         android:gravity="center"
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
-                        android:layout_marginTop="30dp"
-                        android:text="@string/share_address" />
+                        android:text="@string/share_address"
+                        android:textColor="#007AFF"
+                        android:textSize="13sp" />
+
                     <Button
                         android:id="@+id/copy_btn"
+                        style="@style/myButtonStyle"
                         android:layout_width="250dp"
                         android:layout_height="50dp"
-                        style="@style/myButtonStyle"
-                        android:text="@string/copy"
-                        android:layout_marginTop="25dp"
-
                         android:layout_gravity="center"
-                        />
+                        android:layout_marginTop="25dp"
+                        android:layout_marginBottom="25dp"
+                        android:text="@string/copy" />
                 </LinearLayout>
-
-
 
 
             </androidx.cardview.widget.CardView>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#AAAAAA"
-        android:text="@string/qr_code_tip"
+        android:layout_height="0dp"
         android:gravity="center"
-        android:layout_marginBottom="50dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"/>
+        android:layout_weight="1">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#AAAAAA"
+            android:text="@string/qr_code_tip"
+            android:gravity="center"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"/>
+    </LinearLayout>
+
 
 </LinearLayout>

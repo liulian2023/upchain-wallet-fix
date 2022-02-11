@@ -1,6 +1,7 @@
 package pro.upchain.wallet.RxHttp.net.interceptor;
 
 
+import static pro.upchain.wallet.utils.CommonStr.CHAIN_TYPE;
 import static pro.upchain.wallet.utils.CommonStr.LOCAL_LANGUAGE;
 
 import android.provider.Settings;
@@ -31,15 +32,16 @@ public class HttpHeaderInterceptor implements Interceptor {
         Request request=null;
         String languageType = "";
         String localLanguage = SharePreferencesUtil.getString(LOCAL_LANGUAGE, "en");
+        String blockchainType = SharePreferencesUtil.getString(CHAIN_TYPE, "2");
         if(localLanguage.equals("en")){
             languageType = "3";
-        }else if(languageType.equals("zh")){
+        }else if(localLanguage.equals("zh")){
             languageType = "2";
         }else {
             languageType = "3";
         }
         builder.addHeader("languageType",languageType);
-        builder.addHeader("blockchainType","2");
+        builder.addHeader("blockchainType",blockchainType);
         long currentTimeMillis = System.currentTimeMillis();
         builder.addHeader("timestamp", String.valueOf(currentTimeMillis));
         builder.addHeader("timestampSign", Md5Utils.md5(currentTimeMillis +"DW425WhDrHslzD8sI8Fi5Y5u4xVjgchz"));

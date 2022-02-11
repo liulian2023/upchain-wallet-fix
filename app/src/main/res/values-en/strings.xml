@@ -9,7 +9,13 @@
     <string name="property_drawer_create_wallet">Create wallet</string>
     <string name="create_fail">Create failed</string>
     <string name="change_success">Wallet switch successfully</string>
-
+    <string name="add_net_work">switch network node</string>
+    <string name="switch_to">Switch to</string>
+    <string name="Select_a_coin">Select a coin</string>
+    <string name="Search_coin">Search coin</string>
+    <string name="Suggested">Suggested</string>
+    <string name="all_coins">All Coins</string>
+    <string name="search_result">Search Result</string>
     <string name="create_wallet_name_hint">Wallet name</string>
     <string name="create_wallet_pwd_hint">password</string>
     <string name="create_wallet_pwd_again_hint">duplicate password</string>
@@ -127,13 +133,15 @@
     <string name="backup_Mnemonic">Backup Mnemonic</string>
     <string name="system_version">system version</string>
     <string name="transaction_password">Transaction password</string>
-    <string name="about_us">About Us</string>
+    <string name="about_us">Legal</string>
     <string name="change_language">Change language</string>
     <string name="loading">Loading</string>
     <string name="other">Other</string>
     <string name="home_amount_manage">Home Asset Management</string>
     <string name="home_hot_amount">Hot Assets</string>
     <string name="about_wallet">About Wallet</string>
+    <string name="privacy_policy">Privacy policy</string>
+    <string name="Terms_of_Servers">Terms of Servers</string>
     <string name="mnemonic_backup_tips1">Write down your wallet mnemonic</string>
     <string name="mnemonic_backup_tips2">The mnemonic phrase is used to reply to the wallet or reset the wallet password, copy it accurately on paper, and store it in a safe place that only you know. </string>
 

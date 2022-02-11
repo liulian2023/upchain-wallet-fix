@@ -22,7 +22,7 @@ public class CreatePinActivity extends BaseActivity {
 
     public static void startAty (Context context, String mnemonic){
         Intent intent = new Intent(context, CreatePinActivity.class);
-        intent.putExtra("mnemonic",mnemonic) ;
+        intent.putExtra("mnemonic",mnemonic);
         context.startActivity(intent);
     }
 
@@ -32,6 +32,7 @@ public class CreatePinActivity extends BaseActivity {
         intent.putExtra("isCreate",isCreate) ;
         context.startActivity(intent);
     }
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_cteate_pin;

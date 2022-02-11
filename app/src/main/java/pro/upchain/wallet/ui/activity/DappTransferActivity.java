@@ -64,7 +64,10 @@ import pro.upchain.wallet.entity.Token;
 import pro.upchain.wallet.entity.TransactionData;
 import pro.upchain.wallet.repository.RepositoryFactory;
 import pro.upchain.wallet.utils.BalanceUtils;
+import pro.upchain.wallet.utils.CommonStr;
 import pro.upchain.wallet.utils.LogUtils;
+import pro.upchain.wallet.utils.SharePreferencesUtil;
+import pro.upchain.wallet.utils.Utils;
 import pro.upchain.wallet.utils.WalletDaoUtils;
 import pro.upchain.wallet.view.AWalletAlertDialog;
 import pro.upchain.wallet.view.InputPwdView;
@@ -105,7 +108,7 @@ public class DappTransferActivity extends BaseActivity implements View.OnClickLi
     TextView not_enough_tip_tv;
     Button cancel_btb;
     Button sure_btn;
-    String ETH2USDTRate;
+    String ETH2USDTRate = SharePreferencesUtil.getString(CommonStr.ETH2USDTRate,"");
     String ETH2OtherRate;
     private BigInteger currentLimit = BigInteger.ZERO;
     private String netCost;
@@ -197,7 +200,7 @@ public class DappTransferActivity extends BaseActivity implements View.OnClickLi
         if(gasPrice!=BigInteger.ZERO && currentLimit!=BigInteger.ZERO && StringMyUtil.isNotEmpty(ETH2USDTRate)){
             try {
                 netCost = BalanceUtils.weiToEth(gasPrice.multiply(currentLimit),  4);
-                miner_fee_rate_tv.setText(netCost+C.ETH_SYMBOL);
+                miner_fee_rate_tv.setText(netCost+ Utils.getCurrentSymbol());
                 if(StringMyUtil.isNotEmpty(ETH2USDTRate)){
                     miner_fee_tv.setText("US$"+(new BigDecimal(netCost).multiply(new BigDecimal(ETH2USDTRate)).setScale(2,BigDecimal.ROUND_HALF_UP))+" ");
                 }
@@ -301,6 +304,7 @@ public class DappTransferActivity extends BaseActivity implements View.OnClickLi
             public void onSuccess(String result) {
                 RateEntity rateEntity = JSONObject.parseObject(result, RateEntity.class);
                 ETH2USDTRate = rateEntity.getPrice();
+                SharePreferencesUtil.putString(CommonStr.ETH2USDTRate,ETH2USDTRate);
             }
 
             @Override
@@ -331,7 +335,7 @@ public class DappTransferActivity extends BaseActivity implements View.OnClickLi
         BigDecimal networkFeeBD = new BigDecimal(gasSettings
                 .gasPrice.multiply(gasSettings.gasLimit));
 
-        String networkFee = BalanceUtils.weiToEth(networkFeeBD).toPlainString() + " " + C.ETH_SYMBOL;
+        String networkFee = BalanceUtils.weiToEth(networkFeeBD).toPlainString() + " " +Utils.getCurrentSymbol();
 //        networkFeeText.setText(networkFee);
         updateNetworkFee();
         if (confirmationType == WEB3TRANSACTION)

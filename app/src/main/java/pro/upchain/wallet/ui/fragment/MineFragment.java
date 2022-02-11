@@ -1,15 +1,21 @@
 package pro.upchain.wallet.ui.fragment;
 
 import androidx.lifecycle.ViewModelProviders;
+
+import android.app.Dialog;
 import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.gyf.barlibrary.ImmersionBar;
 
 import org.greenrobot.eventbus.EventBus;
+import org.web3j.utils.Convert;
+
+import java.math.BigDecimal;
 
 import butterknife.BindView;
 import pro.upchain.wallet.R;
@@ -18,14 +24,18 @@ import pro.upchain.wallet.base.BaseFragment;
 import pro.upchain.wallet.domain.ETHWallet;
 import pro.upchain.wallet.ui.activity.AboutUsActivity;
 import pro.upchain.wallet.ui.activity.ChangeLanguageActivity;
+import pro.upchain.wallet.ui.activity.ConfirmPinActivity;
+import pro.upchain.wallet.ui.activity.LegalActivity;
 import pro.upchain.wallet.ui.activity.MnemonicBackupActivity;
 import pro.upchain.wallet.ui.activity.ModifyPasswordActivity;
 import pro.upchain.wallet.ui.activity.NetSettingActivity;
 import pro.upchain.wallet.ui.activity.WalletMangerActivity;
 
 import butterknife.OnClick;
+import pro.upchain.wallet.utils.BalanceUtils;
 import pro.upchain.wallet.utils.Store;
 import pro.upchain.wallet.utils.ToastUtils;
+import pro.upchain.wallet.view.InputPwdView;
 import pro.upchain.wallet.viewmodel.TokensViewModel;
 import pro.upchain.wallet.viewmodel.TokensViewModelFactory;
 
@@ -45,6 +55,8 @@ public class MineFragment extends BaseFragment {
     private TokensViewModel tokensViewModel;
     private ETHWallet currEthWallet;
     public static final String ACTION ="change_language.action";
+    private BottomSheetDialog dialog;
+
     @Override
     public int getLayoutResId() {
         return R.layout.fragment_mine;
@@ -152,10 +164,21 @@ public class MineFragment extends BaseFragment {
                 if(currEthWallet==null){
                     return;
                 }
-                ModifyPasswordActivity.startAty(getContext(),currEthWallet);
+                InputPwdView pwdView = new InputPwdView(getContext(), pwd -> {
+                    ConfirmPinActivity.startAty(getContext(),true,pwd);
+                    dialog.hide();
+                });
+
+                dialog = new BottomSheetDialog(getContext());
+                dialog.setContentView(pwdView);
+                dialog.setCancelable(true);
+                dialog.setCanceledOnTouchOutside(true);
+                dialog.show();
+
+//                ModifyPasswordActivity.startAty(getContext(),currEthWallet);
                 break;
             case R.id.about_us_relativeLayout:
-                startActivity(new Intent(getContext(), AboutUsActivity.class));
+                startActivity(new Intent(getContext(), LegalActivity.class));
                 break;
             case R.id.contact_us_relativeLayout:
 

@@ -46,6 +46,7 @@ import pro.upchain.wallet.C;
 import pro.upchain.wallet.MyApplication;
 import pro.upchain.wallet.R;
 import pro.upchain.wallet.RxHttp.net.api.HttpApiUtils;
+import pro.upchain.wallet.RxHttp.net.utils.StringMyUtil;
 import pro.upchain.wallet.base.BaseActivity;
 import pro.upchain.wallet.domain.ETHWallet;
 import pro.upchain.wallet.entity.ConfirmationType;
@@ -195,7 +196,9 @@ public class ConfirmationActivity extends BaseActivity {
         amountStr = getIntent().getStringExtra(C.EXTRA_AMOUNT);
         decimals = getIntent().getIntExtra(C.EXTRA_DECIMALS, -1);
         String symbol = getIntent().getStringExtra(C.EXTRA_SYMBOL);
-        symbol = symbol == null ? C.ETH_SYMBOL : symbol;
+        if(StringMyUtil.isEmptyString(symbol)){
+            symbol = Utils.getCurrentSymbol();
+        }
         String tokenList = getIntent().getStringExtra(C.EXTRA_TOKENID_LIST);
         amount = new BigDecimal(getIntent().getStringExtra(C.EXTRA_AMOUNT));
         if(transaction!=null){

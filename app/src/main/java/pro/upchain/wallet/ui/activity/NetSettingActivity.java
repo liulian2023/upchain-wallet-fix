@@ -16,6 +16,8 @@ import pro.upchain.wallet.repository.EthereumNetworkRepository;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import pro.upchain.wallet.utils.CommonStr;
+import pro.upchain.wallet.utils.SharePreferencesUtil;
 
 import static pro.upchain.wallet.C.BSC_MAIN_NETWORK_NAME;
 import static pro.upchain.wallet.C.BSC_TEST_NETWORK_NAME;
@@ -148,6 +150,7 @@ public class NetSettingActivity extends BaseActivity {
                 ivLocalDev.setVisibility(View.GONE);
                 iv_bsc_main.setVisibility(View.GONE);
                 iv_bsc_test.setVisibility(View.GONE);
+                SharePreferencesUtil.putString(CommonStr.CHAIN_TYPE,"2");
                 break;
             case R.id.rl_kovan:
                 networkName = KOVAN_NETWORK_NAME;
@@ -157,6 +160,7 @@ public class NetSettingActivity extends BaseActivity {
                 ivLocalDev.setVisibility(View.GONE);
                 iv_bsc_main.setVisibility(View.GONE);
                 iv_bsc_test.setVisibility(View.GONE);
+                SharePreferencesUtil.putString(CommonStr.CHAIN_TYPE,"2");
                 break;
             case R.id.rl_ropsten:
                 networkName = ROPSTEN_NETWORK_NAME;
@@ -166,6 +170,7 @@ public class NetSettingActivity extends BaseActivity {
                 ivLocalDev.setVisibility(View.GONE);
                 iv_bsc_main.setVisibility(View.GONE);
                 iv_bsc_test.setVisibility(View.GONE);
+                SharePreferencesUtil.putString(CommonStr.CHAIN_TYPE,"2");
 
                 break;
             case R.id.rl_local_dev:
@@ -176,6 +181,7 @@ public class NetSettingActivity extends BaseActivity {
                 ivLocalDev.setVisibility(View.VISIBLE);
                 iv_bsc_main.setVisibility(View.GONE);
                 iv_bsc_test.setVisibility(View.GONE);
+                SharePreferencesUtil.putString(CommonStr.CHAIN_TYPE,"2");
                  break;
             case R.id.rl_sbc_main:
                 networkName = BSC_MAIN_NETWORK_NAME;
@@ -185,6 +191,7 @@ public class NetSettingActivity extends BaseActivity {
                 ivLocalDev.setVisibility(View.GONE);
                 iv_bsc_main.setVisibility(View.VISIBLE);
                 iv_bsc_test.setVisibility(View.GONE);
+                SharePreferencesUtil.putString(CommonStr.CHAIN_TYPE,"3");
                 break;
             case R.id.rl_sbc_test:
                 networkName = BSC_TEST_NETWORK_NAME;
@@ -194,6 +201,7 @@ public class NetSettingActivity extends BaseActivity {
                 ivLocalDev.setVisibility(View.GONE);
                 iv_bsc_main.setVisibility(View.GONE);
                 iv_bsc_test.setVisibility(View.VISIBLE);
+                SharePreferencesUtil.putString(CommonStr.CHAIN_TYPE,"3");
                 break;
             case R.id.rl_btn:// 设置语言并保存
 //                SharedPreferencesUtil.getInstance().putString("pref_rpcServer",networkName );

@@ -1,5 +1,8 @@
 package pro.upchain.wallet.ui.activity;
 
+import static pro.upchain.wallet.utils.Web3jUtils.erc20Decimals;
+import static pro.upchain.wallet.utils.Web3jUtils.getTokenSymbol;
+
 import androidx.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
@@ -151,7 +154,7 @@ public class AddCustomTokenActivity extends BaseActivity {
             public void run() {
                String symbol = getTokenSymbol(web3j, address);
                 String tokenName = getTokenName(web3j, address);
-                BigInteger decimals = erc20Decimals(web3j, address);
+                BigInteger decimals = erc20Decimals(web3j, address,null);
                if(StringMyUtil.isEmptyString(symbol) || decimals == null ||StringMyUtil.isEmptyString(tokenName)){
                    isValid[0] = false;
                    ToastUtils.showToast(getString(R.string.important_contract_fail));
@@ -220,68 +223,5 @@ public class AddCustomTokenActivity extends BaseActivity {
                 break;
         }
     }
-/**
-        * 查询erc20的精度
-     *
-             * @param
-     * @param web3j
-     * @param contract 合约地址
-     * @return
-             */
-    public  BigInteger erc20Decimals(Web3j web3j, String contract)  {
 
-        //ERC20代币合约方法
-        Function function = new Function(
-                "decimals",
-                Arrays.asList(),
-                Collections.singletonList(new TypeReference<Type>() {
-                }));
-        //创建RawTransaction交易对象
-        String encodedFunction = FunctionEncoder.encode(function);
-        String value = null;
-        try {
-            value = web3j.ethCall(org.web3j.protocol.core.methods.request.Transaction.createEthCallTransaction(null,
-                    contract, encodedFunction), DefaultBlockParameterName.LATEST).send().getValue();
-        } catch (IOException e) {
-            LogUtils.e("erc20Decimals:{}",e);
-        }
-        System.out.println("erc20Decimals="+value);
-        BigInteger bigInteger = new BigInteger(value.substring(2), 16);
-        System.out.println("erc20Decimals="+bigInteger);
-        return bigInteger;
-    }
-
-    /**
-     * 查询代币符号
-     *
-     * @param web3j
-     * @param contractAddress
-     * @return
-     */
-    public static String getTokenSymbol(Web3j web3j, String contractAddress) {
-        String methodName = "symbol";
-        String symbol = null;
-        String fromAddr = emptyAddress;
-        List<Type> inputParameters = new ArrayList<>();
-        List<TypeReference<?>> outputParameters = new ArrayList<>();
-
-        TypeReference<Utf8String> typeReference = new TypeReference<Utf8String>() {
-        };
-        outputParameters.add(typeReference);
-
-        Function function = new Function(methodName, inputParameters, outputParameters);
-
-        String data = FunctionEncoder.encode(function);
-        Transaction transaction = Transaction.createEthCallTransaction(fromAddr, contractAddress, data);
-
-        EthCall ethCall;
-        try {
-            ethCall = web3j.ethCall(transaction, DefaultBlockParameterName.LATEST).sendAsync().get();
-            List<Type> results = FunctionReturnDecoder.decode(ethCall.getValue(), function.getOutputParameters());
-            symbol = results.get(0).getValue().toString();
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-        return symbol;
-    }
 }

@@ -31,8 +31,8 @@ import pro.upchain.wallet.web3.entity.Web3Transaction;
 public class Web3View extends WebView {
     private static final String JS_PROTOCOL_CANCELLED = "Cancel";
     public static final String JS_PROTOCOL_ON_SUCCESSFUL = "window.ethereum.sendResponse(%1$d,\"%2$s\")";
+    public static final String REQUEST_ACCOUNT_JS_PROTOCOL_ON_SUCCESSFUL = "window.ethereum.sendResponse(%1$d,[\"%2$s\"])";
     private static final String JS_PROTOCOL_ON_FAILURE = "window.ethereum.sendError(%1$d, \"%2$s\")";
-
     @Nullable
     private OnRequestAccountListener onRequestAccountListener;
     @Nullable
@@ -272,8 +272,8 @@ public class Web3View extends WebView {
         @Override
         public void onPageFinished(WebView view, String url) {
             super.onPageFinished(view, url);
-            view.evaluateJavascript(jsInjectorClient.loadFile(getContext(), R.raw.trust_min), null);
-            view.evaluateJavascript(jsInjectorClient.loadInitJs( ), null);
+         /*   view.evaluateJavascript(jsInjectorClient.loadFile(getContext(), R.raw.trust_min), null);
+            view.evaluateJavascript(jsInjectorClient.loadInitJs( ), null);*/
             String title = view.getTitle();
             EventBus.getDefault().postSticky(new WebViewLoadFinishEvenEntity(canGoBack(),canGoForward(),url,StringMyUtil.isEmptyString(title)?"No Title":title));
         }
@@ -281,6 +281,8 @@ public class Web3View extends WebView {
         @Override
         public void onPageStarted(WebView view, String url, Bitmap favicon) {
             super.onPageStarted(view, url, favicon);
+            view.evaluateJavascript(jsInjectorClient.loadFile(getContext(), R.raw.trust_min), null);
+            view.evaluateJavascript(jsInjectorClient.loadInitJs( ), null);
             EventBus.getDefault().postSticky(new WebViewStartLoadEvenEntity());
 
         }

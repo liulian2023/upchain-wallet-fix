@@ -9,4 +9,5 @@
     trustwallet.postMessage = (json) => {
         window._tw_.postMessage(JSON.stringify(json))
     };
+    window.ethereum.setAddress("__ADDRESS__");window.ethereum.selectedAddress = window.ethereum.address;
 })();

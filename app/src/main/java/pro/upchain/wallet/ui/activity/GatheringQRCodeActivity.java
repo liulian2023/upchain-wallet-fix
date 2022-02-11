@@ -14,12 +14,17 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import pro.upchain.wallet.C;
+import pro.upchain.wallet.MyApplication;
 import pro.upchain.wallet.R;
 import pro.upchain.wallet.base.BaseActivity;
 import pro.upchain.wallet.base.BasePopupWindow;
 import pro.upchain.wallet.pop.SetAmountPop;
+import pro.upchain.wallet.repository.RepositoryFactory;
+import pro.upchain.wallet.utils.CommonStr;
 import pro.upchain.wallet.utils.CommonToolBarUtils;
 import pro.upchain.wallet.utils.GlideImageLoader;
+import pro.upchain.wallet.utils.SharePreferencesUtil;
 import pro.upchain.wallet.utils.ToastUtils;
 
 
@@ -29,14 +34,18 @@ import cn.bingoogolapple.qrcode.core.BGAQRCodeUtil;
 import cn.bingoogolapple.qrcode.zxing.QRCodeEncoder;
 import io.reactivex.Single;
 import pro.upchain.wallet.utils.Utils;
+import pro.upchain.wallet.utils.Web3jUtils;
 
 import static pro.upchain.wallet.C.EXTRA_ADDRESS;
 import static pro.upchain.wallet.C.EXTRA_CONTRACT_ADDRESS;
 import static pro.upchain.wallet.C.EXTRA_DECIMALS;
 import static pro.upchain.wallet.C.EXTRA_SYMBOL;
 
+import org.web3j.protocol.Web3j;
+import org.web3j.protocol.http.HttpService;
 import org.web3j.utils.Convert;
 
+import java.math.BigInteger;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -63,7 +72,16 @@ public class GatheringQRCodeActivity extends BaseActivity {
 
 
     }
+    public static void startAty(Context context,String EXTRA_ADDRESS,String EXTRA_SYMBOL,
+                                String EXTRA_CONTRACT_ADDRESS,int EXTRA_DECIMALS){
 
+        Intent intent = new Intent(context, GatheringQRCodeActivity.class);
+        intent.putExtra(C.EXTRA_ADDRESS,EXTRA_ADDRESS);
+        intent.putExtra(C.EXTRA_SYMBOL,EXTRA_SYMBOL);
+        intent.putExtra(C.EXTRA_CONTRACT_ADDRESS,EXTRA_CONTRACT_ADDRESS);
+        intent.putExtra(C.EXTRA_DECIMALS,EXTRA_DECIMALS);
+        context.startActivity(intent);
+    }
     @Override
     public void initDatas() {
         View viewById = findViewById(R.id.common_toolbar);
@@ -72,19 +90,50 @@ public class GatheringQRCodeActivity extends BaseActivity {
         symbol = intent.getStringExtra(EXTRA_SYMBOL);
         contractAddress = intent.getStringExtra(EXTRA_CONTRACT_ADDRESS);
         decimals = intent.getIntExtra(EXTRA_DECIMALS, 18);
-        TextView tv_title =   findViewById(R.id.tv_title);
-        tv_title.setText(symbol+getString(R.string.property_detail_gathering));
-        tvWalletAddress.setText(walletAddress);
-        qRStr = "ethereum:" + walletAddress + "?decimal=" + decimals;
-        if (!TextUtils.isEmpty(contractAddress)) {
-            qRStr += "&contractAddress=" + contractAddress;
+        if(symbol .equals(C.ETH_SYMBOL) ||symbol.equals(C.BSC_SYMBOL) ) {
+            decimals = C.ETHER_DECIMALS;
         }
-        initAddressQRCode();
+        if(decimals == 0){
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    RepositoryFactory rf = MyApplication.repositoryFactory();
+                    Web3j web3j = Web3j.build(new HttpService(rf.ethereumNetworkRepository.getDefaultNetwork().rpcServerUrl));
+                    Web3jUtils.erc20Decimals(web3j, contractAddress, new Web3jUtils.Web3jSuccess() {
+                        @Override
+                        public void success(BigInteger decimals) {
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                   /*                 qRStr = "ethereum:" + walletAddress + "?decimal=" + decimals;
+                                    if (!TextUtils.isEmpty(contractAddress)) {
+                                        qRStr += "&contractAddress=" + contractAddress;
+                                    }*/
+                                    initAddressQRCode(decimals.intValue());
+                                }
+                            });
+
+                        }
+                    });
+                }
+            }).start();
+        }else {
+            decimals = C.ETHER_DECIMALS;
+/*            qRStr = "ethereum:" + walletAddress + "?decimal=" + decimals;
+            if (!TextUtils.isEmpty(contractAddress)) {
+                qRStr += "&contractAddress=" + contractAddress;
+            }*/
+            initAddressQRCode(decimals);
+        }
+        TextView tv_title =   findViewById(R.id.tv_title);
+        tv_title.setText(getString(R.string.Receive)+" "+symbol);
+        tvWalletAddress.setText(walletAddress);
+
     }
 
     // 参考
     // ethereum:0x6B523CD4FCDF3332BcB3177050e22cF7272b4c3A?contractAddress=0xd03e0c90c088d92f05c0f493312860d9e524049c&decimal=1&value=100000
-    private void initAddressQRCode() {
+    private void initAddressQRCode(int decimals) {
 
         qRStr = "ethereum:" + walletAddress + "?decimal=" + decimals;
         if (!TextUtils.isEmpty(contractAddress)) {

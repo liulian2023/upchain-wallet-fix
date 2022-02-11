@@ -33,4 +33,10 @@ public class    RequestUtils {
      * 合约列表
      */
     public static String ABOUT_US = "mobile/aboutUs/getInfo";
+
+    /**
+     * 获取用户合约列表
+     */
+
+    public static String COIN_LIST = "mobile/userContract/getList";
 }

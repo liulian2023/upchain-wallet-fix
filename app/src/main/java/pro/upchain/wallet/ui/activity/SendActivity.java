@@ -2,6 +2,8 @@ package pro.upchain.wallet.ui.activity;
 
 import static pro.upchain.wallet.C.DEFAULT_GAS_LIMIT_FOR_ETH;
 import static pro.upchain.wallet.C.DEFAULT_GAS_LIMIT_FOR_TOKENS;
+import static pro.upchain.wallet.utils.Web3jUtils.getBalance;
+import static pro.upchain.wallet.utils.Web3jUtils.getETHBalance;
 
 import android.app.Dialog;
 
@@ -46,9 +48,13 @@ import pro.upchain.wallet.entity.PendingHistoryEntity;
 import pro.upchain.wallet.entity.RateEntity;
 import pro.upchain.wallet.repository.RepositoryFactory;
 import pro.upchain.wallet.utils.BalanceUtils;
+import pro.upchain.wallet.utils.CommonStr;
+import pro.upchain.wallet.utils.SharePreferencesUtil;
 import pro.upchain.wallet.utils.ToastUtils;
 import pro.upchain.wallet.utils.TransferDaoUtils;
+import pro.upchain.wallet.utils.Utils;
 import pro.upchain.wallet.utils.WalletDaoUtils;
+import pro.upchain.wallet.utils.Web3jUtils;
 import pro.upchain.wallet.view.ConfirmTransactionView;
 import pro.upchain.wallet.view.InputPwdView;
 import pro.upchain.wallet.viewmodel.ConfirmationViewModel;
@@ -138,7 +144,7 @@ public class SendActivity extends BaseActivity implements TextWatcher {
 
     private String scanResult;
     static int EDIT_OK = 111;
-    String ETH2USDTRate;
+    String ETH2USDTRate = SharePreferencesUtil.getString(CommonStr.ETH2USDTRate,"");
     String ETH2OtherRate;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -146,7 +152,16 @@ public class SendActivity extends BaseActivity implements TextWatcher {
         super.onCreate(savedInstanceState);
 
     }
-
+    public static void startAty(Context context,String walletAddr,String contractAddress,
+                                String balance,int decimals,String symbol){
+        Intent intent = new Intent(context, SendActivity.class);
+        intent.putExtra(C.EXTRA_ADDRESS,walletAddr);
+        intent.putExtra(C.EXTRA_CONTRACT_ADDRESS,contractAddress);
+        intent.putExtra(C.EXTRA_BALANCE,balance);
+        intent.putExtra(C.EXTRA_DECIMALS,decimals);
+        intent.putExtra(C.EXTRA_SYMBOL,symbol);
+        context.startActivity(intent);
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -160,6 +175,7 @@ public class SendActivity extends BaseActivity implements TextWatcher {
 
     @Override
     public int getLayoutId() {
+
         return R.layout.activity_transfer;
     }
 
@@ -174,17 +190,53 @@ public class SendActivity extends BaseActivity implements TextWatcher {
 
         Intent intent = getIntent();
         walletAddr = intent.getStringExtra(C.EXTRA_ADDRESS);
-
+        tvGasCost.setText("0.00"+Utils.getCurrentSymbol()+" ≈ 0USDT");
         contractAddress = intent.getStringExtra(C.EXTRA_CONTRACT_ADDRESS);
         balance = intent.getStringExtra(C.EXTRA_BALANCE);
         decimals = intent.getIntExtra(C.EXTRA_DECIMALS, C.ETHER_DECIMALS);
         symbol = intent.getStringExtra(C.EXTRA_SYMBOL);
-        symbol = symbol == null ? C.ETH_SYMBOL : symbol;
+        if(StringMyUtil.isEmptyString(symbol)){
+            symbol = Utils.getCurrentSymbol();
+        }
         sendingTokens = StringMyUtil.isEmptyString(contractAddress)?false:true;
 
         updateNetworkFee();
-        tvTitle.setText(symbol + getString(R.string.transfer_title));
-        wallet_amount_tv.setText(balance+symbol);
+        tvTitle.setText(getString(R.string.action_send)+" "+symbol );
+        if(StringMyUtil.isNotEmpty(balance)){
+            wallet_amount_tv.setText(balance+symbol);
+        }else {
+            RepositoryFactory rf = MyApplication.repositoryFactory();
+            Web3j web3j = Web3j.build(new HttpService(rf.ethereumNetworkRepository.getDefaultNetwork().rpcServerUrl));
+            if(sendingTokens){
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            BigDecimal balance = getBalance(walletAddr, contractAddress, web3j);
+                            String textBalance = Web3jUtils.getBalanceString(decimals,balance,sendingTokens,contractAddress,web3j);
+                            wallet_amount_tv.setText(textBalance+symbol);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
+            }else {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            BigDecimal balance = getETHBalance(web3j,walletAddr);
+                            String textBalance = Web3jUtils.getBalanceString(decimals,balance,sendingTokens,contractAddress,web3j);
+
+                            wallet_amount_tv.setText(textBalance+symbol);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).start();
+
+            }
+        }
 
         confirmationViewModelFactory = new ConfirmationViewModelFactory();
         viewModel = ViewModelProviders.of(this, confirmationViewModelFactory)
@@ -209,6 +261,10 @@ public class SendActivity extends BaseActivity implements TextWatcher {
         requestETHUSDTRate();
         requestETHoTHERRate(symbol);
     }
+
+
+
+
     private void onProgress(boolean shouldShowProgress) {
         hideDialog();
         if (shouldShowProgress) {
@@ -306,9 +362,9 @@ public class SendActivity extends BaseActivity implements TextWatcher {
         try {
             netCost = BalanceUtils.weiToEth(gasPrice.multiply(currentLimit),  4);
             if(StringMyUtil.isNotEmpty(ETH2USDTRate)){
-                tvGasCost.setText(String.valueOf(netCost)+ " " + C.ETH_SYMBOL+" ≈ "+(new BigDecimal(netCost).multiply(new BigDecimal(ETH2USDTRate)).setScale(2,BigDecimal.ROUND_HALF_UP))+" "+"USDT");
+                tvGasCost.setText(String.valueOf(netCost)+ " " + Utils.getCurrentSymbol()+" ≈ "+(new BigDecimal(netCost).multiply(new BigDecimal(ETH2USDTRate)).setScale(2,BigDecimal.ROUND_HALF_UP))+" "+"USDT");
             }else {
-                tvGasCost.setText(String.valueOf(netCost)+ " " + C.ETH_SYMBOL);
+                tvGasCost.setText(String.valueOf(netCost)+ " " + Utils.getCurrentSymbol());
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -391,7 +447,7 @@ public class SendActivity extends BaseActivity implements TextWatcher {
 
     private void showconfirmView(String toAddr, String amount) {
         ConfirmTransactionView confirmView = new ConfirmTransactionView(SendActivity.this, SendActivity.this::onClick);
-        confirmView.fillInfo(walletAddr, toAddr, " - " + amount + " " + symbol, netCost+"  "+C.ETH_SYMBOL, gasPrice, currentLimit);
+        confirmView.fillInfo(walletAddr, toAddr, " - " + amount + " " + symbol, netCost+"  "+Utils.getCurrentSymbol(), gasPrice, currentLimit);
         dialog = new BottomSheetDialog(SendActivity.this, R.style.BottomSheetDialog);
         dialog.setContentView(confirmView);
         dialog.setCancelable(true);
@@ -476,7 +532,7 @@ public class SendActivity extends BaseActivity implements TextWatcher {
         myHandler.removeCallbacks(gasRunnable);
         //1秒未输入认为输入完毕
         if(StringMyUtil.isNotEmpty(amountText.getText().toString())&&StringMyUtil.isNotEmpty(etTransferAddress.getText().toString())){
-            myHandler.postDelayed(gasRunnable,500);
+            myHandler.postDelayed(gasRunnable,200);
         }
     }
 

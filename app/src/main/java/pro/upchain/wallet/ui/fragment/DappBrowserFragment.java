@@ -85,13 +85,14 @@ import pro.upchain.wallet.web3.entity.Web3Transaction;
 
 import static pro.upchain.wallet.C.DAPP_DEFAULT_URL;
 import static pro.upchain.wallet.web3.Web3View.JS_PROTOCOL_ON_SUCCESSFUL;
+import static pro.upchain.wallet.web3.Web3View.REQUEST_ACCOUNT_JS_PROTOCOL_ON_SUCCESSFUL;
 
 
 public class DappBrowserFragment extends BaseFragment implements ItemClickListener, OnSignMessageListener, OnSignPersonalMessageListener, OnSignTransactionListener, OnSignTypedMessageListener, OnRequestAccountListener
 {
 
     private static final String TAG = DappBrowserFragment.class.getSimpleName();
-    String REQUEST_ACCOUNT_SUCCESS = "window.ethereum.setAddress(\"%1$s\");window.ethereum.selectedAddress = window.ethereum.address";
+    public static String REQUEST_ACCOUNT_SUCCESS = "window.ethereum.setAddress(\"%1$s\");window.ethereum.selectedAddress = window.ethereum.address";
     private static final String PERSONAL_MESSAGE_PREFIX = "\u0019Ethereum Signed Message:\n";
 
     DappBrowserViewModelFactory dappBrowserViewModelFactory;
@@ -522,11 +523,11 @@ public class DappBrowserFragment extends BaseFragment implements ItemClickListen
                 .create();
         dialog.show();*/
         String address =  String.format(REQUEST_ACCOUNT_SUCCESS, WalletDaoUtils.getCurrent().address);
-        String callBack = String.format(JS_PROTOCOL_ON_SUCCESSFUL,id,WalletDaoUtils.getCurrent().address);
+        String callBack = String.format(REQUEST_ACCOUNT_JS_PROTOCOL_ON_SUCCESSFUL,id,WalletDaoUtils.getCurrent().address);
         web3.post(new Runnable() {
             @Override
             public void run() {
-                web3.evaluateJavascript(address, null);
+//                web3.evaluateJavascript(address, null);
                 web3.evaluateJavascript(callBack, null);
             }
         });

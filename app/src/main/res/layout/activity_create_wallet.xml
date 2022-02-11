@@ -74,12 +74,10 @@
         android:textColor="@color/black"
         android:textColorHint="#999999"
         android:textSize="@dimen/sp_14"
-        android:imeOptions="actionNext"
+        android:imeOptions="actionDone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView17" />
-
-
 
     <EditText
         android:id="@+id/et_wallet_pwd"

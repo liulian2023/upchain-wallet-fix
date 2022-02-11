@@ -48,6 +48,7 @@
             android:id="@+id/balance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/cny_linear"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_marginStart="4dp"
@@ -55,16 +56,15 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="15dp"
             android:layout_marginRight="15dp"
-            android:text=""
-            android:textColor="@color/in_amount_color"
-            android:textSize="15sp" />
+            android:textColor="#999999"
+            android:textSize="12sp" />
 
         <LinearLayout
+            android:id="@+id/cny_linear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_below="@+id/balance"
             android:layout_marginEnd="15dp"
             android:layout_marginLeft="4dp"
             android:layout_marginRight="15dp"
@@ -74,13 +74,13 @@
             android:orientation="horizontal">
 
 
-
             <TextView
                 android:id="@+id/tv_property_cny"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/property_ico_worth_color"
-                android:textSize="12sp" />
+                android:layout_height="match_parent"
+                android:text=""
+                android:textColor="#0D1720"
+                android:textSize="15sp" />
 
         </LinearLayout>
 

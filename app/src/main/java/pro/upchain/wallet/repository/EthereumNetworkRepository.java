@@ -75,7 +75,7 @@ public class EthereumNetworkRepository  {
             new NetworkInfo(BSC_TEST_NETWORK_NAME, BSC_TEST_SYMBOL,
                     "https://data-seed-prebsc-1-s1.binance.org:8545/6RV6DD7UYS1WWECZYV4ZZ8G7W7KQ5F4QJT",
                     "http://192.168.8.100:8000/",
-                    "api-testnet.bscscan.com",56, false),
+                    "api-testnet.bscscan.com",0x61, false),
     };
 
     private final SharedPreferenceRepository preferences;

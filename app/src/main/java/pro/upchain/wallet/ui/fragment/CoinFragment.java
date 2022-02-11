@@ -22,6 +22,7 @@ import org.greenrobot.eventbus.EventBus;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -29,6 +30,7 @@ import butterknife.OnClick;
 import pro.upchain.wallet.C;
 import pro.upchain.wallet.R;
 import pro.upchain.wallet.RxHttp.net.api.HttpApiUtils;
+import pro.upchain.wallet.RxHttp.net.api.RequestUtils;
 import pro.upchain.wallet.RxHttp.net.utils.StringMyUtil;
 import pro.upchain.wallet.base.BaseFragment;
 import pro.upchain.wallet.domain.ETHWallet;
@@ -42,6 +44,7 @@ import pro.upchain.wallet.ui.activity.PropertyDetailActivity;
 import pro.upchain.wallet.ui.adapter.TokensAdapter;
 import pro.upchain.wallet.utils.BalanceUtils;
 import pro.upchain.wallet.utils.CommonStr;
+import pro.upchain.wallet.utils.SharePreferencesUtil;
 import pro.upchain.wallet.utils.ToastUtils;
 import pro.upchain.wallet.viewmodel.TokensViewModel;
 import pro.upchain.wallet.viewmodel.TokensViewModelFactory;
@@ -60,8 +63,7 @@ public class CoinFragment extends BaseFragment {
 
     private int bannerHeight = 300;
     private View mIv;
-    TokensViewModelFactory tokensViewModelFactory;
-    private TokensViewModel tokensViewModel;
+
     private ETHWallet currEthWallet;
     private static final int QRCODE_SCANNER_REQUEST = 1100;
     private static final int CREATE_WALLET_REQUEST = 1101;
@@ -73,9 +75,10 @@ public class CoinFragment extends BaseFragment {
     private long currentBackPressedTime = 0;
     // 退出间隔
     private static final int BACK_PRESSED_INTERVAL = 1000;
-
+    TokensViewModelFactory tokensViewModelFactory;
+    private TokensViewModel tokensViewModel;
     FetchWalletInteract fetchWalletInteract;
-    private String ETH2USDTRate;
+    private String ETH2USDTRate = SharePreferencesUtil.getString(CommonStr.ETH2USDTRate,"");
 
     public static CoinFragment newInstance(int positoin) {
         CoinFragment fragment = new CoinFragment();
@@ -121,6 +124,7 @@ public class CoinFragment extends BaseFragment {
     public void onResume() {
         super.onResume();
         tokensViewModel.prepare();
+
     }
 
     @Override
@@ -177,33 +181,35 @@ public class CoinFragment extends BaseFragment {
 
         tokensViewModel.tokens().observe(this, this::onTokens);
 //        tokensViewModel.prices().observe(this, this::onPrices);
+        if(StringMyUtil.isEmptyString(ETH2USDTRate)){
+            HttpApiUtils.requestETHUSDTRate(new HttpApiUtils.OnRequestLintener() {
+                @Override
+                public void onSuccess(String result) {
+                    RateEntity rateEntity = JSONObject.parseObject(result, RateEntity.class);
+                    ETH2USDTRate = rateEntity.getPrice();
+                    SharePreferencesUtil.putString(CommonStr.ETH2USDTRate,ETH2USDTRate);
+                    initPrice();
 
-        HttpApiUtils.requestETHUSDTRate(new HttpApiUtils.OnRequestLintener() {
-            @Override
-            public void onSuccess(String result) {
-                RateEntity rateEntity = JSONObject.parseObject(result, RateEntity.class);
-                ETH2USDTRate = rateEntity.getPrice();
-                initPrice();
+                }
 
-            }
+                @Override
+                public void onFail(String msg) {
 
-            @Override
-            public void onFail(String msg) {
-
-            }
-        });
-
+                }
+            });
+        }else {
+            initPrice();
+        }
     }
 
     private void initPrice() {
         if(StringMyUtil.isNotEmpty(ETH2USDTRate)&&tokenItems!=null){
             for (Token token : tokenItems) {
-                if (token.balance == null) {
+                if (StringMyUtil.isEmptyString(token.balance) || token.balance.equals("0")) {
                     token.value = "0";
                 } else {
                     token.value = new BigDecimal(token.balance).multiply(new BigDecimal(ETH2USDTRate)).setScale(2,BigDecimal.ROUND_HALF_UP)+"";
                 }
-
             }
             recyclerAdapter.notifyDataSetChanged();
 
@@ -225,6 +231,20 @@ public class CoinFragment extends BaseFragment {
     public void showWallet(ETHWallet wallet) {
 
         currEthWallet = wallet;
+      /*  HashMap<String, Object> data = new HashMap<>();
+        data.put("walletAddress",currEthWallet.getAddress());
+        HttpApiUtils.wwwNormalRequest(getActivity(), this, RequestUtils.COIN_LIST, data, new HttpApiUtils.OnRequestLintener() {
+            @Override
+            public void onSuccess(String result) {
+                System.out.println(result);
+            }
+
+            @Override
+            public void onFail(String msg) {
+                System.out.println(msg);
+            }
+        });*/
+
 //        EventBus.getDefault().postSticky(new WalletInfoEvenEntity(wallet));
         //       openOrCloseDrawerLayout();
         boolean backup = currEthWallet.isBackup();

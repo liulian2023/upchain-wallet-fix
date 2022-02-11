@@ -27,6 +27,12 @@
         android:usesCleartextTraffic="true"
         tools:replace="android:allowBackup">
         <activity
+            android:name=".ui.activity.LegalActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.AllCoinActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.activity.ConfirmPinActivity"
             android:exported="false" />
         <activity

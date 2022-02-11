@@ -40,5 +40,16 @@ public class CommonStr {
      */
     public static String PENDING_TRANSFER ="pending_transfer";
 
+    /**
+     * ETH2USDTRate
+     */
+    public static String ETH2USDTRate ="ETH2USDTRate";
+
+    /**
+     * chaintype
+     */
+
+    public static String CHAIN_TYPE ="chaintype";
+
 
 }

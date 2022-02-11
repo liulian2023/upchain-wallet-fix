@@ -91,7 +91,6 @@ public class TokenRepository implements TokenRepositoryType {
                                         balance = getBalance(walletAddress, items[i]);
                                     }
 
-
                                 } catch (Exception e1) {
                                     Log.d("TOKEN", "Err" +  e1.getMessage());
                                     /* Quietly */
@@ -108,21 +107,11 @@ public class TokenRepository implements TokenRepositoryType {
                                     } else {
                                         result[i] = new Token(items[i], ethBalance.setScale(items[i].decimals, RoundingMode.CEILING).toPlainString());
                                     }
-
                                 }
-
-
                             }
                             return result;
                         }).blockingGet();
-
-
-
             e.onNext(tokens);
-
-
-
-
         });
     }
 
@@ -188,7 +177,7 @@ public class TokenRepository implements TokenRepositoryType {
         }
     }
 
-    private static org.web3j.abi.datatypes.Function balanceOf(String owner) {
+    public static org.web3j.abi.datatypes.Function balanceOf(String owner) {
         return new org.web3j.abi.datatypes.Function(
                 "balanceOf",
                 Collections.singletonList(new Address(owner)),

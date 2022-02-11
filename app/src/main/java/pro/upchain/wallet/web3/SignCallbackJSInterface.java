@@ -1,5 +1,8 @@
 package pro.upchain.wallet.web3;
 
+import static pro.upchain.wallet.ui.fragment.DappBrowserFragment.REQUEST_ACCOUNT_SUCCESS;
+import static pro.upchain.wallet.web3.Web3View.JS_PROTOCOL_ON_SUCCESSFUL;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
@@ -21,11 +24,16 @@ import org.web3j.utils.Numeric;
 import java.math.BigInteger;
 import java.util.logging.Handler;
 
+import pro.upchain.wallet.MyApplication;
 import pro.upchain.wallet.R;
 import pro.upchain.wallet.RxHttp.net.utils.StringMyUtil;
+import pro.upchain.wallet.entity.NetworkInfo;
+import pro.upchain.wallet.repository.EthereumNetworkRepository;
+import pro.upchain.wallet.repository.RepositoryFactory;
 import pro.upchain.wallet.utils.Hex;
 import pro.upchain.wallet.utils.WalletDaoUtils;
 import pro.upchain.wallet.utils.dapp2.DAppMethod;
+import pro.upchain.wallet.view.AddNetWordDialog;
 import pro.upchain.wallet.web3.entity.Address;
 import pro.upchain.wallet.web3.entity.Message;
 import pro.upchain.wallet.web3.entity.TypedData;
@@ -34,7 +42,7 @@ import pro.upchain.wallet.web3.entity.Web3Transaction;
 
 public class SignCallbackJSInterface {
 
-    private final WebView webView;
+    private final Web3View webView;
     @NonNull
     private final OnRequestAccountListener onRequestAccountListener;
     @NonNull
@@ -48,7 +56,7 @@ public class SignCallbackJSInterface {
 
 
     public SignCallbackJSInterface(
-            WebView webView,
+            Web3View webView,
             @NonNull  OnRequestAccountListener onRequestAccountListener,
             @NonNull OnSignTransactionListener onSignTransactionListener,
             @NonNull OnSignMessageListener onSignMessageListener,
@@ -140,6 +148,33 @@ public class SignCallbackJSInterface {
 
 
                 }
+                break;
+            case ADDETHEREUMCHAIN:
+                EthereumNetworkRepository ethereumNetworkRepository = MyApplication.repositoryFactory().ethereumNetworkRepository;
+                NetworkInfo[] availableNetworkList = ethereumNetworkRepository.getAvailableNetworkList();
+                String chainIdStr = jsonObject.getJSONObject("object").getString("chainId");
+                BigInteger chainId = Numeric.decodeQuantity(chainIdStr);
+                RepositoryFactory repositoryFactory = MyApplication.repositoryFactory();
+                if(chainId.intValue() !=  repositoryFactory.ethereumNetworkRepository.getDefaultNetwork().chainId){
+                    for (int i = 0; i < availableNetworkList.length; i++) {
+                        NetworkInfo networkInfo = availableNetworkList[i];
+                        if(networkInfo.chainId == chainId.intValue()){
+                            AddNetWordDialog addNetWordDialog = new AddNetWordDialog(context,networkInfo,webView);
+                            addNetWordDialog.show();
+                        }
+                    }
+                }else {
+                    String address  =  String.format(REQUEST_ACCOUNT_SUCCESS, WalletDaoUtils.getCurrent().address);
+                    String callBack = String.format(JS_PROTOCOL_ON_SUCCESSFUL,id,WalletDaoUtils.getCurrent().address);
+                    webView.post(new Runnable() {
+                        @Override
+                        public void run() {
+//                            webView.evaluateJavascript(address, null);
+                            webView.evaluateJavascript(callBack, null);
+                        }
+                    });
+                }
+
                 break;
             default:
                 break;

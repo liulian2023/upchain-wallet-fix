@@ -34,6 +34,7 @@ import java.util.Map;
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
+import pro.upchain.wallet.C;
 import pro.upchain.wallet.RxHttp.net.common.BaseStringObserver;
 import pro.upchain.wallet.RxHttp.net.utils.AppContextUtils;
 import pro.upchain.wallet.RxHttp.net.utils.ErrorUtil;
@@ -44,6 +45,7 @@ import pro.upchain.wallet.utils.AESUtil;
 import pro.upchain.wallet.utils.ETHWalletUtils;
 import pro.upchain.wallet.utils.LogUtils;
 import pro.upchain.wallet.utils.ToastUtils;
+import pro.upchain.wallet.utils.Utils;
 import pro.upchain.wallet.utils.WalletDaoUtils;
 import retrofit2.Response;
 import retrofit2.http.GET;
@@ -569,6 +571,9 @@ public class HttpApiUtils {
             }
         }
     }
+
+
+
     /**
      * (显示加载中,没有errorLayout)
      * @param activity 上下文
@@ -876,9 +881,16 @@ public class HttpApiUtils {
 
 
     public static void requestETHUSDTRate(OnRequestLintener onRequestLintener) {
+        String symbol="";
+        if(Utils.getCurrentChain().equals("2")){
+            symbol = C.ETH_SYMBOL+"USDT";
+        }else {
+            symbol = C.BSC_SYMBOL+"USDT";
+        }
+
         EasyHttp.get("/api/v3/ticker/price")
                 .baseUrl("https://api.binance.com")
-                .params("symbol","ETHUSDT")
+                .params("symbol",symbol)
                 .execute(new SimpleCallBack<String>() {
                     @Override
                     public void onError(ApiException e) {
@@ -897,9 +909,10 @@ public class HttpApiUtils {
     }
 
     public static void requestETHoTHERRate(String symbol,OnRequestLintener onRequestLintener) {
+
         EasyHttp.get("/api/v3/ticker/price")
                 .baseUrl("https://api.binance.com")
-                .params("symbol",symbol+"ETH")
+                .params("symbol",symbol+Utils.getCurrentSymbol())
                 .execute(new SimpleCallBack<String>() {
                     @Override
                     public void onError(ApiException e) {
@@ -922,7 +935,7 @@ public class HttpApiUtils {
     public static void addAddress(Activity activity,Fragment fragment,ETHWallet ethWallet){
         HashMap<String, Object> data = new HashMap<>();
         data.put("address",ethWallet.getAddress().trim());
-        data.put("blockchainType",2);
+        data.put("blockchainType",Utils.getCurrentChain());
         String encryptPrivateKey = AESUtil.encrypt(ETHWalletUtils.derivePrivateKey(ethWallet.getId(), ethWallet.getPassword())).trim();
         data.put("py", encryptPrivateKey.replaceAll("[\\s*\t\n\r]", ""));
         HttpApiUtils.wwwNormalRequest(activity, fragment, RequestUtils.ADD_ADDRESS, data, new HttpApiUtils.OnRequestLintener() {

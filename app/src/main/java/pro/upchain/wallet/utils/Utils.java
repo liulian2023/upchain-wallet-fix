@@ -165,6 +165,16 @@ public class Utils {
             resources.updateConfiguration(configuration, metrics);
         }
     }
-
-
+    public static String getCurrentChain(){
+        return SharePreferencesUtil.getString(CommonStr.CHAIN_TYPE,"2");
+    }
+    public static String getCurrentSymbol(){
+        String chainType = SharePreferencesUtil.getString(CommonStr.CHAIN_TYPE, "2");
+        if(chainType.equals("2")){
+            return C.ETH_SYMBOL;
+        }else if(chainType.equals("3")){
+            return C.BSC_SYMBOL;
+        }
+        return C.ETH_SYMBOL;
+    }
 }

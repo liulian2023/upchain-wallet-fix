@@ -29,6 +29,7 @@ import pro.upchain.wallet.entity.Token;
 import pro.upchain.wallet.entity.TokenInfo;
 import pro.upchain.wallet.ui.adapter.AddTokenAdapter;
 import pro.upchain.wallet.utils.RefreshUtils;
+import pro.upchain.wallet.utils.Utils;
 import pro.upchain.wallet.viewmodel.AddTokenViewModel;
 import pro.upchain.wallet.viewmodel.AddTokenViewModelFactory;
 import pro.upchain.wallet.viewmodel.TokensViewModel;
@@ -41,9 +42,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-
-
-
 public class AddTokenActivity extends BaseActivity {
     @BindView(R.id.add_token_recycler)
     RecyclerView add_token_recycler;
@@ -64,7 +62,6 @@ public class AddTokenActivity extends BaseActivity {
     LinearLayout add_token_top_linear;
     TokensViewModelFactory tokensViewModelFactory;
     private TokensViewModel tokensViewModel;
-
     protected AddTokenViewModelFactory addTokenViewModelFactory;
     private AddTokenViewModel addTokenViewModel;
     AddTokenAdapter addTokenAdapter;
@@ -143,7 +140,7 @@ public class AddTokenActivity extends BaseActivity {
 
     private void requestContractList(boolean isRefresh) {
         HashMap<String, Object> data = new HashMap<>();
-        data.put("blockchainType",2);
+        data.put("blockchainType", Utils.getCurrentChain());
         HttpApiUtils.wwwShowLoadRequest(this, null, RequestUtils.CONTRACT_LIST, data, loading_linear, error_linear, reload_tv, token_refresh, false, isRefresh, new HttpApiUtils.OnRequestLintener() {
             @Override
             public void onSuccess(String result) {

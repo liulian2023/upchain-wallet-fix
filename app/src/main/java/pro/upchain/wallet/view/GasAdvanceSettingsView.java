@@ -14,6 +14,7 @@ import java.math.BigInteger;
 import pro.upchain.wallet.C;
 import pro.upchain.wallet.R;
 import pro.upchain.wallet.utils.BalanceUtils;
+import pro.upchain.wallet.utils.Utils;
 
 /**
  * Created by Tiny 熊 @ Upchain.pro
@@ -124,7 +125,7 @@ public class GasAdvanceSettingsView extends FrameLayout {
 
         gasLimitText.setText(gasLimit.toString());
 
-        String fee = BalanceUtils.weiToEth(gasPrice.multiply(gasLimit)).toPlainString() + " " + C.ETH_SYMBOL;
+        String fee = BalanceUtils.weiToEth(gasPrice.multiply(gasLimit)).toPlainString() + " " + Utils.getCurrentSymbol();
         networkFeeText.setText(fee);
     }
 

@@ -92,7 +92,7 @@ public class TokensViewModel extends BaseViewModel {
         progress.postValue(false);
         this.tokens.postValue(tokens);
 
-        //  TODO： 是否出现重复调用
+
         for (Token token : tokens ) {
             if (token.balance!=null && !token.balance.equals("0")) {   // > 0
                 getTicker(token.tokenInfo.symbol).subscribe(this::onPrice, this::onError);

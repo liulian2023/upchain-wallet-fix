@@ -28,6 +28,9 @@ public enum DAppMethod {
             case "signTransaction":
                 methodName =  SIGNTRANSACTION;
                 break;
+            case "addEthereumChain":
+                methodName = ADDETHEREUMCHAIN;
+                break;
             default:
                 break;
         }

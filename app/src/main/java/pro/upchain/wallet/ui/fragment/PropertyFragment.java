@@ -32,6 +32,7 @@ import pro.upchain.wallet.entity.Token;
 import pro.upchain.wallet.entity.WalletAmountEvenEntity;
 import pro.upchain.wallet.interact.FetchWalletInteract;
 import pro.upchain.wallet.ui.activity.AddTokenActivity;
+import pro.upchain.wallet.ui.activity.AllCoinActivity;
 import pro.upchain.wallet.ui.activity.DappActivity;
 import pro.upchain.wallet.ui.activity.DappActivity2;
 import pro.upchain.wallet.ui.activity.GatheringQRCodeActivity;
@@ -85,7 +86,6 @@ public class PropertyFragment extends BaseFragment {
     List<String>titleList = new ArrayList<>();
 
     HomeTabAdapter homeTabAdapter;
-    Token ethToken;
 
 
 
@@ -125,13 +125,7 @@ public class PropertyFragment extends BaseFragment {
     }
 
     private void onTokens(Token[] tokens) {
-        for (int i = 0; i < tokens.length; i++) {
-            Token token = tokens[i];
-            boolean equals = token.tokenInfo.symbol.equals(C.ETH_SYMBOL);
-            if(equals){
-                ethToken = token;
-            }
-        }
+
     }
     public void showWallet(ETHWallet wallet) {
 
@@ -155,44 +149,19 @@ public class PropertyFragment extends BaseFragment {
         Intent intent = null;
         switch (view.getId()){
             case R.id.Receive_tv:
-                if(ethToken == null|| currEthWallet ==null){
-                    ToastUtils.showToast(R.string.please_wait_load_data);
-                }else {
-                    intent = new Intent(getContext(), GatheringQRCodeActivity.class);
-                    intent.putExtra(EXTRA_ADDRESS, currEthWallet.getAddress());
-                    intent.putExtra(C.EXTRA_CONTRACT_ADDRESS, "");
-                    intent.putExtra(C.EXTRA_SYMBOL, ethToken.tokenInfo.symbol);
-                    intent.putExtra(C.EXTRA_DECIMALS, ethToken.tokenInfo.decimals);
-                    startActivity(intent);
-                }
+
+
+                    AllCoinActivity.startAty(getContext(),false);
+
 
                 break;
             case R.id.send_tv:
-                if(ethToken == null|| currEthWallet ==null){
-                    ToastUtils.showToast(R.string.please_wait_load_data);
-                }else {
-                    intent = new Intent(getContext(), SendActivity.class);
-                    intent.putExtra(C.EXTRA_BALANCE, ethToken.balance);
-                    intent.putExtra(C.EXTRA_ADDRESS, currEthWallet);
-                    intent.putExtra(C.EXTRA_CONTRACT_ADDRESS, "");
-                    intent.putExtra(C.EXTRA_SYMBOL, ethToken.tokenInfo.symbol);
-                    intent.putExtra(C.EXTRA_DECIMALS, ethToken.tokenInfo.decimals);
-                    startActivity(intent);
-                }
+
+
+
+                    AllCoinActivity.startAty(getContext(),true);
+
                 break;
-            /**
-             *             case R.id.receive_btn:
-             *                 intent = new Intent(mContext, GatheringQRCodeActivity.class);
-             *                 ETHWallet wallet = WalletDaoUtils.getCurrent();
-             *
-             *                 intent.putExtra(EXTRA_ADDRESS, wallet.getAddress());
-             *                 intent.putExtra(C.EXTRA_CONTRACT_ADDRESS, contractAddress);
-             *                 intent.putExtra(C.EXTRA_SYMBOL, symbol);
-             *                 intent.putExtra(C.EXTRA_DECIMALS, decimals);
-             *
-             *                 startActivity(intent);
-             *                 break;
-             */
             case R.id.scan_iv:
                 intent = new Intent(getContext(), QRCodeScannerActivity.class);
                 startActivityForResult(intent, QRCODE_SCANNER_REQUEST);

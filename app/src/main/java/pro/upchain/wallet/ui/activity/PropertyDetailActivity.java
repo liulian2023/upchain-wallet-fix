@@ -27,9 +27,12 @@ import pro.upchain.wallet.entity.TransferHistoryEntity;
 import pro.upchain.wallet.repository.RepositoryFactory;
 import pro.upchain.wallet.ui.adapter.TransactionsAdapter;
 import pro.upchain.wallet.ui.adapter.TransferHistoryAdapter;
+import pro.upchain.wallet.utils.CommonStr;
 import pro.upchain.wallet.utils.LogUtils;
 import pro.upchain.wallet.utils.RefreshUtils;
+import pro.upchain.wallet.utils.SharePreferencesUtil;
 import pro.upchain.wallet.utils.TransferDaoUtils;
+import pro.upchain.wallet.utils.Utils;
 import pro.upchain.wallet.utils.WalletDaoUtils;
 import pro.upchain.wallet.viewmodel.TransactionsViewModel;
 import pro.upchain.wallet.viewmodel.TransactionsViewModelFactory;
@@ -83,8 +86,8 @@ public class PropertyDetailActivity extends BaseActivity {
     private String symbol;
 
     List<Transaction> transactionLists;
-    private String ETH2USDTRate;
-    private String ETH2OtherRate;
+    private   String ETH2USDTRate = SharePreferencesUtil.getString(CommonStr.ETH2USDTRate,"");
+    private String ETH2OtherRate ="0";
     TransferHistoryAdapter transferHistoryAdapter;
     ArrayList<TransferHistoryEntity.ListBean> listBeanArrayList = new ArrayList<>();
     ArrayList<TransferHistoryEntity.ListBean> pendingList = new ArrayList<>();
@@ -107,9 +110,11 @@ public class PropertyDetailActivity extends BaseActivity {
         contractAddress = intent.getStringExtra(C.EXTRA_CONTRACT_ADDRESS);
         decimals = intent.getIntExtra(C.EXTRA_DECIMALS, C.ETHER_DECIMALS);
         symbol = intent.getStringExtra(C.EXTRA_SYMBOL);
-        symbol = StringMyUtil.isEmptyString(symbol) ? C.ETH_SYMBOL : symbol;
+        if(StringMyUtil.isEmptyString(symbol)){
+            symbol = Utils.getCurrentSymbol();
+        }
         tv_title.setText(symbol);
-        wallet_balance_tv.setText(balance);
+        wallet_balance_tv.setText(balance+symbol);
 
         transactionsViewModelFactory = new TransactionsViewModelFactory();
         viewModel = ViewModelProviders.of(this, transactionsViewModelFactory)
@@ -118,7 +123,7 @@ public class PropertyDetailActivity extends BaseActivity {
         viewModel.transactions().observe(this, this::onTransactions);
         viewModel.progress().observe(this, this::onProgress);
         requestETHUSDTRate();
-        if(!symbol.equals(C.ETH_SYMBOL)){
+        if(!symbol.equals(C.ETH_SYMBOL) || !symbol.equals(C.BSC_SYMBOL)){
             requestETHoTHERRate();
         }
         initRefresh();
@@ -188,7 +193,7 @@ public class PropertyDetailActivity extends BaseActivity {
         data.put("moneyType","3");
         data.put("pageNum",1);
         data.put("pageSize",1000);
-        data.put("blockchainType",2);
+        data.put("blockchainType",Utils.getCurrentChain());
 
         HttpApiUtils.wwwShowLoadRequest(this, null, RequestUtils.transfer_history, data, loading_linear,error_linear,reload_tv,refresh_layout,isLoadMore,isRefresh,new HttpApiUtils.OnRequestLintener() {
             @Override
@@ -248,9 +253,9 @@ public class PropertyDetailActivity extends BaseActivity {
                 }
                 listBeanArrayList.addAll(list);
                 if(listBeanArrayList.size()==0){
-                    if(refresh_layout!=null){
+            /*        if(refresh_layout!=null){
                         refresh_layout.setVisibility(View.GONE);
-                    }
+                    }*/
                     if(nodata_linear!=null) {
                         nodata_linear.setVisibility(View.VISIBLE);
                     }
@@ -273,7 +278,7 @@ public class PropertyDetailActivity extends BaseActivity {
     }
 
     private void requestETHoTHERRate() {
-        HttpApiUtils.requestETHoTHERRate("EOS",new HttpApiUtils.OnRequestLintener() {
+        HttpApiUtils.requestETHoTHERRate(symbol,new HttpApiUtils.OnRequestLintener() {
             @Override
             public void onSuccess(String result) {
                 RateEntity rateEntity = JSONObject.parseObject(result, RateEntity.class);
@@ -283,30 +288,40 @@ public class PropertyDetailActivity extends BaseActivity {
 
             @Override
             public void onFail(String msg) {
+                initRecycler(ETH2OtherRate);
             }
         });
     }
 
     private void requestETHUSDTRate() {
-        HttpApiUtils.requestETHUSDTRate(new HttpApiUtils.OnRequestLintener() {
-            @Override
-            public void onSuccess(String result) {
-                RateEntity rateEntity = JSONObject.parseObject(result, RateEntity.class);
-                ETH2USDTRate = rateEntity.getPrice();
-                BigDecimal bigDecimal = new BigDecimal(balance);
-                BigDecimal multiply = bigDecimal.multiply(new BigDecimal(ETH2USDTRate));
-                BigDecimal usdt = multiply.setScale(2,BigDecimal.ROUND_HALF_UP);
-                total_amount_tv.setText("≈$"+usdt);
-                if(symbol.equals(C.ETH_SYMBOL)){
-                    initRecycler(ETH2USDTRate);
+
+        if(StringMyUtil.isEmptyString(ETH2USDTRate)){
+            HttpApiUtils.requestETHUSDTRate(new HttpApiUtils.OnRequestLintener() {
+                @Override
+                public void onSuccess(String result) {
+                    RateEntity rateEntity = JSONObject.parseObject(result, RateEntity.class);
+                    ETH2USDTRate = rateEntity.getPrice();
+                    SharePreferencesUtil.putString(CommonStr.ETH2USDTRate,ETH2USDTRate);
+                    BigDecimal bigDecimal = new BigDecimal(balance);
+                    BigDecimal multiply = bigDecimal.multiply(new BigDecimal(ETH2USDTRate));
+                    BigDecimal usdt = multiply.setScale(2,BigDecimal.ROUND_HALF_UP);
+                    total_amount_tv.setText("US$"+usdt);
+                    if(symbol.equals(C.ETH_SYMBOL) || symbol.equals(C.BSC_SYMBOL)){
+                        initRecycler(ETH2USDTRate);
+                    }
                 }
-            }
 
-            @Override
-            public void onFail(String msg) {
+                @Override
+                public void onFail(String msg) {
 
+                }
+            });
+        }else {
+            if(symbol.equals(C.ETH_SYMBOL)||symbol.equals(C.BSC_SYMBOL)){
+                initRecycler(ETH2USDTRate);
             }
-        });
+        }
+
     }
     @Override
     protected void onResume() {
@@ -375,13 +390,8 @@ public class PropertyDetailActivity extends BaseActivity {
                 break;
             case R.id.send_iv:
             case R.id.send_tv:
-                intent = new Intent(mContext, SendActivity.class);
-                intent.putExtra(C.EXTRA_BALANCE, balance);
-                intent.putExtra(C.EXTRA_ADDRESS, currWallet);
-                intent.putExtra(C.EXTRA_CONTRACT_ADDRESS, contractAddress);
-                intent.putExtra(C.EXTRA_SYMBOL, symbol);
-                intent.putExtra(C.EXTRA_DECIMALS, decimals);
-                startActivity(intent);
+
+                SendActivity.startAty(PropertyDetailActivity.this,currWallet,contractAddress,balance,decimals,symbol);
                 break;
             case R.id.receive_tv:
             case R.id.receive_iv:

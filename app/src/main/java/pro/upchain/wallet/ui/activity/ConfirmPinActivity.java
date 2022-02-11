@@ -31,15 +31,19 @@ import pro.upchain.wallet.base.BaseActivity;
 import pro.upchain.wallet.domain.ETHWallet;
 import pro.upchain.wallet.entity.ConfirmPinEntity;
 import pro.upchain.wallet.interact.CreateWalletInteract;
+import pro.upchain.wallet.interact.ModifyWalletInteract;
 import pro.upchain.wallet.ui.adapter.ConfirmPinAdapter;
 import pro.upchain.wallet.utils.ETHWalletUtils;
 import pro.upchain.wallet.utils.LogUtils;
 import pro.upchain.wallet.utils.ToastUtils;
+import pro.upchain.wallet.utils.WalletDaoUtils;
 
 public class ConfirmPinActivity extends BaseActivity {
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
+    @BindView(R.id.confirm_back_linear)
+    LinearLayout confirm_back_linear;
     @BindView(R.id.confirm_tip_tv)
     TextView confirm_tip_tv;
     @BindView(R.id.one_psw_iv)
@@ -60,8 +64,8 @@ public class ConfirmPinActivity extends BaseActivity {
     ArrayList<ConfirmPinEntity>confirmPinEntityArrayList = new ArrayList<>();
     String firstPsw = "";
     String confirmPsw = "";
+    private ModifyWalletInteract modifyWalletInteract;
     boolean firstPswSuccess = false;
-    boolean confirmPswSuccess = false;
     private boolean incorrect = false;
     private CreateWalletInteract createWalletInteract;
     public static int TO_IMPORT_WALLET = 111;
@@ -77,6 +81,13 @@ public class ConfirmPinActivity extends BaseActivity {
         intent.putExtra("mnemonic",mnemonic) ;
         context.startActivityForResult(intent,TO_IMPORT_WALLET);
     }
+
+    public static void startAty (Context context, boolean modifyPsw,String oldPsw){
+        Intent intent = new Intent(context, ConfirmPinActivity.class);
+        intent.putExtra("modifyPsw",modifyPsw) ;
+        intent.putExtra("oldPsw",oldPsw) ;
+        context.startActivity(intent);
+    }
     @Override
     public int getLayoutId() {
         return R.layout.activity_confirm_pin;
@@ -89,8 +100,15 @@ public class ConfirmPinActivity extends BaseActivity {
 
     @Override
     public void initDatas() {
+        modifyWalletInteract = new ModifyWalletInteract();
         createWalletInteract = new CreateWalletInteract();
     initRecycler();
+        confirm_back_linear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void initRecycler() {
@@ -241,7 +259,6 @@ public class ConfirmPinActivity extends BaseActivity {
                             five_psw_iv.setImageResource(R.drawable.pin_check);
                             six_psw_iv.setImageResource(R.drawable.pin_check);
                         }
-                        System.out.println(" delete firstPsw = "+firstPsw +"///// confirmPsw= "+confirmPsw );
                     }
                 }else {
                     if(position == 9){
@@ -326,11 +343,16 @@ public class ConfirmPinActivity extends BaseActivity {
                                                 createWalletInteract.create(getIntent().getStringExtra("walletName"), firstPsw, confirmPsw, "")
                                                         .subscribe(ConfirmPinActivity.this::jumpToWalletBackUp, ConfirmPinActivity.this::showError);
 
+                                            }else if(getIntent().getBooleanExtra("modifyPsw",false)){
+                                                //modify
+                                                    showDialog(getString(R.string.saving_wallet_tip));
+                                                ETHWallet current = WalletDaoUtils.getCurrent();
+                                                modifyWalletInteract.modifyWalletPwd(current.getId(), current.getName(), getIntent().getStringExtra("oldPsw"), firstPsw).subscribe(ConfirmPinActivity.this::modifyPwdSuccess);
+
                                             }else {
                                                 showDialog(getString(R.string.loading_wallet_tip));
                                                 createWalletInteract.loadWalletByMnemonic( ETHWalletUtils.ETH_JAXX_TYPE, getIntent().getStringExtra("mnemonic"), confirmPsw.trim()).subscribe(ConfirmPinActivity.this::loadSuccess, ConfirmPinActivity.this::onError);
                                             }
-
 
 
 
@@ -381,7 +403,16 @@ public class ConfirmPinActivity extends BaseActivity {
         startActivity(intent);
 
     }
+    public void modifyPwdSuccess(ETHWallet ethWallet) {
+        if(ethWallet!=null){
+            dismissDialog();
+            ToastUtils.showToast(R.string.modify_password_success);
+            Intent data = new Intent();
+            data.putExtra("newPwd", ethWallet.getPassword());
+            finish();
+        }
 
+    }
     @Override
     public void configViews() {
 
