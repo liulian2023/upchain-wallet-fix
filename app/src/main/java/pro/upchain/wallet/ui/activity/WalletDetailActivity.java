@@ -135,7 +135,7 @@ public class WalletDetailActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
 
-        walletIsBackup = WalletDaoUtils.getWalletById(walletId).isBackup();
+        walletIsBackup = WalletDaoUtils.getWalletById(walletId).getIsBackup();
 
         if (walletIsBackup) {
             btnMnemonicBackup.setVisibility(View.GONE);

@@ -17,6 +17,7 @@ import android.widget.TextView;
 import pro.upchain.wallet.C;
 import pro.upchain.wallet.MyApplication;
 import pro.upchain.wallet.R;
+import pro.upchain.wallet.RxHttp.net.utils.StringMyUtil;
 import pro.upchain.wallet.base.BaseActivity;
 import pro.upchain.wallet.base.BasePopupWindow;
 import pro.upchain.wallet.pop.SetAmountPop;
@@ -92,39 +93,48 @@ public class GatheringQRCodeActivity extends BaseActivity {
         decimals = intent.getIntExtra(EXTRA_DECIMALS, 18);
         if(symbol .equals(C.ETH_SYMBOL) ||symbol.equals(C.BSC_SYMBOL) ) {
             decimals = C.ETHER_DECIMALS;
-        }
-        if(decimals == 0){
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    RepositoryFactory rf = MyApplication.repositoryFactory();
-                    Web3j web3j = Web3j.build(new HttpService(rf.ethereumNetworkRepository.getDefaultNetwork().rpcServerUrl));
-                    Web3jUtils.erc20Decimals(web3j, contractAddress, new Web3jUtils.Web3jSuccess() {
+            initAddressQRCode(decimals);
+        }else {
+            if(decimals == 0){
+                if(SharePreferencesUtil.getInt(contractAddress,0) != 0){
+                    decimals =  SharePreferencesUtil.getInt(contractAddress,0);
+                }else {
+                    new Thread(new Runnable() {
                         @Override
-                        public void success(BigInteger decimals) {
-                            runOnUiThread(new Runnable() {
+                        public void run() {
+                            RepositoryFactory rf = MyApplication.repositoryFactory();
+                            Web3j web3j = Web3j.build(new HttpService(rf.ethereumNetworkRepository.getDefaultNetwork().rpcServerUrl));
+                            Web3jUtils.erc20Decimals(web3j, contractAddress, new Web3jUtils.Web3jSuccess() {
                                 @Override
-                                public void run() {
+                                public void success(BigInteger decimals) {
+                                    runOnUiThread(new Runnable() {
+                                        @Override
+                                        public void run() {
                    /*                 qRStr = "ethereum:" + walletAddress + "?decimal=" + decimals;
                                     if (!TextUtils.isEmpty(contractAddress)) {
                                         qRStr += "&contractAddress=" + contractAddress;
                                     }*/
-                                    initAddressQRCode(decimals.intValue());
+                                            initAddressQRCode(decimals.intValue());
+
+                                        }
+                                    });
+
                                 }
                             });
-
                         }
-                    });
+                    }).start();
                 }
-            }).start();
-        }else {
-            decimals = C.ETHER_DECIMALS;
+
+            }else {
+//            decimals = C.ETHER_DECIMALS;
 /*            qRStr = "ethereum:" + walletAddress + "?decimal=" + decimals;
             if (!TextUtils.isEmpty(contractAddress)) {
                 qRStr += "&contractAddress=" + contractAddress;
             }*/
-            initAddressQRCode(decimals);
+                initAddressQRCode(decimals);
+            }
         }
+
         TextView tv_title =   findViewById(R.id.tv_title);
         tv_title.setText(getString(R.string.Receive)+" "+symbol);
         tvWalletAddress.setText(walletAddress);

@@ -11,6 +11,9 @@ import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import pro.upchain.wallet.RxHttp.net.utils.StringMyUtil;
+import pro.upchain.wallet.utils.CommonStr;
+import pro.upchain.wallet.utils.SharePreferencesUtil;
 
 public class HttpBasrUrlInterceptor implements Interceptor {
     @Override
@@ -24,25 +27,11 @@ public class HttpBasrUrlInterceptor implements Interceptor {
         HttpUrl oldHttpUrl = request.url();
 //        SharedPreferenceHelperImpl sp = new SharedPreferenceHelperImpl();
         HttpUrl newBaseUrl = null;
-//        String newBaseUrl1 = sp.getNewBaseUrl();
-        String newBaseUrl1 = "";
+        String newBaseUrl1 = SharePreferencesUtil.getString(CommonStr.NEW_BASE_URL,"");
         //有切换过路线
-        if(!TextUtils.isEmpty(newBaseUrl1)){
+        if(StringMyUtil.isNotEmpty(newBaseUrl1)){
             //获取头信息的集合
-            List<String> urlnameList = request.headers("urlname");
-            if(urlnameList!=null&&urlnameList.size()>0){//头部集合不为空
-                //删除原有配置中的值,就是namesAndValues集合里的值
-                requestBuilder.removeHeader("urlname");
-                //获取头信息中配置的value  此处为cp
-                String urlname = urlnameList.get(0);
-                if("cp".equals(urlname)){//cp接口不替换
-                    newBaseUrl = oldHttpUrl;
-                }else {//其它接口替换
-                    newBaseUrl = HttpUrl.parse(newBaseUrl1);
-                }
-            }else {//没有添加头部的替换
                 newBaseUrl = HttpUrl.parse(newBaseUrl1);
-            }
         }else {
             newBaseUrl = oldHttpUrl;
         }

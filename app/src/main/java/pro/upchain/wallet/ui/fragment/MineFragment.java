@@ -29,6 +29,7 @@ import pro.upchain.wallet.ui.activity.LegalActivity;
 import pro.upchain.wallet.ui.activity.MnemonicBackupActivity;
 import pro.upchain.wallet.ui.activity.ModifyPasswordActivity;
 import pro.upchain.wallet.ui.activity.NetSettingActivity;
+import pro.upchain.wallet.ui.activity.OnLineKeFuActivity;
 import pro.upchain.wallet.ui.activity.WalletMangerActivity;
 
 import butterknife.OnClick;
@@ -109,7 +110,7 @@ public class MineFragment extends BaseFragment {
         currEthWallet = wallet;
 //        EventBus.getDefault().postSticky(new WalletInfoEvenEntity(wallet));
         //       openOrCloseDrawerLayout();
-        boolean backup = currEthWallet.isBackup();
+        boolean backup = currEthWallet.getIsBackup();
         if(backup){
             backup_mnemonic_iv.setVisibility(View.GONE);
         }else {
@@ -151,7 +152,7 @@ public class MineFragment extends BaseFragment {
 
                 break;*/
             case R.id.backup_mnemonic_relativeLayout:
-                if(currEthWallet.isBackup()){
+                if(currEthWallet.getIsBackup()){
                     ToastUtils.showToast(R.string.mnemonic_backed_up);
                     return;
                 }
@@ -181,7 +182,7 @@ public class MineFragment extends BaseFragment {
                 startActivity(new Intent(getContext(), LegalActivity.class));
                 break;
             case R.id.contact_us_relativeLayout:
-
+                startActivity( new Intent(getContext(), OnLineKeFuActivity.class));
                 break;
             default:
                 break;

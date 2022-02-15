@@ -142,6 +142,16 @@ public class PropertyFragment extends BaseFragment {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void walletAmountEven(WalletAmountEvenEntity walletAmountEvenEntity){
         home_amount_tv .setText("US$"+walletAmountEvenEntity.getSum());
+        int length = home_amount_tv.getText().toString().trim().length();
+        if(length <=8){
+            home_amount_tv.setTextSize(32);
+        }else if(length>8 || length<=15){
+
+            home_amount_tv.setTextSize(28);
+        }else {
+            home_amount_tv.setTextSize(23);
+
+        }
     }
 
     @OnClick({R.id.home_scan_iv,R.id.home_add_iv,R.id.Receive_tv,R.id.send_tv,R.id.scan_iv})

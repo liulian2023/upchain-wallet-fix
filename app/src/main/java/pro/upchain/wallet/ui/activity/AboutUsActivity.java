@@ -1,5 +1,7 @@
 package pro.upchain.wallet.ui.activity;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.view.View;
 import android.webkit.WebChromeClient;
@@ -41,7 +43,11 @@ public class AboutUsActivity extends BaseActivity {
     public void initDatas() {
 
     }
-
+    public static void startAty(int type, Context context){
+        Intent intent = new Intent(context, AboutUsActivity.class);
+        intent.putExtra("type",type);
+        context.startActivity(intent);
+    }
     @Override
     public void configViews() {
         WebSettings settings = about_us_webview.getSettings();
@@ -60,6 +66,7 @@ public class AboutUsActivity extends BaseActivity {
         });
 
         HashMap<String, Object> data = new HashMap<String, Object>();
+        data.put("type",getIntent().getIntExtra("type",3));
         HttpApiUtils.wwwNormalRequest(this, null, RequestUtils.ABOUT_US, data, new HttpApiUtils.OnRequestLintener() {
             @Override
             public void onSuccess(String result) {

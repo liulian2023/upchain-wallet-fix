@@ -55,6 +55,7 @@
     <string name="search_toolbar_cancel">取消</string>
     <string name="cancel_btn">取消</string>
     <string name="sure_btn">确定</string>
+    <string name="go_set">去设置</string>
     <string name="change_success">切换成功</string>
     <string name="edit_website">请输入网址</string>
 
@@ -154,6 +155,8 @@
     <string name="about_wallet">关于钱包</string>
     <string name="privacy_policy">隐私政策</string>
     <string name="Terms_of_Servers">服务条款</string>
+    <string name="no_camara">无法拍照</string>
+    <string name="no_camara_tip">您未授予拍照权限</string>
     <string name="mnemonic_backup_tips1">抄写下你的钱包助记词</string>
     <string name="mnemonic_backup_tips2">助记词用于回复钱包或重置钱包密码，降它准确的抄写到纸上，并存放在只有你知道的安全的地方。</string>
 

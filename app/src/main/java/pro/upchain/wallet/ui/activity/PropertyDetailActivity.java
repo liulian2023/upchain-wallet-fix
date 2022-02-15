@@ -318,6 +318,10 @@ public class PropertyDetailActivity extends BaseActivity {
             });
         }else {
             if(symbol.equals(C.ETH_SYMBOL)||symbol.equals(C.BSC_SYMBOL)){
+                BigDecimal bigDecimal = new BigDecimal(balance);
+                BigDecimal multiply = bigDecimal.multiply(new BigDecimal(ETH2USDTRate));
+                BigDecimal usdt = multiply.setScale(2,BigDecimal.ROUND_HALF_UP);
+                total_amount_tv.setText("US$"+usdt);
                 initRecycler(ETH2USDTRate);
             }
         }

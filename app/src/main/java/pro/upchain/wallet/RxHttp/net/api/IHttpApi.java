@@ -72,4 +72,27 @@ public interface IHttpApi {
     @FormUrlEncoded
     @POST("mobile/userContract/getList")
     Observable<Response<ResponseBody>> coinList(@FieldMap HashMap<String,Object>data);
+
+    /**
+     * 系统参数
+     * @param data
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("mobile/home/systemInfo")
+    Observable<Response<ResponseBody>> systemParams(@FieldMap HashMap<String,Object>data);
+
+    /**
+     * 版本更新
+     */
+
+    @FormUrlEncoded
+    @POST("mobile/versionManage/getInfo")
+    Observable<Response<ResponseBody>> versionUpdate(@FieldMap HashMap<String,Object>data);
+
+    /**
+     * 线路测试
+     */
+    Observable<Response<ResponseBody>> pingTest(@QueryMap Map<String, Object> data);
+
 }

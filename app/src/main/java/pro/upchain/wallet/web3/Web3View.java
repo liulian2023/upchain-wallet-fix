@@ -32,7 +32,7 @@ public class Web3View extends WebView {
     private static final String JS_PROTOCOL_CANCELLED = "Cancel";
     public static final String JS_PROTOCOL_ON_SUCCESSFUL = "window.ethereum.sendResponse(%1$d,\"%2$s\")";
     public static final String REQUEST_ACCOUNT_JS_PROTOCOL_ON_SUCCESSFUL = "window.ethereum.sendResponse(%1$d,[\"%2$s\"])";
-    private static final String JS_PROTOCOL_ON_FAILURE = "window.ethereum.sendError(%1$d, \"%2$s\")";
+    public static final String JS_PROTOCOL_ON_FAILURE = "window.ethereum.sendError(%1$d, \"%2$s\")";
     @Nullable
     private OnRequestAccountListener onRequestAccountListener;
     @Nullable

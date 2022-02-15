@@ -142,6 +142,9 @@
     <string name="about_wallet">About Wallet</string>
     <string name="privacy_policy">Privacy policy</string>
     <string name="Terms_of_Servers">Terms of Servers</string>
+    <string name="no_camara">Can\'t take pictures</string>
+    <string name="no_camara_tip">You have not given permission to take pictures</string>
+    <string name="go_set">go to settings</string>
     <string name="mnemonic_backup_tips1">Write down your wallet mnemonic</string>
     <string name="mnemonic_backup_tips2">The mnemonic phrase is used to reply to the wallet or reset the wallet password, copy it accurately on paper, and store it in a safe place that only you know. </string>
 

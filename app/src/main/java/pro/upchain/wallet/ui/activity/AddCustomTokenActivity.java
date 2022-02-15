@@ -20,6 +20,7 @@ import pro.upchain.wallet.entity.Address;
 import pro.upchain.wallet.entity.ErrorEnvelope;
 import pro.upchain.wallet.repository.RepositoryFactory;
 import pro.upchain.wallet.utils.LogUtils;
+import pro.upchain.wallet.utils.SharePreferencesUtil;
 import pro.upchain.wallet.utils.ToastUtils;
 import pro.upchain.wallet.viewmodel.AddTokenViewModel;
 import pro.upchain.wallet.viewmodel.AddTokenViewModelFactory;
@@ -154,7 +155,12 @@ public class AddCustomTokenActivity extends BaseActivity {
             public void run() {
                String symbol = getTokenSymbol(web3j, address);
                 String tokenName = getTokenName(web3j, address);
-                BigInteger decimals = erc20Decimals(web3j, address,null);
+                BigInteger decimals = BigInteger.ZERO;
+                if(SharePreferencesUtil.getInt(address,0)!=0){
+                     decimals = new BigInteger(SharePreferencesUtil.getInt(address,0)+"");
+                }else {
+                    decimals = erc20Decimals(web3j, address,null);
+                }
                if(StringMyUtil.isEmptyString(symbol) || decimals == null ||StringMyUtil.isEmptyString(tokenName)){
                    isValid[0] = false;
                    ToastUtils.showToast(getString(R.string.important_contract_fail));

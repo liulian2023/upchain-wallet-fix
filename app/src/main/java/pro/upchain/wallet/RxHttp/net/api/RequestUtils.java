@@ -39,4 +39,21 @@ public class    RequestUtils {
      */
 
     public static String COIN_LIST = "mobile/userContract/getList";
+
+    /**
+     * 系统参数
+     */
+    public static String SYSTEM_SYSTEM ="mobile/home/systemInfo";
+
+    /**
+     * 版本更新
+     */
+
+    public static String VERSION_UPDATE ="mobile/versionManage/getInfo";
+
+    /**
+     * 线路测试
+     */
+
+    public static String URL_TEST ="mobile/home/test";
 }

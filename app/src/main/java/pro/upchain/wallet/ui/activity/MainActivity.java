@@ -1,6 +1,7 @@
 package pro.upchain.wallet.ui.activity;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.appcompat.app.ActionBar;
@@ -13,10 +14,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alibaba.fastjson.JSONObject;
+import com.azhon.appupdate.config.UpdateConfiguration;
+import com.azhon.appupdate.manager.DownloadManager;
 import com.gyf.barlibrary.ImmersionBar;
 
+import pro.upchain.wallet.BuildConfig;
 import pro.upchain.wallet.R;
+import pro.upchain.wallet.RxHttp.net.api.HttpApiUtils;
+import pro.upchain.wallet.RxHttp.net.api.RequestUtils;
 import pro.upchain.wallet.base.BaseActivity;
+import pro.upchain.wallet.entity.AppUpdateEntity;
 import pro.upchain.wallet.ui.adapter.HomePagerAdapter;
 import pro.upchain.wallet.ui.fragment.DappBrowserFragment;
 import pro.upchain.wallet.ui.fragment.MineFragment;
@@ -26,6 +34,7 @@ import pro.upchain.wallet.view.NoScrollViewPager;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -69,7 +78,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     DappBrowserFragment dappBrowserFragment;
 
     public   boolean isDappShow  = false;
-
+    private DownloadManager manager;
     @Override
     public int getLayoutId() {
         return R.layout.activity_main;
@@ -83,10 +92,36 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void initDatas() {
-
+        requestAppUpdate();
     }
 
 
+    private void requestAppUpdate() {
+        HashMap<String, Object> data = new HashMap<>();
+        data.put("type",1);
+        HttpApiUtils.wwwNormalRequest(this, null, RequestUtils.VERSION_UPDATE, data, new HttpApiUtils.OnRequestLintener() {
+            @Override
+            public void onSuccess(String result) {
+                AppUpdateEntity appUpdateEntity = JSONObject.parseObject(result, AppUpdateEntity.class);
+                String downloadUrl = appUpdateEntity.getDownloadUrl();
+                String versionName = appUpdateEntity.getVersionName();
+                int versionCode = appUpdateEntity.getVersionCode();
+                if(versionCode>BuildConfig.VERSION_CODE){
+                    String mustUpdate = appUpdateEntity.getMustUpdate();
+                    if(mustUpdate.equals("1")){
+                        startUpdate(false,appUpdateEntity.getDownloadUrl(),versionName, versionCode,appUpdateEntity.getVersionContent());
+                    }else {
+                        startUpdate(true,appUpdateEntity.getDownloadUrl(),versionName, versionCode,appUpdateEntity.getVersionContent());
+                    }
+                }
+            }
+
+            @Override
+            public void onFail(String msg) {
+
+            }
+        });
+    }
     @Override
     public void configViews() {
         ivMall.setSelected(true);
@@ -190,15 +225,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public boolean onCreateOptionsMenu(Menu menu)
     {
         super.onCreateOptionsMenu(menu);
-        if (dappBrowserFragment.getUrlIsBookmark())
-        {
+        if (dappBrowserFragment.getUrlIsBookmark()) {
             getMenuInflater().inflate(R.menu.menu_added, menu);
-        }
-        else
-        {
+        } else {
             getMenuInflater().inflate(R.menu.menu_add_bookmark, menu);
         }
-
         getMenuInflater().inflate(R.menu.menu_bookmarks, menu);
         setIconsVisible(menu,true);
         return true;
@@ -276,5 +307,48 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         super.onDestroy();
     }
 
+    private void startUpdate(boolean isForcedUpgrade,String url,String versionName,int versionCode,String content) {
+        /*
+         * 整个库允许配置的内容
+         * 非必选
+         */
+        UpdateConfiguration configuration = new UpdateConfiguration()
+                //输出错误日志
+                .setEnableLog(true)
+                //设置自定义的下载
+                //.setHttpManager()
+                //下载完成自动跳动安装页面
+                .setJumpInstallPage(true)
+                //设置对话框背景图片 (图片规范参照demo中的示例图)
+                //.setDialogImage(R.drawable.ic_dialog)
+                //设置按钮的颜色
+                //.setDialogButtonColor(Color.parseColor("#E743DA"))
+                //设置对话框强制更新时进度条和文字的颜色
+                //.setDialogProgressBarColor(Color.parseColor("#E743DA"))
+                //设置按钮的文字颜色
+                .setDialogButtonTextColor(Color.WHITE)
+                //设置是否显示通知栏进度
+                .setShowNotification(true)
+                //设置是否提示后台下载toast
+                .setShowBgdToast(false)
+                //设置强制更新
+                .setForcedUpgrade(isForcedUpgrade);
+        //设置对话框按钮的点击监听
+//                .setButtonClickListener(this);
+        //设置下载过程的监听
+//                .setOnDownloadListener(listenerAdapter);
 
+        manager = DownloadManager.getInstance(this);
+        manager.setApkName("coincide"+versionCode+".apk")
+                .setApkUrl(url)
+                .setSmallIcon(R.drawable.logo)
+//                .setShowNewerToast(true)
+                .setConfiguration(configuration)
+                .setApkVersionCode(versionCode)
+                .setApkVersionName(versionName)
+//                .setApkSize("20.4")
+                .setApkDescription(content)
+//                .setApkMD5("DC501F04BBAA458C9DC33008EFED5E7F")
+                .download();
+    }
 }

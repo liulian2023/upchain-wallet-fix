@@ -48,15 +48,6 @@ public class ETHWallet implements Serializable {
         this.isUpload = isUpload;
     }
 
-    public boolean isBackup() {
-        return isBackup;
-    }
-
-    public void setBackup(boolean backup) {
-        isBackup = backup;
-    }
-
-
     public String getAddress() {
         return address;
     }

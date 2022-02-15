@@ -51,5 +51,19 @@ public class CommonStr {
 
     public static String CHAIN_TYPE ="chaintype";
 
+    /**
+     * 在线客服
+     */
 
+    public static String ONLINE_SERVICE ="onlineService";
+
+    /**
+     * 域名列表
+     */
+    public static String URL_LIST ="base_url_list";
+
+    /**
+     * 切换后的base_url
+     */
+    public static String NEW_BASE_URL ="new_base_url";
 }

@@ -247,7 +247,7 @@ public class CoinFragment extends BaseFragment {
 
 //        EventBus.getDefault().postSticky(new WalletInfoEvenEntity(wallet));
         //       openOrCloseDrawerLayout();
-        boolean backup = currEthWallet.isBackup();
+        boolean backup = currEthWallet.getIsBackup();
         //todo 开发用
 //        backup =true;
         token_refresh.setEnableRefresh(false);
