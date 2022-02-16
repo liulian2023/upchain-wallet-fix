@@ -93,6 +93,7 @@ public interface IHttpApi {
     /**
      * 线路测试
      */
+    @GET("mobile/home/test")
     Observable<Response<ResponseBody>> pingTest(@QueryMap Map<String, Object> data);
 
 }

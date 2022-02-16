@@ -133,27 +133,33 @@ public class SplashActivity extends AppCompatActivity {
                 accessTxt(new AccessTxtListener() {
                     @Override
                     public void success(String content) {
-                        if(StringMyUtil.isNotEmpty(content)){
-                            SharePreferencesUtil.putString(CommonStr.URL_LIST,content);
-                            List<String> parseArray = JSONArray.parseArray(content, String.class);
-                            for (int i = 0; i < parseArray.size(); i++) {
-                                String url = parseArray.get(i);
-                                HashMap<String, Object> data = new HashMap<>();
-                                HttpApiUtils.normalRequest(SplashActivity.this, null, RequestUtils.URL_TEST, data, new HttpApiUtils.OnRequestLintener() {
-                                    @Override
-                                    public void onSuccess(String result) {
-                                    SharePreferencesUtil.putString(CommonStr.NEW_BASE_URL,url);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if(StringMyUtil.isNotEmpty(content)){
+                                    SharePreferencesUtil.putString(CommonStr.URL_LIST,content);
+                                    List<String> parseArray = JSONArray.parseArray(content, String.class);
+                                    for (int i = 0; i < parseArray.size(); i++) {
+                                        String url = parseArray.get(i);
+                                        HashMap<String, Object> data = new HashMap<>();
+                                        HttpApiUtils.normalRequest(SplashActivity.this, null, RequestUtils.URL_TEST, data, new HttpApiUtils.OnRequestLintener() {
+                                            @Override
+                                            public void onSuccess(String result) {
+                                                SharePreferencesUtil.putString(CommonStr.NEW_BASE_URL,url);
 
+                                            }
+
+                                            @Override
+                                            public void onFail(String msg) {
+
+                                            }
+                                        });
                                     }
 
-                                    @Override
-                                    public void onFail(String msg) {
-
-                                    }
-                                });
+                                }
                             }
+                        });
 
-                        }
 
 
                     }

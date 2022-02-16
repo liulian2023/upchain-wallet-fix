@@ -192,7 +192,7 @@ public class DappBrowserFragment extends BaseFragment implements ItemClickListen
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if(actionId == EditorInfo.IME_ACTION_GO){
-                    web3.loadUrl(urlEtv.getText().toString());
+                    loadUrl(urlEtv.getText().toString());
                     KeyboardUtils.hideKeyboard(urlEtv);
                 }
                 return false;
@@ -203,6 +203,7 @@ public class DappBrowserFragment extends BaseFragment implements ItemClickListen
 
     private void setupAddressBar() {
         urlEtv.setText(viewModel.getLastUrl(getContext()));
+        loadUrl(viewModel.getLastUrl(getContext()));
     }
 
     private void dismissKeyboard(View view)

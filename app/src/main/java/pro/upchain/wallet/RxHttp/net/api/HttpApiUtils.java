@@ -231,8 +231,6 @@ public class HttpApiUtils {
         BaseStringObserver<ResponseBody> observer = new BaseStringObserver<ResponseBody>() {
             @Override
             public void onSuccess(String result) {
-
-                
                     if(onRequestLintener!=null){
                         onRequestLintener.onSuccess(result);
                     }
