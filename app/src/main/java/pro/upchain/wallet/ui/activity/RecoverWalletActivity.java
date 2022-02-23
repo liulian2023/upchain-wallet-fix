@@ -20,7 +20,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.gyf.barlibrary.ImmersionBar;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import butterknife.BindView;
@@ -30,6 +29,7 @@ import pro.upchain.wallet.base.BaseActivity;
 import pro.upchain.wallet.domain.ETHWallet;
 import pro.upchain.wallet.interact.CreateWalletInteract;
 import pro.upchain.wallet.utils.ETHWalletUtils;
+import pro.upchain.wallet.utils.StatusBarUtils2;
 import pro.upchain.wallet.utils.ToastUtils;
 import pro.upchain.wallet.utils.WalletDaoUtils;
 import pro.upchain.wallet.view.LoadWalletSelectStandardPopupWindow;
@@ -57,6 +57,7 @@ public class RecoverWalletActivity extends BaseActivity {
 
     @Override
     public void initToolBar() {
+        StatusBarUtils2.setFullImage(this,et_mnemonic);
     }
 
     @Override
@@ -66,7 +67,7 @@ public class RecoverWalletActivity extends BaseActivity {
 
     @Override
     public void configViews() {
-        ImmersionBar.with(this).transparentBar().init();
+
     }
 
     @OnClick({R.id.recover_wallet_btn,R.id.recover_wallet_back_iv})

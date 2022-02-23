@@ -1,5 +1,6 @@
 package pro.upchain.wallet.ui.fragment;
 
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.app.Dialog;
@@ -10,7 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.gyf.barlibrary.ImmersionBar;
 
 import org.greenrobot.eventbus.EventBus;
 import org.web3j.utils.Convert;
@@ -34,6 +34,7 @@ import pro.upchain.wallet.ui.activity.WalletMangerActivity;
 
 import butterknife.OnClick;
 import pro.upchain.wallet.utils.BalanceUtils;
+import pro.upchain.wallet.utils.StatusBarUtil;
 import pro.upchain.wallet.utils.Store;
 import pro.upchain.wallet.utils.ToastUtils;
 import pro.upchain.wallet.view.InputPwdView;
@@ -79,11 +80,9 @@ public class MineFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        ImmersionBar.with(this)
-                .statusBarColor(R.color.home_main_color)
-                .titleBarMarginTop(mine_wrap_linear)
-                .statusBarDarkFont(false)
-                .init();
+        StatusBarUtil.setColor(getActivity(), ContextCompat.getColor(getContext(),R.color.home_main_color));
+        StatusBarUtil.setLightMode(getActivity(),false);
+
         tokensViewModel.defaultWallet().observe(this,  this::showWallet);
     }
 
@@ -96,11 +95,9 @@ public class MineFragment extends BaseFragment {
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
-        ImmersionBar.with(this)
-                .statusBarColor(R.color.home_main_color)
-                .titleBarMarginTop(mine_wrap_linear)
-                .statusBarDarkFont(false)
-                .init();
+        StatusBarUtil.setColor(getActivity(), ContextCompat.getColor(getContext(),R.color.home_main_color));
+        StatusBarUtil.setLightMode(getActivity(),false);
+
     }
 
     @Override

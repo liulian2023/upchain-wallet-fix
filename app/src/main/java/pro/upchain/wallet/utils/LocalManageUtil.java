@@ -19,6 +19,9 @@ public class LocalManageUtil {
                 return Locale.ENGLISH;
             case "zh"://汉语
                 return Locale.CHINESE;
+            case "vi":
+                Locale locale = new Locale("vi");
+                return locale;
             default://默认 汉语
                 return getSystemLocale();
         }

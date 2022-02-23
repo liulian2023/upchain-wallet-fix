@@ -51,11 +51,10 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/receive_constrainLayout"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="45dp"
-        android:layout_marginStart="52dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="52dp"
+
         android:background="@drawable/home_top_shape"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -89,8 +88,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
             android:text="@string/Receive"
             android:textColor="@color/white"
             android:textSize="15sp"

@@ -29,4 +29,14 @@
         android:textColor="@color/black"
         android:gravity="center"/>
     <include layout="@layout/split_horizontal"/>
+    <TextView
+        android:id="@+id/yuenan_tv"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/white_normal_ripple"
+        android:text="@string/language_setting_vi"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:gravity="center"/>
+    <include layout="@layout/split_horizontal"/>
 </LinearLayout>

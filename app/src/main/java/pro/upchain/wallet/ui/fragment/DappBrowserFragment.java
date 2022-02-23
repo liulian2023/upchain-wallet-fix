@@ -1,6 +1,7 @@
 package pro.upchain.wallet.ui.fragment;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProviders;
@@ -32,7 +33,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.gyf.barlibrary.ImmersionBar;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -50,6 +50,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 import pro.upchain.wallet.R;
+import pro.upchain.wallet.RxHttp.net.utils.StringMyUtil;
 import pro.upchain.wallet.base.BaseFragment;
 import pro.upchain.wallet.base.BasePopupWindow;
 import pro.upchain.wallet.domain.ETHWallet;
@@ -65,6 +66,7 @@ import pro.upchain.wallet.ui.activity.MainActivity;
 import pro.upchain.wallet.ui.entity.ItemClickListener;
 import pro.upchain.wallet.utils.KeyboardUtils;
 import pro.upchain.wallet.utils.LogUtils;
+import pro.upchain.wallet.utils.StatusBarUtil;
 import pro.upchain.wallet.utils.ToastUtils;
 import pro.upchain.wallet.utils.Utils;
 import pro.upchain.wallet.utils.WalletDaoUtils;
@@ -135,8 +137,6 @@ public class DappBrowserFragment extends BaseFragment implements ItemClickListen
     public int getLayoutResId() {
         return R.layout.fragment_webview;
     }
-
-
     @Override
     public void attachView() {
 
@@ -202,8 +202,14 @@ public class DappBrowserFragment extends BaseFragment implements ItemClickListen
     }
 
     private void setupAddressBar() {
-        urlEtv.setText(viewModel.getLastUrl(getContext()));
-        loadUrl(viewModel.getLastUrl(getContext()));
+        String lastUrl = viewModel.getLastUrl(getContext());
+        urlEtv.setText(lastUrl);
+        if(StringMyUtil.isEmptyString(lastUrl)){
+            viewBookmarks();
+        }else {
+
+            loadUrl(lastUrl);
+        }
     }
 
     private void dismissKeyboard(View view)
@@ -238,7 +244,12 @@ public class DappBrowserFragment extends BaseFragment implements ItemClickListen
 
         // Default to last opened site
         if (web3.getUrl() == null) {
-            loadUrl(viewModel.getLastUrl(getContext()));
+            String lastUrl = viewModel.getLastUrl(getContext());
+            if(StringMyUtil.isNotEmpty(lastUrl)){
+                loadUrl(lastUrl);
+            }else {
+                viewBookmarks();
+            }
         }
     }
 
@@ -298,12 +309,9 @@ public class DappBrowserFragment extends BaseFragment implements ItemClickListen
         super.onResume();
         //避免首页跳转activity返回后状态栏变白色
         if(isFirstTime){
-            ImmersionBar.with(this)
-                    .statusBarColor(R.color.white)
-                    .statusBarDarkFont(true)
-                    .titleBarMarginTop(dapp_toolbar_constraint)
-                    .init();
 
+            StatusBarUtil.setColor(getActivity(), ContextCompat.getColor(getContext(),R.color.white));
+            StatusBarUtil.setLightMode(getActivity(),true);
             setupAddressBar();
         }
         isFirstTime = false;
@@ -312,23 +320,18 @@ public class DappBrowserFragment extends BaseFragment implements ItemClickListen
     @Override
     public void onStart() {
         super.onStart();
-
     }
 
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
-        ImmersionBar.with(this)
-                .statusBarColor(R.color.white)
-                .statusBarDarkFont(true)
-                .titleBarMarginTop(dapp_toolbar_constraint)
-                .init();
+        StatusBarUtil.setColor(getActivity(), ContextCompat.getColor(getContext(),R.color.white));
+        StatusBarUtil.setLightMode(getActivity(),true);
     }
 
     @Override
     public void onSupportInvisible() {
         super.onSupportInvisible();
-
     }
 
     @Override
@@ -577,11 +580,13 @@ public class DappBrowserFragment extends BaseFragment implements ItemClickListen
     public boolean loadUrl(String urlText)
     {
         urlEtv.setText(urlText);
+        if(StringMyUtil.isNotEmpty(urlText)){
+            web3.loadUrl(Utils.formatUrl(urlText));
+            viewModel.setLastUrl(getContext(), urlText);
+        }
 
-        web3.loadUrl(Utils.formatUrl(urlText));
 
 
-        viewModel.setLastUrl(getContext(), urlText);
         dismissKeyboard(urlEtv);
 
         return true;
@@ -801,9 +806,16 @@ public class DappBrowserFragment extends BaseFragment implements ItemClickListen
         animator.setDuration(100);
         return animator;
     }
-    @OnClick({R.id.next_iv,R.id.back_iv,R.id.more_iv,R.id.back_home_iv,R.id.add_bookmark_iv})
+    @OnClick({R.id.next_iv,R.id.back_iv,R.id.more_iv,R.id.back_home_iv,R.id.add_bookmark_iv,R.id.clear_iv})
     public void onClick(View view){
         switch (view.getId()){
+            case R.id.clear_iv:
+                urlEtv.setText("");
+                hideSoftInput();
+                expandCollapseView(back_next_linear,true);
+                urlEtv.clearFocus();
+
+                break;
             case R.id.next_iv:
                 goToNextPage();
                 break;

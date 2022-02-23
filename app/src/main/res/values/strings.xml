@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">COINCIDA</string>
+    <string name="app_name" translatable="false">COINCIDA</string>
 
     <string name="exit_tips">再按一次退出程序</string>
 
@@ -42,7 +42,7 @@
     <string name="Suggested">推荐</string>
     <string name="all_coins">所有代币</string>
     <string name="search_result">搜索结果</string>
-    <string name="mnemonic_backed_up">The mnemonic phrase has been backed up</string>
+    <string name="mnemonic_backed_up">助记词已经备份</string>
     <string name="mine_trade_record">交易记录</string>
     <string name="mine_msg_center">消息中心</string>
     <string name="mine_contracts">联系人</string>
@@ -106,7 +106,9 @@
     <string name="system_setting_gesture">手势密码</string>
 
     <string name="language_setting_chinese">简体中文</string>
-    <string name="language_setting_English">English</string>
+    <string name="language_setting_English">英语</string>
+    <string name="language_setting_vi">越南语</string>
+
     <string name="language_setting_save">保存</string>
     <string name="change_ssuccess">切换成功</string>
     <string name="finished">已完成</string>
@@ -146,6 +148,7 @@
     <string name="backup_Mnemonic">备份助记词</string>
     <string name="system_version">系统版本</string>
     <string name="transaction_password">交易密码</string>
+    <string name="create_success">创建钱包成功</string>
     <string name="about_us">用户协议</string>
     <string name="change_language">更换语言</string>
     <string name="loading">正在加载</string>
@@ -244,16 +247,19 @@
     <string name="Currency">币种</string>
     <string name="Collection">藏品</string>
     <string name="No_coins_found">No coins found</string>
-    <string name="Go_to_backup">Go to backup</string>
-    <string name="receive_top_tip">Only send ETH/erc related assets.</string>
-    <string name="receive_bottom_tip">Sending other assets may cause financial losses.</string>
+    <string name="Go_to_backup">前往备份</string>
+    <string name="receive_top_tip">只发送 ETH/erc 相关资产.</string>
+    <string name="receive_bottom_tip">发送其他资产可能会导致财务损失.</string>
     <string name="copy">复制</string>
     <string name="copy_finish">复制完成</string>
     <string name="set_amount">设置数额</string>
     <string name="share">分享</string>
     <string name="send_to_self">转账给自身钱包</string>
+    <string name="no_data">暂无数据</string>
+    <string name="loading_linear">正在加载</string>
+    <string name="error_tip">网络不给力，请点击按钮重新加载</string>
 
-
+    <string name="update">升级</string>
     <string name="create_wallet_tip">你将会拥有身份下的多链钱包</string>
 
 
@@ -371,7 +377,7 @@
     <string name="dialog_approve">同意</string>
     <string name="transaction_value">交易价值</string>
     <string name="dialog_title_sign_transaction">签署交易</string>
-
+    <string name="dialog_new">发现新版本v%s可以下载啦！</string>
     <string name="title_dialog_error">错误</string>
     <string name="ssl_cert_invalid">SSL 证书无效。 这个网站可能不安全。 继续？</string>
     <string name="action_cancel">取消</string>
@@ -481,6 +487,8 @@
     <string name="net_free_limit_key" translatable="false">net_free_limit_key</string>
     <string name="net_free_used_key" translatable="false">net_free_used_key</string>
     <string name="energy_limit_key" translatable="false">energy_limit_key</string>
+
+
     <string name="energy_used_key" translatable="false">energy_used_key</string>
     <string name="wallets_key" translatable="false">wallets_key</string>
     <string name="wallet_name_key" translatable="false">wallet_name_key</string>
@@ -493,7 +501,6 @@
     <string name="soliditynode_ip" translatable="false">47.89.187.247</string>
     <string name="soliditynode_port" translatable="false">50051</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!--    no translation-->
 </resources>

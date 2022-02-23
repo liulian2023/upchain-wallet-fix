@@ -24,7 +24,6 @@ import pro.upchain.wallet.utils.SharePreferencesUtil;
 import pro.upchain.wallet.utils.ToastUtils;
 import pro.upchain.wallet.viewmodel.AddTokenViewModel;
 import pro.upchain.wallet.viewmodel.AddTokenViewModelFactory;
-import com.gyf.barlibrary.ImmersionBar;
 
 
 import org.web3j.abi.FunctionEncoder;
@@ -124,12 +123,6 @@ public class AddCustomTokenActivity extends BaseActivity {
 
     @Override
     public void configViews() {
-        ImmersionBar.with(this)
-                .titleBar(commonToolbar, false)
-                .transparentStatusBar()
-                .statusBarDarkFont(true, 1f)
-                .navigationBarColor(R.color.white)
-                .init();
     }
 
 

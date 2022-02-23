@@ -17,5 +17,6 @@
         android:paddingLeft="7.5dp"
         android:paddingRight="7.5dp"
         android:paddingTop="10dp"
+        android:textColor="@color/black"
         android:text="mnemonic" />
 </LinearLayout>

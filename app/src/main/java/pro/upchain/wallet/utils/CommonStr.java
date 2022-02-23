@@ -4,16 +4,9 @@ public class CommonStr {
     public static String POSITION ="position";
     public static String CP_BASE_URL="cpWebsiteName";
 
-    public static String API_HOST1 ="https://api.eijopdezjsj.com";
+//    public static String API_HOST1 ="https://api.eijopdezjsj.com";//测试
+    public static String API_HOST1 ="https://api.cicdwallet.com";//正式
     public static String API_HOST2 ="https://api.eijopdezjsj.com";
-
-
-
-
-
-
-
-
 
 
 

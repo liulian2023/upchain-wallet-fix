@@ -29,7 +29,7 @@ public class LanguageSettingActivity extends BaseActivity {
     ImageView ivChinese;
     @BindView(R.id.iv_English)
     ImageView ivEnglish;
-    // 0为简体中文 1 English
+    // 0为简体中文 1 English 5 越南
     private int language = 0;
 
     @Override
@@ -74,6 +74,7 @@ public class LanguageSettingActivity extends BaseActivity {
                 ivEnglish.setVisibility(View.VISIBLE);
                 language = 1;
                 break;
+
             case R.id.rl_btn:// 设置语言并保存
 //                SharedPreferencesUtil.getInstance().putInt("language", language);
                 finish();

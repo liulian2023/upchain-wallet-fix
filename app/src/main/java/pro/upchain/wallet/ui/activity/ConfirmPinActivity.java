@@ -385,7 +385,7 @@ public class ConfirmPinActivity extends BaseActivity {
         ToastUtils.showToast(errorInfo.toString());
     }
     public void jumpToWalletBackUp(ETHWallet wallet) {
-        ToastUtils.showToast("创建钱包成功");
+        ToastUtils.showToast(getString(R.string.create_success));
         dismissDialog();
 
         boolean firstAccount = getIntent().getBooleanExtra("first_account", false);
@@ -411,7 +411,6 @@ public class ConfirmPinActivity extends BaseActivity {
             data.putExtra("newPwd", ethWallet.getPassword());
             finish();
         }
-
     }
     @Override
     public void configViews() {

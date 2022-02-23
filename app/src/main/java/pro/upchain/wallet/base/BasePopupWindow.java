@@ -73,9 +73,7 @@ public class BasePopupWindow extends PopupWindow implements View.OnClickListener
                 if(mOnDismissListener !=null){
                     mOnDismissListener.onDissmiss();
                 }
-    /*            if(activity instanceof StartLiveActivity){
-                    ImmersionBar.with(activity).hideBar(BarHide.FLAG_HIDE_NAVIGATION_BAR).init();
-                }*/
+
 
             }
         });

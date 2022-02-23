@@ -1,5 +1,9 @@
 package pro.upchain.wallet.ui.fragment;
 
+import static pro.upchain.wallet.entity.ConfirmationType.WEB3TRANSACTION;
+import static pro.upchain.wallet.view.AWalletAlertDialog.ERROR;
+
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,8 +17,8 @@ import android.widget.LinearLayout;
 import com.alibaba.fastjson.JSONObject;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
-import com.gyf.barlibrary.ImmersionBar;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
 
 import org.greenrobot.eventbus.EventBus;
@@ -34,6 +38,7 @@ import pro.upchain.wallet.RxHttp.net.api.RequestUtils;
 import pro.upchain.wallet.RxHttp.net.utils.StringMyUtil;
 import pro.upchain.wallet.base.BaseFragment;
 import pro.upchain.wallet.domain.ETHWallet;
+import pro.upchain.wallet.entity.ErrorEnvelope;
 import pro.upchain.wallet.entity.RateEntity;
 import pro.upchain.wallet.entity.Ticker;
 import pro.upchain.wallet.entity.Token;
@@ -44,8 +49,11 @@ import pro.upchain.wallet.ui.activity.PropertyDetailActivity;
 import pro.upchain.wallet.ui.adapter.TokensAdapter;
 import pro.upchain.wallet.utils.BalanceUtils;
 import pro.upchain.wallet.utils.CommonStr;
+import pro.upchain.wallet.utils.RefreshUtils;
 import pro.upchain.wallet.utils.SharePreferencesUtil;
+import pro.upchain.wallet.utils.StatusBarUtil;
 import pro.upchain.wallet.utils.ToastUtils;
+import pro.upchain.wallet.view.AWalletAlertDialog;
 import pro.upchain.wallet.viewmodel.TokensViewModel;
 import pro.upchain.wallet.viewmodel.TokensViewModelFactory;
 
@@ -130,11 +138,10 @@ public class CoinFragment extends BaseFragment {
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
-        ImmersionBar
-                .with(this)
-                .statusBarColor(R.color.home_main_color)
-                .statusBarDarkFont(false)
-                .init();;
+        StatusBarUtil.setColor(getActivity(), ContextCompat.getColor(getContext(),R.color.home_main_color));
+        StatusBarUtil.setLightMode(getActivity(),false);
+
+
     }
 
     private void initRecycler() {
@@ -166,7 +173,12 @@ public class CoinFragment extends BaseFragment {
                 startActivity(intent);
             }
         });
-
+        RefreshUtils.initRefresh(getContext(), token_refresh, new RefreshUtils.OnRefreshLintener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshLayout) {
+                tokensViewModel.prepare();
+            }
+        });
         fetchWalletInteract = new FetchWalletInteract();
 //        fetchWalletInteract.fetch().subscribe(this::showDrawerWallets);
 
@@ -180,6 +192,7 @@ public class CoinFragment extends BaseFragment {
 //        tokensViewModel.error().observe(this, this::onError);
 
         tokensViewModel.tokens().observe(this, this::onTokens);
+        tokensViewModel.error().observe(this, this::onError);
 //        tokensViewModel.prices().observe(this, this::onPrices);
         if(StringMyUtil.isEmptyString(ETH2USDTRate)){
             HttpApiUtils.requestETHUSDTRate(new HttpApiUtils.OnRequestLintener() {
@@ -189,7 +202,6 @@ public class CoinFragment extends BaseFragment {
                     ETH2USDTRate = rateEntity.getPrice();
                     SharePreferencesUtil.putString(CommonStr.ETH2USDTRate,ETH2USDTRate);
                     initPrice();
-
                 }
 
                 @Override
@@ -250,8 +262,8 @@ public class CoinFragment extends BaseFragment {
         boolean backup = currEthWallet.getIsBackup();
         //todo 开发用
 //        backup =true;
-        token_refresh.setEnableRefresh(false);
-        token_refresh.setEnableLoadMore(false);
+
+
         if(backup){
             token_refresh.setVisibility(View.VISIBLE);
             no_backup_linear.setVisibility(View.GONE);
@@ -264,8 +276,13 @@ public class CoinFragment extends BaseFragment {
             HttpApiUtils.addAddress(getActivity(),this,wallet);
         }
     }
-
+    private void onError(ErrorEnvelope error) {
+        if(token_refresh!=null){
+            token_refresh.finishRefresh(false);
+        }
+    }
     private void onTokens(Token[] tokens) {
+        token_refresh.finishRefresh(true);
         tokenItems = Arrays.asList(tokens);
         recyclerAdapter.setTokens(tokenItems);
         initPrice();

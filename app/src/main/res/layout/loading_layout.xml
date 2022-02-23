@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:gravity="center"
-        android:text="正在加载"
+        android:text="@string/loading_linear"
         app:layout_constraintTop_toBottomOf="@+id/gifImageView"
         tools:layout_editor_absoluteX="20dp"
         tools:ignore="MissingConstraints" />

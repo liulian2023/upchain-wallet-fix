@@ -15,6 +15,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import pro.upchain.wallet.R;
 import pro.upchain.wallet.base.BaseActivity;
+import pro.upchain.wallet.utils.StatusBarUtils2;
 
 public class CreatePinActivity extends BaseActivity {
     @BindView(R.id.create_pin_back_iv)
@@ -40,7 +41,7 @@ public class CreatePinActivity extends BaseActivity {
 
     @Override
     public void initToolBar() {
-
+        StatusBarUtils2.setFullImage(this,create_pin_back_iv);
     }
 
     @Override

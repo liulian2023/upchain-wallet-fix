@@ -2,6 +2,7 @@ package pro.upchain.wallet.ui.fragment;
 
 import static pro.upchain.wallet.C.EXTRA_ADDRESS;
 
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
@@ -44,7 +45,6 @@ import pro.upchain.wallet.utils.StatusBarUtil;
 import pro.upchain.wallet.utils.ToastUtils;
 import pro.upchain.wallet.viewmodel.TokensViewModel;
 import pro.upchain.wallet.viewmodel.TokensViewModelFactory;
-import com.gyf.barlibrary.ImmersionBar;
 
 import java.math.RoundingMode;
 import java.util.ArrayList;
@@ -192,12 +192,9 @@ public class PropertyFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        ImmersionBar
-                .with(PropertyFragment.this)
-                .statusBarColor(R.color.home_main_color)
-                .statusBarDarkFont(false)
-                .titleBarMarginTop(wallet_name_tv)
-                .init();
+        StatusBarUtil.setColor(getActivity(), ContextCompat.getColor(getContext(),R.color.home_main_color));
+        StatusBarUtil.setLightMode(getActivity(),false);
+
         tokensViewModel.prepare();
     }
 
@@ -213,13 +210,9 @@ public class PropertyFragment extends BaseFragment {
     @Override
     public void onSupportVisible() {
         super.onSupportVisible();
+        StatusBarUtil.setColor(getActivity(), ContextCompat.getColor(getContext(),R.color.home_main_color));
+        StatusBarUtil.setLightMode(getActivity(),false);
 
-        ImmersionBar
-                .with(PropertyFragment.this)
-                .statusBarColor(R.color.home_main_color)
-                .statusBarDarkFont(false)
-                .titleBarMarginTop(wallet_name_tv)
-                .init();
     }
 
     private void initTab() {
@@ -265,7 +258,6 @@ public class PropertyFragment extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        ImmersionBar.with(this).destroy();
         EventBus.getDefault().unregister(this);
     }
 

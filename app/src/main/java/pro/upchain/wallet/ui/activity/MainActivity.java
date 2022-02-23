@@ -17,7 +17,6 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSONObject;
 import com.azhon.appupdate.config.UpdateConfiguration;
 import com.azhon.appupdate.manager.DownloadManager;
-import com.gyf.barlibrary.ImmersionBar;
 
 import pro.upchain.wallet.BuildConfig;
 import pro.upchain.wallet.R;
@@ -144,7 +143,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     }
 
-    // 退出时间
+    // 退出时间++
     private long currentBackPressedTime = 0;
     // 退出间隔
     private static final int BACK_PRESSED_INTERVAL = 2000;

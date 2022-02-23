@@ -15,7 +15,6 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSONArray;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
-import com.gyf.barlibrary.ImmersionBar;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
@@ -94,7 +93,6 @@ public class AddTokenActivity extends BaseActivity {
 
     @Override
     public void configViews() {
-        ImmersionBar.with(this).titleBarMarginTop(add_token_top_linear).init();
     }
 
     @Override

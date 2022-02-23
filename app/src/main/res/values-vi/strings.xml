@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">COINCIDA</string>
+
+    <string name="exit_tips">nhấn lại lần nữa để thoá</string>
+
+    <string name="homepage_tab_text_mall"> ví tiền</string>
+    <string name="homepage_tab_text_mine"></string>
+    <string name="mine_title">tôi</string>
+    <string name="property_drawer_qrcode_scanner">quét</string>
+    <string name="property_drawer_create_wallet"> thiết lập ví </string>
+    <string name="create_fail"> thiết lập thất bại </string>
+    <string name="confirm_payment"> xác nhận thanh toán </string>
+    <string name="confirm_payment_tip">dapp dapp đang yêu cầu một hành động có thể lấy tiền từ ví của bạn, hãy đảm bảo rằng bạn tin tưởng trang web này.</string>
+    <string name="miner_fee_not_enough"> Bạn không có đủ%1$sđể thanh toán phí khai thác này, \ nHãy gửi ít nhất%2$s vào ví của bạn và thử lại </string>
+    <string name="create_wallet_name_hint"> tên ví </string>
+    <string name="Signature_Request"> yêu cầu ký tên </string>
+    <string name="add_net_work"> thay đổi điểm truy cập mạng </string>
+    <string name="switch_to"> chuyển sang </string>
+    <string name="create_success">Tạo ví thành công</string>
+    <string name="Select_a_coin"> chọn một loại mã biên lai </string>
+    <string name="Signature_Request_tip"> chữ ký có thể được sử dụng để chứng minh bạn là chủ sở hữu tài khoản, để cho phép  chuyển tài sản hoặc dùng vào mục đích khác </string>
+    <string name="create_wallet_pwd_hint"> mật khẩu </string>
+    <string name="create_wallet_pwd_again_hint"> nhập lại mật khẩu </string>
+    <string name="create_wallet_pwd_reminder_info_hint"> thông tin gợi ý mật khẩu (có thể bỏ qua)</string>
+    <string name="create_wallet_agreement_reminder"> tôi đã đọc toàn bộ và đồng ý </string>
+    <string name="create_wallet_agreement"> chính sách bảo mật và dịch vụ </string>
+    <string name="create_wallet_name_repeat_tips"> tên ví trùng lặp </string>
+    <string name="create_wallet_name_input_tips"> vui lòng nhập tên ví </string>
+    <string name="create_wallet_pwd_input_tips"> mật khẩu không chứa dấu cách </string>
+    <string name="create_wallet_pwd_confirm_input_tips"> mật khẩu không khớp, hãy nhập lại </string>
+    <string name="create_wallet_alert1">* mật khẩu đước sử dụng để bảo vệ quyền riêng tư và ủy quyền giao dịch, tạo mật khẩu mạnh là điều rất quan trọng </string>
+    <string name="create_wallet_alert2">* * chuỗi ví không lưu giữ khóa mật khẩu và không thể giúp bạn lấy lại, xin lưu ý </string>
+
+    <string name="property_total_assets_cny"> tổng tài sản(¥)</string>
+    <string name="property_total_assets_usd"> tổng tài sản ($)</string>
+    <string name="property_approximate">≈</string>
+
+    <string name="mine_wallet_manage"> quản lí ví </string>
+    <string name="contact_us"> liên hệ với chúng tôi </string>
+    <string name="switch_network_node"> thay đổi điểm truy cập mạng </string>
+    <string name="Add_custom_token">thêm mã biên lai tùy chỉnh token</string>
+    <string name="Search_coin"> tìm kiếm mã biên lai </string>
+    <string name="Suggested"> đề xuất </string>
+    <string name="all_coins"> tất cả các mã biên lai </string>
+    <string name="search_result"> kết quả tìm kiếm </string>
+    <string name="mnemonic_backed_up">Cụm từ ghi nhớ đã được sao lưu</string>
+    <string name="mine_trade_record"> Ghi lại giao dịch </string>
+    <string name="mine_msg_center"> bản ghi giao dịch </string>
+    <string name="mine_contracts"> người liên hệ </string>
+    <string name="mine_system_setting"> thiết lập hệ thống </string>
+    <string name="mine_personal_center"> trung tâm cá nhân </string>
+    <string name="mine_help_center"> trao đổi kỹ thuật và giúp đỡ </string>
+    <string name="mine_about_us"> về chúng tôi </string>
+
+    <string name="add_new_property_title"> thêm tài sản mới </string>
+    <string name="search_toolbar_cancel"> hủy bỏ </string>
+    <string name="cancel_btn"> hủy bỏ </string>
+    <string name="sure_btn"> xác nhận </string>
+    <string name="go_set"> đi đến cài đặt </string>
+    <string name="change_success"> thay đổi thành công </string>
+    <string name="edit_website"> vui lòng nhập URL </string>
+
+    <string name="gathering_qrcode_title"> mã nhận tiền </string>
+    <string name="gathering_qrcode_share"> chia sẻ </string>
+    <string name="gathering_qrcode_gathering_money"> số lượng tiền thu được </string>
+    <string name="gathering_qrcode_copy_gathering_address"> sao chép địa chỉ nhận tiền </string>
+    <string name="gathering_qrcode_copy_success"> đã sao chép </string>
+    <string name="Receiving_address"> địa chỉ nhận tiền </string>
+    <string name="copy_wallet_address"> dán địa chỉ ví </string>
+    <string name="amount"> kim ngạch/ số tiền </string>
+    <string name="Import_wallet_successfully"> truy cập vào ví thành công </string>
+    <string name="Failed_to_import_wallet"> truy cập vào ví thất bại </string>
+    <string name="Apply_Permission"> xin quyền hạn </string>
+    <string name="disabling_permission"> APP,  việc tắt quyền sẽ khiến  chức năng app không hoạt động bình thường, bạn có muốn cho phép ứng dụng truy cập không? </string>
+
+    <string name="contact_no_data"> tạm thời không có người liên hệ </string>
+
+    <string name="transfer_title_confirm"> chi tiết chuyển khoản </string>
+    <string name="transfer_title"> chuyển khoản </string>
+    <string name="transfer_address"> địa chỉ ví người nhận thanh toán </string>
+    <string name="transfer_money"> số tiền chuyển khoản </string>
+    <string name="transfer_remark"> ghi chú </string>
+    <string name="transfer_gas_cost"> phí khai thác </string>
+    <string name="transfer_gas_price"> Gas Price giá ga tùy chỉnh Gas Price</string>
+    <string name="transfer_gas"> Gas ga tùy chỉnh Gas</string>
+    <string name="transfer_advanced_setting"> tùy chọn nâng cao </string>
+    <string name="transfer_hex_data"> số liệu hệ thập phân 16</string>
+    <string name="transfer_next"> bước tiếp theo </string>
+    <string name="transfer_gas_slow"> chậm </string>
+    <string name="transfer_gas_quick"> nhanh </string>
+    <string name="transfer_ether_unit">&#160;ether</string>
+
+    <string name="property_detail_title">ETC</string>
+    <string name="property_detail_transfer"> chuyển khoản </string>
+    <string name="property_detail_gathering"> nhận tiền </string>
+
+    <string name="wallet_manager_create_wallet"> thiết lập ví </string>
+    <string name="wallet_manager_load_wallet"> truy cập vào ví </string>
+
+    <string name="news_center_all_read"> đã đọc hết toàn bộ </string>
+    <string name="news_center_title"> trung tâm tin tức </string>
+
+    <string name="system_setting_title"> thiết lập hệ thống </string>
+    <string name="system_setting_language"> đa ngôn ngữ </string>
+    <string name="system_setting_currency"> đơn vị tiền tệ </string>
+    <string name="system_setting_net"> cài đặt mạng </string>
+    <string name="system_setting_gesture"> mật khẩu chỉ tay </string>
+
+    <string name="language_setting_chinese"> tiếng Trung giản thể </string>
+    <string name="language_setting_English">tiếng Anh</string>
+    <string name="language_setting_vi">Việt Nam</string>
+    <string name="language_setting_save"> bảo tồn </string>
+    <string name="change_ssuccess"> thay đổi thành công </string>
+    <string name="finished"> đã hoàn thành </string>
+    <string name="pending"> làm thay </string>
+
+    <string name="net_setting_main">Mainnet（trang web chủ）</string>
+    <string name="net_setting_kovan">Kovan trang web khảo thí kovan </string>
+    <string name="net_setting_ropsten">Ropsten trang web khảo thí kovan </string>
+    <string name="net_setting_local_dev"> trang web khảo thí bản địa </string>
+    <string name="net_setting_sbc_main"> SBC() trang web SBC (web chủ)</string>
+    <string name="net_setting_sbc_test"> SBC() trang web SBC </string>
+
+    <string name="currency_unit_setting_cny">CNY</string>
+    <string name="currency_unit_setting_usd">USD</string>
+
+    <string name="web3_setting_wallet_service_url">WALLET SERVICE URL</string>
+    <string name="web3_setting_wallet_service_url_hint">https://web3.token.im</string>
+    <string name="web3_setting_reset_url"> URL đặt làm URL mặc định </string>
+    <string name="trading_record_title"> bản ghi giao dịch </string>
+    <string name="switch_wallet_title"> thay đổi tài khoản </string>
+
+    <string name="wallet_backup_tips1"> bước cuối cùng:sao lưu ví của bạn ngay bây giờ</string>
+    <string name="wallet_backup_tips2"> sao lưu ví: xuất “cụm từ ghi nhớ” ra và lưu nó ở nơi an toàn, tuyệt đối không lưu giữ trên internet, sau đó hãy thử chuyển qua lại các khoản tiền nhỏ.</string>
+    <string name="wallet_backup_backup_btn"> sao lưu ví </string>
+    <string name="wallet_backup_skip_btn"> bỏ qua </string>
+    <string name="wallet_backup_backup_help"> xem hướng dẫn sao lưu chi tiết </string>
+
+
+    <string name="input_pwd_dialog_tip"> xin vui lòng nhập mật khẩu</string>
+    <string name="input_pwd_delete_tip"> xin hãy thận trọng, thao tác này không thể hoàn tác được</string>
+    <string name="input_pwd_dialog_confirm"> xác nhận</string>
+    <string name="will_recover_wallet"> bạn sẽ khôi phục được ví danh tính của mình</string>
+    <string name="sign_message"> xác nhận </string>
+    <string name="mnemonic_backup_title"> sao lưu xác nhận </string>
+    <string name="next"> bước tiếp theo </string>
+    <string name="account_settings"> cài đặt tài khoản </string>
+    <string name="backup_Mnemonic"> sao lưu cụm từ ghi nhớ </string>
+    <string name="system_version"> phiên bản hệ thống </string>
+    <string name="transaction_password"> mật khẩu giao dịch </string>
+    <string name="about_us"> sự thỏa thuận của người dùng </string>
+    <string name="change_language"> thay đổi ngôn ngữ </string>
+    <string name="loading"> đang tải xuống </string>
+    <string name="other"> khác </string>
+    <string name="home_amount_manage"> trang chủ quản lí tài sản </string>
+    <string name="home_hot_amount"> tài sản hấp dẫn</string>
+    <string name="about_wallet"> về ví tiền </string>
+    <string name="privacy_policy"> chính sách bảo mật</string>
+    <string name="Terms_of_Servers"> điều khoản dịch vụ </string>
+    <string name="no_camara"> không thể chụp ảnh </string>
+    <string name="no_camara_tip"> bạn chưa cấp quyền chụp ảnh </string>
+    <string name="mnemonic_backup_tips1"> hãy viết ra cụm từ ghi nhớ của bạn</string>
+    <string name="mnemonic_backup_tips2"> Cụm từ ghi nhớ được sử dụng để nhập vào ví hoặc đặt lại mật khẩu mới, hãy ghi lại một cách chính xác trên giấy và lưu giữ nó ở nơi an toàn chỉ có mình bạn biết.</string>
+
+    <string name="mnemonic_backup_alert_tips"> Nếu ai đó có được cụm từ ghi nhớ của bạn, họ có thể trực tiếp lấy được tài sản của bạn! Xin hãy ghi lại cụm từ ghi nhớ và lưu giữ ở nơi an toàn</string>
+    <string name="mnemonic_backup_alert_btn"> đã hiểu</string>
+    <string name="mnemonic_backup_alert_title"> không thể cắt ảnh</string>
+
+    <string name="verify_backup_tip1"> xác nhận cụm từ ghi nhớ cho ví của bạn </string>
+    <string name="verify_backup_tip2"> Vui lòng nhấp vào cụm từ ghi nhớ của bạn theo đúng thứ tự và xác nhận sao lưu của bạn là chính xác </string>
+    <string name="verify_backup_failed"> sao lưu thất bại, xin hãy kiểm tra lại cụm từ ghi nhớ </string>
+
+    <string name="load_wallet_title"> truy cập ví </string>
+    <string name="load_wallet_btn"> bắt đầu truy cập </string>
+
+
+    <string name="load_wallet_indicator_mnemonic"> cụm từ ghi nhớ </string>
+    <string name="load_wallet_indicator_official"> ví hệ thống </string>
+
+    <string name="load_wallet_indicator_private_key"> khóa riêng </string>
+    <string name="load_wallet_indicator_observer"> quan sát </string>
+
+    <string name="load_wallet_by_mnemonic_hint"> vui lòng nhập cụm từ ghi nhớ và sử dụng dấu cách để ngăn cách </string>
+    <string name="load_wallet_by_mnemonic_input_tip"> tra vui lòng kiểm cụm từ ghi nhớ của bạn</string>
+    <string name="load_wallet_by_mnemonic_standard">m/44\'/60\'/0\'/0/0</string>
+    <string name="load_wallet_by_mnemonic_standard_ledger">m/44\'/60\'/0\'/0</string>
+    <string name="load_wallet_by_mnemonic_standard_custom">m/44\'/60\'/1\'/0/0</string>
+    <string name="load_wallet_by_mnemonic_standard_jaxx_option">m/44\'/60\'/0\'/0/0 Jaxx,Metamask(ETH)</string>
+    <string name="load_wallet_by_mnemonic_standard_ledger_option">m/44\'/60\'/0\'/0 Ledger (ETH)</string>
+    <string name="load_wallet_by_mnemonic_standard_custom_option">m/44\'/60\'/1\'/0/0 đường dẫn tùy chỉnh </string>
+    <string name="load_wallet_by_mnemonic_help"> thế nào là cụm từ ghi nhớ</string>
+    <string name="load_wallet_already_exist"> ví đã tồn tại </string>
+
+    <string name="load_wallet_by_official_wallet_keystore_hint">keystore nội dung văn bản gốc </string>
+    <string name="load_wallet_by_official_wallet_keystore_tip"> Sao chép và dán trực tiếp nội dung tệp keystore của ví hệ thống vào thanh nhập hoặc tạo một mã QR cho nội dung keystore để quét</string>
+    <string name="load_wallet_by_official_wallet_help"> Kho khóa là gì?</string>
+    <string name="load_wallet_by_official_wallet_keystore_input_tip"> tệp kho khóa không hợp lệ</string>
+    <string name="load_wallet_by_private_key_input_tip"> khóa cá nhân không hợp lệ </string>
+    <string name="load_wallet_by_private_key_hint"> khóa cá nhân rõ ràng </string>
+    <string name="load_wallet_by_private_key_help"> thế nào là khóa cá nhân </string>
+
+    <string name="wallet_detail_wallet_name"> tên ví </string>
+    <string name="wallet_detail_modify_pwd"> thay đổi mật khẩu </string>
+    <string name="wallet_detail_derive_private_key"> xuất khóa các nhân </string>
+    <string name="wallet_detail_derive_keystore"> keystore xuất keystore keystore</string>
+    <string name="create_wallet"> tạo ví </string>
+    <string name="first_use_wallet"> lần đầu sử dụng ví </string>
+    <string name="recover_wallet"> khôi phục danh tính </string>
+    <string name="create_your_wallet"> tạo lập ví của bạn </string>
+    <string name="create_your_wallet_tip"> Đây là cách những người dùng khác có thể tìm thấy bạn và gửi thanh toán cho bạn </string>
+    <string name="guide_tip"> mã hóa ví một cách đơn giản và dễ dàng nhất </string>
+    <string name="already_have_wallet"> đã sở hữu ví </string>
+    <string name="have_wallet"> đã có ví của bạn </string>
+    <string name="protect_your_wallet"> bản vệ ví của bạn </string>
+    <string name="Protect_your_wallet_tip"> Thêm một lớp bảo mật bổ sung để giữ an toàn cho ví của bạn </string>
+    <string name="create_pin"> tạo mã PIN </string>
+    <string name="input_code"> nhập mật khẩu của bạn </string>
+    <string name="retype_your_code"> Nhập lại mật khẩu của bạn </string>
+    <string name="incorrect"> Không chính xác </string>
+    <string name="name_available"> Tên ví khả dụng </string>
+    <string name="name_un_available"> Tên ví không khả dụng </string>
+    <string name="identity_name"> Tên nhận dạng </string>
+    <string name="wallet_name"> Mật khẩu ví </string>
+    <string name="wallet"> Ví tiền </string>
+    <string name="wallet_password"> Mật khẩu ví</string>
+    <string name="sure_password"> Nhập lại mật khẩu </string>
+    <string name="create_now">Tạo mới ngay bây giờ</string>
+    <string name="password"> Mật khẩu </string>
+    <string name="please_input_password"> Vui lòng nhập mật khẩu </string>
+    <string name="Please_enter_transaction_password"> Vui lòng nhập mật khẩu giao dịch </string>
+    <string name="Wallet_backup"> Sao lưu ví </string>
+    <string name="will_have_many_wallet"> Bạn sẽ sở hữ các chuỗi đa ví dưới danh tính của mình </string>
+    <string name="mnemonic_save_tip"> Cụm từ ghi nhớ được tạo bằng tiếng Anh, vui lòng ghi lại và lưu giữ một cách an toàn</string>
+    <string name="lose_mnemonic_tip"> nếu làm mất cụm từ ghi nhớ sẽ không có cách nào lấy lại được, xin hãy sao lưu chúng </string>
+    <string name="backup_later"> Sao lưu sau </string>
+    <string name="backup_now"> Sao lưu ngay </string>
+    <string name="backup_mnemonic"> Sao lưu cụm từ ghi nhớ </string>
+    <string name="select_mnemonic_tip"> Vui lòng chọn cụm từ ghi nhớ của bạn theo đúng thứ tự và xác nhận sao lưu của bạn là chính xác </string>
+    <string name="save_mnemonic_without_net"> lưu giữ cụm từ ghi nhớ ở môi trường mạng đảm bảo an toàn </string>
+    <string name="no_share_mnemonic_with_net"> Đừng lưu giữ cụm từ ghi nhớ của bạn ở môi trường mạng có thể chia sẻ được </string>
+    <string name="confirmed_backup"> Đã xác nhận sao lưu </string>
+    <string name="home_default_amount">US$0.00</string>
+    <string name="share_address"> Chia sẻ địa chỉ </string>
+    <string name="qr_code_tip"> Giao dịch có thể mất vài phút để hoàn thành </string>
+    <string name="Currency"> Loại tiền </string>
+    <string name="Collection"> Bộ sưu tập </string>
+    <string name="No_coins_found">No coins found</string>
+    <string name="Go_to_backup">Đi tới bản sao lưu</string>
+    <string name="receive_top_tip">Chỉ gửi các tài sản liên quan đến ETH / erc.</string>
+    <string name="receive_bottom_tip">Gửi các tài sản khác có thể gây ra tổn thất tài chính.</string>
+    <string name="copy"> sao chép </string>
+    <string name="copy_finish"> Hoàn tất sao chép </string>
+    <string name="set_amount"> Cài đặt con số </string>
+    <string name="share"> Chia sẻ </string>
+    <string name="send_to_self"> Chuyển sang ví của bạn </string>
+    <string name="no_data"> Không có dữ liệu </string>
+    <string name="loading_linear">Đang tải</string>
+    <string name="create_wallet_tip"> Bạn sẽ sở hữ các chuỗi đa ví dưới danh tính của mình </string>
+    <string name="error_tip">Mạng không mạnh, vui lòng bấm vào nút để tải lại</string>
+    <string name="update">nâng cấp</string>
+    <string name="derive_with_keystore">Keystore</string>
+    <string name="derive_with_qrcode"> Mã QR </string>
+    <string name="dialog_new">Người ta thấy rằng phiên bản mới %s có thể được tải xuống!</string>
+    <string name="wallet_detail_delete_wallet"> Xóa ví </string>
+    <string name="wallet_detail_save_success"> Lưu thành công </string>
+    <string name="wallet_detail_wrong_pwd"> Sai mật khẩu </string>
+
+    <string name="modify_password_title"> Thay đổi mật khẩu giao dịch </string>
+    <string name="modify_password_old_pwd"> Mật khẩu giao dịch cũ </string>
+    <string name="modify_password_new_pwd"> Mật khẩu giao dịch mới </string>
+    <string name="modify_password_old_pwd_again"> Nhập lại mật khẩu mới </string>
+    <string name="finish"> Hoàn thành </string>
+    <string name="modify_password_tip"> Quên mật khẩu?Hãy nhập cụm từ ghi nhớ hoặc khóa cá nhân để đặt lại mật khẩu </string>
+    <string name="modify_password_import"> Truy cập ngay </string>
+    <string name="modify_password_complete"> Hoàn thành </string>
+    <string name="modify_password_alert4"> Sai mật khẩu cũ </string>
+    <string name="modify_password_alert5"> Mật khẩu mới chưa trùng khớp </string>
+    <string name="modify_password_success"> Thay đổi mật khẩu thành công </string>
+
+    <string name="derive_private_key_alert"> Cảnh báo bảo mật:khóa cá nhân không được mã hóa sẽ có rủi ro khi xuất, vui lòng sử dụng cụm từ ghi nhớ và keystore để tiến hành sao lưu</string>
+    <string name="derive_private_key_copy_btn"> Sao chép </string>
+    <string name="derive_private_key_already_copy_btn"> Đã sao chép </string>
+
+    <string name="derive_keystore_title"> Truy cập Keystore </string>
+    <string name="derive_keystore_tip_title"> Lưu ngoại tuyến </string>
+    <string name="derive_keystore_tip"> Vui lòng sao chép và dán tệp keystore vào nơi an toàn, không lưu ở những nơi nguy hiểm như internet, hộp thư, sổ ghi chép, đĩa mạng, công cụ trò chuyện,...
+</string>
+    <string name="derive_keystore_tip3"> Nếu cần lưu trực tuyến, nên sử dụng phần mềm lưu mật khẩu có tính an toàn cao như 1Password để lưu Keystore.</string>
+    <string name="derive_keystore_tip4"> Cấm lưu, chụp màn hình mã QR hoặc các hình thức chụp khác, chỉ khi người dùng quét trực tiếp trong môi trường đảm bảo an toàn để truy cập ví.
+</string>
+    <string name="derive_keystore_tip5"> Vui lòng sử dụng quét mã QR ở nơi riêng tư và không có thiết bị ghi hình. Mã QR bị lộ sẽ gây ra những tổn thất về tài sản không thể khôi phục được.
+</string>
+    <string name="derive_keystore_tip_title2"> Không sử dụng đường truyền mạng </string>
+    <string name="derive_keystore_tip_title3"> lưu mật khẩu vào hòm lưu an toàn </string>
+    <string name="derive_keystore_tip_title4"> Chỉ dành cho quét mã trực tiếp </string>
+    <string name="derive_keystore_tip_title5"> Sử dụng trong môi trường an toàn </string>
+    <string name="derive_keystore_copy"> Sao chép Keystore</string>
+
+    <string name="deriving_wallet_tip"> đang xuất ví …</string>
+    <string name="loading_wallet_tip"> đang truy cập ví …</string>
+    <string name="deleting_wallet_tip"> đang xóa ví …</string>
+    <string name="creating_wallet_tip"> đang tạo ví …</string>
+    <string name="saving_wallet_tip"> đang lưu ví …</string>
+    <string name="important_contract"> đang truy cập vào hợp đồng …</string>
+    <string name="important_contract_fail"> Truy cập vào hợp đồng thất bại </string>
+    <string name="please_wait_load_data"> Vui lòng đợi tải thêm số liệu hoàn thành </string>
+
+    <string name="sent"> Chuyển ra </string>
+    <string name="create"> Xây dựng hợp đồng </string>
+    <string name="received"> Chuyển vào </string>
+    <string name="btn_confirm"> Xác nhận </string>
+
+
+    <string name="subject_transaction_detail"> Chi tiết giao dịch </string>
+
+    <!-- Subtitles -->
+    <string name="subtitle_from"> Địa chỉ thanh toán </string>
+    <string name="subtitle_to"> Địa chỉ đến </string>
+    <string name="subtitle_gas_fee"> phí khai thác:</string>
+    <string name="subtitle_transaction_num"> Số giao dịch #</string>
+    <string name="subtitle_transaction_time"> Thời gian giao dịch </string>
+    <string name="subtitle_block_num"> Khu vực #</string>
+    <string name="action_more_details"> Tham khảo chi tiết trong trình duyệt khám phá khu vực </string>
+
+    <string name="addr_error_tips"> địa chỉ điền không chính xác </string>
+    <string name="amount_error_tips"> Số tiền điền không chính xác </string>
+
+
+    <string name="hint_contract_address"> địa chỉ hợp đồng </string>
+    <string name="hint_contract_symbol"> Biểu tượng đồng xu </string>
+    <string name="hint_contract_decimals">Decimals</string>
+    <string name="action_save"> lưu </string>
+
+    <string name="error_field_required"> Bắt buộc điền </string>
+    <string name="error_invalid_address"> Địa chỉ không hợp lệ </string>
+    <string name="error_must_numeric"> Bắt buộc điền chữ số </string>
+
+    <string name="button_ok"> Đã hiểu </string>
+    <string name="button_cancel"> Hủy bỏ </string>
+    <string name="title_dialog_sending"> gửi...</string>
+    <string name="transaction_succeeded"> Giao dịch thành công </string>
+    <string name="error_transaction_failed"> Giao dịch lỗi </string>
+
+
+    <string name="title_dialog_add_account">Add wallet</string>
+
+    <string name="action_create_new_account"> Tạo ví mới </string>
+
+    <string name="action_import"> Truy cập vào/ đăng nhập vào </string>
+    <string name="already_have_account"> Đã có tài khoản ví?</string>
+
+    <string name="empty" />
+
+    <!-- Dapp -->
+    <string name="homepage_tab_text_dapp">DApp</string>
+    <string name="toolbar_header_browser"> trình duyệt DApp</string>
+    <string name="message_to_sign">Message</string>
+    <string name="signer_address">Address</string>
+    <string name="requester_url"> yêu cầu địa chỉ </string>
+    <string name="data">Data</string>
+
+    <string name="action_view_bookmarks"> xem dấu trang </string>
+    <string name="action_added"> đã thêm dấu trang </string>
+    <string name="action_add_bookmark"> Thêm vào dấu trang </string>
+    <string name="bookmarks"> Dấu trang </string>
+    <string name="Manege"> Quản lí </string>
+    <string name="visit"> Đi thăm </string>
+    <string name="action_reload"> Làm mới </string>
+    <string name="action_share"> Chia sẻ</string>
+    <string name="action_scan_dapp"> Quét mã QR </string>
+    <string name="bookmark_already_added"> Trang này đã từng được đánh dấu
+</string>
+
+    <string name="dialog_title_sign_message"> Thông tin chữ ký
+</string>
+    <string name="dialog_reject"> Từ chối</string>
+    <string name="dialog_approve"> Đồng ý</string>
+    <string name="transaction_value"> Giá trị giao dịch</string>
+    <string name="dialog_title_sign_transaction"> Ký tên giao dịch</string>
+
+    <string name="title_dialog_error"> Lỗi</string>
+    <string name="ssl_cert_invalid"> Giấy chứng nhận SSL không hợp lệ, trang web này có thể không an toàn. Tiếp tục?</string>
+    <string name="action_cancel"> Hủy bỏ</string>
+
+    <string name="transfer"> giao dịch %s</string>
+
+    <string name="invalid_transaction"> Giao dịch không hợp lệ</string>
+    <string name="contains_no_data">DApp Giao dịch trên Dapp không bao gồm các con số </string>
+
+
+    <string name="select_network"> chọn trang web：</string>
+
+    <string name="action_confirm"> Xác nhận</string>
+    <string name="toast_invalid_code"> Kết quả quét mã không hợp lệ </string>
+
+    <string name="confirm_transfer_details"> Xác nhận chi tiết chuyển khoản </string>
+    <string name="dummy_transaction_value">&#45;&#45;</string>
+
+    <string name="confirm_dapp_transaction"> Xác nhận giao dịch Dapp</string>
+    <string name="ticket_contract_constructor">constructor</string>
+    <string name="Request_Accounts"> Trao tài khoản</string>
+    <string name="Transfer"> Chuyển khoản</string>
+    <string name="requests_your_address"> Yêu cầu địa chỉ của bạn
+</string>
+    <string name="Sign_Typed_Message">Sign Typed Message</string>
+    <string name="dapp_approve"> trao quyền Dapp </string>
+    <string name="Request_dapp_authorization"> Yêu cầu trao quyền Dapp </string>
+
+
+    <!-- Labels -->
+    <string name="label_from">From</string>
+    <string name="label_to">To</string>
+    <string name="label_gas_limit">Gas Limit</string>
+    <string name="label_gas_price">Gas Price</string>
+    <string name="label_network_fee"> phí khai thác</string>
+    <string name="label_contract">contract</string>
+    <string name="action_send"> Chuyển khoản</string>
+    <string name="Receive"> Nhận tiền</string>
+
+    <string name="advanced_settings"> Tùy chỉnh giá Gas</string>
+    <string name="info_gas_price"> Giá càng cao, giao dịch đóng gói càng nhanh và giá càng hời.</string>
+    <string name="info_gas_limit"> Cài đặt số lượng gas để vận hành, các hợp đồng càng đơn giản thì số lượng gas yêu cầu càng ít, các hợp đồng càng phức tạp thì số lượng gas tiêu thu càng nhiều </string>
+
+
+    <!-- Intro resources-->
+    <string name="intro_title_first_page"><![CDATA[Private & Secure]]></string>
+    <string name="intro_title_second_page"> Hoàn toàn minh bạch</string>
+    <string name="intro_title_third_page"> Vô cùng đáng tin cậy</string>
+    <string name="intro_message_first_page"> Khóa riêng tư không bao giờ rời khỏi thiết bị của bạn </string>
+    <string name="intro_message_second_page"> Mã là mã nguồn mở (giấy phép GPL-3.0) đã được kiểm toán đầy đủ</string>
+    <string name="intro_message_third_page"> Trải nghiệm ví nhanh nhất trên thiết bị di động
+</string>
+
+    <string name="welcome_erc20_label_title"> Tương thích với ERC20</string>
+    <string name="welcome_erc20_label_description"> Hỗ trợ tất cả các mã biên lai ERC20</string>
+
+    <string name="ask_help_desc_1"> ví Dapp là một loại ví biên lai có công năng toàn diện với khởi đầu miễn phí, hy vọng nó sẽ giúp ích cho bạn (phần dưới là mã QR). \n\n weixin cá nhân：xlbxiong
+        \n\n Nếu bạn cần hỗ trợ thêm, chúng tôi cung cấp các dịch vụ kỹ thuật với chi phí hợp lý như:
+        \n1. nhóm chuyên cung cấp phát triển tùy chỉnh ví；
+        \n2. theo dõi tài khoản công khai của “học viện Đăng Liêm” để tìm hiểu các khóa học phát triển；
+        \n3. Trả lời các câu hỏi và tham gia hành tinh tri thức: giải thích cộng đồng liên chuỗi khu vực bằng các thuật ngữ đơn giản </string>
+    <string name="about_us_content"> Kính chào quý người dùng thân mến, cảm ơn bạn đã lựa chọn sử dụng dịch vụ TokenPocket. “điều khoản dịch vụ TokenPocket” (dưới đây là bản tóm tắt “biên bản thỏa thuận”) được điều chỉnh bởi TokenPocket Foundation Ltd (dưới đây được gọi là “công ty” hoặc “chúng tôi”) và người dùng ( dưới dây được gọi là “ông/bà/bạn” hoặc “người dùng”) ký tên, bản thỏa thuận này có hiệu lực pháp lý giữa bạn và công ty. Công ty nhắc nhở bạn đang sử dụng TokenPocket (sau đây được phép gọi là “TokenPocket” hoặc “phần mềm này”, TokenPocket có thể được tải xuống trên các nền tảng ứng dụng di động khác nhau, không giới hạn trên Google Play hay App store). Vui lòng đọc kỹ “Thỏa thuận dịch vụ TokenPocket” và các thỏa thuận liên quan đã được đề cập sau đó, đặc biệt là các quy định của thỏa thuận này. Các điều khoản như “Giới hạn trách nhiệm và miễn nhiệm” sẽ được in đậm để đảm bảo rằng bạn hiểu đầy đủ các điều khoản khác nhau trong thỏa thuận này và tự cân nhắc các rủi ro.\n I, Những điều liên quan và chấp nhận thỏa thuận này. \n1) Bạn hiểu rằng thỏa thuận này và các thỏa thuận liên quan có thể áp dụng cho TokenPocket và trang web này trên TokenPocket. Các ứng dụng phi tập trung (được gọi là “Dapp”) do công ty sở hữu và phát triển độc lập (không bao gồm Dapp do bên thứ ba phát triển). \n2) Bằng cách tải xuống phần mềm TokenPocket và tạo hoặc đang nhập vào ví, có nghĩa là bạn đã đọc đầy đủ và chấp nhận tất cả các điều khoản của thỏa thuận này. Bản thỏa thuận này có hiệu lực và ràng buộc đối với cả hai bên. \n3) Công ty có thể cập nhật bản thỏa thuận này bất kỳ lúc nào, sau khi thỏa thuận đã được sửa đổi và công bố trên TokenPocket sẽ có hiệu lực ngay, điều này sẽ tự động mà không cần báo trước. Sau khi công ty thông báo </string>
+
+    <!--    rxhtpp-->
+    <string name="connect_error"> Kết nối mạng thất bại, hãy kiểm tra lại kết nối </string>
+    <string name="connect_timeout"> Liên kết đã hết hạn, vui lòng thử lại sau</string>
+    <string name="bad_network"> Máy chủ có sự cố bất thường </string>
+    <string name="parse_error"> Phân giải máy chủ thất bại </string>
+    <string name="unknown_error"> Lỗi không xác định</string>
+    <string name="response_return_error"> Máy chủ không phản  hồi dữ liệu </string>
+
+    <string name="request_error">Failed to request server,error code：</string>
+    <string name="parameters_exception">Parameter exception</string>
+    <string name="token_expired"> token thất bại</string>
+    <string name="refresh_token_expired"> token làm mới token thất bại</string>
+    <string name="system_maintain"> bảo trì hệ thống</string>
+    <string name="wrong_pwd_username"> tên người dùng hoặc mật khẩu chưa chính xác </string>
+    <string name="user_registered"> tài khoản này đã tồn tại </string>
+    <string name="wrong_password"> sai mật khâu</string>
+    <string name="remote_login"> Tài khoản của bạn đã được đăng nhập trên thiết bị khác, nếu không phải là bạn, vui lòng đổi mật khẩu ngay lập tức!</string>
+    <string name="invalid_status"> Phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại </string>
+    <!--    rxhtpp-->
+
+</resources>

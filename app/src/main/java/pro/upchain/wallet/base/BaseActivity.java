@@ -23,6 +23,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -35,9 +36,10 @@ import android.widget.LinearLayout;
 import pro.upchain.wallet.R;
 import pro.upchain.wallet.utils.LanguageUtils;
 import pro.upchain.wallet.utils.LocalManageUtil;
+import pro.upchain.wallet.utils.SoftHideKeyBoardUtil;
+import pro.upchain.wallet.utils.StatusBarUtil;
 import pro.upchain.wallet.utils.Utils;
 import pro.upchain.wallet.view.loadding.CustomDialog;
-import com.gyf.barlibrary.ImmersionBar;
 
 
 import java.util.Locale;
@@ -49,7 +51,6 @@ import butterknife.Unbinder;
  * Created by Tiny 熊 @ Upchain.pro
  * WeiXin: xlbxiong
  */
-
 
 public abstract class BaseActivity extends MySupportActivity {
 
@@ -64,17 +65,13 @@ public abstract class BaseActivity extends MySupportActivity {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutId());
 //        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        StatusBarUtil.setColor(this, Color.WHITE);
+        StatusBarUtil.setDarkMode(this);
         mContext = this;
-        ImmersionBar.with(this).init();
         unbinder = ButterKnife.bind(this);
         mCommonToolbar = findViewById( R.id.common_toolbar);
         if (mCommonToolbar != null) {
-            ImmersionBar.with(this)
-                    .titleBar(mCommonToolbar, false)
-                    .transparentStatusBar()
-                    .statusBarDarkFont(true, 1f)
-                    .navigationBarColor(R.color.white)
-                    .init();
+
             setSupportActionBar(mCommonToolbar);
         }
         LinearLayout llyBack = (LinearLayout) findViewById(R.id.lly_back);
@@ -120,7 +117,6 @@ public abstract class BaseActivity extends MySupportActivity {
     protected void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
-        ImmersionBar.with(this).destroy(); //必须调用该方法，防止内存泄漏
         dismissDialog();
     }
 

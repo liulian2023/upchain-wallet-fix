@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@drawable/white_normal_ripple"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/all_coin_iv"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginBottom="13dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/coin_icon" />
+
+    <TextView
+        android:id="@+id/all_coin_name_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="13dp"
+        android:text="TextView"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/all_coin_iv"
+        app:layout_constraintStart_toEndOf="@+id/all_coin_iv"
+        app:layout_constraintTop_toTopOf="@+id/all_coin_iv" />
+
+    <TextView
+        android:id="@+id/all_coin_symbol_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="7dp"
+        android:text="TextView"
+        android:textSize="14sp"
+        android:textColor="#999999"
+        app:layout_constraintBottom_toBottomOf="@+id/all_coin_name_tv"
+        app:layout_constraintStart_toEndOf="@+id/all_coin_name_tv"
+        app:layout_constraintTop_toTopOf="@+id/all_coin_name_tv" />
+</androidx.constraintlayout.widget.ConstraintLayout>

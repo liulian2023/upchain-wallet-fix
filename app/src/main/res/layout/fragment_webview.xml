@@ -71,12 +71,12 @@
 
             <ImageView
                 android:id="@+id/clear_iv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:padding="9dp"
                 android:layout_gravity="center"
                 android:layout_marginRight="10dp"
-                android:visibility="gone"
-                android:src="@drawable/qianjin" />
+                android:src="@drawable/confirm_pin_back" />
         </LinearLayout>
 
         <ImageView
@@ -117,6 +117,7 @@
         android:layout_height="3dp"
         android:layout_below="@id/dapp_toolbar_constraint"
         android:indeterminate="false"
+        android:visibility="invisible"
         android:progressDrawable="@drawable/background_horizontal_progress" />
     <FrameLayout
         android:id="@+id/dapp_framelayout"

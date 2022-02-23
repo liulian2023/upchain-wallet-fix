@@ -1,17 +1,12 @@
 package pro.upchain.wallet.ui.activity;
 
 import android.content.Intent;
-import androidx.constraintlayout.widget.ConstraintLayout;
-
+import androidx.core.content.ContextCompat;
 import android.view.View;
-
-import com.gyf.barlibrary.ImmersionBar;
-
-import butterknife.BindView;
 import butterknife.OnClick;
 import pro.upchain.wallet.R;
 import pro.upchain.wallet.base.BaseActivity;
-
+import pro.upchain.wallet.utils.StatusBarUtil;
 
 
 public class GuideActivity extends BaseActivity  {
@@ -33,19 +28,13 @@ public class GuideActivity extends BaseActivity  {
 
     @Override
     public void configViews() {
-        ImmersionBar.with(this).transparentBar().init();
+        StatusBarUtil.setColor(this, ContextCompat.getColor(this,R.color.transparent));
     }
-
 
     @Override
     protected void onPause() {
         super.onPause();
-
     }
-
-
-
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

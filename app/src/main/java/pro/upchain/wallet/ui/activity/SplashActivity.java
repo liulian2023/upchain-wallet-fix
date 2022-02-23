@@ -1,51 +1,42 @@
 package pro.upchain.wallet.ui.activity;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
-
+import androidx.lifecycle.LifecycleOwner;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.azhon.appupdate.config.UpdateConfiguration;
-import com.azhon.appupdate.dialog.NumberProgressBar;
-import com.azhon.appupdate.listener.OnButtonClickListener;
-import com.azhon.appupdate.listener.OnDownloadListenerAdapter;
-import com.azhon.appupdate.manager.DownloadManager;
-
+import com.uber.autodispose.AutoDispose;
+import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider;
+import io.reactivex.Observable;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import pro.upchain.wallet.BuildConfig;
-import pro.upchain.wallet.MyApplication;
-import pro.upchain.wallet.R;
+import okhttp3.ResponseBody;
+import pro.upchain.wallet.RxHttp.net.api.HttpApiImpl;
 import pro.upchain.wallet.RxHttp.net.api.HttpApiUtils;
 import pro.upchain.wallet.RxHttp.net.api.RequestUtils;
+import pro.upchain.wallet.RxHttp.net.common.BaseStringObserver;
+import pro.upchain.wallet.RxHttp.net.utils.RxTransformerUtils;
 import pro.upchain.wallet.RxHttp.net.utils.StringMyUtil;
-import pro.upchain.wallet.RxHttp.net.utils.SystemUtil;
 import pro.upchain.wallet.domain.ETHWallet;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import pro.upchain.wallet.entity.AppUpdateEntity;
 import pro.upchain.wallet.entity.LoginEntity;
 import pro.upchain.wallet.entity.SystemParamsEntity;
 import pro.upchain.wallet.interact.FetchWalletInteract;
 import pro.upchain.wallet.utils.CommonStr;
+import pro.upchain.wallet.utils.LogUtils;
 import pro.upchain.wallet.utils.Md5Utils;
 import pro.upchain.wallet.utils.SharePreferencesUtil;
-import pro.upchain.wallet.utils.ToastUtils;
 import pro.upchain.wallet.utils.Utils;
-
-
+import retrofit2.Response;
 
 public class SplashActivity extends AppCompatActivity {
 
-
+    String bastBaseUrl;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,7 +74,6 @@ public class SplashActivity extends AppCompatActivity {
             data.put("userName", Md5Utils.md5(Utils.randomPsw(20)+System.currentTimeMillis()));
             data.put("password", Utils.randomPsw(8));
         }
-
         HttpApiUtils.wwwNormalRequest(this, null, RequestUtils.LOGIN, data, new HttpApiUtils.OnRequestLintener() {
             @Override
             public void onSuccess(String result) {
@@ -141,27 +131,30 @@ public class SplashActivity extends AppCompatActivity {
                                     List<String> parseArray = JSONArray.parseArray(content, String.class);
                                     for (int i = 0; i < parseArray.size(); i++) {
                                         String url = parseArray.get(i);
-                                        HashMap<String, Object> data = new HashMap<>();
-                                        HttpApiUtils.normalRequest(SplashActivity.this, null, RequestUtils.URL_TEST, data, new HttpApiUtils.OnRequestLintener() {
-                                            @Override
-                                            public void onSuccess(String result) {
-                                                SharePreferencesUtil.putString(CommonStr.NEW_BASE_URL,url);
+                                        Observable<Response<ResponseBody>> compose = new HttpApiImpl(url)
+                                                .pingTest()
+                                                .timeout(2000, TimeUnit.MILLISECONDS)
+                                                .compose(RxTransformerUtils.io_main());
+                                        compose
+                                                .as(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from((LifecycleOwner)SplashActivity.this)))
+                                                .subscribe(new BaseStringObserver<ResponseBody>() {
+                                                    @Override
+                                                    public void onSuccess(String result) {
+                                                        if(StringMyUtil.isEmptyString(bastBaseUrl)){
+                                                            SharePreferencesUtil.putString(CommonStr.NEW_BASE_URL,url);
+                                                            bastBaseUrl=url;
+                                                            LogUtils.e("bastBaseUrl :"+url);
+                                                        }
+                                                    }
+                                                    @Override
+                                                    public void onFail(String msg) {
 
-                                            }
-
-                                            @Override
-                                            public void onFail(String msg) {
-
-                                            }
-                                        });
+                                                    }
+                                                });
                                     }
-
                                 }
                             }
                         });
-
-
-
                     }
                     @Override
                     public void fail(int code) {
@@ -175,7 +168,14 @@ public class SplashActivity extends AppCompatActivity {
      * 读取文本内容
      */
     public  void accessTxt(AccessTxtListener accessTxtListener) {
-        String  url= "https://cpimg.yisan5.com/appDomains.txt";
+        boolean equals = CommonStr.API_HOST1.equals("https://api.cicdwallet.com");
+        String url = "";
+        if(equals){
+        url = "https://945008399773.s3.ap-southeast-1.amazonaws.com/coincida/config/config.json";
+        }else {
+            url= "https://cpimg.yisan5.com/appDomains.txt";
+
+        }
         OkHttpClient.Builder clientBuilder= new OkHttpClient().newBuilder();
         clientBuilder.readTimeout(2, TimeUnit.SECONDS);
         clientBuilder.connectTimeout(2, TimeUnit.SECONDS);

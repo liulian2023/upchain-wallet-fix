@@ -36,7 +36,7 @@ public class ChangeLanguageActivity extends BaseActivity {
     public void configViews() {
 
     }
-    @OnClick({R.id.chinese_tv,R.id.english_tv})
+    @OnClick({R.id.chinese_tv,R.id.english_tv,R.id.yuenan_tv})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.chinese_tv:
@@ -46,6 +46,11 @@ public class ChangeLanguageActivity extends BaseActivity {
                 break;
             case R.id.english_tv:
                 LocalManageUtil.saveSelectLanguage(this,"en");
+                ToastUtils.showToast(R.string.change_ssuccess);
+                startActivity(new Intent(ChangeLanguageActivity.this,SplashActivity.class));
+                break;
+            case R.id.yuenan_tv:
+                LocalManageUtil.saveSelectLanguage(this,"vi");
                 ToastUtils.showToast(R.string.change_ssuccess);
                 startActivity(new Intent(ChangeLanguageActivity.this,SplashActivity.class));
                 break;

@@ -46,7 +46,7 @@ public class RetrofitFactory {
         OkHttpClient.Builder httpClientBuilder = new OkHttpClient().newBuilder()
                 .readTimeout(ApiConfig.getDefaultTimeout(), TimeUnit.MILLISECONDS)
                 .connectTimeout(ApiConfig.getDefaultTimeout(), TimeUnit.MILLISECONDS)
-//                .addInterceptor(new HttpBasrUrlInterceptor())
+                .addInterceptor(new HttpBasrUrlInterceptor())
                 .addInterceptor(HttpLoggerInterceptor.getLoggerInterceptor())
                 .addInterceptor(new HttpHeaderInterceptor())
 //                .addInterceptor(new TokenInterceptor())

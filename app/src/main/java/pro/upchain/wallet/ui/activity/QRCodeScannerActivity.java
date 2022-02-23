@@ -11,7 +11,6 @@ import android.widget.RelativeLayout;
 import pro.upchain.wallet.R;
 import pro.upchain.wallet.base.BaseActivity;
 import pro.upchain.wallet.utils.LogUtils;
-import com.gyf.barlibrary.ImmersionBar;
 
 import java.util.List;
 
@@ -67,10 +66,6 @@ public class QRCodeScannerActivity extends BaseActivity implements  EasyPermissi
 
     @Override
     public void configViews() {
-        ImmersionBar.with(this)
-                .titleBar(scannerToolbar, false)
-                .navigationBarColor(R.color.colorPrimary)
-                .init();
 
 
         rlFlashLight = (RelativeLayout) findViewById(R.id.rl_flash_light);

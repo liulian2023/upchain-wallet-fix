@@ -65,5 +65,4 @@
             android:src="@drawable/ic_language_check"
             android:visibility="gone" />
     </RelativeLayout>
-
 </LinearLayout>

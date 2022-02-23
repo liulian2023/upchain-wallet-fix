@@ -92,13 +92,11 @@ public class TokensViewModel extends BaseViewModel {
         progress.postValue(false);
         this.tokens.postValue(tokens);
 
-
         for (Token token : tokens ) {
             if (token.balance!=null && !token.balance.equals("0")) {   // > 0
                 getTicker(token.tokenInfo.symbol).subscribe(this::onPrice, this::onError);
             }
         }
-
     }
 
     public Single<Ticker> getTicker(String symbol) {

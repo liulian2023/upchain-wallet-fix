@@ -11,17 +11,19 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
+
 import pro.upchain.wallet.R;
 import pro.upchain.wallet.base.BaseActivity;
 import pro.upchain.wallet.domain.ETHWallet;
 import pro.upchain.wallet.interact.ModifyWalletInteract;
 import pro.upchain.wallet.utils.Md5Utils;
+import pro.upchain.wallet.utils.StatusBarUtil;
 import pro.upchain.wallet.utils.TKeybord;
 import pro.upchain.wallet.utils.ToastUtils;
 import pro.upchain.wallet.utils.WalletDaoUtils;
 import pro.upchain.wallet.view.InputPwdDialog;
 import pro.upchain.wallet.view.PrivateKeyDerivetDialog;
-import com.gyf.barlibrary.ImmersionBar;
 
 
 import butterknife.BindView;
@@ -119,10 +121,9 @@ public class WalletDetailActivity extends BaseActivity {
 
     @Override
     public void configViews() {
-        ImmersionBar.with(this)
-                .transparentStatusBar()
-                .statusBarDarkFont(true, 1f)
-                .init();
+
+        StatusBarUtil.setColor(this, ContextCompat.getColor(this,R.color.white));
+        StatusBarUtil.setLightMode(this,true);
 
         tvTitle.setText(walletName);
         etWalletName.setText(walletName);

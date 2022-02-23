@@ -15,6 +15,7 @@
     <string name="Search_coin">Search coin</string>
     <string name="Suggested">Suggested</string>
     <string name="all_coins">All Coins</string>
+    <string name="create_success">Create wallet successfully</string>
     <string name="search_result">Search Result</string>
     <string name="create_wallet_name_hint">Wallet name</string>
     <string name="create_wallet_pwd_hint">password</string>
@@ -93,6 +94,7 @@
 
     <string name="language_setting_chinese">Simplified Chinese</string>
     <string name="language_setting_English">English</string>
+    <string name="language_setting_vi">Vietnam</string>
     <string name="language_setting_save">Save</string>
     <string name="change_ssuccess">Language switch successfully</string>
     <string name="finished">Finished</string>
@@ -237,10 +239,12 @@
     <string name="set_amount">set amount</string>
     <string name="share">Share</string>
     <string name="send_to_self">Send to Self</string>
-
+    <string name="no_data">No data</string>
+    <string name="loading_linear">loading</string>
+    <string name="error_tip">The network is not strong, please click the button to reload</string>
     <string name="create_wallet_tip">You will have a multi-chain wallet under your identity</string>
-
-
+    <string name="update">Update</string>
+    <string name="dialog_new">It is found that the new version v%s can be downloaded!</string>
     <string name="derive_with_keystore">Keystore</string>
     <string name="derive_with_qrcode">QR code</string>
 

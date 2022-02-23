@@ -3,6 +3,8 @@ package pro.upchain.wallet.ui.activity;
 import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
 import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 
+import static pro.upchain.wallet.utils.StatusBarUtils2.getStatusBarHeight;
+
 import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,6 +13,7 @@ import android.content.pm.PackageManager;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
@@ -23,9 +26,11 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
@@ -55,6 +60,7 @@ import pro.upchain.wallet.utils.CommonStr;
 import pro.upchain.wallet.utils.ETHWalletUtils;
 import pro.upchain.wallet.utils.LogUtils;
 import pro.upchain.wallet.utils.SharePreferencesUtil;
+import pro.upchain.wallet.utils.StatusBarUtils2;
 import pro.upchain.wallet.utils.ToastUtils;
 import pro.upchain.wallet.utils.WalletDaoUtils;
 
@@ -103,6 +109,7 @@ public class CreateWalletActivity extends BaseActivity {
     @Override
     public void initToolBar() {
 //        tvTitle.setText(R.string.property_drawer_create_wallet);
+        StatusBarUtils2.setFullImage(this,btn_create_wallet);
     }
 
     @Override

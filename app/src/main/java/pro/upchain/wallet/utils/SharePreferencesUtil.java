@@ -112,7 +112,7 @@ public class SharePreferencesUtil {
     }
 
     /**读取int标识从sharedPreferences中
-     
+
      * @param key	存储节点名称
      * @param defValue	没有此节点的默认值
      * @return	返回默认值或者此节点读取到的结果

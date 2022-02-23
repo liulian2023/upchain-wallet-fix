@@ -7,7 +7,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.gyf.barlibrary.ImmersionBar;
 
 import pro.upchain.wallet.R;
 import pro.upchain.wallet.base.BaseActivity;
@@ -123,9 +122,6 @@ public class WalletBackupActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        ImmersionBar.with(this)
-                .titleBarMarginTop(imageView)
-                .statusBarDarkFont(true)
-                .init();
+
     }
 }

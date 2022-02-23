@@ -38,7 +38,6 @@ import pro.upchain.wallet.viewmodel.TransactionsViewModel;
 import pro.upchain.wallet.viewmodel.TransactionsViewModelFactory;
 
 import com.chad.library.adapter.base.listener.OnItemClickListener;
-import com.gyf.barlibrary.ImmersionBar;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
@@ -351,10 +350,7 @@ public class PropertyDetailActivity extends BaseActivity {
 
     @Override
     public void configViews() {
-        ImmersionBar.with(this)
-                .transparentStatusBar()
-                .statusBarDarkFont(true, 1f)
-                .init();
+
         history_recycler.setLayoutManager(new LinearLayoutManager(this));
 
 

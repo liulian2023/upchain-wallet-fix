@@ -37,6 +37,8 @@ public class HttpHeaderInterceptor implements Interceptor {
             languageType = "3";
         }else if(localLanguage.equals("zh")){
             languageType = "2";
+        }else if(localLanguage.equals("vi")){
+            languageType = "5";
         }else {
             languageType = "3";
         }

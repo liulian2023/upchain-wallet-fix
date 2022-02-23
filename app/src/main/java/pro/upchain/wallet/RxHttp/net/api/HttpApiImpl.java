@@ -7,12 +7,16 @@ package pro.upchain.wallet.RxHttp.net.api;
 
 import com.alibaba.fastjson.JSON;
 
+import java.util.HashMap;
 import java.util.Map;
 
+import io.reactivex.Observable;
+import okhttp3.ResponseBody;
 import pro.upchain.wallet.RxHttp.net.common.RetrofitFactory;
 import pro.upchain.wallet.utils.AESUtil;
 import pro.upchain.wallet.utils.CommonStr;
 import pro.upchain.wallet.utils.SharePreferencesUtil;
+import retrofit2.Response;
 
 
 public class HttpApiImpl {
@@ -71,4 +75,9 @@ public class HttpApiImpl {
         Map<String, Object> dataMap = new HashMap<>();//上期开奖结果请求参数
         return iHttpApiT.pingTest(dataMap);
     }*/
+
+    public Observable<Response<ResponseBody>> pingTest(){
+        HashMap<String, Object> dataMap = new HashMap<>();
+        return iHttpApiT.pingTest(dataMap);
+    }
 }
