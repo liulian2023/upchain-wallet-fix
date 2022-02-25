@@ -37,6 +37,7 @@ import pro.upchain.wallet.utils.BalanceUtils;
 import pro.upchain.wallet.utils.StatusBarUtil;
 import pro.upchain.wallet.utils.Store;
 import pro.upchain.wallet.utils.ToastUtils;
+import pro.upchain.wallet.utils.WalletDaoUtils;
 import pro.upchain.wallet.view.InputPwdView;
 import pro.upchain.wallet.viewmodel.TokensViewModel;
 import pro.upchain.wallet.viewmodel.TokensViewModelFactory;
@@ -107,7 +108,8 @@ public class MineFragment extends BaseFragment {
         currEthWallet = wallet;
 //        EventBus.getDefault().postSticky(new WalletInfoEvenEntity(wallet));
         //       openOrCloseDrawerLayout();
-        boolean backup = currEthWallet.getIsBackup();
+        boolean backup = WalletDaoUtils.getIsBackup(currEthWallet.getId());
+        currEthWallet.setIsBackup(backup);
         if(backup){
             backup_mnemonic_iv.setVisibility(View.GONE);
         }else {
@@ -115,7 +117,7 @@ public class MineFragment extends BaseFragment {
         }
         String name = currEthWallet.getName();
         name = StringMyUtil.isEmptyString(name)?"UnKnow":name;
-        wallet_name_tv.setText(name);
+        wallet_name_tv.setText("@ "+name);
         wallet_first_name_tv.setText(name.substring(0,1));
     }
     @OnClick({R.id.backup_mnemonic_relativeLayout, R.id.transaction_password_relativeLayout, R.id.system_version_relativeLayout,

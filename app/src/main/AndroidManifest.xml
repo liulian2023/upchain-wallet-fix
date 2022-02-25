@@ -17,7 +17,7 @@
         android:name=".MyApplication"
         android:allowBackup="false"
         android:hardwareAccelerated="true"
-        android:icon="@drawable/logo"
+        android:icon="@mipmap/logo"
         android:label="@string/app_name"
         android:largeHeap="true"
         android:requestLegacyExternalStorage="true"
@@ -128,7 +128,6 @@
         <activity android:name=".ui.activity.WalletBackupActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.activity.MnemonicBackupActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.activity.VerifyMnemonicBackupActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.ImportWalletActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.activity.WalletDetailActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.activity.ModifyPasswordActivity" android:screenOrientation="portrait"/>
         <activity android:name=".ui.activity.ExportKeystoreActivity" android:screenOrientation="portrait"/>

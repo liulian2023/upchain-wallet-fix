@@ -27,7 +27,7 @@
 			<TextView
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:text="Coincida"
+				android:text="coincida"
 				android:textColor="#0950F8"
 				android:textSize="33sp"
 				android:textStyle="bold" />
@@ -48,10 +48,9 @@
 			android:layout_gravity="center"
 			android:layout_marginTop="20dp"
 			android:gravity="center"
-			android:textStyle="bold"
 			android:text="@string/guide_tip"
 			android:textColor="@color/black"
-			android:textSize="15sp" />
+			android:textSize="17sp" />
 	</LinearLayout>
 
 
@@ -60,7 +59,7 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:gravity="center"
-		android:paddingBottom="40dp"
+		android:paddingBottom="70dp"
 		android:text="@string/already_have_wallet"
 		android:textColor="#ff2851e7"
 		android:textSize="15sp"
@@ -77,6 +76,7 @@
 		android:layout_marginStart="16dp"
 		android:layout_marginEnd="16dp"
 		android:layout_marginBottom="35dp"
+
 		android:text="@string/create_wallet"
 		app:layout_constraintBottom_toTopOf="@+id/recover_wallet_tv"
 		app:layout_constraintEnd_toEndOf="parent"

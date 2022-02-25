@@ -36,6 +36,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:visibility="gone"
         android:id="@+id/rl_kovan"
         android:layout_width="match_parent"
         android:layout_height="46dp"
@@ -66,6 +67,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:visibility="gone"
         android:id="@+id/rl_ropsten"
         android:layout_width="match_parent"
         android:layout_height="46dp"
@@ -96,6 +98,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:visibility="gone"
         android:id="@+id/rl_local_dev"
         android:layout_width="match_parent"
         android:layout_height="46dp"
@@ -156,6 +159,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:visibility="gone"
         android:id="@+id/rl_sbc_test"
         android:layout_width="match_parent"
         android:layout_height="46dp"

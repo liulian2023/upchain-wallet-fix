@@ -649,7 +649,8 @@ public class SendActivity extends BaseActivity implements TextWatcher {
         TransferDaoUtils.insertNewTransfer(pendingHistoryEntity);
 
         hideDialog();
-        dialog = new AlertDialog.Builder(this)
+        finish();
+/*        dialog = new AlertDialog.Builder(this)
                 .setTitle(R.string.transaction_succeeded)
                 .setMessage(hash)
                 .setPositiveButton(R.string.button_ok, (dialog1, id) -> {
@@ -662,7 +663,7 @@ public class SendActivity extends BaseActivity implements TextWatcher {
                     finish();
                 })
                 .create();
-        dialog.show();
+        dialog.show();*/
     }
 
     private void fillAddress(String addr) {

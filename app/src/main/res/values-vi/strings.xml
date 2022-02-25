@@ -107,8 +107,8 @@
     <string name="system_setting_net"> cài đặt mạng </string>
     <string name="system_setting_gesture"> mật khẩu chỉ tay </string>
 
-    <string name="language_setting_chinese"> tiếng Trung giản thể </string>
-    <string name="language_setting_English">tiếng Anh</string>
+    <string name="language_setting_chinese">简体中文</string>
+    <string name="language_setting_English">English</string>
     <string name="language_setting_vi">Việt Nam</string>
     <string name="language_setting_save"> bảo tồn </string>
     <string name="change_ssuccess"> thay đổi thành công </string>
@@ -154,6 +154,7 @@
     <string name="loading"> đang tải xuống </string>
     <string name="other"> khác </string>
     <string name="home_amount_manage"> trang chủ quản lí tài sản </string>
+    <string name="custom_token">mã thông báo tùy chỉnh</string>
     <string name="home_hot_amount"> tài sản hấp dẫn</string>
     <string name="about_wallet"> về ví tiền </string>
     <string name="privacy_policy"> chính sách bảo mật</string>
@@ -268,7 +269,7 @@
 
     <string name="modify_password_title"> Thay đổi mật khẩu giao dịch </string>
     <string name="modify_password_old_pwd"> Mật khẩu giao dịch cũ </string>
-    <string name="modify_password_new_pwd"> Mật khẩu giao dịch mới </string>
+    <string name="modify_password_new_pwd"> Nhập mật khẩu mới của bạn </string>
     <string name="modify_password_old_pwd_again"> Nhập lại mật khẩu mới </string>
     <string name="finish"> Hoàn thành </string>
     <string name="modify_password_tip"> Quên mật khẩu?Hãy nhập cụm từ ghi nhớ hoặc khóa cá nhân để đặt lại mật khẩu </string>

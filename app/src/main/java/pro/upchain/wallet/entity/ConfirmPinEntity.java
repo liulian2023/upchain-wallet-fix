@@ -1,7 +1,7 @@
 package pro.upchain.wallet.entity;
 
 public class ConfirmPinEntity {
-    String code;
+    String code="";
     boolean isDelete = false;
 
     public String getCode() {

@@ -184,13 +184,6 @@ public class RecoverWalletActivity extends BaseActivity {
         }*/
         return true;
     }
-    public void loadSuccess(ETHWallet wallet) {
-        dismissDialog();
-        wallet.setIsBackup(true);
-        ToastUtils.showToast(R.string.Import_wallet_successfully);
-        setResult(RESULT_OK);
-        finish();
-    }
 
     public void onError(Throwable e) {
         ToastUtils.showToast(R.string.Failed_to_import_wallet);

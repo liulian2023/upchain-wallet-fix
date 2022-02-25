@@ -53,6 +53,7 @@ import pro.upchain.wallet.utils.RefreshUtils;
 import pro.upchain.wallet.utils.SharePreferencesUtil;
 import pro.upchain.wallet.utils.StatusBarUtil;
 import pro.upchain.wallet.utils.ToastUtils;
+import pro.upchain.wallet.utils.WalletDaoUtils;
 import pro.upchain.wallet.view.AWalletAlertDialog;
 import pro.upchain.wallet.viewmodel.TokensViewModel;
 import pro.upchain.wallet.viewmodel.TokensViewModelFactory;
@@ -259,7 +260,7 @@ public class CoinFragment extends BaseFragment {
 
 //        EventBus.getDefault().postSticky(new WalletInfoEvenEntity(wallet));
         //       openOrCloseDrawerLayout();
-        boolean backup = currEthWallet.getIsBackup();
+        boolean backup = WalletDaoUtils.getIsBackup(currEthWallet.getId());
         //todo 开发用
 //        backup =true;
 

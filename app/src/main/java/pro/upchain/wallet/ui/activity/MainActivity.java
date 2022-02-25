@@ -22,6 +22,7 @@ import pro.upchain.wallet.BuildConfig;
 import pro.upchain.wallet.R;
 import pro.upchain.wallet.RxHttp.net.api.HttpApiUtils;
 import pro.upchain.wallet.RxHttp.net.api.RequestUtils;
+import pro.upchain.wallet.RxHttp.net.utils.StringMyUtil;
 import pro.upchain.wallet.base.BaseActivity;
 import pro.upchain.wallet.entity.AppUpdateEntity;
 import pro.upchain.wallet.ui.adapter.HomePagerAdapter;
@@ -103,14 +104,21 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             public void onSuccess(String result) {
                 AppUpdateEntity appUpdateEntity = JSONObject.parseObject(result, AppUpdateEntity.class);
                 String downloadUrl = appUpdateEntity.getDownloadUrl();
+                String internetDownloadUrl = appUpdateEntity.getInternetDownloadUrl();
+                String url;
+                if(StringMyUtil.isNotEmpty(internetDownloadUrl)){
+                    url = internetDownloadUrl;
+                }else {
+                    url = downloadUrl;
+                }
                 String versionName = appUpdateEntity.getVersionName();
                 int versionCode = appUpdateEntity.getVersionCode();
                 if(versionCode>BuildConfig.VERSION_CODE){
                     String mustUpdate = appUpdateEntity.getMustUpdate();
                     if(mustUpdate.equals("1")){
-                        startUpdate(false,appUpdateEntity.getDownloadUrl(),versionName, versionCode,appUpdateEntity.getVersionContent());
+                        startUpdate(false,url,versionName, versionCode,appUpdateEntity.getVersionContent());
                     }else {
-                        startUpdate(true,appUpdateEntity.getDownloadUrl(),versionName, versionCode,appUpdateEntity.getVersionContent());
+                        startUpdate(true,url,versionName, versionCode,appUpdateEntity.getVersionContent());
                     }
                 }
             }
@@ -340,7 +348,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         manager = DownloadManager.getInstance(this);
         manager.setApkName("coincide"+versionCode+".apk")
                 .setApkUrl(url)
-                .setSmallIcon(R.drawable.logo)
+                .setSmallIcon(R.mipmap.logo)
 //                .setShowNewerToast(true)
                 .setConfiguration(configuration)
                 .setApkVersionCode(versionCode)

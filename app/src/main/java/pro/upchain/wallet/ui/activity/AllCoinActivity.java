@@ -37,7 +37,9 @@ import pro.upchain.wallet.base.BaseActivity;
 import pro.upchain.wallet.domain.ETHWallet;
 import pro.upchain.wallet.entity.ContractEntity;
 import pro.upchain.wallet.ui.adapter.AllCoinAdapter;
+import pro.upchain.wallet.utils.CommonStr;
 import pro.upchain.wallet.utils.RefreshUtils;
+import pro.upchain.wallet.utils.SharePreferencesUtil;
 import pro.upchain.wallet.utils.Utils;
 import pro.upchain.wallet.utils.WalletDaoUtils;
 
@@ -93,7 +95,7 @@ public class AllCoinActivity extends BaseActivity {
         }
         initRecycler();
         initSearchRecycler();
-        requestContractList(false);
+        handlerContractList(false);
         initRefresh();
         all_coin_search_etv.addTextChangedListener(new TextWatcher() {
             @Override
@@ -206,7 +208,7 @@ public class AllCoinActivity extends BaseActivity {
         RefreshUtils.initRefresh(this, all_coin_refresh, new RefreshUtils.OnRefreshLintener() {
             @Override
             public void onRefresh(RefreshLayout refreshLayout) {
-                requestContractList(true);
+                handlerContractList(true);
             }
         });
     }
@@ -240,53 +242,78 @@ public class AllCoinActivity extends BaseActivity {
         });
     }
 
-    private void requestContractList(boolean isRefresh) {
+    private void handlerContractList(boolean isRefresh) {
+        String contractListJson = SharePreferencesUtil.getString(CommonStr.CONTRACT_LIST, "");
+        if(!isRefresh){
+           if(StringMyUtil.isNotEmpty(contractListJson)){
+               handContractJson(contractListJson, isRefresh);
+               requestContractList(isRefresh,false);
+           }else {
+               requestContractList(isRefresh,true);
+           }
+        }else {
+            requestContractList(isRefresh,true);
+        }
+
+    }
+
+    private void requestContractList(boolean isRefresh,boolean handlerRecycler) {
         HashMap<String, Object> data = new HashMap<>();
         data.put("blockchainType",Utils.getCurrentChain());
         HttpApiUtils.wwwShowLoadRequest(this, null, RequestUtils.CONTRACT_LIST, data, loading_linear, error_linear, reload_tv, all_coin_refresh, false, isRefresh, new HttpApiUtils.OnRequestLintener() {
             @Override
             public void onSuccess(String result) {
-                List<ContractEntity> contractEntityList = JSONArray.parseArray(result, ContractEntity.class);
-                RefreshUtils.succse(1,all_coin_refresh,loading_linear,nodata_linear,contractEntityList.size(),false,isRefresh,allCoinEntityArrayList);
+                SharePreferencesUtil.putString(CommonStr.CONTRACT_LIST,result);
+                if(handlerRecycler){
 
-                for (int i = 0; i < contractEntityList.size(); i++) {
-                    ContractEntity contractEntity = contractEntityList.get(i);
-                    int isSuggested = contractEntity.getIsSuggested();
-                    if(isSuggested == 1){
-                        ContractEntity titleEntity = new ContractEntity();
-                        titleEntity.setTitleName(getResources().getString(R.string.Suggested));
-                        titleEntity.setItemType(0);
-                        allCoinEntityArrayList.add(titleEntity);
-                        break;
-                    }
+                    handContractJson(result, isRefresh);
                 }
-                for (int i = 0; i < contractEntityList.size(); i++) {
-                    int isSuggested = contractEntityList.get(i).getIsSuggested();
-                    if(isSuggested == 1){
-                        allCoinEntityArrayList.add(contractEntityList.get(i));
-                    }
-                }
-                if(contractEntityList.size()!=0){
-                    ContractEntity contractEntity = new ContractEntity();
-                    contractEntity.setTitleName(getResources().getString(R.string.all_coins));
-                    contractEntity.setItemType(0);
-                    allCoinEntityArrayList.add(contractEntity);
-                }
-                for (int i = 0; i < contractEntityList.size(); i++) {
-                    int isSuggested = contractEntityList.get(i).getIsSuggested();
-                    if(isSuggested == 2){
-                        allCoinEntityArrayList.add(contractEntityList.get(i));
-                    }
-                }
-                allCoinAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onFail(String msg) {
-                RefreshUtils.fail(isRefresh,false,1,all_coin_refresh);
+                if(handlerRecycler){
+                    RefreshUtils.fail(isRefresh,false,1,all_coin_refresh);
+                }
             }
         });
     }
+
+    private void handContractJson(String result, boolean isRefresh) {
+        List<ContractEntity> contractEntityList = JSONArray.parseArray(result, ContractEntity.class);
+        RefreshUtils.succse(1,all_coin_refresh,loading_linear,nodata_linear,contractEntityList.size(),false, isRefresh,allCoinEntityArrayList);
+        for (int i = 0; i < contractEntityList.size(); i++) {
+            ContractEntity contractEntity = contractEntityList.get(i);
+            int isSuggested = contractEntity.getIsSuggested();
+            if(isSuggested == 1){
+                ContractEntity titleEntity = new ContractEntity();
+                titleEntity.setTitleName(getResources().getString(R.string.Suggested));
+                titleEntity.setItemType(0);
+                allCoinEntityArrayList.add(titleEntity);
+                break;
+            }
+        }
+        for (int i = 0; i < contractEntityList.size(); i++) {
+            int isSuggested = contractEntityList.get(i).getIsSuggested();
+            if(isSuggested == 1){
+                allCoinEntityArrayList.add(contractEntityList.get(i));
+            }
+        }
+        if(contractEntityList.size()!=0){
+            ContractEntity contractEntity = new ContractEntity();
+            contractEntity.setTitleName(getResources().getString(R.string.all_coins));
+            contractEntity.setItemType(0);
+            allCoinEntityArrayList.add(contractEntity);
+        }
+        for (int i = 0; i < contractEntityList.size(); i++) {
+            int isSuggested = contractEntityList.get(i).getIsSuggested();
+            if(isSuggested == 2){
+                allCoinEntityArrayList.add(contractEntityList.get(i));
+            }
+        }
+        allCoinAdapter.notifyDataSetChanged();
+    }
+
     @Override
     public void configViews() {
 

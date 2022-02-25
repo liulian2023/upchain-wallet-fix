@@ -63,6 +63,17 @@ public class Utils {
                 r.getDisplayMetrics()
         );
     }
+    /**
+     * 判断字符串中是否包含字母
+     * **/
+    public static boolean isContainsLetter(String input){
+        if(!StringUtils.isEmpty(input)){
+            Matcher matcher = Pattern.compile(".*[a-zA-Z]+.*").matcher(input);
+            return matcher.matches();
+        }else{
+            return false;
+        }
+    }
 
     public static String formatUrl(String url) {
         if (URLUtil.isHttpsUrl(url) || URLUtil.isHttpUrl(url)) {

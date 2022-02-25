@@ -19,8 +19,13 @@ public class MnemonicRecyclerAdapter extends BaseQuickAdapter<MnemonicEntity, Ba
     @Override
     protected void convert(BaseViewHolder baseViewHolder, MnemonicEntity mnemonicEntity) {
         int num = baseViewHolder.getAdapterPosition() + 1;
+        if(num<10){
+            baseViewHolder.setText(R.id.mnemonic_num_tv,"  "+num+"");
+        }else {
+            baseViewHolder.setText(R.id.mnemonic_num_tv,num+"");
+        }
         baseViewHolder.setText(R.id.mnemonic_name_tv,mnemonicEntity.getName());
-        baseViewHolder.setText(R.id.mnemonic_num_tv,num+"");
+
 
     }
 }

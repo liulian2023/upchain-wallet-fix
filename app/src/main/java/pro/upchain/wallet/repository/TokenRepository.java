@@ -96,6 +96,7 @@ public class TokenRepository implements TokenRepositoryType {
                                     /* Quietly */
                                 }
 
+
                                 LogUtils.d("balance:" + balance);
                                 if (balance == null || balance.compareTo(BigDecimal.ZERO) == 0) {
                                     result[i] = new Token(items[i], "0");

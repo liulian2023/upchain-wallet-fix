@@ -112,13 +112,6 @@ public class ETHWallet implements Serializable {
         this.isCurrent = isCurrent;
     }
 
-    public boolean getIsBackup() {
-        return this.isBackup;
-    }
-
-    public void setIsBackup(boolean isBackup) {
-        this.isBackup = isBackup;
-    }
 
 
 
@@ -143,5 +136,14 @@ public class ETHWallet implements Serializable {
     public void setIsUpload(boolean isUpload) {
         this.isUpload = isUpload;
     }
+
+    public boolean getIsBackup() {
+        return this.isBackup;
+    }
+
+    public void setIsBackup(boolean isBackup) {
+        this.isBackup = isBackup;
+    }
+
 
 }

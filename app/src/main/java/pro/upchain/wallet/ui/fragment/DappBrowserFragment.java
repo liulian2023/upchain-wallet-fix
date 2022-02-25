@@ -377,15 +377,12 @@ public class DappBrowserFragment extends BaseFragment implements ItemClickListen
     @Override
     public void onSignTransaction(Web3Transaction transaction, String url) {
         Log.d(TAG, "onSignTransaction " + transaction);
-        if (transaction.payload == null || transaction.payload.length() < 1)
-        {
+        if (transaction.payload == null || transaction.payload.length() < 1) {
             //display transaction error
             onInvalidTransaction();
             web3.onSignCancel(transaction);
-        }
-        else
-        {
-            // 打开确认窗口， 输入密码
+        } else {
+            //打开确认窗口，输入密码
             viewModel.openDappTransfer(getContext(), transaction, url);
 //            viewModel.openConfirmation(getContext(), transaction, url);
         }
@@ -428,37 +425,28 @@ public class DappBrowserFragment extends BaseFragment implements ItemClickListen
         });
         dialog.show();
     }
-    private boolean isHex(String testMsg)
-    {
+    private boolean isHex(String testMsg) {
         if (testMsg == null || testMsg.length() == 0) return false;
         testMsg = Numeric.cleanHexPrefix(testMsg);
 
-        for (int i = 0; i < testMsg.length(); i++)
-        {
+        for (int i = 0; i < testMsg.length(); i++) {
             if (Character.digit(testMsg.charAt(i), 16) == -1) { return false; }
         }
-
         return true;
     }
     private byte[] getEthereumMessage(String message) {
         byte[] encodedMessage;
-        if (isHex(message))
-        {
+        if (isHex(message)) {
             encodedMessage = Numeric.hexStringToByteArray(message);
-        }
-        else
-        {
+        } else {
             encodedMessage = message.getBytes();
         }
 
         byte[] result;
             byte[] prefix = getEthereumMessagePrefix(encodedMessage.length);
-
             result = new byte[prefix.length + encodedMessage.length];
             System.arraycopy(prefix, 0, result, 0, prefix.length);
             System.arraycopy(encodedMessage, 0, result, prefix.length, encodedMessage.length);
-
-
         return result;
     }
 

@@ -50,8 +50,9 @@ public class ConfirmPinAdapter extends BaseQuickAdapter<ConfirmPinEntity, BaseVi
                     confirm_item_iv.setImageResource(R.drawable.nine);
                 }else if(adapterPosition == 10){
                     confirm_item_iv.setImageResource(R.drawable.zero);
-                }else {
-                    confirm_item_iv.setImageResource(R.drawable.pin_delete);
+                }
+                if(confirmPinEntity.isDelete()){
+                   confirm_item_iv.setImageResource(R.drawable.pin_delete);
                 }
             }
 

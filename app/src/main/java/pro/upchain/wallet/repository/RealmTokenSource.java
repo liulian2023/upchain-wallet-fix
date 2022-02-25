@@ -36,7 +36,7 @@ public class RealmTokenSource implements TokenLocalSource {
                 if(networkInfo.name.equals(BSC_MAIN_NETWORK_NAME)||networkInfo.name.equals(BSC_TEST_NETWORK_NAME)){
                     result[0] = new TokenInfo("", "BNB", "BNB", 18,"");
                 }else {
-                    result[0] = new TokenInfo("", "ETH", "ETH", 18,"");
+                    result[0] = new TokenInfo("", "Ethereum", "ETH", 18,"");
                 }
 
                 for (int i = 0; i < len; i++) {

@@ -108,8 +108,8 @@ public class LocalManageUtil {
             language = "zh-CN";
         } else if (language.equals("en")) {
             language = "en";
-        } else if (language.equals("ja")) {
-            language = "ja";
+        } else if (language.equals("vi")) {
+            language = "vi";
         }
         return language;
     }

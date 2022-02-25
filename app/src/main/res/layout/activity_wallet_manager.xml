@@ -31,6 +31,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:text="@string/wallet_manager_create_wallet"
+            android:textAllCaps="false"
             android:background="@drawable/transfer_btn_selector"
             android:textColor="@color/white"
             android:textSize="14sp" />
@@ -47,6 +48,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:text="@string/wallet_manager_load_wallet"
+            android:textAllCaps="false"
             android:background="@drawable/my_button_selector"
             android:textColor="@color/white"
             android:textSize="14sp" />

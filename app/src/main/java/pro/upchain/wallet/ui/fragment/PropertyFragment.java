@@ -37,12 +37,14 @@ import pro.upchain.wallet.ui.activity.AllCoinActivity;
 import pro.upchain.wallet.ui.activity.DappActivity;
 import pro.upchain.wallet.ui.activity.DappActivity2;
 import pro.upchain.wallet.ui.activity.GatheringQRCodeActivity;
+import pro.upchain.wallet.ui.activity.MnemonicBackupActivity;
 import pro.upchain.wallet.ui.activity.QRCodeScannerActivity;
 import pro.upchain.wallet.ui.activity.SendActivity;
 import pro.upchain.wallet.ui.activity.TestActivity;
 import pro.upchain.wallet.ui.activity.WalletMangerActivity;
 import pro.upchain.wallet.utils.StatusBarUtil;
 import pro.upchain.wallet.utils.ToastUtils;
+import pro.upchain.wallet.utils.WalletDaoUtils;
 import pro.upchain.wallet.viewmodel.TokensViewModel;
 import pro.upchain.wallet.viewmodel.TokensViewModelFactory;
 
@@ -82,7 +84,12 @@ public class PropertyFragment extends BaseFragment {
     ViewPager home_viewPager;
     @BindView(R.id.top_relativeLayout)
     RelativeLayout top_relativeLayout;
+    @BindView(R.id.Receive_tv)
+    TextView Receive_tv;
+    @BindView(R.id.send_tv)
+    TextView send_tv;
     private ETHWallet ethWallet;
+
     List<String>titleList = new ArrayList<>();
 
     HomeTabAdapter homeTabAdapter;
@@ -113,6 +120,16 @@ public class PropertyFragment extends BaseFragment {
 
     @Override
     public void initDatas() {
+        if(send_tv.getText().toString().length()>4){
+            send_tv.setTextSize(12);
+        }else {
+            send_tv.setTextSize(15);
+        }
+        if(Receive_tv.getText().toString().length()>7){
+            Receive_tv.setTextSize(12);
+        }else {
+            Receive_tv.setTextSize(15);
+        }
         fetchWalletInteract = new FetchWalletInteract();
 //        fetchWalletInteract.fetch().subscribe(this::showDrawerWallets);
 
@@ -132,8 +149,7 @@ public class PropertyFragment extends BaseFragment {
         currEthWallet = wallet;
 //        EventBus.getDefault().postSticky(new WalletInfoEvenEntity(wallet));
         //       openOrCloseDrawerLayout();
-        wallet_name_tv.setText(currEthWallet.getName());
-
+        wallet_name_tv.setText("@ "+currEthWallet.getName());
     }
     /**
      *  钱包金额
@@ -159,18 +175,10 @@ public class PropertyFragment extends BaseFragment {
         Intent intent = null;
         switch (view.getId()){
             case R.id.Receive_tv:
-
-
                     AllCoinActivity.startAty(getContext(),false);
-
-
                 break;
             case R.id.send_tv:
-
-
-
                     AllCoinActivity.startAty(getContext(),true);
-
                 break;
             case R.id.scan_iv:
                 intent = new Intent(getContext(), QRCodeScannerActivity.class);
@@ -182,7 +190,17 @@ public class PropertyFragment extends BaseFragment {
                 break;
             case R.id.home_add_iv:
 //                startActivity(new Intent(getContext(), TestActivity.class));
-                startActivity(new Intent(getContext(), AddTokenActivity.class));
+                if(currEthWallet==null){
+                    return;
+                }
+                if(WalletDaoUtils.getIsBackup(currEthWallet.getId())){
+                    startActivity(new Intent(getContext(), AddTokenActivity.class));
+                }else {
+                    Intent intent1 = new Intent(getContext(), MnemonicBackupActivity.class);
+                    intent1.putExtra("walletId", currEthWallet.getId());
+                    intent1.putExtra("walletMnemonic", currEthWallet.getMnemonic());
+                    startActivity(intent1);
+                }
 //                startActivity(new Intent(getContext(), DappActivity2.class));
                 break;
             default:

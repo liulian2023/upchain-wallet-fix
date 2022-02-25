@@ -11,6 +11,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -100,9 +101,13 @@ public class ConfirmPinActivity extends BaseActivity {
 
     @Override
     public void initDatas() {
+        boolean modifyPsw = getIntent().getBooleanExtra("modifyPsw", false);
+        if(modifyPsw){
+            confirm_tip_tv.setText(R.string.modify_password_new_pwd);
+        }
         modifyWalletInteract = new ModifyWalletInteract();
         createWalletInteract = new CreateWalletInteract();
-    initRecycler();
+        initRecycler();
         confirm_back_linear.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -119,12 +124,15 @@ public class ConfirmPinActivity extends BaseActivity {
             ConfirmPinEntity confirmPinEntity = new ConfirmPinEntity();
             if(i == 9){
                 confirmPinEntity.setCode("");
-            }else {
-                confirmPinEntity.setCode((i+1)+"");
-                if(i == 11){
-                    confirmPinEntity.setDelete(true);
+            }else if(i == 10){
+                    confirmPinEntity.setCode("0");
+                } else {
+                        confirmPinEntity.setCode((i+1)+"");
+                        if(i == 11){
+                            confirmPinEntity.setDelete(true);
+                        }
                 }
-            }
+
             confirmPinEntityArrayList.add(confirmPinEntity);
 
         }
@@ -135,6 +143,9 @@ public class ConfirmPinActivity extends BaseActivity {
                 ConfirmPinEntity confirmPinEntity = confirmPinEntityArrayList.get(position);
                 String code = confirmPinEntity.getCode();
                 boolean delete = confirmPinEntity.isDelete();
+                if(position == 9){
+                    return;
+                }
                 if(delete){
                     if(StringMyUtil.isEmptyString(firstPsw)){
                         return;
@@ -278,14 +289,19 @@ public class ConfirmPinActivity extends BaseActivity {
                                 five_psw_iv.setImageResource(R.drawable.pin_check);
                             }else if(firstPsw.length()==6){
                                 six_psw_iv.setImageResource(R.drawable.pin_check);
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        one_psw_iv.setImageResource(R.drawable.pin_un_check);
+                                        two_psw_iv.setImageResource(R.drawable.pin_un_check);
+                                        three_psw_iv.setImageResource(R.drawable.pin_un_check);
+                                        four_psw_iv.setImageResource(R.drawable.pin_un_check);
+                                        five_psw_iv.setImageResource(R.drawable.pin_un_check);
+                                        six_psw_iv.setImageResource(R.drawable.pin_un_check);
+                                        confirm_tip_tv.setText(getString(R.string.retype_your_code));
+                                    }
+                                },300);
 
-                                one_psw_iv.setImageResource(R.drawable.pin_un_check);
-                                two_psw_iv.setImageResource(R.drawable.pin_un_check);
-                                three_psw_iv.setImageResource(R.drawable.pin_un_check);
-                                four_psw_iv.setImageResource(R.drawable.pin_un_check);
-                                five_psw_iv.setImageResource(R.drawable.pin_un_check);
-                                six_psw_iv.setImageResource(R.drawable.pin_un_check);
-                                confirm_tip_tv.setText(getString(R.string.retype_your_code));
 
                             }
                             System.out.println(" pinTest firstPsw = "+firstPsw +"///// confirmPsw= "+confirmPsw );
@@ -314,50 +330,50 @@ public class ConfirmPinActivity extends BaseActivity {
                                 return;
                             }
                             System.out.println(" pinTest firstPsw = "+firstPsw +"///// confirmPsw= "+confirmPsw );
-                                if(!firstPsw.substring(confirmPsw.length()-1,confirmPsw.length()).equals(code)){
-                                    confirm_tip_tv.setText(getString(R.string.incorrect));
-                                     incorrect = true;
-                                    YoYo.with(Techniques.Shake)
-                                            .duration(500)
-                                            .playOn(pin_code_linear);
-                                    if(confirmPsw.length()==1){
-                                        one_psw_iv.setImageResource(R.drawable.pin_check_incorrcet_shape);
-                                    }else if(confirmPsw.length()==2){
-                                        two_psw_iv.setImageResource(R.drawable.pin_check_incorrcet_shape);
-                                    }else if(confirmPsw.length()==3){
-                                        three_psw_iv.setImageResource(R.drawable.pin_check_incorrcet_shape);
-                                    }else if(confirmPsw.length()==4){
-                                        four_psw_iv.setImageResource(R.drawable.pin_check_incorrcet_shape);
-                                    }else if(confirmPsw.length()==5){
-                                        five_psw_iv.setImageResource(R.drawable.pin_check_incorrcet_shape);
-                                    }else if(confirmPsw.length()==6){
-                                        six_psw_iv.setImageResource(R.drawable.pin_check_incorrcet_shape);
-                                    }
-                                    System.out.println(" pinTest firstPsw = "+firstPsw +"///// confirmPsw= "+confirmPsw );
-                                }else {
-                                    incorrect = false;
-                                    confirm_tip_tv.setText(getString(R.string.retype_your_code));
-                                    if(confirmPsw.trim().equals(firstPsw.trim())){
-                                            if(getIntent().getBooleanExtra("isCreate",false)){
-                                                showDialog(getString(R.string.creating_wallet_tip));
-                                                createWalletInteract.create(getIntent().getStringExtra("walletName"), firstPsw, confirmPsw, "")
-                                                        .subscribe(ConfirmPinActivity.this::jumpToWalletBackUp, ConfirmPinActivity.this::showError);
-
-                                            }else if(getIntent().getBooleanExtra("modifyPsw",false)){
-                                                //modify
-                                                    showDialog(getString(R.string.saving_wallet_tip));
-                                                ETHWallet current = WalletDaoUtils.getCurrent();
-                                                modifyWalletInteract.modifyWalletPwd(current.getId(), current.getName(), getIntent().getStringExtra("oldPsw"), firstPsw).subscribe(ConfirmPinActivity.this::modifyPwdSuccess);
-
-                                            }else {
-                                                showDialog(getString(R.string.loading_wallet_tip));
-                                                createWalletInteract.loadWalletByMnemonic( ETHWalletUtils.ETH_JAXX_TYPE, getIntent().getStringExtra("mnemonic"), confirmPsw.trim()).subscribe(ConfirmPinActivity.this::loadSuccess, ConfirmPinActivity.this::onError);
-                                            }
-
-
-
-                                    }
+                            if(!firstPsw.substring(confirmPsw.length()-1,confirmPsw.length()).equals(code)){
+                                confirm_tip_tv.setText(getString(R.string.incorrect));
+                                incorrect = true;
+                                YoYo.with(Techniques.Shake)
+                                        .duration(500)
+                                        .playOn(pin_code_linear);
+                                if(confirmPsw.length()==1){
+                                    one_psw_iv.setImageResource(R.drawable.pin_check_incorrcet_shape);
+                                }else if(confirmPsw.length()==2){
+                                    two_psw_iv.setImageResource(R.drawable.pin_check_incorrcet_shape);
+                                }else if(confirmPsw.length()==3){
+                                    three_psw_iv.setImageResource(R.drawable.pin_check_incorrcet_shape);
+                                }else if(confirmPsw.length()==4){
+                                    four_psw_iv.setImageResource(R.drawable.pin_check_incorrcet_shape);
+                                }else if(confirmPsw.length()==5){
+                                    five_psw_iv.setImageResource(R.drawable.pin_check_incorrcet_shape);
+                                }else if(confirmPsw.length()==6){
+                                    six_psw_iv.setImageResource(R.drawable.pin_check_incorrcet_shape);
                                 }
+                                System.out.println(" pinTest firstPsw = "+firstPsw +"///// confirmPsw= "+confirmPsw );
+                            }else {
+                                incorrect = false;
+                                confirm_tip_tv.setText(getString(R.string.retype_your_code));
+                                if(confirmPsw.trim().equals(firstPsw.trim())){
+                                    if(getIntent().getBooleanExtra("isCreate",false)){
+                                        showDialog(getString(R.string.creating_wallet_tip));
+                                        createWalletInteract.create(getIntent().getStringExtra("walletName"), firstPsw, confirmPsw, "")
+                                                .subscribe(ConfirmPinActivity.this::jumpToWalletBackUp, ConfirmPinActivity.this::showError);
+
+                                    }else if(getIntent().getBooleanExtra("modifyPsw",false)){
+                                        //modify
+                                        showDialog(getString(R.string.saving_wallet_tip));
+                                        ETHWallet current = WalletDaoUtils.getCurrent();
+                                        modifyWalletInteract.modifyWalletPwd(current.getId(), current.getName(), getIntent().getStringExtra("oldPsw"), firstPsw).subscribe(ConfirmPinActivity.this::modifyPwdSuccess);
+
+                                    }else {
+                                        showDialog(getString(R.string.loading_wallet_tip));
+                                        createWalletInteract.loadWalletByMnemonic( ETHWalletUtils.ETH_JAXX_TYPE, getIntent().getStringExtra("mnemonic"), confirmPsw.trim()).subscribe(ConfirmPinActivity.this::loadSuccess, ConfirmPinActivity.this::onError);
+                                    }
+
+
+
+                                }
+                            }
 
                         }
                     }
@@ -368,7 +384,7 @@ public class ConfirmPinActivity extends BaseActivity {
     }
     public void loadSuccess(ETHWallet wallet) {
         dismissDialog();
-        wallet.setIsBackup(true);
+        WalletDaoUtils.setIsBackup(wallet.getId());
         ToastUtils.showToast(R.string.Import_wallet_successfully);
         setResult(RESULT_OK);
         finish();

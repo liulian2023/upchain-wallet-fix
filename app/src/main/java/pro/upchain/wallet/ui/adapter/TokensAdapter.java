@@ -31,7 +31,12 @@ public class TokensAdapter extends BaseQuickAdapter<Token, BaseViewHolder> {
     protected void convert(BaseViewHolder helper, Token token) {
         helper.setText(R.id.symbol, token.tokenInfo.symbol);
         if(StringMyUtil.isNotEmpty(token.balance)){
-            helper.setText(R.id.balance, token.balance);
+           if(token.balance.equals("0")){
+                helper.setText(R.id.balance, "0.00000");
+            }else {
+               helper.setText(R.id.balance, token.balance);
+           }
+
         }
         helper.setText(R.id.name_tv, token.tokenInfo.name);
         if(StringMyUtil.isNotEmpty(token.value)){

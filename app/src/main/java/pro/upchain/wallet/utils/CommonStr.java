@@ -59,4 +59,9 @@ public class CommonStr {
      * 切换后的base_url
      */
     public static String NEW_BASE_URL ="new_base_url";
+
+    /**
+     * 系统合约列表
+     */
+    public static String CONTRACT_LIST ="contract_list";
 }

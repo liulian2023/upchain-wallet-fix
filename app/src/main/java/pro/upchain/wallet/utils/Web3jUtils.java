@@ -142,7 +142,11 @@ public class Web3jUtils {
         try {
             ethCall = web3j.ethCall(transaction, DefaultBlockParameterName.LATEST).sendAsync().get();
             List<Type> results = FunctionReturnDecoder.decode(ethCall.getValue(), function.getOutputParameters());
-            symbol = results.get(0).getValue().toString();
+            if(results.size()!=0){
+                symbol = results.get(0).getValue().toString();
+            }else {
+                symbol = "";
+            }
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }

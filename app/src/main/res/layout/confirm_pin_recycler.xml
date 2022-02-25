@@ -19,7 +19,6 @@
         <ImageView
             android:id="@+id/confirm_item_iv"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/one" />
+            android:layout_height="wrap_content" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

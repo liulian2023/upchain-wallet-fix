@@ -106,8 +106,8 @@
     <string name="system_setting_gesture">手势密码</string>
 
     <string name="language_setting_chinese">简体中文</string>
-    <string name="language_setting_English">英语</string>
-    <string name="language_setting_vi">越南语</string>
+    <string name="language_setting_English">English</string>
+    <string name="language_setting_vi">Việt Nam</string>
 
     <string name="language_setting_save">保存</string>
     <string name="change_ssuccess">切换成功</string>
@@ -154,6 +154,7 @@
     <string name="loading">正在加载</string>
     <string name="other">其他</string>
     <string name="home_amount_manage">首页资产管理</string>
+    <string name="custom_token">自定义代币</string>
     <string name="home_hot_amount">热门资产</string>
     <string name="about_wallet">关于钱包</string>
     <string name="privacy_policy">隐私政策</string>
@@ -272,7 +273,7 @@
 
     <string name="modify_password_title">修改交易密码</string>
     <string name="modify_password_old_pwd">原交易密码</string>
-    <string name="modify_password_new_pwd">新交易密码</string>
+    <string name="modify_password_new_pwd">输入你的新密码</string>
     <string name="modify_password_old_pwd_again">重复新密码</string>
     <string name="finish">完成</string>
     <string name="modify_password_tip">忘记密码？导入助记词或私钥可重置密码。</string>

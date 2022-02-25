@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
@@ -94,14 +95,15 @@ public class InputPwdView extends FrameLayout {
             ConfirmPinEntity confirmPinEntity = new ConfirmPinEntity();
             if(i == 9){
                 confirmPinEntity.setCode("");
-            }else {
+            }else if(i == 10){
+                confirmPinEntity.setCode("0");
+            } else {
                 confirmPinEntity.setCode((i+1)+"");
                 if(i == 11){
                     confirmPinEntity.setDelete(true);
                 }
             }
             confirmPinEntityArrayList.add(confirmPinEntity);
-
         }
         confirmPinAdapter.notifyDataSetChanged();
         confirmPinAdapter.setOnItemClickListener(new OnItemClickListener() {
@@ -110,6 +112,9 @@ public class InputPwdView extends FrameLayout {
                 ConfirmPinEntity confirmPinEntity = confirmPinEntityArrayList.get(position);
                 String code = confirmPinEntity.getCode();
                 boolean delete = confirmPinEntity.isDelete();
+                if(position == 9){
+                    return;
+                }
                 if(delete){
                     if(StringMyUtil.isEmptyString(firstPsw)){
                         return;
@@ -223,7 +228,13 @@ public class InputPwdView extends FrameLayout {
                             incorrect = false;
                             confirm_tip_tv.setText(getContext().getString(R.string.input_code));
                             if(firstPsw.trim().equals(password.trim())){
-                                onConfirmSender.sendTransaction(firstPsw);
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        onConfirmSender.sendTransaction(firstPsw);
+                                    }
+                                },300);
+
                             }
                         }
                     }

@@ -7,88 +7,104 @@
     android:focusableInTouchMode="true"
     android:orientation="vertical">
 
-    <include layout="@layout/common_toolbar" />
+    <include layout="@layout/common_toolbar_with_txbtn" />
 
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/address_input_layout"
-        android:layout_marginTop="@dimen/big_margin"
-        android:focusable="true"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@null"
-        >
+        android:textSize="15sp"
+        android:textColor="#666666"
+        android:text="@string/hint_contract_address"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="15dp"
+        />
+
         <EditText
-            android:id="@+id/address"
-            android:hint="@string/hint_contract_address"
+            android:id="@+id/address_edit"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
             android:textColor="@color/base_text_color"
             android:textSize="13sp"
+            android:paddingLeft="@dimen/dp_10"
+            android:background="@drawable/dapp_edit_shape"
             />
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/symbol_input_layout"
-        android:layout_marginTop="@dimen/normal_margin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:background="@null"
-        android:visibility="invisible"
-        >
-        <EditText
-            android:id="@+id/symbol"
-            android:hint="@string/hint_contract_symbol"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLength="16"
-            android:textColor="@color/base_text_color"
-            android:textSize="13sp"
-            />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/decimal_input_layout"
-        android:layout_marginTop="@dimen/normal_margin"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@null"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        android:visibility="invisible"
-        >
-        <EditText
-            android:id="@+id/decimals"
-            android:hint="@string/hint_contract_decimals"
-            android:inputType="number"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxLength="16"
-            android:textColor="@color/base_text_color"
-            android:textSize="13sp"
-
-            />
-    </com.google.android.material.textfield.TextInputLayout>
 
 
     <TextView
-        android:id="@+id/save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textColor="#666666"
+        android:text="Symbol"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="15dp"
+        />
+
+    <EditText
+        android:id="@+id/symbol_etv"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        style="@style/myButtonStyle"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="31dp"
-        android:text="@string/action_save"
-        android:gravity="center"
-     />
+        android:layout_height="40dp"
+        android:textColor="@color/base_text_color"
+        android:textSize="13sp"
+        android:enabled="false"
+        android:paddingLeft="@dimen/dp_10"
+        android:gravity="center_vertical"
+        android:background="@drawable/dapp_edit_shape"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textColor="#666666"
+        android:text="Decimal"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="15dp"
+        />
+    <EditText
+        android:id="@+id/Decimal_etv"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:textColor="@color/base_text_color"
+        android:textSize="13sp"
+        android:gravity="center_vertical"
+        android:enabled="false"
+        android:paddingLeft="@dimen/dp_10"
+        android:background="@drawable/dapp_edit_shape"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:textColor="#666666"
+        android:text="Name"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="15dp"
+        />
+    <EditText
+        android:id="@+id/Name_etv"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:textColor="@color/base_text_color"
+        android:textSize="13sp"
+        android:enabled="false"
+        android:paddingLeft="@dimen/dp_10"
+        android:background="@drawable/dapp_edit_shape"
+        />
+
 
 </LinearLayout>

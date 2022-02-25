@@ -72,6 +72,7 @@
                         android:layout_gravity="center"
                         android:layout_marginTop="25dp"
                         android:layout_marginBottom="25dp"
+                        android:textAllCaps="false"
                         android:text="@string/copy" />
                 </LinearLayout>
 

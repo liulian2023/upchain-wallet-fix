@@ -102,7 +102,10 @@ public class WalletDaoUtils {
         ethWallet.setIsBackup(true);
         ethWalletDao.update(ethWallet);
     }
-
+    public static boolean getIsBackup(long walletId) {
+        ETHWallet ethWallet = ethWalletDao.load(walletId);
+        return ethWallet.getIsBackup();
+    }
     /**
      * 以助记词检查钱包是否存在
      *

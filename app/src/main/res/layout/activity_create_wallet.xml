@@ -71,6 +71,8 @@
         android:hint="@string/identity_name"
         android:paddingLeft="12dp"
         android:singleLine="true"
+        android:maxLength="20"
+        android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
         android:textColor="@color/black"
         android:textColorHint="#999999"
         android:textSize="@dimen/sp_14"

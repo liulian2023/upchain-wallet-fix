@@ -2,7 +2,6 @@ package pro.upchain.wallet.viewmodel;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-
 import pro.upchain.wallet.MyApplication;
 import pro.upchain.wallet.domain.ETHWallet;
 import pro.upchain.wallet.entity.NetworkInfo;
@@ -21,13 +20,9 @@ import pro.upchain.wallet.utils.WalletDaoUtils;
 
 public class TokensViewModel extends BaseViewModel {
     private final MutableLiveData<NetworkInfo> defaultNetwork = new MutableLiveData<>();
-
     private final MutableLiveData<ETHWallet> defaultWallet = new MutableLiveData<>();
-
-
     private final MutableLiveData<Ticker> prices = new MutableLiveData<>();
     private final MutableLiveData<Token[]> tokens = new MutableLiveData<>();
-
     private final EthereumNetworkRepository ethereumNetworkRepository;
     private final FetchWalletInteract findDefaultWalletInteract;
     private final FetchTokensInteract fetchTokensInteract;

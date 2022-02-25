@@ -62,6 +62,7 @@ import pro.upchain.wallet.utils.LogUtils;
 import pro.upchain.wallet.utils.SharePreferencesUtil;
 import pro.upchain.wallet.utils.StatusBarUtils2;
 import pro.upchain.wallet.utils.ToastUtils;
+import pro.upchain.wallet.utils.Utils;
 import pro.upchain.wallet.utils.WalletDaoUtils;
 
 
@@ -97,10 +98,10 @@ public class CreateWalletActivity extends BaseActivity {
     Button btn_create_wallet;
     MyHandler myHandler;
     private CreateWalletInteract createWalletInteract;
-
     private static final int REQUEST_WRITE_STORAGE = 112;
     private int REQUEST_PERMISSION_SETTING = 112;
     static int EDIT_OK = 111;
+    boolean nameIsAvailable = false;
     @Override
     public int getLayoutId() {
         return R.layout.activity_create_wallet;
@@ -134,7 +135,6 @@ public class CreateWalletActivity extends BaseActivity {
                     wallet_name_clear_iv.setVisibility(View.VISIBLE);
                 }else {
                     wallet_name_clear_iv.setVisibility(View.GONE);
-
                 }
                 myHandler.removeCallbacks(gasRunnable);
                     myHandler.postDelayed(gasRunnable,500);
@@ -159,13 +159,18 @@ public class CreateWalletActivity extends BaseActivity {
                     available_tv.setVisibility(View.VISIBLE);
                     boolean nameChecking = WalletDaoUtils.walletNameChecking(name);
                     if(nameChecking){
-                        available_iv.setImageResource(R.drawable.unavailable);
-                        available_tv.setText(getString(R.string.name_un_available));
-                        available_tv.setTextColor(Color.parseColor("#DF5F67"));
+                        initNameIsAvailable(R.drawable.unavailable, R.string.name_un_available, "#DF5F67");
                     }else {
-                        available_iv.setImageResource(R.drawable.available);
-                        available_tv.setText(getString(R.string.name_available));
-                        available_tv.setTextColor(Color.parseColor("#05B169"));
+                        if(name.trim().length()<5 || name.trim().length()>20){
+                            initNameIsAvailable(R.drawable.unavailable, R.string.name_un_available, "#DF5F67");
+                        }else {
+                            if(!Utils.isContainsLetter(name)){
+                                initNameIsAvailable(R.drawable.unavailable, R.string.name_un_available, "#DF5F67");
+                            }else {
+                                nameIsAvailable = true;
+                                initNameIsAvailable(R.drawable.available, R.string.name_available, "#05B169");
+                            }
+                        }
                     }
                 }else {
                     available_iv.setVisibility(View.GONE);
@@ -175,6 +180,13 @@ public class CreateWalletActivity extends BaseActivity {
             }
         }
     }
+
+    private void initNameIsAvailable(int p, int p2, String s) {
+        available_iv.setImageResource(p);
+        available_tv.setText(getString(p2));
+        available_tv.setTextColor(Color.parseColor(s));
+    }
+
     @Override
     public void configViews() {
 /*        cbAgreement.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -291,6 +303,9 @@ public class CreateWalletActivity extends BaseActivity {
             ToastUtils.showToast(R.string.create_wallet_name_input_tips);
             // 同时不可重复
             return false;
+        }else if(!nameIsAvailable){
+            ToastUtils.showToast(getString(R.string.name_un_available));
+            return  false;
         }
         return true;
     }

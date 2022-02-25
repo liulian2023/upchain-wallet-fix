@@ -10,6 +10,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import pro.upchain.wallet.MyApplication;
@@ -64,29 +65,23 @@ public class AddCustomTokenActivity extends BaseActivity {
     @BindView(R.id.tv_title)
     TextView tvTitle;
 
-    @BindView(R.id.address)
-    TextView address;
+    @BindView(R.id.address_edit)
+    EditText address_edit;
 
-    @BindView(R.id.symbol)
-    TextView symbol;
+    @BindView(R.id.symbol_etv)
+    EditText symbol_etv;
+    @BindView(R.id.Decimal_etv)
+    EditText Decimal_etv;
+    @BindView(R.id.Name_etv)
+    EditText Name_etv;
 
-    @BindView(R.id.decimals)
-    TextView decimals;
 
     @BindView(R.id.common_toolbar)
     Toolbar commonToolbar;
+    @BindView(R.id.iv_btn)
+    TextView iv_btn;
 
-    @BindView(R.id.save)
-    TextView save;
 
-    @BindView(R.id.address_input_layout)
-    TextInputLayout addressLayout;
-
-    @BindView(R.id.symbol_input_layout)
-    TextInputLayout symbolLayout;
-
-    @BindView(R.id.decimal_input_layout)
-    TextInputLayout decimalsLayout;
 
 
     @Override
@@ -107,6 +102,7 @@ public class AddCustomTokenActivity extends BaseActivity {
 
     @Override
     public void initDatas() {
+        iv_btn.setText(getString(R.string.action_save));
         addTokenViewModelFactory = new AddTokenViewModelFactory();
         viewModel = ViewModelProviders.of(this, addTokenViewModelFactory)
                 .get(AddTokenViewModel.class);
@@ -128,14 +124,16 @@ public class AddCustomTokenActivity extends BaseActivity {
 
     private void onSave() {
         final boolean[] isValid = {true};
-        String address = this.address.getText().toString();
+        String address = this.address_edit.getText().toString();
         if (TextUtils.isEmpty(address)) {
-            addressLayout.setError(getString(R.string.error_field_required));
+            ToastUtils.showToast(getString(R.string.error_field_required));
             isValid[0] = false;
+            return;
         }
         if (!Address.isAddress(address)) {
-            addressLayout.setError(getString(R.string.error_invalid_address));
+            ToastUtils.showToast(getString(R.string.error_invalid_address));
             isValid[0] = false;
+            return;
         }
 
         showDialog(getString(R.string.important_contract));
@@ -146,18 +144,26 @@ public class AddCustomTokenActivity extends BaseActivity {
         new Thread(new Runnable() {
             @Override
             public void run() {
-               String symbol = getTokenSymbol(web3j, address);
+                String symbol = getTokenSymbol(web3j, address);
                 String tokenName = getTokenName(web3j, address);
+                if(StringMyUtil.isNotEmpty(symbol) ){
+                    symbol_etv.setText(symbol);
+                }
+                if(StringMyUtil.isNotEmpty(tokenName) ){
+                    Name_etv.setText(tokenName);
+                }
                 BigInteger decimals = BigInteger.ZERO;
                 if(SharePreferencesUtil.getInt(address,0)!=0){
                      decimals = new BigInteger(SharePreferencesUtil.getInt(address,0)+"");
                 }else {
                     decimals = erc20Decimals(web3j, address,null);
                 }
+                if( decimals != null ){
+                    Decimal_etv.setText(decimals+"");
+                }
                if(StringMyUtil.isEmptyString(symbol) || decimals == null ||StringMyUtil.isEmptyString(tokenName)){
                    isValid[0] = false;
                    ToastUtils.showToast(getString(R.string.important_contract_fail));
-
                }
                 dismissDialog();
                if(isValid[0]){
@@ -214,10 +220,10 @@ public class AddCustomTokenActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.save})
+    @OnClick({R.id.iv_btn})
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.save:
+            case R.id.iv_btn:
                 onSave();
                 break;
         }

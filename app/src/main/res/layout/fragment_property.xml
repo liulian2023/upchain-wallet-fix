@@ -176,6 +176,7 @@
                 app:tabTextColor="@color/black"
                 app:tabIndicatorHeight="4dp"
 
+
                 />
             <ImageView
                 android:id="@+id/home_add_iv"
@@ -185,6 +186,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_gravity="center"
                 android:layout_marginRight="15dp"
+                android:layout_marginTop="3dp"
                 app:srcCompat="@drawable/add_coin_icon" />
         </LinearLayout>
 

@@ -42,7 +42,7 @@
             android:layout_marginRight="12dp"
             android:layout_marginBottom="6dp"
             android:layout_weight="1"
-            android:visibility="invisible"
+
             android:background="@drawable/home_search_linear_shape"
             android:orientation="horizontal">
 
@@ -74,8 +74,33 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:text="@string/home_amount_manage"
+            android:textColor="@color/black"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="12dp"/>
+        <ImageView
+            android:layout_width="15dp"
+            android:layout_height="15dp"
+            android:src="@drawable/ic_right_arrow"
+            android:layout_gravity="center"
+            android:layout_marginRight="15dp"
+            />
+    </LinearLayout>
+    <include layout="@layout/split_horizontal"/>
+    <LinearLayout
+        android:id="@+id/add_custom_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/white_normal_ripple"
+        >
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="16sp"
+            android:text="@string/custom_token"
             android:textColor="@color/black"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="12dp"
@@ -124,7 +149,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:textSize="18sp"
+        android:textSize="16sp"
         android:text="@string/home_hot_amount"
         android:textColor="@color/black"
         android:layout_marginLeft="15dp"

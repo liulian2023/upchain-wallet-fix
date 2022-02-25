@@ -178,7 +178,7 @@ public class AddTokenActivity extends BaseActivity {
         addTokenAdapter.notifyDataSetChanged();
     }
 
-    @OnClick({R.id.lly_back,R.id.home_asset_management_linear,R.id.classification_search_linear})
+    @OnClick({R.id.lly_back,R.id.home_asset_management_linear,R.id.add_custom_linear})
     public void onClick(View view){
         switch (view.getId()){
             case R.id.lly_back:
@@ -187,7 +187,7 @@ public class AddTokenActivity extends BaseActivity {
             case R.id.home_asset_management_linear:
                 startActivity(new Intent(AddTokenActivity.this,AssetManagementActivity.class));
                 break;
-            case R.id.classification_search_linear:
+            case R.id.add_custom_linear:
                 Intent intent = new Intent(this, AddCustomTokenActivity.class);
                 startActivityForResult(intent, SEARCH_ICO_TOKEN_REQUEST);
                 break;

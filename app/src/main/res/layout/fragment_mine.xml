@@ -161,6 +161,7 @@
                     android:layout_height="wrap_content"
 
                     android:background="@drawable/white_normal_ripple">
+
                     <TextView
                         android:id="@+id/system_version_tip_tv"
                         android:layout_width="wrap_content"
@@ -309,17 +310,16 @@
                         android:text="@string/contact_us"
                         android:textColor="#ff000000"
                         android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/contact_us_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                    <ImageView
+                        android:id="@+id/contact_us_iv"
+                        android:layout_width="7dp"
+                        android:layout_height="11dp"
                         android:layout_alignTop="@+id/contact_us_tip_tv"
                         android:layout_alignBottom="@+id/contact_us_tip_tv"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="20dp"
-                        android:text="coincida@gmail.com"
-                        android:textColor="#ACB5C3" />
+                        android:src="@drawable/ic_right_arrow" />
+
                 </RelativeLayout>
                 <RelativeLayout
                     android:id="@+id/change_language_relativeLayout"

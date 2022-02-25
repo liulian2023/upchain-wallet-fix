@@ -9,34 +9,84 @@
     android:background="@color/white"
     tools:context=".ui.activity.ChangeLanguageActivity">
     <include layout="@layout/common_toolbar"/>
-    <TextView
-        android:id="@+id/chinese_tv"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/white_normal_ripple"
-        android:text="@string/language_setting_chinese"
-        android:textSize="16sp"
-        android:textColor="@color/black"
-        android:gravity="center"/>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/chinese_tv"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:background="@drawable/white_normal_ripple"
+            android:text="@string/language_setting_chinese"
+            android:textSize="16sp"
+            android:paddingLeft="12dp"
+            android:textColor="@color/black"
+            android:gravity="center|left"/>
+        <ImageView
+            android:id="@+id/chinese_iv"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginEnd="15dp"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:src="@drawable/token_added"
+  />
+    </LinearLayout>
     <include layout="@layout/split_horizontal"/>
-    <TextView
-        android:id="@+id/english_tv"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/white_normal_ripple"
-        android:text="@string/language_setting_English"
-        android:textSize="16sp"
-        android:textColor="@color/black"
-        android:gravity="center"/>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/english_tv"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:background="@drawable/white_normal_ripple"
+            android:text="@string/language_setting_English"
+            android:textSize="16sp"
+            android:paddingLeft="12dp"
+            android:textColor="@color/black"
+            android:gravity="center|left"/>
+
+        <ImageView
+            android:id="@+id/english_iv"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginEnd="15dp"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:src="@drawable/token_added"/>
+
+    </LinearLayout>
     <include layout="@layout/split_horizontal"/>
-    <TextView
-        android:id="@+id/yuenan_tv"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/white_normal_ripple"
-        android:text="@string/language_setting_vi"
-        android:textSize="16sp"
-        android:textColor="@color/black"
-        android:gravity="center"/>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/yuenan_tv"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:background="@drawable/white_normal_ripple"
+            android:text="@string/language_setting_vi"
+            android:textSize="16sp"
+            android:paddingLeft="12dp"
+            android:textColor="@color/black"
+            android:gravity="center|left"/>
+
+        <ImageView
+            android:id="@+id/yuenan_iv"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginEnd="15dp"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:src="@drawable/token_added"/>
+
+    </LinearLayout>
     <include layout="@layout/split_horizontal"/>
 </LinearLayout>

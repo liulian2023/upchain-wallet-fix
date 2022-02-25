@@ -77,24 +77,24 @@
     <string name="transfer_ether_unit">&#160;ether</string>
 
     <string name="property_detail_title">ETC</string>
-    <string name="property_detail_transfer">transfer</string>
+    <string name="property_detail_transfer">Transfer</string>
     <string name="property_detail_gathering">Gathering</string>
 
-    <string name="wallet_manager_create_wallet">Create wallet</string>
+    <string name="wallet_manager_create_wallet">Create Wallet</string>
     <string name="wallet_manager_load_wallet">Import Wallet</string>
 
     <string name="news_center_all_read">All read</string>
     <string name="news_center_title">News Center</string>
 
-    <string name="system_setting_title">System settings</string>
+    <string name="system_setting_title">System Settings</string>
     <string name="system_setting_language">Multilingual</string>
-    <string name="system_setting_currency">currency unit</string>
+    <string name="system_setting_currency">Currency unit</string>
     <string name="system_setting_net">Network settings</string>
     <string name="system_setting_gesture">Gesture Password</string>
 
-    <string name="language_setting_chinese">Simplified Chinese</string>
+    <string name="language_setting_chinese">简体中文</string>
     <string name="language_setting_English">English</string>
-    <string name="language_setting_vi">Vietnam</string>
+    <string name="language_setting_vi">Việt Nam</string>
     <string name="language_setting_save">Save</string>
     <string name="change_ssuccess">Language switch successfully</string>
     <string name="finished">Finished</string>
@@ -133,16 +133,17 @@
     <string name="next">Next</string>
     <string name="account_settings">Account Settings</string>
     <string name="backup_Mnemonic">Backup Mnemonic</string>
-    <string name="system_version">system version</string>
+    <string name="system_version">Version</string>
     <string name="transaction_password">Transaction password</string>
     <string name="about_us">Legal</string>
     <string name="change_language">Change language</string>
     <string name="loading">Loading</string>
     <string name="other">Other</string>
     <string name="home_amount_manage">Home Asset Management</string>
+    <string name="custom_token">Custom Token</string>
     <string name="home_hot_amount">Hot Assets</string>
     <string name="about_wallet">About Wallet</string>
-    <string name="privacy_policy">Privacy policy</string>
+    <string name="privacy_policy">Privacy Policy</string>
     <string name="Terms_of_Servers">Terms of Servers</string>
     <string name="no_camara">Can\'t take pictures</string>
     <string name="no_camara_tip">You have not given permission to take pictures</string>
@@ -191,7 +192,7 @@
     <string name="wallet_detail_modify_pwd">Modify password</string>
     <string name="wallet_detail_derive_private_key">Export private key</string>
     <string name="wallet_detail_derive_keystore">export keystore</string>
-    <string name="create_wallet">Create wallet</string>
+    <string name="create_wallet">Create Wallet</string>
     <string name="first_use_wallet">Use wallet for the first time</string>
     <string name="recover_wallet">Recover Identity</string>
     <string name="create_your_wallet">Create your wallet</string>
@@ -226,7 +227,7 @@
     <string name="select_mnemonic_tip">Please select the mnemonic in order to make sure the backup is correct</string>
     <string name="save_mnemonic_without_net">Keep the mnemonic in an isolated network environment</string>
     <string name="no_share_mnemonic_with_net">Do not share and store mnemonic phrases in a networked environment</string>
-    <string name="confirmed_backup">confirmed backup</string>
+    <string name="confirmed_backup">Confirmed Backup</string>
     <string name="home_default_amount">US$0.00</string>
     <string name="Currency">Currency</string>
     <string name="Collection">Collection</string>
@@ -254,7 +255,7 @@
 
     <string name="modify_password_title">Modify transaction password</string>
     <string name="modify_password_old_pwd">old transaction password</string>
-    <string name="modify_password_new_pwd">New transaction password</string>
+    <string name="modify_password_new_pwd">Enter your new password</string>
     <string name="modify_password_old_pwd_again">repeat new password</string>
     <string name="finish">finish</string>
     <string name="modify_password_tip">Forgot password? Import a mnemonic or private key to reset the password. </string>
@@ -338,7 +339,7 @@
     <string name="Add_custom_token">Add custom token</string>
     <!-- Dapp -->
     <string name="homepage_tab_text_dapp">DApp</string>
-    <string name="switch_network_node">switch network node</string>
+    <string name="switch_network_node">Switch network node</string>
     <string name="toolbar_header_browser">DApp browser</string>
     <string name="message_to_sign">Message</string>
     <string name="signer_address">Address</string>

@@ -62,16 +62,8 @@ public class OnLineKeFuActivity extends BaseActivity {
     private boolean showFloat;
      @BindView(R.id.progressBar)
      ProgressBar mProgressBar;
-
      @BindView(R.id.webview)
      WebView mWebView;
-
-
-
-
-
-
-
 
     @Override
     protected void onDestroy() {
@@ -131,10 +123,14 @@ public class OnLineKeFuActivity extends BaseActivity {
                 @Override
                 public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
-                mProgressBar.setProgress(newProgress);
-                if (newProgress == 100) {
-                    mProgressBar.setVisibility(View.GONE);
+                if(mProgressBar!=null){
+
+                    mProgressBar.setProgress(newProgress);
+                    if (newProgress == 100) {
+                        mProgressBar.setVisibility(View.GONE);
+                    }
                 }
+
 
             }
 

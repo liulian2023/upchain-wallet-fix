@@ -72,6 +72,7 @@
         android:padding="10dp"
         android:textSize="@dimen/sp_14"
         android:imeOptions="actionDone"
+        android:singleLine="true"
         android:textColor="@color/black"
         android:textColorHint="@color/edit_hint_color"
         app:layout_constraintEnd_toEndOf="parent"
