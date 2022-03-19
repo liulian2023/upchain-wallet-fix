@@ -43,8 +43,8 @@ public class ConfirmPinActivity extends BaseActivity {
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
-    @BindView(R.id.confirm_back_linear)
-    LinearLayout confirm_back_linear;
+    @BindView(R.id.confirm_back_iv)
+    ImageView confirm_back_iv;
     @BindView(R.id.confirm_tip_tv)
     TextView confirm_tip_tv;
     @BindView(R.id.one_psw_iv)
@@ -77,9 +77,10 @@ public class ConfirmPinActivity extends BaseActivity {
         context.startActivity(intent);
     }
 
-    public static void startAty (Activity context, String mnemonic){
+    public static void startAty (Activity context, String mnemonic,String walletName){
         Intent intent = new Intent(context, ConfirmPinActivity.class);
         intent.putExtra("mnemonic",mnemonic) ;
+        intent.putExtra("walletName",walletName) ;
         context.startActivityForResult(intent,TO_IMPORT_WALLET);
     }
 
@@ -108,7 +109,7 @@ public class ConfirmPinActivity extends BaseActivity {
         modifyWalletInteract = new ModifyWalletInteract();
         createWalletInteract = new CreateWalletInteract();
         initRecycler();
-        confirm_back_linear.setOnClickListener(new View.OnClickListener() {
+        confirm_back_iv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
@@ -300,7 +301,7 @@ public class ConfirmPinActivity extends BaseActivity {
                                         six_psw_iv.setImageResource(R.drawable.pin_un_check);
                                         confirm_tip_tv.setText(getString(R.string.retype_your_code));
                                     }
-                                },300);
+                                },50);
 
 
                             }
@@ -367,10 +368,8 @@ public class ConfirmPinActivity extends BaseActivity {
 
                                     }else {
                                         showDialog(getString(R.string.loading_wallet_tip));
-                                        createWalletInteract.loadWalletByMnemonic( ETHWalletUtils.ETH_JAXX_TYPE, getIntent().getStringExtra("mnemonic"), confirmPsw.trim()).subscribe(ConfirmPinActivity.this::loadSuccess, ConfirmPinActivity.this::onError);
+                                        createWalletInteract.loadWalletByMnemonic( ETHWalletUtils.ETH_JAXX_TYPE, getIntent().getStringExtra("mnemonic"),getIntent().getStringExtra("walletName"), confirmPsw.trim()).subscribe(ConfirmPinActivity.this::loadSuccess, ConfirmPinActivity.this::onError);
                                     }
-
-
 
                                 }
                             }
@@ -406,7 +405,7 @@ public class ConfirmPinActivity extends BaseActivity {
 
         boolean firstAccount = getIntent().getBooleanExtra("first_account", false);
 
-        HttpApiUtils.addAddress(this,null,wallet);
+//        HttpApiUtils.addAddress(this,null,wallet);
 
 //        setResult(CREATE_WALLET_RESULT, new Intent());
         Intent intent = new Intent(this, WalletBackupActivity.class);

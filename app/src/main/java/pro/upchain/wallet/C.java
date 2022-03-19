@@ -31,7 +31,7 @@ public abstract class C {
     public static final String ETH_SYMBOL = "ETH";
     public static final String POA_SYMBOL = "POA";
     public static final String ETC_SYMBOL = "ETC";
-    public static final String BSC_SYMBOL = "BSC";
+    public static final String BSC_SYMBOL = "BNB";
     public static final String BSC_TEST_SYMBOL = "BSC_TEST";
 
     public static final String GWEI_UNIT = "Gwei";

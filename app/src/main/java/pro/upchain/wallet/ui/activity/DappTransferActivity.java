@@ -108,7 +108,7 @@ public class DappTransferActivity extends BaseActivity implements View.OnClickLi
     TextView not_enough_tip_tv;
     Button cancel_btb;
     Button sure_btn;
-    String ETH2USDTRate = SharePreferencesUtil.getString(CommonStr.ETH2USDTRate,"");
+    String ETH2USDTRate = Utils.getETHOrBsc2USDTRate();
     String ETH2OtherRate;
     private BigInteger currentLimit = BigInteger.ZERO;
     private String netCost;
@@ -304,7 +304,6 @@ public class DappTransferActivity extends BaseActivity implements View.OnClickLi
             public void onSuccess(String result) {
                 RateEntity rateEntity = JSONObject.parseObject(result, RateEntity.class);
                 ETH2USDTRate = rateEntity.getPrice();
-                SharePreferencesUtil.putString(CommonStr.ETH2USDTRate,ETH2USDTRate);
             }
 
             @Override

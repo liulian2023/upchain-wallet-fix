@@ -53,8 +53,6 @@ public class TransactionDetailViewModel extends BaseViewModel {
                     .appendEncodedPath("tx")
                     .appendEncodedPath(transaction.hash)
                     .build();
-
-
             Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uri);
             context.startActivity(launchBrowser);
         }

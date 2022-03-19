@@ -85,7 +85,7 @@ public class PropertyDetailActivity extends BaseActivity {
     private String symbol;
 
     List<Transaction> transactionLists;
-    private   String ETH2USDTRate = SharePreferencesUtil.getString(CommonStr.ETH2USDTRate,"");
+    private   String ETH2USDTRate = Utils.getETHOrBsc2USDTRate();
     private String ETH2OtherRate ="0";
     TransferHistoryAdapter transferHistoryAdapter;
     ArrayList<TransferHistoryEntity.ListBean> listBeanArrayList = new ArrayList<>();
@@ -123,7 +123,7 @@ public class PropertyDetailActivity extends BaseActivity {
         viewModel.progress().observe(this, this::onProgress);
         requestETHUSDTRate();
         if(!symbol.equals(C.ETH_SYMBOL) || !symbol.equals(C.BSC_SYMBOL)){
-            requestETHoTHERRate();
+            requestOther2USDTRate();
         }
         initRefresh();
     }
@@ -276,8 +276,8 @@ public class PropertyDetailActivity extends BaseActivity {
         });
     }
 
-    private void requestETHoTHERRate() {
-        HttpApiUtils.requestETHoTHERRate(symbol,new HttpApiUtils.OnRequestLintener() {
+    private void requestOther2USDTRate() {
+        HttpApiUtils.requestOther2USDTRate(symbol,new HttpApiUtils.OnRequestLintener() {
             @Override
             public void onSuccess(String result) {
                 RateEntity rateEntity = JSONObject.parseObject(result, RateEntity.class);
@@ -300,7 +300,6 @@ public class PropertyDetailActivity extends BaseActivity {
                 public void onSuccess(String result) {
                     RateEntity rateEntity = JSONObject.parseObject(result, RateEntity.class);
                     ETH2USDTRate = rateEntity.getPrice();
-                    SharePreferencesUtil.putString(CommonStr.ETH2USDTRate,ETH2USDTRate);
                     BigDecimal bigDecimal = new BigDecimal(balance);
                     BigDecimal multiply = bigDecimal.multiply(new BigDecimal(ETH2USDTRate));
                     BigDecimal usdt = multiply.setScale(2,BigDecimal.ROUND_HALF_UP);

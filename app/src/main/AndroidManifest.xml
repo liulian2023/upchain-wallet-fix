@@ -12,6 +12,9 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
 
     <application
         android:name=".MyApplication"
@@ -23,54 +26,57 @@
         android:requestLegacyExternalStorage="true"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
-        android:windowSoftInputMode="adjustPan"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true"
+        android:windowSoftInputMode="adjustPan"
         tools:replace="android:allowBackup">
         <activity
-            android:name=".ui.activity.LegalActivity"
-            android:screenOrientation="portrait"
+            android:name=".ui.activity.SelectorSendActivity"
             android:exported="false" />
+        <activity
+            android:name=".ui.activity.LegalActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.AllCoinActivity"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.ConfirmPinActivity"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.CreatePinActivity"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.TransferDetailsActivity"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.TestActivity"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.DappTransferActivity"
             android:screenOrientation="portrait"
             android:theme="@style/activityDialogTheme" />
         <activity
             android:name=".ui.activity.DappActivity2"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.DappActivity"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.ChangeLanguageActivity"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.AboutUsActivity"
-            android:screenOrientation="portrait"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.RecoverWalletActivity"
             android:screenOrientation="portrait"
@@ -103,37 +109,91 @@
             android:name=".ui.activity.MainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".ui.activity.AssetManagementActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.QRCodeScannerActivity" android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.AssetManagementActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.QRCodeScannerActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.CreateWalletActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".ui.activity.OnLineKeFuActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.AddTokenActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.AddCustomTokenActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.GatheringQRCodeActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.ContactsActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.SendActivity" android:screenOrientation="portrait" />
-        <activity android:name=".ui.activity.PropertyDetailActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.WalletMangerActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.MessageCenterActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.SystemSettingActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.LanguageSettingActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.CurrencyUnitSettingActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.Web3SettingActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.NetSettingActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.TransactionsActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.SwitchWalletActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.WalletBackupActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.MnemonicBackupActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.VerifyMnemonicBackupActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.WalletDetailActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.ModifyPasswordActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.ExportKeystoreActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.HelpActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.TransactionDetailActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".ui.activity.ConfirmationActivity" android:screenOrientation="portrait"/>
+        <activity
+            android:name=".ui.activity.OnLineKeFuActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.AddTokenActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.AddCustomTokenActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.GatheringQRCodeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.ContactsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.SendActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.PropertyDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.WalletMangerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.MessageCenterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.SystemSettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.LanguageSettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.CurrencyUnitSettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.Web3SettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.NetSettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.TransactionsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.SwitchWalletActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.WalletBackupActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.MnemonicBackupActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.VerifyMnemonicBackupActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.WalletDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.ModifyPasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.ExportKeystoreActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.HelpActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.TransactionDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.activity.ConfirmationActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

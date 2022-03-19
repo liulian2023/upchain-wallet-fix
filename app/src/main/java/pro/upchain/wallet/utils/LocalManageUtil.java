@@ -14,7 +14,7 @@ public class LocalManageUtil {
      * @return
      */
     private static Locale getSetLanguageLocale(Context context) {
-        switch (SharePreferencesUtil.getString(context,CommonStr.LOCAL_LANGUAGE,"en")) {
+        switch (SharePreferencesUtil.getString(context,CommonStr.LOCAL_LANGUAGE,"")) {
             case "en"://英语
                 return Locale.ENGLISH;
             case "zh"://汉语
@@ -22,7 +22,7 @@ public class LocalManageUtil {
             case "vi":
                 Locale locale = new Locale("vi");
                 return locale;
-            default://默认 汉语
+            default:
                 return getSystemLocale();
         }
     }
@@ -55,8 +55,11 @@ public class LocalManageUtil {
             DisplayMetrics dm = resources.getDisplayMetrics();
             Configuration config = resources.getConfiguration();
             Locale locale = getSetLanguageLocale(context);//获取sp里面保存的语言
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            String language = locale.getLanguage();
+            if(!language.equals("vi")&&!language.equals("zh-CN")&&!language.equals("zh")&&!language.equals("en")){
+                locale = new Locale("en");
+            }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 LocaleList localeList = new LocaleList(locale);
                 LocaleList.setDefault(localeList);
                 config.setLocales(localeList);

@@ -1,8 +1,5 @@
 package pro.upchain.wallet.ui.fragment;
 
-import static pro.upchain.wallet.entity.ConfirmationType.WEB3TRANSACTION;
-import static pro.upchain.wallet.view.AWalletAlertDialog.ERROR;
-
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProviders;
 import android.content.Intent;
@@ -26,7 +23,6 @@ import org.greenrobot.eventbus.EventBus;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -34,7 +30,6 @@ import butterknife.OnClick;
 import pro.upchain.wallet.C;
 import pro.upchain.wallet.R;
 import pro.upchain.wallet.RxHttp.net.api.HttpApiUtils;
-import pro.upchain.wallet.RxHttp.net.api.RequestUtils;
 import pro.upchain.wallet.RxHttp.net.utils.StringMyUtil;
 import pro.upchain.wallet.base.BaseFragment;
 import pro.upchain.wallet.domain.ETHWallet;
@@ -50,11 +45,10 @@ import pro.upchain.wallet.ui.adapter.TokensAdapter;
 import pro.upchain.wallet.utils.BalanceUtils;
 import pro.upchain.wallet.utils.CommonStr;
 import pro.upchain.wallet.utils.RefreshUtils;
-import pro.upchain.wallet.utils.SharePreferencesUtil;
 import pro.upchain.wallet.utils.StatusBarUtil;
 import pro.upchain.wallet.utils.ToastUtils;
+import pro.upchain.wallet.utils.Utils;
 import pro.upchain.wallet.utils.WalletDaoUtils;
-import pro.upchain.wallet.view.AWalletAlertDialog;
 import pro.upchain.wallet.viewmodel.TokensViewModel;
 import pro.upchain.wallet.viewmodel.TokensViewModelFactory;
 
@@ -78,7 +72,7 @@ public class CoinFragment extends BaseFragment {
     private static final int CREATE_WALLET_REQUEST = 1101;
     private static final int ADD_NEW_PROPERTY_REQUEST = 1102;
     private static final int WALLET_DETAIL_REQUEST = 1104;
-    List<Token> tokenItems;
+    public List<Token> tokenItems;
 
     // 退出时间
     private long currentBackPressedTime = 0;
@@ -87,7 +81,7 @@ public class CoinFragment extends BaseFragment {
     TokensViewModelFactory tokensViewModelFactory;
     private TokensViewModel tokensViewModel;
     FetchWalletInteract fetchWalletInteract;
-    private String ETH2USDTRate = SharePreferencesUtil.getString(CommonStr.ETH2USDTRate,"");
+    private String ETH2USDTRate = Utils.getETHOrBsc2USDTRate();
 
     public static CoinFragment newInstance(int positoin) {
         CoinFragment fragment = new CoinFragment();
@@ -132,7 +126,9 @@ public class CoinFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+        ETH2USDTRate = Utils.getETHOrBsc2USDTRate();
         tokensViewModel.prepare();
+        initUSPrice();
 
     }
 
@@ -177,6 +173,7 @@ public class CoinFragment extends BaseFragment {
         RefreshUtils.initRefresh(getContext(), token_refresh, new RefreshUtils.OnRefreshLintener() {
             @Override
             public void onRefresh(RefreshLayout refreshLayout) {
+                initUSPrice();
                 tokensViewModel.prepare();
             }
         });
@@ -195,13 +192,16 @@ public class CoinFragment extends BaseFragment {
         tokensViewModel.tokens().observe(this, this::onTokens);
         tokensViewModel.error().observe(this, this::onError);
 //        tokensViewModel.prices().observe(this, this::onPrices);
+        initUSPrice();
+    }
+
+    private void initUSPrice() {
         if(StringMyUtil.isEmptyString(ETH2USDTRate)){
             HttpApiUtils.requestETHUSDTRate(new HttpApiUtils.OnRequestLintener() {
                 @Override
                 public void onSuccess(String result) {
                     RateEntity rateEntity = JSONObject.parseObject(result, RateEntity.class);
                     ETH2USDTRate = rateEntity.getPrice();
-                    SharePreferencesUtil.putString(CommonStr.ETH2USDTRate,ETH2USDTRate);
                     initPrice();
                 }
 

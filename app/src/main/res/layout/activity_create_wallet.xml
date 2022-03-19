@@ -60,26 +60,45 @@
         app:layout_constraintStart_toStartOf="@+id/textView16"
         app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
-    <EditText
-        android:id="@+id/et_wallet_name"
+    <LinearLayout
+        android:id="@+id/wallet_name_linear"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView17"
         android:layout_marginStart="16dp"
         android:layout_marginTop="26dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/create_wallet_etv_shape"
-        android:hint="@string/identity_name"
-        android:paddingLeft="12dp"
-        android:singleLine="true"
-        android:maxLength="20"
-        android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-        android:textColor="@color/black"
-        android:textColorHint="#999999"
-        android:textSize="@dimen/sp_14"
-        android:imeOptions="actionDone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView17" />
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="#999999"
+            android:text=" @"
+            android:layout_gravity="center"
+            android:layout_marginLeft="12dp"
+            />
+        <EditText
+            android:id="@+id/et_wallet_name"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:hint="@string/identity_name"
+            android:paddingLeft="5dp"
+            android:singleLine="true"
+            android:maxLength="20"
+            android:background="@null"
+            android:digits="0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            android:textColor="@color/black"
+            android:textColorHint="#999999"
+            android:textSize="@dimen/sp_14"
+            android:imeOptions="actionDone"
+            />
+    </LinearLayout>
+
 
     <EditText
         android:id="@+id/et_wallet_pwd"
@@ -96,9 +115,9 @@
         android:textColorHint="#999999"
         android:textSize="@dimen/sp_14"
         android:imeOptions="actionNext"
-        app:layout_constraintEnd_toEndOf="@+id/et_wallet_name"
-        app:layout_constraintStart_toStartOf="@+id/et_wallet_name"
-        app:layout_constraintTop_toBottomOf="@+id/et_wallet_name" />
+        app:layout_constraintEnd_toEndOf="@+id/wallet_name_linear"
+        app:layout_constraintStart_toStartOf="@+id/wallet_name_linear"
+        app:layout_constraintTop_toBottomOf="@+id/wallet_name_linear" />
 
     <EditText
         android:id="@+id/et_wallet_pwd_again"
@@ -139,9 +158,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/et_wallet_name"
-        app:layout_constraintEnd_toEndOf="@+id/et_wallet_name"
-        app:layout_constraintTop_toTopOf="@+id/et_wallet_name"
+        app:layout_constraintBottom_toBottomOf="@+id/wallet_name_linear"
+        app:layout_constraintEnd_toEndOf="@+id/wallet_name_linear"
+        app:layout_constraintTop_toTopOf="@+id/wallet_name_linear"
         app:srcCompat="@drawable/edit_delete" />
 
     <ImageView
@@ -150,7 +169,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:visibility="gone"
-        app:layout_constraintStart_toStartOf="@+id/et_wallet_name"
+        app:layout_constraintStart_toStartOf="@+id/wallet_name_linear"
         app:layout_constraintTop_toBottomOf="@+id/et_wallet_pwd"
         app:srcCompat="@drawable/available" />
 

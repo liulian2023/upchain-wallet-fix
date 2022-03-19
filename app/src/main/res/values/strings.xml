@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name" translatable="false">COINCIDA</string>
+    <string name="app_name" translatable="false">Coincida</string>
 
     <string name="exit_tips">再按一次退出程序</string>
 
@@ -41,6 +41,7 @@
     <string name="Search_coin">搜索代币</string>
     <string name="Suggested">推荐</string>
     <string name="all_coins">所有代币</string>
+    <string name="selector_token">选择代币</string>
     <string name="search_result">搜索结果</string>
     <string name="mnemonic_backed_up">助记词已经备份</string>
     <string name="mine_trade_record">交易记录</string>
@@ -58,6 +59,9 @@
     <string name="go_set">去设置</string>
     <string name="change_success">切换成功</string>
     <string name="edit_website">请输入网址</string>
+    <string name="choose_browser">请选择浏览器</string>
+    <string name="no_browser">链接错误或无浏览器</string>
+    <string name="choose_share_app">选择分享应用</string>
 
     <string name="gathering_qrcode_title">收款码</string>
     <string name="gathering_qrcode_share">分享</string>
@@ -144,7 +148,7 @@
     <string name="sign_message">确认</string>
     <string name="mnemonic_backup_title">备份确认</string>
     <string name="next">下一步</string>
-    <string name="account_settings">账户设置</string>
+    <string name="account_settings">设置</string>
     <string name="backup_Mnemonic">备份助记词</string>
     <string name="system_version">系统版本</string>
     <string name="transaction_password">交易密码</string>
@@ -225,6 +229,7 @@
     <string name="identity_name">身份名</string>
     <string name="wallet_name">钱包密码</string>
     <string name="wallet">钱包</string>
+    <string name="setting_wallet">钱包</string>
     <string name="wallet_password">钱包密码</string>
     <string name="sure_password">重复输入密码</string>
     <string name="create_now">立即创建</string>
@@ -246,6 +251,7 @@
     <string name="share_address">分享地址</string>
     <string name="qr_code_tip">交易可能需要几分钟才能完成</string>
     <string name="Currency">币种</string>
+    <string name="update_tip">更新提示</string>
     <string name="Collection">藏品</string>
     <string name="No_coins_found">No coins found</string>
     <string name="Go_to_backup">前往备份</string>

@@ -103,8 +103,8 @@ public class TokenRepository implements TokenRepositoryType {
                                 } else {
                                     BigDecimal decimalDivisor = new BigDecimal(Math.pow(10, items[i].decimals));
                                     BigDecimal ethBalance = balance.divide(decimalDivisor);
-                                    if (items[i].decimals > 4) {
-                                        result[i] = new Token(items[i], ethBalance.setScale(4, RoundingMode.CEILING).toPlainString());
+                                    if (items[i].decimals > 5) {
+                                        result[i] = new Token(items[i], ethBalance.setScale(5, RoundingMode.CEILING).toPlainString());
                                     } else {
                                         result[i] = new Token(items[i], ethBalance.setScale(items[i].decimals, RoundingMode.CEILING).toPlainString());
                                     }

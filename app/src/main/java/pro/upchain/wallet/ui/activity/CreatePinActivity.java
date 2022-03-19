@@ -21,9 +21,10 @@ public class CreatePinActivity extends BaseActivity {
     @BindView(R.id.create_pin_back_iv)
     ImageView create_pin_back_iv;
 
-    public static void startAty (Context context, String mnemonic){
+    public static void startAty (Context context, String mnemonic,String walletName){
         Intent intent = new Intent(context, CreatePinActivity.class);
         intent.putExtra("mnemonic",mnemonic);
+        intent.putExtra("walletName",walletName);
         context.startActivity(intent);
     }
 
@@ -75,7 +76,7 @@ public class CreatePinActivity extends BaseActivity {
                 if(getIntent().getBooleanExtra("isCreate",false)){
                     ConfirmPinActivity.startAty(CreatePinActivity.this,getIntent().getStringExtra("walletName"),true);
                 }else {
-                    ConfirmPinActivity.startAty(CreatePinActivity.this,getIntent().getStringExtra("mnemonic"));
+                    ConfirmPinActivity.startAty(CreatePinActivity.this,getIntent().getStringExtra("mnemonic"),getIntent().getStringExtra("walletName"));
                 }
                 break;
             default:

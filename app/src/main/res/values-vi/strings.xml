@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">COINCIDA</string>
+    <string name="app_name">Coincida</string>
 
     <string name="exit_tips">nhấn lại lần nữa để thoá</string>
 
@@ -43,6 +43,7 @@
     <string name="Search_coin"> tìm kiếm mã biên lai </string>
     <string name="Suggested"> đề xuất </string>
     <string name="all_coins"> tất cả các mã biên lai </string>
+    <string name="selector_token">Chọn một mã thông báo</string>
     <string name="search_result"> kết quả tìm kiếm </string>
     <string name="mnemonic_backed_up">Cụm từ ghi nhớ đã được sao lưu</string>
     <string name="mine_trade_record"> Ghi lại giao dịch </string>
@@ -60,7 +61,9 @@
     <string name="go_set"> đi đến cài đặt </string>
     <string name="change_success"> thay đổi thành công </string>
     <string name="edit_website"> vui lòng nhập URL </string>
-
+    <string name="choose_browser">Vui lòng chọn một trình duyệt</string>
+    <string name="no_browser">Liên kết không hợp lệ hoặc không có trình duyệt</string>
+    <string name="choose_share_app">Chọn ứng dụng chia sẻ</string>
     <string name="gathering_qrcode_title"> mã nhận tiền </string>
     <string name="gathering_qrcode_share"> chia sẻ </string>
     <string name="gathering_qrcode_gathering_money"> số lượng tiền thu được </string>
@@ -145,7 +148,7 @@
     <string name="sign_message"> xác nhận </string>
     <string name="mnemonic_backup_title"> sao lưu xác nhận </string>
     <string name="next"> bước tiếp theo </string>
-    <string name="account_settings"> cài đặt tài khoản </string>
+    <string name="account_settings">thiết lập </string>
     <string name="backup_Mnemonic"> sao lưu cụm từ ghi nhớ </string>
     <string name="system_version"> phiên bản hệ thống </string>
     <string name="transaction_password"> mật khẩu giao dịch </string>
@@ -224,6 +227,8 @@
     <string name="identity_name"> Tên nhận dạng </string>
     <string name="wallet_name"> Mật khẩu ví </string>
     <string name="wallet"> Ví tiền </string>
+    <string name="setting_wallet"> Ví tiền </string>
+    <string name="update_tip">cập nhật nhắc nhở</string>
     <string name="wallet_password"> Mật khẩu ví</string>
     <string name="sure_password"> Nhập lại mật khẩu </string>
     <string name="create_now">Tạo mới ngay bây giờ</string>

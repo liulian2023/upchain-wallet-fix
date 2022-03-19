@@ -81,7 +81,8 @@ public class RecoverWalletActivity extends BaseActivity {
                 if (verifyWalletInfo) {
 //                    showDialog(getString(R.string.loading_wallet_tip));
 //                    createWalletInteract.loadWalletByMnemonic(ethType, mnemonic, walletPwd).subscribe(this::loadSuccess, this::onError);
-                    CreatePinActivity.startAty(RecoverWalletActivity.this,mnemonic);
+//                    CreatePinActivity.startAty(RecoverWalletActivity.this,mnemonic);
+                    CreateWalletActivity.startAty(RecoverWalletActivity.this,mnemonic);
                     break;
                 }
             case R.id.recover_wallet_back_iv:

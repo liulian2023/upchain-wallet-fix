@@ -15,6 +15,7 @@
     <string name="Search_coin">Search coin</string>
     <string name="Suggested">Suggested</string>
     <string name="all_coins">All Coins</string>
+    <string name="selector_token">Choose a Token</string>
     <string name="create_success">Create wallet successfully</string>
     <string name="search_result">Search Result</string>
     <string name="create_wallet_name_hint">Wallet name</string>
@@ -129,9 +130,12 @@
     <string name="will_recover_wallet">You will recover your identity wallet</string>
     <string name="sign_message">Sign</string>
     <string name="edit_website">Please enter URL</string>
+    <string name="choose_browser">Please select a browser</string>
+    <string name="no_browser">Bad link or no browser</string>
+    <string name="choose_share_app">Choose share app</string>
     <string name="mnemonic_backup_title">Backup Confirmation</string>
     <string name="next">Next</string>
-    <string name="account_settings">Account Settings</string>
+    <string name="account_settings">Settings</string>
     <string name="backup_Mnemonic">Backup Mnemonic</string>
     <string name="system_version">Version</string>
     <string name="transaction_password">Transaction password</string>
@@ -211,6 +215,7 @@
     <string name="identity_name">Identity Name</string>
     <string name="wallet_name">Wallet password</string>
     <string name="wallet">Wallet</string>
+    <string name="setting_wallet">WALLET</string>
     <string name="wallet_password">Wallet password</string>
     <string name="sure_password">repeat password</string>
     <string name="create_now">Create now</string>
@@ -229,7 +234,8 @@
     <string name="no_share_mnemonic_with_net">Do not share and store mnemonic phrases in a networked environment</string>
     <string name="confirmed_backup">Confirmed Backup</string>
     <string name="home_default_amount">US$0.00</string>
-    <string name="Currency">Currency</string>
+    <string name="Currency">Coins</string>
+    <string name="update_tip">Update Tip</string>
     <string name="Collection">Collection</string>
     <string name="No_coins_found">No coins found</string>
     <string name="Go_to_backup">Go to backup</string>

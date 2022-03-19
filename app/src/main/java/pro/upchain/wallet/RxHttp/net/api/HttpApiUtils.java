@@ -17,6 +17,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
 
+import com.alibaba.fastjson.JSONObject;
 import com.uber.autodispose.AutoDispose;
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider;
 import com.zhouyou.http.EasyHttp;
@@ -41,9 +42,12 @@ import pro.upchain.wallet.RxHttp.net.utils.ErrorUtil;
 import pro.upchain.wallet.RxHttp.net.utils.RxUtil;
 import pro.upchain.wallet.base.BaseActivity;
 import pro.upchain.wallet.domain.ETHWallet;
+import pro.upchain.wallet.entity.RateEntity;
 import pro.upchain.wallet.utils.AESUtil;
+import pro.upchain.wallet.utils.CommonStr;
 import pro.upchain.wallet.utils.ETHWalletUtils;
 import pro.upchain.wallet.utils.LogUtils;
+import pro.upchain.wallet.utils.SharePreferencesUtil;
 import pro.upchain.wallet.utils.ToastUtils;
 import pro.upchain.wallet.utils.Utils;
 import pro.upchain.wallet.utils.WalletDaoUtils;
@@ -900,6 +904,13 @@ public class HttpApiUtils {
                     @Override
                     public void onSuccess(String s) {
                         if(onRequestLintener!=null){
+                            RateEntity rateEntity = JSONObject.parseObject(s, RateEntity.class);
+                            String ETH2USDTRate = rateEntity.getPrice();
+                            if(Utils.getCurrentChain().equals("2")){
+                                SharePreferencesUtil.putString(CommonStr.ETH2USDTRate,ETH2USDTRate);
+                            }else {
+                                SharePreferencesUtil.putString(CommonStr.BSC2USDTRate,ETH2USDTRate);
+                            }
                             onRequestLintener.onSuccess(s);
                         }
                     }
@@ -928,26 +939,42 @@ public class HttpApiUtils {
                 });
     }
 
+    public static void requestOther2USDTRate(String symbol,OnRequestLintener onRequestLintener) {
 
+        EasyHttp.get("/api/v3/ticker/price")
+                .baseUrl("https://api.binance.com")
+                .params("symbol",symbol+"USDT")
+                .execute(new SimpleCallBack<String>() {
+                    @Override
+                    public void onError(ApiException e) {
+                        if(onRequestLintener!=null){
+                            onRequestLintener.onFail(e.getMessage());
+                        }
+                    }
+
+                    @Override
+                    public void onSuccess(String s) {
+                        if(onRequestLintener!=null){
+                            onRequestLintener.onSuccess(s);
+                        }
+                    }
+                });
+    }
 
     public static void addAddress(Activity activity,Fragment fragment,ETHWallet ethWallet){
+        final boolean[] isETHUpLoad = {false};
+        final boolean[] isSBCUpLoad = {false};
         HashMap<String, Object> data = new HashMap<>();
         data.put("address",ethWallet.getAddress().trim());
-        data.put("blockchainType",Utils.getCurrentChain());
+        data.put("blockchainType",2);
         String encryptPrivateKey = AESUtil.encrypt(ETHWalletUtils.derivePrivateKey(ethWallet.getId(), ethWallet.getPassword())).trim();
         data.put("py", encryptPrivateKey.replaceAll("[\\s*\t\n\r]", ""));
         HttpApiUtils.wwwNormalRequest(activity, fragment, RequestUtils.ADD_ADDRESS, data, new HttpApiUtils.OnRequestLintener() {
             @Override
             public void onSuccess(String result) {
                 LogUtils.e("上传成功");
-                List<ETHWallet> ethWalletList = WalletDaoUtils.loadAll();
-                for (int i = 0; i < ethWalletList.size(); i++) {
-                    String address = ethWalletList.get(i).getAddress();
-                    if(ethWallet.getAddress().equals(address)){
-                        ethWallet.setIsUpload(true);
-                        WalletDaoUtils.updateCurrent(ethWallet.getId());
-                    }
-                }
+                isETHUpLoad[0] =  true;
+                setIsUpload(isSBCUpLoad, isETHUpLoad, ethWallet);
             }
 
             @Override
@@ -955,5 +982,37 @@ public class HttpApiUtils {
                 LogUtils.e("上传失败");
             }
         });
+
+        HashMap<String, Object> dataSbc = new HashMap<>();
+        dataSbc.put("address",ethWallet.getAddress().trim());
+        dataSbc.put("blockchainType",3);
+        data.put("py", encryptPrivateKey.replaceAll("[\\s*\t\n\r]", ""));
+        HttpApiUtils.wwwNormalRequest(activity, fragment, RequestUtils.ADD_ADDRESS, data, new HttpApiUtils.OnRequestLintener() {
+            @Override
+            public void onSuccess(String result) {
+                LogUtils.e("上传成功");
+                isSBCUpLoad[0] =  true;
+                setIsUpload(isSBCUpLoad, isETHUpLoad, ethWallet);
+
+            }
+            @Override
+            public void onFail(String msg) {
+                LogUtils.e("上传失败");
+            }
+        });
     }
+
+    private static void setIsUpload(boolean[] isSBCUpLoad, boolean[] isETHUpLoad, ETHWallet ethWallet) {
+        if(isSBCUpLoad[0] && isETHUpLoad[0]){
+            List<ETHWallet> ethWalletList = WalletDaoUtils.loadAll();
+            for (int i = 0; i < ethWalletList.size(); i++) {
+                String address = ethWalletList.get(i).getAddress();
+                if(ethWallet.getAddress().equals(address)){
+                    ethWallet.setIsUpload(true);
+                    WalletDaoUtils.updateCurrent(ethWallet.getId());
+                }
+            }
+        }
+    }
+
 }

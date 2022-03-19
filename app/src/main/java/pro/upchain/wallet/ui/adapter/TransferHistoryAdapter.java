@@ -50,10 +50,12 @@ public class TransferHistoryAdapter extends BaseMultiItemQuickAdapter<TransferHi
                 String fromAddress = listBean.getFromAddress();
                 String toAddress = listBean.getToAddress();
                 BigDecimal rateAmount = new BigDecimal(money).multiply(new BigDecimal(usdtRate)).setScale(2, BigDecimal.ROUND_HALF_UP);
+                String rateAmountFirstStr = "";
                 if(StringMyUtil.isEmptyString(fromAddress)){
                     //代办
                     address_tv.setText(toAddress);
                     us_amount_tv.setTextColor(ContextCompat.getColor(getContext(),R.color.in_amount_color));
+                    rateAmountFirstStr = "-US$";
                     transfer_amount_tv.setText("-"+money+symbol);
                 }else {
 //                    if( toAddress.equalsIgnoreCase(WalletDaoUtils.getCurrent().getAddress())){
@@ -61,22 +63,25 @@ public class TransferHistoryAdapter extends BaseMultiItemQuickAdapter<TransferHi
                         //自己转自己
                         address_tv.setText(getContext().getResources().getString(R.string.send_to_self));
                         us_amount_tv.setTextColor(ContextCompat.getColor(getContext(),R.color.in_amount_color));
+                        rateAmountFirstStr = "US$";
                         transfer_amount_tv.setText(money+symbol);
                     }else if( toAddress.equalsIgnoreCase(WalletDaoUtils.getCurrent().getAddress())){
                         //转入
                         address_tv.setText(fromAddress);
                         us_amount_tv.setTextColor(ContextCompat.getColor(getContext(),R.color.in_amount_color));
+                        rateAmountFirstStr = "+US$";
                         transfer_amount_tv.setText("+"+money+symbol);
                     }else {
                         //转出
                         address_tv.setText(toAddress);
                         us_amount_tv.setTextColor(Color.BLACK);
+                        rateAmountFirstStr = "-US$";
                         transfer_amount_tv.setText("-"+money+symbol);
                     }
 
                 }
-                us_amount_tv.setText("$"+rateAmount);
 
+                us_amount_tv.setText(rateAmountFirstStr+rateAmount);
                 break;
             default:
                 break;

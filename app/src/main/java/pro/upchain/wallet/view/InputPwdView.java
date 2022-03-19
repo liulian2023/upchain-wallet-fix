@@ -233,7 +233,7 @@ public class InputPwdView extends FrameLayout {
                                     public void run() {
                                         onConfirmSender.sendTransaction(firstPsw);
                                     }
-                                },300);
+                                },50);
 
                             }
                         }

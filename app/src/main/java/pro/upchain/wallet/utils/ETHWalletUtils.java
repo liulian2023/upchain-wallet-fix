@@ -72,7 +72,7 @@ public class ETHWalletUtils {
      * @param pwd  密码
      * @return
      */
-    public static ETHWallet importMnemonic(String path, List<String> list, String pwd) {
+    public static ETHWallet importMnemonic(String path, List<String> list, String pwd,String name) {
         if (!path.startsWith("m") && !path.startsWith("M")) {
             //参数非法
             return null;
@@ -85,7 +85,7 @@ public class ETHWalletUtils {
         String passphrase = "";
         long creationTimeSeconds = System.currentTimeMillis() / 1000;
         DeterministicSeed ds = new DeterministicSeed(list, null, passphrase, creationTimeSeconds);
-        return generateWalletByMnemonic(generateNewWalletName(), ds, pathArray, pwd);
+        return generateWalletByMnemonic(name, ds, pathArray, pwd);
     }
 
     @NonNull

@@ -149,7 +149,7 @@ public class ImportMnemonicFragment extends BaseFragment {
                 boolean verifyWalletInfo = verifyInfo(mnemonic, walletPwd, confirmPwd, pwdReminder);
                 if (verifyWalletInfo) {
                     showDialog(getString(R.string.loading_wallet_tip));
-                    createWalletInteract.loadWalletByMnemonic(ethType, mnemonic, walletPwd).subscribe(this::loadSuccess, this::onError);
+                    createWalletInteract.loadWalletByMnemonic(ethType, mnemonic, "testWalletName",walletPwd).subscribe(this::loadSuccess, this::onError);
                 }
                 break;
             case R.id.lly_standard_menu:

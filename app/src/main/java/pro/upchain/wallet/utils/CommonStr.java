@@ -39,6 +39,11 @@ public class CommonStr {
     public static String ETH2USDTRate ="ETH2USDTRate";
 
     /**
+     * Bsc2USDTRate
+     */
+    public static String BSC2USDTRate ="BSC2USDTRate";
+
+    /**
      * chaintype
      */
 

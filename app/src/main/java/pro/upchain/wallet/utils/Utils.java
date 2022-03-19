@@ -6,10 +6,12 @@ import static android.content.Context.INPUT_METHOD_SERVICE;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Handler;
 import android.os.LocaleList;
@@ -74,7 +76,6 @@ public class Utils {
             return false;
         }
     }
-
     public static String formatUrl(String url) {
         if (URLUtil.isHttpsUrl(url) || URLUtil.isHttpUrl(url)) {
             return url;
@@ -134,10 +135,20 @@ public class Utils {
         //     share_intent.putExtra(Intent.EXTRA_SUBJECT, title);//添加分享内容标题
         share_intent.putExtra(Intent.EXTRA_TEXT, url);//添加分享链接内容
         //创建分享的Dialog
-        share_intent = Intent.createChooser(share_intent, "选择分享应用");
+        share_intent = Intent.createChooser(share_intent, context.getString(R.string.choose_share_app));
         context.startActivity(share_intent);
     }
+    public static void openBrowser(Context context, String url) {
+        final Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(url.trim()));
+        if (intent.resolveActivity(context.getPackageManager()) != null) {
+            context.startActivity(Intent.createChooser(intent, context.getString(R.string.choose_browser)));
+        }else {
+            ToastUtils.showToast(context.getString(R.string.no_browser));
+        }
 
+    }
     /**
      * 随机生成由数字、字母组成的N位验证码
      *
@@ -178,6 +189,13 @@ public class Utils {
     }
     public static String getCurrentChain(){
         return SharePreferencesUtil.getString(CommonStr.CHAIN_TYPE,"2");
+    }
+    public static String getETHOrBsc2USDTRate(){
+        if(getCurrentChain().equals("2")){
+            return SharePreferencesUtil.getString(CommonStr.ETH2USDTRate,"");
+        }else {
+            return SharePreferencesUtil.getString(CommonStr.BSC2USDTRate,"");
+        }
     }
     public static String getCurrentSymbol(){
         String chainType = SharePreferencesUtil.getString(CommonStr.CHAIN_TYPE, "2");

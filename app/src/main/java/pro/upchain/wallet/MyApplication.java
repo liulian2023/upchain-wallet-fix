@@ -1,13 +1,17 @@
 package pro.upchain.wallet;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Bundle;
 import android.util.ArrayMap;
 
 import androidx.multidex.MultiDexApplication;
 
+import me.jessyan.autosize.AutoSizeConfig;
+import me.jessyan.autosize.onAdaptListener;
+import me.jessyan.autosize.utils.AutoSizeLog;
+import me.jessyan.autosize.utils.ScreenUtils;
 import pro.upchain.wallet.RxHttp.net.common.ApiConfig;
 import pro.upchain.wallet.domain.DaoMaster;
 import pro.upchain.wallet.domain.DaoSession;
@@ -20,13 +24,11 @@ import pro.upchain.wallet.utils.LogInterceptor;
 import com.google.gson.Gson;
 import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
+import com.umeng.commonsdk.UMConfigure;
 import com.zhouyou.http.EasyHttp;
 import com.zhouyou.http.model.HttpHeaders;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
-
+import java.util.Locale;
 import java.util.TimeZone;
 
 import io.realm.Realm;
@@ -65,6 +67,7 @@ public class MyApplication extends MultiDexApplication {
         super.onCreate();
         sInstance = this;
         init();
+        initUm();
         initGlobalTimeZone();
 //        EventBus.getDefault().register(this);
         Realm.init(this);
@@ -77,6 +80,39 @@ public class MyApplication extends MultiDexApplication {
        initRxhttp();
         // 以下用来捕获程序崩溃异常  程序崩溃时触发线程
         Thread.setDefaultUncaughtExceptionHandler(new OwnUncaughtExceptionHandler());
+        fitScreen();
+    }
+
+    private void initUm() {
+        //设置LOG开关，默认为false
+        if(BuildConfig.DEBUG){
+            UMConfigure.setLogEnabled(true);
+        }
+
+        UMConfigure.init(this,"622877a3317aa877608ca83d","allChannel",UMConfigure.DEVICE_TYPE_PHONE, "");
+    }
+
+    private void fitScreen() {
+        AutoSizeConfig.getInstance()
+                .setCustomFragment(true)
+                .setExcludeFontScale(true)
+                //屏幕适配监听器
+                .setOnAdaptListener(new onAdaptListener() {
+                    @Override
+                    public void onAdaptBefore(Object target, Activity activity) {
+                        AutoSizeConfig.getInstance().setScreenWidth(ScreenUtils.getScreenSize(activity)[0]);
+                        AutoSizeConfig.getInstance().setScreenHeight(ScreenUtils.getScreenSize(activity)[1]);
+                        AutoSizeLog.d(String.format(Locale.ENGLISH, "%s onAdaptBefore!", target.getClass().getName()));
+                    }
+
+                    @Override
+                    public void onAdaptAfter(Object target, Activity activity) {
+                        AutoSizeLog.d(String.format(Locale.ENGLISH, "%s onAdaptAfter!", target.getClass().getName()));
+                    }
+                })
+                .setLog(false)
+        ;
+
     }
     /**
      * 设置app内全局时区

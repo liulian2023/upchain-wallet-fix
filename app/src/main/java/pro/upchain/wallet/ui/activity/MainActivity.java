@@ -1,8 +1,13 @@
 package pro.upchain.wallet.ui.activity;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatDialog;
 import androidx.fragment.app.Fragment;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
@@ -15,10 +20,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSONObject;
-import com.azhon.appupdate.config.UpdateConfiguration;
-import com.azhon.appupdate.manager.DownloadManager;
-
-import pro.upchain.wallet.BuildConfig;
 import pro.upchain.wallet.R;
 import pro.upchain.wallet.RxHttp.net.api.HttpApiUtils;
 import pro.upchain.wallet.RxHttp.net.api.RequestUtils;
@@ -30,6 +31,7 @@ import pro.upchain.wallet.ui.fragment.DappBrowserFragment;
 import pro.upchain.wallet.ui.fragment.MineFragment;
 import pro.upchain.wallet.ui.fragment.PropertyFragment;
 import pro.upchain.wallet.utils.ToastUtils;
+import pro.upchain.wallet.utils.Utils;
 import pro.upchain.wallet.view.NoScrollViewPager;
 
 import java.lang.reflect.Method;
@@ -78,7 +80,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     DappBrowserFragment dappBrowserFragment;
 
     public   boolean isDappShow  = false;
-    private DownloadManager manager;
     @Override
     public int getLayoutId() {
         return R.layout.activity_main;
@@ -113,14 +114,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 }
                 String versionName = appUpdateEntity.getVersionName();
                 int versionCode = appUpdateEntity.getVersionCode();
-                if(versionCode>BuildConfig.VERSION_CODE){
+//                if(versionCode>BuildConfig.VERSION_CODE){
                     String mustUpdate = appUpdateEntity.getMustUpdate();
                     if(mustUpdate.equals("1")){
-                        startUpdate(false,url,versionName, versionCode,appUpdateEntity.getVersionContent());
-                    }else {
                         startUpdate(true,url,versionName, versionCode,appUpdateEntity.getVersionContent());
+                    }else {
+                        startUpdate(false,url,versionName, versionCode,appUpdateEntity.getVersionContent());
                     }
-                }
+//                }
             }
 
             @Override
@@ -315,11 +316,29 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void startUpdate(boolean isForcedUpgrade,String url,String versionName,int versionCode,String content) {
-        /*
-         * 整个库允许配置的内容
-         * 非必选
-         */
-        UpdateConfiguration configuration = new UpdateConfiguration()
+        AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog.setTitle(getString(R.string.update_tip));
+        alertDialog.setMessage(content);
+        if(isForcedUpgrade){
+            alertDialog.setCancelable(false);
+        }else {
+            alertDialog.setCancelable(true);
+            alertDialog.setButton(DialogInterface.BUTTON_NEGATIVE, getString(R.string.cancel_btn), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    alertDialog.dismiss();
+                }
+            });
+        }
+
+        alertDialog.setButton(DialogInterface.BUTTON_POSITIVE, getString(R.string.sure_btn), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Utils.openBrowser(MainActivity.this,url);
+            }
+        });
+        alertDialog.show();
+     /*   UpdateConfiguration configuration = new UpdateConfiguration()
                 //输出错误日志
                 .setEnableLog(true)
                 //设置自定义的下载
@@ -356,6 +375,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 //                .setApkSize("20.4")
                 .setApkDescription(content)
 //                .setApkMD5("DC501F04BBAA458C9DC33008EFED5E7F")
-                .download();
+                .download();*/
     }
 }

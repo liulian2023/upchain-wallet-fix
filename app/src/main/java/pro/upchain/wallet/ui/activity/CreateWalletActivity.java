@@ -6,6 +6,7 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import static pro.upchain.wallet.utils.StatusBarUtils2.getStatusBarHeight;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -85,6 +86,7 @@ public class CreateWalletActivity extends BaseActivity {
     TextView available_tv;
     @BindView(R.id.et_wallet_name)
     EditText etWalletName;
+
 /*    @BindView(R.id.et_wallet_pwd)
     EditText etWalletPwd;
     @BindView(R.id.et_wallet_pwd_again)
@@ -112,9 +114,19 @@ public class CreateWalletActivity extends BaseActivity {
 //        tvTitle.setText(R.string.property_drawer_create_wallet);
         StatusBarUtils2.setFullImage(this,btn_create_wallet);
     }
-
+    public static void startAty(Context context,String mnemonic){
+        Intent intent = new Intent(context, CreateWalletActivity.class);
+        intent.putExtra("mnemonic",mnemonic);
+        context.startActivity(intent);
+    }
     @Override
     public void initDatas() {
+        String mnemonic = getIntent().getStringExtra("mnemonic");
+        if(StringMyUtil.isEmptyString(mnemonic)){
+            btn_create_wallet.setText(getString(R.string.create_wallet));
+        }else {
+            btn_create_wallet.setText(getString(R.string.recover_wallet));
+        }
         myHandler = new MyHandler();
         createWalletInteract = new CreateWalletInteract();
         etWalletName.addTextChangedListener(new TextWatcher() {
@@ -160,12 +172,15 @@ public class CreateWalletActivity extends BaseActivity {
                     boolean nameChecking = WalletDaoUtils.walletNameChecking(name);
                     if(nameChecking){
                         initNameIsAvailable(R.drawable.unavailable, R.string.name_un_available, "#DF5F67");
+                        nameIsAvailable = false;
                     }else {
-                        if(name.trim().length()<5 || name.trim().length()>20){
+                        if(name.trim().length()<3 || name.trim().length()>20){
                             initNameIsAvailable(R.drawable.unavailable, R.string.name_un_available, "#DF5F67");
+                            nameIsAvailable = false;
                         }else {
-                            if(!Utils.isContainsLetter(name)){
+                            if(!Utils.isContainsLetter(name)||!Utils.isContainsLetter(name.substring(0,1))){
                                 initNameIsAvailable(R.drawable.unavailable, R.string.name_un_available, "#DF5F67");
+                                nameIsAvailable = false;
                             }else {
                                 nameIsAvailable = true;
                                 initNameIsAvailable(R.drawable.available, R.string.name_available, "#05B169");
@@ -176,11 +191,9 @@ public class CreateWalletActivity extends BaseActivity {
                     available_iv.setVisibility(View.GONE);
                     available_tv.setVisibility(View.GONE);
                 }
-
             }
         }
     }
-
     private void initNameIsAvailable(int p, int p2, String s) {
         available_iv.setImageResource(p);
         available_tv.setText(getString(p2));
@@ -276,8 +289,12 @@ public class CreateWalletActivity extends BaseActivity {
 /*                    showDialog(getString(R.string.creating_wallet_tip));
                     createWalletInteract.create(walletName, walletPwd, confirmPwd, "")
                             .subscribe(CreateWalletActivity.this::jumpToWalletBackUp, CreateWalletActivity.this::showError);*/
-
-                    CreatePinActivity.startAty(CreateWalletActivity.this,etWalletName.getText().toString().trim(),true);
+                    String mnemonic = getIntent().getStringExtra("mnemonic");
+                    if(StringMyUtil.isNotEmpty(mnemonic)){
+                        CreatePinActivity.startAty(CreateWalletActivity.this,mnemonic,etWalletName.getText().toString().trim());
+                    }else {
+                        CreatePinActivity.startAty(CreateWalletActivity.this,etWalletName.getText().toString().trim(),true);
+                    }
                 }
                 break;
 /*            case R.id.lly_wallet_agreement:
@@ -323,7 +340,7 @@ public class CreateWalletActivity extends BaseActivity {
 
         boolean firstAccount = getIntent().getBooleanExtra("first_account", false);
 
-       HttpApiUtils.addAddress(this,null,wallet);
+//        HttpApiUtils.addAddress(this,null,wallet);
 
         setResult(CREATE_WALLET_RESULT, new Intent());
         Intent intent = new Intent(this, WalletBackupActivity.class);

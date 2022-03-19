@@ -136,7 +136,7 @@ public class AllCoinActivity extends BaseActivity {
                         if(contractEntity.getItemType() == 1){
                             String tokenSymbol = contractEntity.getTokenSymbol();
                             String tokenName = contractEntity.getTokenName();
-                            if(tokenName.contains(editStr)|| tokenSymbol.contains(editStr)){
+                            if(tokenName.toUpperCase().contains(editStr.toUpperCase())|| tokenSymbol.toUpperCase().contains(editStr.toUpperCase())){
                                 searchList.add(contractEntity);
                             }
                         }

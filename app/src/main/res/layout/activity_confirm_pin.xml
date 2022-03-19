@@ -8,22 +8,17 @@
     android:background="@color/white"
     tools:context=".ui.activity.ConfirmPinActivity">
 
-    <LinearLayout
-        android:id="@+id/confirm_back_linear"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="40dp"
-        android:gravity="center"
-        android:paddingLeft="6dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+
+
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/confirm_pin_back"
+            android:id="@+id/confirm_back_iv"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:padding="15dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             android:layout_gravity="center"
-            />
-    </LinearLayout>
+            android:src="@drawable/ic_back" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -32,7 +27,7 @@
         app:layout_constraintBottom_toTopOf="@+id/recyclerView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/confirm_back_linear">
+        app:layout_constraintTop_toBottomOf="@+id/confirm_back_iv">
 
         <LinearLayout
             android:id="@+id/pin_code_linear"

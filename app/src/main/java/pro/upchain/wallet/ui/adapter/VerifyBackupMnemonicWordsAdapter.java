@@ -42,7 +42,7 @@ public class VerifyBackupMnemonicWordsAdapter extends BaseQuickAdapter<VerifyMne
             return false;
         }
         verifyMnemonicWordTag.setSelected(true);
-        Collections.shuffle(getData());
+//        Collections.shuffle(getData());
         notifyDataSetChanged();
         return true;
     }
@@ -54,7 +54,7 @@ public class VerifyBackupMnemonicWordsAdapter extends BaseQuickAdapter<VerifyMne
             return false;
         }
         verifyMnemonicWordTag.setSelected(false);
-        Collections.shuffle(getData());
+//        Collections.shuffle(getData());
         notifyDataSetChanged();
         return true;
     }

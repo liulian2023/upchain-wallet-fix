@@ -144,7 +144,7 @@ public class SendActivity extends BaseActivity implements TextWatcher {
 
     private String scanResult;
     static int EDIT_OK = 111;
-    String ETH2USDTRate = SharePreferencesUtil.getString(CommonStr.ETH2USDTRate,"");
+    String ETH2USDTRate = Utils.getETHOrBsc2USDTRate();
     String ETH2OtherRate;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -227,8 +227,13 @@ public class SendActivity extends BaseActivity implements TextWatcher {
                         try {
                             BigDecimal balance = getETHBalance(web3j,walletAddr);
                             String textBalance = Web3jUtils.getBalanceString(decimals,balance,sendingTokens,contractAddress,web3j);
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    wallet_amount_tv.setText(textBalance+symbol);
+                                }
+                            });
 
-                            wallet_amount_tv.setText(textBalance+symbol);
                         } catch (IOException e) {
                             e.printStackTrace();
                         }

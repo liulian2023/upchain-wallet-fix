@@ -69,7 +69,7 @@ public class EthereumNetworkRepository  {
                     "http://192.168.8.100:8000/",
                     "",1337, false),*/
             new NetworkInfo(BSC_MAIN_NETWORK_NAME, BSC_SYMBOL,
-                    "https://bsc-dataseed1.binance.org:443/6RV6DD7UYS1WWECZYV4ZZ8G7W7KQ5F4QJT",
+                    "https://bsc-dataseed1.binance.org:443/",
                     "http://192.168.8.100:8000/",
                     "api.bscscan.com",56, false),
             new NetworkInfo(BSC_TEST_NETWORK_NAME, BSC_TEST_SYMBOL,

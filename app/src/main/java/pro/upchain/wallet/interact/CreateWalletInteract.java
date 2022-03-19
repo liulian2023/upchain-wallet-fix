@@ -51,10 +51,10 @@ public class CreateWalletInteract {
 
     }
 
-    public Single<ETHWallet> loadWalletByMnemonic(final String bipPath, final String mnemonic, final String pwd) {
+    public Single<ETHWallet> loadWalletByMnemonic(final String bipPath, final String mnemonic,String walletName, final String pwd) {
         return Single.fromCallable(() -> {
             ETHWallet ethWallet = ETHWalletUtils.importMnemonic(bipPath
-                    , Arrays.asList(mnemonic.split(" ")), pwd);
+                    , Arrays.asList(mnemonic.split(" ")), pwd,walletName);
             if (ethWallet != null) {
                 WalletDaoUtils.insertNewWallet(ethWallet);
             }

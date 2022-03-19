@@ -6,13 +6,16 @@ import android.os.Parcelable;
 import java.math.BigDecimal;
 
 public class Token implements Parcelable {
-    public final TokenInfo tokenInfo;
-    public final String balance;
+    public  TokenInfo tokenInfo;
+    public  String balance;
     public String value;
 
     public Token(TokenInfo tokenInfo, String balance) {
         this.tokenInfo = tokenInfo;
         this.balance = balance;
+    }
+
+    public Token() {
     }
 
     private Token(Parcel in) {

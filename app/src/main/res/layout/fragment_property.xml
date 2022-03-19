@@ -175,7 +175,7 @@
                 app:tabIndicatorColor="@color/home_main_color"
                 app:tabTextColor="@color/black"
                 app:tabIndicatorHeight="4dp"
-
+                app:tabTextAppearance="@style/TabLayoutTextStyle"
 
                 />
             <ImageView

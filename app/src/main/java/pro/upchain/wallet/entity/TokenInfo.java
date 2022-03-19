@@ -4,13 +4,16 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class TokenInfo implements Parcelable {
-    public final String address;
-    public final String name;
-    public final String symbol;
-    public final int decimals;
-    public final String imgUrl;
+    public  String address;
+    public  String name;
+    public  String symbol;
+    public  int decimals;
+    public  String imgUrl;
 
-    public TokenInfo(String address, String name, String symbol, int decimals,String imgUrl) {
+    public TokenInfo() {
+    }
+
+    public TokenInfo(String address, String name, String symbol, int decimals, String imgUrl) {
         this.address = address;
         this.name = name;
         this.symbol = symbol;

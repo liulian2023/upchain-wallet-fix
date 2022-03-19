@@ -192,6 +192,7 @@ public class NetSettingActivity extends BaseActivity {
                 iv_bsc_main.setVisibility(View.VISIBLE);
                 iv_bsc_test.setVisibility(View.GONE);
                 SharePreferencesUtil.putString(CommonStr.CHAIN_TYPE,"3");
+
                 break;
             case R.id.rl_sbc_test:
                 networkName = BSC_TEST_NETWORK_NAME;
@@ -202,8 +203,10 @@ public class NetSettingActivity extends BaseActivity {
                 iv_bsc_main.setVisibility(View.GONE);
                 iv_bsc_test.setVisibility(View.VISIBLE);
                 SharePreferencesUtil.putString(CommonStr.CHAIN_TYPE,"3");
+   /*             SharePreferencesUtil.putString(CommonStr.ETH2USDTRate,"");
+                SharePreferencesUtil.putString(CommonStr.BSC2USDTRate,"");*/
                 break;
-            case R.id.rl_btn:// 设置语言并保存
+            case R.id.rl_btn:
 //                SharedPreferencesUtil.getInstance().putString("pref_rpcServer",networkName );
 
                 NetworkInfo[] networks = ethereumNetworkRepository.getAvailableNetworkList();

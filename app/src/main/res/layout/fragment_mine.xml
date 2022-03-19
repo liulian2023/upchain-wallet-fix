@@ -64,7 +64,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/wallet"
+                android:text="@string/setting_wallet"
                 android:textColor="#ffacb5c3"
                 android:textSize="13sp"
                 android:layout_marginLeft="20dp"
@@ -146,6 +146,7 @@
                 android:text="@string/about_wallet"
                 android:textColor="#ffacb5c3"
                 android:textSize="13sp"
+                android:textAllCaps="true"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="29dp"
                 />
@@ -259,6 +260,7 @@
                 android:textSize="13sp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="29dp"
+                android:textAllCaps="true"
                 />
             <LinearLayout
                 android:layout_width="match_parent"

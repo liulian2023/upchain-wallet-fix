@@ -9,6 +9,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.alibaba.fastjson.JSONArray;
 import com.google.android.material.tabs.TabLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -39,6 +41,7 @@ import pro.upchain.wallet.ui.activity.DappActivity2;
 import pro.upchain.wallet.ui.activity.GatheringQRCodeActivity;
 import pro.upchain.wallet.ui.activity.MnemonicBackupActivity;
 import pro.upchain.wallet.ui.activity.QRCodeScannerActivity;
+import pro.upchain.wallet.ui.activity.SelectorSendActivity;
 import pro.upchain.wallet.ui.activity.SendActivity;
 import pro.upchain.wallet.ui.activity.TestActivity;
 import pro.upchain.wallet.ui.activity.WalletMangerActivity;
@@ -166,7 +169,6 @@ public class PropertyFragment extends BaseFragment {
             home_amount_tv.setTextSize(28);
         }else {
             home_amount_tv.setTextSize(23);
-
         }
     }
 
@@ -178,7 +180,13 @@ public class PropertyFragment extends BaseFragment {
                     AllCoinActivity.startAty(getContext(),false);
                 break;
             case R.id.send_tv:
-                    AllCoinActivity.startAty(getContext(),true);
+                CoinFragment coinFragment = findChildFragment(CoinFragment.class);
+                if(coinFragment!=null){
+                    if(coinFragment.tokenItems!=null && coinFragment.tokenItems.size()!=0){
+                        SelectorSendActivity.startActivity(getContext(), JSONArray.toJSONString(coinFragment.tokenItems));
+                    }
+                }
+//                    AllCoinActivity.startAty(getContext(),true);
                 break;
             case R.id.scan_iv:
                 intent = new Intent(getContext(), QRCodeScannerActivity.class);
