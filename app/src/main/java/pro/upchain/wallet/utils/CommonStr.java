@@ -23,6 +23,11 @@ public class CommonStr {
      * 用户密码
      */
     public static String USER_PASSWORD ="user_password";
+
+    /**
+     * 用户ID
+     */
+    public static String USER_ID ="user_id";
     /**
      * 本地语言
      */
@@ -42,7 +47,10 @@ public class CommonStr {
      * Bsc2USDTRate
      */
     public static String BSC2USDTRate ="BSC2USDTRate";
-
+    /**
+     * ALL rate
+     */
+    public static String ALL_USDT_RATE ="ALLUsdtRate";
     /**
      * chaintype
      */

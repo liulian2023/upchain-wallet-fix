@@ -37,10 +37,6 @@ import pro.upchain.wallet.utils.OwnUncaughtExceptionHandler;
 import pro.upchain.wallet.utils.SharePreferencesUtil;
 
 
-/**
- * Created by Tiny 熊 @ Upchain.pro
- * WeiXin: xlbxiong
- */
 
 public class MyApplication extends MultiDexApplication {
 
@@ -110,8 +106,7 @@ public class MyApplication extends MultiDexApplication {
                         AutoSizeLog.d(String.format(Locale.ENGLISH, "%s onAdaptAfter!", target.getClass().getName()));
                     }
                 })
-                .setLog(false)
-        ;
+                .setLog(false);
 
     }
     /**

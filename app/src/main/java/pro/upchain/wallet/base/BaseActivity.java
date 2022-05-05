@@ -92,7 +92,6 @@ public abstract class BaseActivity extends MySupportActivity {
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(LocalManageUtil.setLocal(base));
     }
-
     /**
      * 多语言androidx适配
      * @param overrideConfiguration

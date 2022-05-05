@@ -5,6 +5,7 @@ public class LoginEntity {
     private String inviteCode;
     private String userState;
     private String token;
+    private String uid;
     private String isBindEthAccreditInfo;
 
     public String getInviteCode() {
@@ -25,6 +26,14 @@ public class LoginEntity {
 
     public String getToken() {
         return token;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public void setToken(String token) {

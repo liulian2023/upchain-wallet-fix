@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.google.android.material.tabs.TabLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -26,11 +27,15 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import pro.upchain.wallet.C;
 import pro.upchain.wallet.R;
 import pro.upchain.wallet.RxHttp.net.api.HttpApiUtils;
+import pro.upchain.wallet.RxHttp.net.api.RequestUtils;
+import pro.upchain.wallet.RxHttp.net.utils.StringMyUtil;
 import pro.upchain.wallet.base.BaseFragment;
 import pro.upchain.wallet.domain.ETHWallet;
+import pro.upchain.wallet.entity.LoginEntity;
 import pro.upchain.wallet.entity.Token;
 import pro.upchain.wallet.entity.WalletAmountEvenEntity;
 import pro.upchain.wallet.interact.FetchWalletInteract;
@@ -43,10 +48,15 @@ import pro.upchain.wallet.ui.activity.MnemonicBackupActivity;
 import pro.upchain.wallet.ui.activity.QRCodeScannerActivity;
 import pro.upchain.wallet.ui.activity.SelectorSendActivity;
 import pro.upchain.wallet.ui.activity.SendActivity;
+import pro.upchain.wallet.ui.activity.SplashActivity;
 import pro.upchain.wallet.ui.activity.TestActivity;
 import pro.upchain.wallet.ui.activity.WalletMangerActivity;
+import pro.upchain.wallet.utils.CommonStr;
+import pro.upchain.wallet.utils.Md5Utils;
+import pro.upchain.wallet.utils.SharePreferencesUtil;
 import pro.upchain.wallet.utils.StatusBarUtil;
 import pro.upchain.wallet.utils.ToastUtils;
+import pro.upchain.wallet.utils.Utils;
 import pro.upchain.wallet.utils.WalletDaoUtils;
 import pro.upchain.wallet.viewmodel.TokensViewModel;
 import pro.upchain.wallet.viewmodel.TokensViewModelFactory;
@@ -54,7 +64,9 @@ import pro.upchain.wallet.viewmodel.TokensViewModelFactory;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 
 import butterknife.BindView;
@@ -142,8 +154,40 @@ public class PropertyFragment extends BaseFragment {
 
         tokensViewModel.defaultWallet().observe(this,  this::showWallet);
         tokensViewModel.tokens().observe(this, this::onTokens);
-    }
 
+        if(StringMyUtil.isEmptyString(SharePreferencesUtil.getString(CommonStr.USER_TOKEN,""))){
+            login();
+        }
+    }
+    private void login() {
+        String token = SharePreferencesUtil.getString(CommonStr.USER_TOKEN,"");
+        HashMap<String, Object> data = new HashMap<>();
+        if(StringMyUtil.isNotEmpty(token)){
+            String username = SharePreferencesUtil.getString(CommonStr.USER_NAME,"");
+            String password = SharePreferencesUtil.getString(CommonStr.USER_PASSWORD,"");
+            data.put("userName",username);
+            data.put("password",password);
+        }else {
+            data.put("userName", Md5Utils.md5(Utils.randomPsw(20)+System.currentTimeMillis()));
+            data.put("password", Utils.randomPsw(8));
+        }
+        HttpApiUtils.wwwNormalRequest(getActivity(), this, RequestUtils.LOGIN, data, new HttpApiUtils.OnRequestLintener() {
+            @Override
+            public void onSuccess(String result) {
+                LoginEntity loginEntity = JSONObject.parseObject(result, LoginEntity.class);
+                SharePreferencesUtil.putString( CommonStr.USER_TOKEN,loginEntity.getToken());
+                SharePreferencesUtil.putString( CommonStr.USER_NAME, (String) data.get("userName"));
+                SharePreferencesUtil.putString( CommonStr.USER_PASSWORD, (String) data.get("password"));
+                SharePreferencesUtil.putString( CommonStr.USER_ID, loginEntity.getUid());
+
+            }
+
+            @Override
+            public void onFail(String msg) {
+
+            }
+        });
+    }
     private void onTokens(Token[] tokens) {
 
     }

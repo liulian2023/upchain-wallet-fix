@@ -34,6 +34,8 @@ import pro.upchain.wallet.ui.activity.WalletMangerActivity;
 
 import butterknife.OnClick;
 import pro.upchain.wallet.utils.BalanceUtils;
+import pro.upchain.wallet.utils.CommonStr;
+import pro.upchain.wallet.utils.SharePreferencesUtil;
 import pro.upchain.wallet.utils.StatusBarUtil;
 import pro.upchain.wallet.utils.Store;
 import pro.upchain.wallet.utils.ToastUtils;
@@ -54,6 +56,8 @@ public class MineFragment extends BaseFragment {
     TextView wallet_first_name_tv;
     @BindView(R.id.wallet_name_tv)
     TextView wallet_name_tv;
+    @BindView(R.id.wallet_id_tv)
+    TextView wallet_id_tv;
     TokensViewModelFactory tokensViewModelFactory;
     private TokensViewModel tokensViewModel;
     private ETHWallet currEthWallet;
@@ -118,6 +122,10 @@ public class MineFragment extends BaseFragment {
         String name = currEthWallet.getName();
         name = StringMyUtil.isEmptyString(name)?"UnKnow":name;
         wallet_name_tv.setText("@ "+name);
+        String uid = SharePreferencesUtil.getString(CommonStr.USER_ID, "");
+        if(StringMyUtil.isNotEmpty(uid)){
+            wallet_id_tv.setText("ID: "+uid);
+        }
         wallet_first_name_tv.setText(name.substring(0,1));
     }
     @OnClick({R.id.backup_mnemonic_relativeLayout, R.id.transaction_password_relativeLayout, R.id.system_version_relativeLayout,

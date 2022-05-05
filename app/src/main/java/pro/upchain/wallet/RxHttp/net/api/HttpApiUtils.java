@@ -880,6 +880,23 @@ public class HttpApiUtils {
         void onSuccess(String result);
         void onFail(String failStr);
     }
+    public static void requestAllUSDTRate() {
+
+        EasyHttp.get("/api/v3/ticker/price")
+                .baseUrl("https://api.binance.com")
+                .execute(new SimpleCallBack<String>() {
+                    @Override
+                    public void onError(ApiException e) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(String s) {
+                          SharePreferencesUtil.putString(CommonStr.ALL_USDT_RATE,s);
+                        }
+
+                });
+    }
 
 
     public static void requestETHUSDTRate(OnRequestLintener onRequestLintener) {
@@ -940,25 +957,34 @@ public class HttpApiUtils {
     }
 
     public static void requestOther2USDTRate(String symbol,OnRequestLintener onRequestLintener) {
-
-        EasyHttp.get("/api/v3/ticker/price")
-                .baseUrl("https://api.binance.com")
-                .params("symbol",symbol+"USDT")
-                .execute(new SimpleCallBack<String>() {
-                    @Override
-                    public void onError(ApiException e) {
-                        if(onRequestLintener!=null){
-                            onRequestLintener.onFail(e.getMessage());
+        if(symbol.equalsIgnoreCase("usdt")){
+            if(onRequestLintener!=null){
+                RateEntity rateEntity = new RateEntity();
+                rateEntity.setPrice("1");
+                rateEntity.setSymbol("USDTUSDT");
+                onRequestLintener.onSuccess(JSONObject.toJSONString(rateEntity));
+            }
+        }else {
+            EasyHttp.get("/api/v3/ticker/price")
+                    .baseUrl("https://api.binance.com")
+                    .params("symbol",symbol+"USDT")
+                    .execute(new SimpleCallBack<String>() {
+                        @Override
+                        public void onError(ApiException e) {
+                            if(onRequestLintener!=null){
+                                onRequestLintener.onFail(e.getMessage());
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onSuccess(String s) {
-                        if(onRequestLintener!=null){
-                            onRequestLintener.onSuccess(s);
+                        @Override
+                        public void onSuccess(String s) {
+                            if(onRequestLintener!=null){
+                                onRequestLintener.onSuccess(s);
+                            }
                         }
-                    }
-                });
+                    });
+        }
+
     }
 
     public static void addAddress(Activity activity,Fragment fragment,ETHWallet ethWallet){

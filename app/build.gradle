@@ -11,12 +11,12 @@ android {
     buildToolsVersion '30.0.2'
 
     defaultConfig {
-        applicationId "com.coincide.wallet1"
+        applicationId "com.coincide.wallet2"
         minSdkVersion 21
         //noinspection ExpiredTargetSdkVersion
         targetSdkVersion 30
-        versionCode 2
-        versionName "1.0.2"
+        versionCode 4
+        versionName "1.0.4"
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
         vectorDrawables.useSupportLibrary = true
         multiDexEnabled true
@@ -160,8 +160,7 @@ dependencies {
 //    implementation 'com.gyf.barlibrary:barlibrary:2.3.0'
     implementation 'com.lcodecorex:tkrefreshlayout:1.0.7'
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.2'
-
-    // 圆形图片
+    // 圆形图片ll
     implementation 'de.hdodenhof:circleimageview:2.1.0'
 
     // 圆点Indicator

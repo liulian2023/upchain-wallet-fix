@@ -107,7 +107,7 @@ public abstract class BaseStringObserver<T extends ResponseBody> implements Obse
                     }
                 }
             }else {
-                onFail(url+":"+REQUEST_404);
+                onFail(REQUEST_404);
             }
         }else {
             try {

@@ -110,8 +110,6 @@ public class TransferDetailsActivity extends BaseActivity {
                         mProgressBar.setVisibility(View.GONE);
                     }
                 }
-
-
             }
 
             //For Android  >= 5.0

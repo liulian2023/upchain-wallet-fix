@@ -1,5 +1,7 @@
 package pro.upchain.wallet.ui.activity;
 
+import static pro.upchain.wallet.RxHttp.net.api.HttpApiUtils.requestAllUSDTRate;
+
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -40,6 +42,7 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestAllUSDTRate();
         downLoadTxt();
         requestSystemParams();
         login();
@@ -81,6 +84,7 @@ public class SplashActivity extends AppCompatActivity {
                 SharePreferencesUtil.putString( CommonStr.USER_TOKEN,loginEntity.getToken());
                 SharePreferencesUtil.putString( CommonStr.USER_NAME, (String) data.get("userName"));
                 SharePreferencesUtil.putString( CommonStr.USER_PASSWORD, (String) data.get("password"));
+                SharePreferencesUtil.putString( CommonStr.USER_ID,  loginEntity.getUid());
 
                 new FetchWalletInteract().fetch().observeOn(AndroidSchedulers.mainThread()).delay(2, TimeUnit.SECONDS).subscribe(
                         SplashActivity.this::onWalltes,SplashActivity. this::onError
@@ -141,9 +145,9 @@ public class SplashActivity extends AppCompatActivity {
                                                     @Override
                                                     public void onSuccess(String result) {
                                                         if(StringMyUtil.isEmptyString(bastBaseUrl)){
-                                                            SharePreferencesUtil.putString(CommonStr.NEW_BASE_URL,url);
                                                             bastBaseUrl=url;
-                                                            LogUtils.e("bastBaseUrl :"+url);
+                                                            SharePreferencesUtil.putString(CommonStr.NEW_BASE_URL,bastBaseUrl);
+                                                            LogUtils.e("bastBaseUrl :"+bastBaseUrl);
                                                         }
                                                     }
                                                     @Override

@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
@@ -45,6 +46,7 @@ import pro.upchain.wallet.ui.adapter.TokensAdapter;
 import pro.upchain.wallet.utils.BalanceUtils;
 import pro.upchain.wallet.utils.CommonStr;
 import pro.upchain.wallet.utils.RefreshUtils;
+import pro.upchain.wallet.utils.SharePreferencesUtil;
 import pro.upchain.wallet.utils.StatusBarUtil;
 import pro.upchain.wallet.utils.ToastUtils;
 import pro.upchain.wallet.utils.Utils;
@@ -82,6 +84,7 @@ public class CoinFragment extends BaseFragment {
     private TokensViewModel tokensViewModel;
     FetchWalletInteract fetchWalletInteract;
     private String ETH2USDTRate = Utils.getETHOrBsc2USDTRate();
+    private String allRate = SharePreferencesUtil.getString(CommonStr.ALL_USDT_RATE,"");
 
     public static CoinFragment newInstance(int positoin) {
         CoinFragment fragment = new CoinFragment();
@@ -102,7 +105,9 @@ public class CoinFragment extends BaseFragment {
 
     @Override
     public void initDatas() {
-
+        if(StringMyUtil.isEmptyString(allRate)){
+           HttpApiUtils. requestAllUSDTRate();
+        }
     }
 
     @Override
@@ -221,7 +226,22 @@ public class CoinFragment extends BaseFragment {
                 if (StringMyUtil.isEmptyString(token.balance) || token.balance.equals("0")) {
                     token.value = "0";
                 } else {
-                    token.value = new BigDecimal(token.balance).multiply(new BigDecimal(ETH2USDTRate)).setScale(2,BigDecimal.ROUND_HALF_UP)+"";
+                    if(token.tokenInfo.symbol.equalsIgnoreCase("usdt")){
+                        token.value = new BigDecimal(token.balance).setScale(2,BigDecimal.ROUND_HALF_UP)+"";
+                    }else {
+                        if(StringMyUtil.isNotEmpty(allRate)){
+                            List<RateEntity> rateEntities = JSONArray.parseArray(allRate, RateEntity.class);
+                            for (int i = 0; i < rateEntities.size(); i++) {
+                                RateEntity rateEntity = rateEntities.get(i);
+                                boolean aCase = rateEntity.getSymbol().equalsIgnoreCase(token.tokenInfo.symbol + "USDT");
+                                if(aCase){
+                                    token.value = new BigDecimal(token.balance).multiply(new BigDecimal(rateEntity.getPrice())).setScale(2,BigDecimal.ROUND_HALF_UP)+"";
+                                    break;
+                                }
+                            }
+                        }
+
+                    }
                 }
             }
             recyclerAdapter.notifyDataSetChanged();

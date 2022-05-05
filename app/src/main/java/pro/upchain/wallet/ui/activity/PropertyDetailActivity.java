@@ -321,6 +321,12 @@ public class PropertyDetailActivity extends BaseActivity {
                 BigDecimal usdt = multiply.setScale(2,BigDecimal.ROUND_HALF_UP);
                 total_amount_tv.setText("US$"+usdt);
                 initRecycler(ETH2USDTRate);
+            }else {
+                BigDecimal bigDecimal = new BigDecimal(balance);
+                BigDecimal multiply = bigDecimal.multiply(new BigDecimal("1"));
+                BigDecimal usdt = multiply.setScale(2,BigDecimal.ROUND_HALF_UP);
+                total_amount_tv.setText("US$"+usdt);
+                initRecycler("1");
             }
         }
 

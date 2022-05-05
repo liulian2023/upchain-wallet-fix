@@ -41,7 +41,8 @@ public class EthereumNetworkRepository  {
 
     private final NetworkInfo[] NETWORKS = new NetworkInfo[] {
             new NetworkInfo(ETHEREUM_MAIN_NETWORK_NAME, ETH_SYMBOL,
-                    "https://mainnet.infura.io/v3/83adb0e120d94611b86bef6258e55302",
+//                    "https://mainnet.infura.io/v3/83adb0e120d94611b86bef6258e55302",
+                    "http://13.214.177.50:8545",
                     "https://api.trustwalletapp.com/",
                     "https://etherscan.io/",1, true),
             new NetworkInfo(CLASSIC_NETWORK_NAME, ETC_SYMBOL,
