@@ -148,7 +148,6 @@ public abstract class BaseActivity extends MySupportActivity {
                 }
             }
         }
-
     }
     protected void hideSoftInputView() {
         if (getWindow().getAttributes().softInputMode != WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN) {

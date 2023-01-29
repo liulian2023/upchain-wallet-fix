@@ -4,6 +4,9 @@
       <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/327f9991e0f6c01b8399a4dd916e78b7/transformed/jetified-pageindicatorview-1.0.0/jars/classes.jar!/" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/327f9991e0f6c01b8399a4dd916e78b7/transformed/jetified-pageindicatorview-1.0.0/res" />
       <root url="file://$USER_HOME$/.gradle/caches/transforms-3/327f9991e0f6c01b8399a4dd916e78b7/transformed/jetified-pageindicatorview-1.0.0/AndroidManifest.xml" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/8e29642a62ef07f9f700abbb924045aa/transformed/jetified-pageindicatorview-1.0.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/8e29642a62ef07f9f700abbb924045aa/transformed/jetified-pageindicatorview-1.0.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/8e29642a62ef07f9f700abbb924045aa/transformed/jetified-pageindicatorview-1.0.0/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.romandanylyk/pageindicatorview/1.0.0/ac57966ae14512735ba4f8a2cd0a11720849ba9f/pageindicatorview-1.0.0-javadoc.jar!/" />
